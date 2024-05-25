@@ -4,10 +4,14 @@
 <head>
     <title>Tuga's page</title>
     <style>
-        body {
-            background: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(0, 0, 0));
-            font-family: Verdana, sans-serif;
+        :root {
+            --gradient-color-1: rgb(255, 255, 255); /* Default color 1 */
+            --gradient-color-2: rgb(0, 0, 0); /* Default color 2 */
+        }
 
+        body {
+            background: linear-gradient(to bottom right, var(--gradient-color-1), var(--gradient-color-2));
+            font-family: Verdana, sans-serif;
             margin: 0; /* Remove default margin */
             height: 100vh; /* Set body height to fill the viewport */
         }
@@ -44,13 +48,16 @@
     <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="Youtube channel">
         <img src="images/youtubelogo.jpg" alt="Image cannot be displayed" class="Pages">
     </a>
-    
-    <p>
-        <a href="mailto:tugalaturtuga@gmail.com" target="_blank" title="Email me!">
-            <img src="images/tugalogo.jpg" alt="Image cannot be displayed" class="tugalogo">
-        </a>
-    </p>
-    
+
+    <a href="mailto:tugalaturtuga@gmail.com" target="_blank" title="Email me!">
+        <img src="images/tugalogo.jpg" alt="Image cannot be displayed" class="tugalogo">
+    </a>
+
+    <script>
+        // Example of how you could change the colors dynamically
+        document.documentElement.style.setProperty('--gradient-color-1', 'rgb(255, 0, 0)'); // Change color 1 to red
+        document.documentElement.style.setProperty('--gradient-color-2', 'rgb(0, 255, 0)'); // Change color 2 to green
+    </script>
 </body>
 
 </html>
