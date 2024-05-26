@@ -15,7 +15,7 @@
     .BodyTitle {
       position: relative; /* To enable absolute positioning within this div */
       background-color: rgba(0, 0, 0, .98);
-      height: 18vh; /* Adjust this value as needed */
+      height: 17vh; /* Adjust this value as needed */
       padding: 15px 0; /* Optional: Add padding to increase height */
       display: flex;
       flex-direction: column; /* Stack child elements vertically */
@@ -42,7 +42,8 @@
     }
 
     .BodysubTitle {
-      height: 77.6%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(100, 100, 100, 0.3));
+      height: 78.6%;
       padding: 15px 0;
       background-color: rgba(0, 0, 0, 0.9);
       font-size: medium;
@@ -79,6 +80,35 @@
       float: right;
     }
 
+    .container:hover .overlay {
+      width: calc(100% - 5px);
+    }
+
+    .overlay {
+      position: absolute;
+      margin-left: 5px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      background-color: rgba(240, 10, 10, 1);
+      overflow: hidden;
+      width: 0px;
+      height: 100%;
+      transition: .35s ease-in-out;
+      border-radius: 5%;
+    }
+
+    .Hovertext {
+      color: white;
+      font-size: 14px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
     .workingDiv{
       position: relative;
 
@@ -112,9 +142,17 @@
     </div>
 
     <div class="TugaLogoContainer">
+
       <a href="mailto:tugalaturtuga@gmail.com" target="_self" title="Email me!">
-        <img src="images/tugalogo.jpg" alt="Image cannot be displayed" class="tugalogo">
+        <div class="container">
+          <img src="images/tugalogo.jpg" alt="Logo Image" class="tugalogo">
+
+          <div class="overlay">
+            <div class="Hovertext">Email me!</div>
+          </div>
+        </div>
       </a>
+
     </div>
   </div>
 
@@ -134,25 +172,6 @@
       <h1>Things I've been working on</h1>
       <p class="SmallText">Slimm saddy TD™</p>
     </div>
-
-    <script>
-      // JavaScript code to change background color smoothly
-      const colors = [
-        "rgba(0, 0, 0, 0.9)",
-        "rgba(0, 0, 0, 0.85)",
-        "rgba(0, 0, 0, 0.8)",
-        "rgba(0, 0, 0, 0.75)"
-      ];
-      let currentColorIndex = 0;
-      const targetdiv = document.getElementById("subTitle");
-
-      function changeBackgroundColor() {
-        currentColorIndex = (currentColorIndex + 1) % colors.length;
-        targetdiv.style.background = colors[currentColorIndex];
-      }
-
-      setInterval(changeBackgroundColor, 2000); // Change background every 2 seconds
-    </script>
   </div>
 </body>
 
