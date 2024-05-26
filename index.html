@@ -4,82 +4,156 @@
 <head>
   <title>Tuga's page</title>
   <style>
-
     body {
-      /* background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0.8)); */
-      background-color:rgba(0, 0, 0, 0.5);
-      font-family: Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0; /* Remove default margin */
       height: 100vh; /* Set body height to fill the viewport */
-      transition: background 2s ease-in-out;  /* Add transition for smooth change */
+      text-align: center;
+      -webkit-text-fill-color: whitesmoke;
+    }
+
+    .BodyTitle {
+      position: relative; /* To enable absolute positioning within this div */
+      background-color: rgba(0, 0, 0, .98);
+      height: 18vh; /* Adjust this value as needed */
+      padding: 15px 0; /* Optional: Add padding to increase height */
+      display: flex;
+      flex-direction: column; /* Stack child elements vertically */
+      align-items: center; /* Center elements horizontally */
+      justify-content: center; /* Center elements vertically */
+    }
+
+    .imageContainer {
+      position: absolute;
+      bottom: 5px; /* Adjust this value to control the vertical position */
+      right: 5px; /* Adjust this value to control the horizontal position */
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
+    .TugaLogoContainer {
+      position: absolute;
+      bottom: 5px; /* Adjust this value to control the vertical position */
+      left: 5px; /* Adjust this value to control the horizontal position */
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
+    .BodysubTitle {
+      height: 77.6%;
+      padding: 15px 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      font-size: medium;
+      transition: background 1s ease-in-out; /* Add transition for smooth change */
+    }
+
+    .smallText {
+      font-family: 'Arial Medium' , Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .MediumText {
+      font-family: 'Arial' , Arial, sans-serif;
+      font-size: 32px;
+    }
+
+    .LargeText {
+      font-family: 'Arial Bold' , Arial, sans-serif;
+      font-size: 64px;
     }
 
     .Pages {
       width: 32px;
       border-radius: 50%;
       margin-left: 5px;
-      margin-top: 12px;
+      margin-top: 10px;
+      float: right;
     }
 
     .tugalogo {
       width: 64px;
       border-radius: 5%;
-      float: left;
       margin-left: 5px;
+      float: right;
     }
 
+    .workingDiv{
+      position: relative;
+
+      height: 100px; /* Adjust this value as needed */
+      padding: 10px 0; /* Optional: Add padding to increase height */
+      display: flex;
+      flex-direction: column; /* Stack child elements vertically */
+      align-items: flex-end, center; /* Center elements horizontally */
+      justify-content: center; /* Center elements vertically */
+    }
   </style>
 </head>
 
 <body>
-  <h1>Hey, I'm TugaLaTurtuga!</h1>
+  <div class="BodyTitle">
+    <p class="LargeText">Hey, I'm TugaLaTurtuga!</p> 
+    <p class="smallText">This is my website!</p>
+    
+    <div class="imageContainer">
+      <a href="https://tugalaturtuga.github.io/blog/" target="_blank" title="My blog!">
+        <img src="images/bloglogo.jpg" alt="Image cannot be displayed" class="Pages">
+      </a>
 
-  <h2>About me</h2>
-  <h3>I am a student who makes videogames sometimes.</h3>
+      <a href="https://tugalaturtuga.itch.io/" target="_blank" title="All of the things I've done!">
+        <img src="images/itchlogo.jpg" alt="Image cannot be displayed" class="Pages">
+      </a>
 
-  <h2>What I'm working on</h2>
-  <h3>I'm obsessed with Slimm Saddy TD deluxe™ right now and I'm working on the Slimm Saddy TD deluxe™ from TugaLaTurtuga™.</h3>
+      <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="Youtube channel">
+        <img src="images/youtubelogo.jpg" alt="Image cannot be displayed" class="Pages">
+      </a>
+    </div>
 
-  <h1>Random Pages</h1>
-
-  <p>
-    <a href="mailto:tugalaturtuga@gmail.com" target="_self" title="Email me!">
+    <div class="TugaLogoContainer">
+      <a href="mailto:tugalaturtuga@gmail.com" target="_self" title="Email me!">
         <img src="images/tugalogo.jpg" alt="Image cannot be displayed" class="tugalogo">
       </a>
-  </p>
-   
-  <p>
-    <a href="https://tugalaturtuga.github.io/blog/" target="_blank">
-        <img src="images/bloglogo.jpg" alt="Image cannot be displayed" class="Pages">
-    </a>
-    
-    <a href="https://tugalaturtuga.itch.io/" target="_blank" title="All of the things I've done!">
-        <img src="images/itchlogo.jpg" alt="Image cannot be displayed" class="Pages">
-    </a>
-    
-    <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="Youtube channel">
-        <img src="images/youtubelogo.jpg" alt="Image cannot be displayed" class="Pages">
-    </a>
-  </p>
-  
+    </div>
+  </div>
 
-  <script>
-    // JavaScript code to change background color smoothly
-    const colors = [
-        "rgba(0, 0, 0, 0.6)",
-        "rgba(0, 0, 0, 0.55)",
-        "rgba(0, 0, 0, 0.5)",
-        "rgba(0, 0, 0, 0.45)"
-    ];
-    let currentColorIndex = 0;
+  <div class="BodysubTitle" id="BodysubTitle">
+    <h2>About me</h2>
+    <p class="smallText">
+      I am a student who makes videogames sometimes.
+    </p>
 
-    function changeBackgroundColor() {
-       currentColorIndex = (currentColorIndex + 1) % colors.length;
-       document.body.style.background = colors[currentColorIndex]; // Add semicolon here
-    }
+    <h2>What I'm working on</h2>
 
-    setInterval(changeBackgroundColor, 2000); // Change background every 2 seconds 
-  </script>
+    <p class="smallText">
+      I'm obsessed with Slimm Saddy TD deluxe™ right now and I'm working on the Slimm Saddy TD deluxe™ from TugaLaTurtuga™.
+    </p>
+
+    <div class="workingDiv">
+      <h1>Things I've been working on</h1>
+      <p class="SmallText">Slimm saddy TD™</p>
+    </div>
+
+    <script>
+      // JavaScript code to change background color smoothly
+      const colors = [
+        "rgba(0, 0, 0, 0.9)",
+        "rgba(0, 0, 0, 0.85)",
+        "rgba(0, 0, 0, 0.8)",
+        "rgba(0, 0, 0, 0.75)"
+      ];
+      let currentColorIndex = 0;
+      const targetdiv = document.getElementById("subTitle");
+
+      function changeBackgroundColor() {
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
+        targetdiv.style.background = colors[currentColorIndex];
+      }
+
+      setInterval(changeBackgroundColor, 2000); // Change background every 2 seconds
+    </script>
+  </div>
 </body>
 
 </html>
