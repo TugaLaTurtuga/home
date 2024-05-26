@@ -61,8 +61,15 @@
     }
 
     .LargeText {
-      font-family: 'Arial Bold' , Arial, sans-serif;
+      font-family: 'Arial Bold', Arial, sans-serif;
       font-size: 64px;
+      margin-bottom: 20px; /* Adjust this value to control the space between LargeText and PageSubTitle */
+    }
+
+    .PageSubTitle {
+      font-family: 'Arial Medium', Arial, sans-serif;
+      font-size: 18px;
+      margin-top: -10px; /* Adjust this value to bring PageSubTitle close to LargeText */
     }
 
     .Pages {
@@ -109,6 +116,20 @@
       transform: translate(-50%, -50%);
     }
 
+    .Blog {
+      position: relative;
+      background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3));
+
+      left: 10%;
+      width: 80%;
+      border-radius: 1%;
+      height: 98.5%; /* Adjust this value as needed */
+      padding: 10px 0; /* Optional: Add padding to increase height */
+      display: flex;
+      flex-direction: column; /* Stack child elements vertically */
+      align-items: flex-end, left;
+    }
+
     .workingDiv{
       position: relative;
 
@@ -125,7 +146,7 @@
 <body>
   <div class="BodyTitle">
     <p class="LargeText">Hey, I'm TugaLaTurtuga!</p> 
-    <p class="smallText">This is my website!</p>
+    <p class="PageSubTitle">This is my website!</p>
     
     <div class="imageContainer">
       <a href="https://tugalaturtuga.github.io/blog/" target="_self" title="My blog!">
@@ -157,20 +178,22 @@
   </div>
 
   <div class="BodysubTitle" id="BodysubTitle">
-    <h2>About me</h2>
-    <p class="smallText">
-      I am a student who makes videogames sometimes.
-    </p>
-
-    <h2>What I'm working on</h2>
-
-    <p class="smallText">
-      I'm obsessed with Slimm Saddy TD deluxe™ right now and I'm working on the Slimm Saddy TD deluxe™ from TugaLaTurtuga™.
-    </p>
-
-    <div class="workingDiv">
-      <h1>Things I've been working on</h1>
-      <p class="SmallText">Slimm saddy TD™</p>
+    <div class="Blog">
+      <h2>About me</h2>
+      <p class="smallText">
+        I am a student who makes videogames sometimes.
+      </p>
+  
+      <h2>What I'm working on</h2>
+  
+      <p class="smallText">
+        I'm obsessed with Slimm Saddy TD deluxe™ right now and I'm working on the Slimm Saddy TD deluxe™ from TugaLaTurtuga™.
+      </p>
+  
+      <div class="workingDiv">
+        <h1>Things I've been working on</h1>
+        <p class="SmallText">Slimm saddy TD™</p>
+      </div>
     </div>
   </div>
 </body>
