@@ -24,8 +24,12 @@
     flex: 1 1 750px;
     height: 1000px;
     border-radius: 5%;
-    text-align-last: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
+
 
 .SideOfGame {
     background-color: transparent;
