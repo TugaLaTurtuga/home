@@ -1,207 +1,87 @@
-<!DOCTYPE html>
-<html>
-
+!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Tuga's page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0; /* Remove default margin */
-      height: 100vh; /* Set body height to fill the viewport */
-      text-align: center;
-      -webkit-text-fill-color: whitesmoke;
-    }
-
-    .BodyTitle {
-      position: relative; /* To enable absolute positioning within this div */
-      background-color: rgba(0, 0, 0, .98);
-      height: 17vh; /* Adjust this value as needed */
-      padding: 25px 0; /* Optional: Add padding to increase height */
-      display: flex;
-      flex-direction: column; /* Stack child elements vertically */
-      align-items: center; /* Center elements horizontally */
-      justify-content: center; /* Center elements vertically */
-    }
-
-    .PageSubTitle {
-      font-family: 'Arial Medium', Arial, sans-serif;
-      font-size: 18px;
-      margin-bottom: 75px; /* Adjust this value to move the subtitle up */
-    }
-
-    .imageContainer {
-      position: absolute;
-      bottom: 5px; /* Adjust this value to control the vertical position */
-      right: 5px; /* Adjust this value to control the horizontal position */
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-    }
-
-    .TugaLogoContainer {
-      position: absolute;
-      bottom: 5px; /* Adjust this value to control the vertical position */
-      left: 5px; /* Adjust this value to control the horizontal position */
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-    }
-
-    .BodysubTitle {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(100, 100, 100, 0.3));
-      height: 78.6%;
-      padding: 15px 0;
-      background-color: rgba(0, 0, 0, 0.9);
-      font-size: medium;
-      transition: background 1s ease-in-out; /* Add transition for smooth change */
-    }
-
-    .smallText {
-      font-family: 'Arial Medium' , Arial, sans-serif;
-      font-size: 18px;
-    }
-
-    .MediumText {
-      font-family: 'Arial' , Arial, sans-serif;
-      font-size: 32px;
-    }
-
-    .LargeText {
-      font-family: 'Arial Bold', Arial, sans-serif;
-      font-size: 64px;
-      margin-bottom: 20px; /* Adjust this value to control the space between LargeText and PageSubTitle */
-    }
-
-    .PageSubTitle {
-      font-family: 'Arial Medium', Arial, sans-serif;
-      font-size: 18px;
-      margin-top: -10px; /* Adjust this value to bring PageSubTitle close to LargeText */
-    }
-
-    .Pages {
-      width: 32px;
-      border-radius: 50%;
-      margin-left: 5px;
-      margin-top: 10px;
-      float: right;
-    }
-
-    .tugalogo {
-      width: 64px;
-      border-radius: 5%;
-      margin-left: 5px;
-      float: right;
-    }
-
-    .container:hover .overlay {
-      width: calc(100% - 5px);
-    }
-
-    .overlay {
-      position: absolute;
-      margin-left: 5px;
-      bottom: 0px;
-      left: 0px;
-      right: 0px;
-      background-color: rgb(244, 144, 22);
-      overflow: hidden;
-      width: 0px;
-      height: 100%;
-      transition: .35s ease-in-out;
-      border-radius: 5%;
-    }
-
-    .Hovertext {
-      color: white;
-      font-size: 14px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-    }
-
-    .Blog {
-      position: relative;
-      background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3));
-
-      left: 10%;
-      width: 80%;
-      border-radius: 1%;
-      height: 98.5%; /* Adjust this value as needed */
-      padding: 10px 0; /* Optional: Add padding to increase height */
-      display: flex;
-      flex-direction: column; /* Stack child elements vertically */
-      align-items: flex-end, left;
-    }
-
-    .workingDiv{
-      position: relative;
-
-      height: 100px; /* Adjust this value as needed */
-      padding: 10px 0; /* Optional: Add padding to increase height */
-      display: flex;
-      flex-direction: column; /* Stack child elements vertically */
-      align-items: flex-end, center; /* Center elements horizontally */
-      justify-content: center; /* Center elements vertically */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lil' page</title>
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/d677bec6db.js" crossorigin="anonymous"></script>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/game.css">
 </head>
-
 <body>
-  <div class="BodyTitle">
-    <p class="LargeText">Hey, I'm TugaLaTurtuga!</p> 
-    <p class="PageSubTitle">This is my website!</p>
-    
-    <div class="imageContainer">
-      <a href="https://tugalaturtuga.github.io/blog/" target="_self" title="My blog!">
-        <img src="images/bloglogo.jpg" alt="Image cannot be displayed" class="Pages">
-      </a>
 
-      <a href="https://tugalaturtuga.itch.io/" target="_blank" title="All of the things I've done!">
-        <img src="images/itchlogo.jpg" alt="Image cannot be displayed" class="Pages">
-      </a>
+    <div class="page1">
+        <h1>Hey, I'm TugaLaTurtuga!</h1>
+        <p>This is my website!</p>
 
-      <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="Youtube channel">
-        <img src="images/youtubelogo.jpg" alt="Image cannot be displayed" class="Pages">
-      </a>
-    </div>
-
-    <div class="TugaLogoContainer">
-
-      <a href="mailto:tugalaturtuga@gmail.com" target="_self" title="Email me!">
-        <div class="container">
-          <img src="images/tugalogo.jpg" alt="Logo Image" class="tugalogo">
-
-          <div class="overlay">
-            <div class="Hovertext">Email me!</div>
-          </div>
+        <div class="game-container">
+            <div class="game1">
+                <p>Test</p>
+            </div>
+            <div class="SideOfGame">
+                <h2>About me</h2> 
+                <p>I am a student who makes videogames sometimes.</p>
+                <h2>What I'm working on</h2>
+                <p>I'm obsessed with Slimm Saddy TD deluxe™ right now and I'm working on the Slimm Saddy TD deluxe™ from TugaLaTurtuga.</p>
+                <h2>Things I've been working on</h2>
+                <p>-Slimm saddy TD™</p>
+                <p>-Snowy™</p>
+            </div>
         </div>
-      </a>
-
+        <div class="pages">
+            <h1>This is a heading</h1>
+            <p class="text">This is a paragraph.</p>
+        </div>
     </div>
-  </div>
 
-  <div class="BodysubTitle" id="BodysubTitle">
-    <div class="Blog">
-      <h2>About me</h2>
-      <p class="smallText">
-        I am a student who makes videogames sometimes.
-      </p>
-  
-      <h2>What I'm working on</h2>
-  
-      <p class="smallText">
-        I'm obsessed with Slimm Saddy TD deluxe™ right now and I'm working on the Slimm Saddy TD deluxe™ from TugaLaTurtuga™.
-      </p>
-  
-      <div class="workingDiv">
-        <h1>Things I've been working on</h1>
-        <p class="SmallText">Slimm saddy TD™</p>
-      </div>
+    
+
+    <div class="footer">
+        <a href="https://tugalaturtuga.github.io/home/" target="_self" class="othersimage">
+            <i class="fa-solid fa-house"></i>
+        </a>
+        
+        <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="youtube channel" class="othersimage">
+        <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://github.com/TugaLaTurtuga" target="_blank" title="github page" class="othersimage">
+            <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a href="https://tugalaturtuga.itch.io/" target="_blank" title="youtube channel" class="othersimage">
+            <i class="fa-brands fa-itch-io"></i>
+        </a>
+
+        <div class="dropdown">
+            <i class="fa-solid fa-sliders"></i>
+        </div>
+        
     </div>
-  </div>
+
+    <div class="UpBtns">        
+        <a href="https://tugalaturtuga.github.io/blog/" target="_blank" class="BlogBtn">
+            <span class="text">Email me!</span>
+            <div class="overlay"></div>
+        </a>
+
+        <a href="https://tugalaturtuga.itch.io/" target="_blank" class="BlogBtn">
+            <span class="text">Itch.io</span>
+            <div class="overlay"></div>
+        </a>
+
+        <a href="https://tugalaturtuga.github.io/blog/" target="_blank" class="BlogBtn">
+            <span class="text">Blogs</span>
+            <div class="overlay"></div>
+        </a>
+        <img src="images/tugalogo.jpg" alt="Logo" class="tugalogo">
+    </div>
+    
 </body>
-
 </html>
