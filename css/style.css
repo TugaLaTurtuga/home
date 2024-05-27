@@ -1,0 +1,159 @@
+:root {
+    --PrimaryColor: rgb(237, 140, 5);
+    --SecundaryColor: rgb(0, 0, 0);
+    --background1: rgb(255,255,255);
+    --background2: rgb(225,225,225);
+    --BtnBack: rgba(200,200,200, 0.4);
+    --BtnBodyBack1: rgba(255,255,255,0.9);
+    --BtnBodyBack2: rgba(255,255,255,0.5); 
+}
+
+body {
+    background: linear-gradient(to bottom, --background1, --background2);
+    margin: 0;
+    height: 100%;
+    font-family: "Radio Canada", sans-serif;
+    color: var(--SecundaryColor);
+    text-align-last: left;
+    scroll-snap-align: y mandatory;
+}
+
+.page1{
+    scroll-snap-align: start;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 100px;
+}
+
+.text{
+    color: var(--PrimaryColor); /* Using the CSS variable */
+}
+
+.UpBtns{
+    position: fixed;
+    margin: 0;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    padding: 10px;
+    border-radius: 1.5%;
+    background: linear-gradient(to bottom, var(--BtnBodyBack1), var(--BtnBodyBack2));
+    text-align-last: right;
+}
+
+.BlogBtn {
+    position: relative;
+    font-size: 24px;
+    background: transparent;
+    border-radius: 0px;
+    border-style: none;
+    box-sizing: border-box;
+    color: var(--PrimaryColor);
+    overflow: hidden;
+    cursor: pointer;
+    display: inline-block;
+    padding: 2.5px 5px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.BlogBtn .text {
+    position: relative;
+    z-index: 1;
+    color: var(--PrimaryColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.BlogBtn .overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--BtnBack);
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: height .35s ease-in-out;
+    z-index: 0;
+    border-radius: 5px;
+}
+
+.BlogBtn:hover .overlay {
+    height: 100%;
+}
+
+.BlogBtn::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0%;
+    width: 100%;
+    height: 2.5px; /* Adjust the height of the line */
+    background-color: var(--PrimaryColor);
+    z-index: 2; /* Ensure the line is above the overlay */
+}
+
+.fa-brands:hover {
+    color: var(--background2)
+}
+
+.fa-solid:hover{
+    color: var(--background2) 
+}
+
+.tugalogo{
+    margin-top: 1%;
+    margin-left: 0%;
+    width: 64px;
+}
+
+.footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    background-color: var(--PrimaryColor);
+    color: var(--SecundaryColor);
+    padding: 10px;
+}
+
+.othersimage{
+    margin-left: .15%;
+}
+
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.dropdown {
+    position: fixed;
+    background: transparent;
+    border-color: transparent;
+    bottom: 0;
+    right: 0;
+    margin-right: 0px;
+    text-align-last: right;
+    padding: 10px;
+}
+
+h1{
+   font-size: 48px;
+   letter-spacing: -1px;
+   line-height: -1px;
+}
+
+h2{
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    line-height: -1px;
+    text-indent: 10px;
+}
+
+p{
+    color: var(--PrimaryColor);
+    font-size: 24px;
+}

@@ -1,0 +1,43 @@
+:root {
+    --PrimaryColor: rgb(237, 140, 5);
+    --SecundaryColor: rgb(0, 0, 0);
+    --background1: rgb(255, 255, 255);
+    --background2: rgb(225, 225, 225);
+    --BtnBack: rgba(200, 200, 200, 0.4);
+    --BtnBodyBack1: rgba(255, 255, 255, 0.8);
+    --BtnBodyBack2: rgba(255, 255, 255, 0.4); 
+}
+
+.page1 {
+    margin-bottom: 20px; /* Adjust as needed for spacing */
+}
+
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust as needed for spacing */
+    margin-left: 5%;
+}
+
+.game1 {
+    background-color: var(--BtnBack);
+    flex: 1 1 750px;
+    height: 1000px;
+    border-radius: 5%;
+    text-align-last: left;
+}
+
+.SideOfGame {
+    background-color: transparent;
+    flex: 1 1 40%;
+    height: auto; /* Adjust height if needed */
+    text-align-last: left;
+    padding: 10px; /* Add padding if needed */
+}
+/* Ensure the .pages section has proper spacing */
+.pages {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 20px; /* Adjust as needed for spacing */
+    margin-bottom: 100px;
+}
