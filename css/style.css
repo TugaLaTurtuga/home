@@ -114,6 +114,7 @@ body {
 
 .footer {
     position: fixed;
+    text-align-last: left;
     width: 100%;
     bottom: 0;
     background-color: var(--PrimaryColor);
@@ -141,6 +142,24 @@ a, a:hover, a:visited, a:active {
     padding: 10px;
 }
 
+.youriptxt{
+    position: fixed;
+    background: transparent;
+    bottom: 0;
+    left: 100px;
+    text-align-last: left;
+    padding: 10px;
+}
+
+.yourip{
+    position: fixed;
+    background: transparent;
+    bottom: 0;
+    left: 159px;
+    text-align-last: left;
+    padding: 10px;
+}
+
 h1{
    font-size: 48px;
    letter-spacing: -1px;
@@ -157,4 +176,7 @@ h2{
 p{
     color: var(--PrimaryColor);
     font-size: 24px;
+}
+h6{
+    font-size: 5px;
 }
