@@ -18,8 +18,8 @@ body {
     scroll-snap-align: y mandatory;
 }
 
+
 .page1{
-    scroll-snap-align: start;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 100px;
