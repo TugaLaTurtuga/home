@@ -106,7 +106,6 @@ function initializeDefaultValues() {
 
 // Update game state with loaded data
 function updateGameData(gameData) {
-    gameData.Money = 1000000;
     playerBalance = gameData.Money || NaN;
     if (!isNaN(playerBalance))
     {
