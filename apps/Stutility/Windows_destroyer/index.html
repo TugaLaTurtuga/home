@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win-des</title>
+    <link rel="icon" href="../../../images/tugalogo.jpg" type="image/jpeg">
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/d677bec6db.js" crossorigin="anonymous"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../../css/Containersstyle.css">
+    <link rel="stylesheet" href="../../css/apps.css">
+
+    <style>
+        .show-icon{
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page1">
+        <img src="icon.webp" alt="Logo" class="show-icon">
+        <div class="header">
+            Windows destroyer
+            <div class="download-button-container">
+                <a href="https://github.com/TugaLaTurtuga/Windows_destroyer/archive/refs/heads/main.zip" target="_blank" id="download-link" class="download-button">
+                    Download
+                </a>
+            </div>
+        </div>
+        
+    
+        <div class="description">
+            <h1>What is windows destroyer?</h1>
+            <p>
+                Windows destroyer is a program that has a small chance to destroy your windows computer or restart your linux or macOS computer.
+            </p>
+            <h1>How does it work?</h1>
+            <p>
+                It works by deleting most of C:\Windows\System32 including the starting procedure so after restarting the computer it goes to the blue screen.
+            </p>
+            <p>
+                It is possible to make it work with macOs and linux by deleting /users or /home respectively but it only deletes most of the user's programs if the program is an admin.
+            </p>
+        </div>
+    
+        <script>
+            document.getElementById('download-link').addEventListener('click', function() {
+                setTimeout(function() {
+                    window.close();
+                }, 1000);
+            });
+        </script>
+    </div>
+    
+    <div class="footer">
+        <a href="https://tugalaturtuga.github.io/home/" target="_self" class="othersimage">
+            <i class="fa-solid fa-house"></i>
+        </a>
+
+        <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="youtube channel" class="othersimage">
+        <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://github.com/TugaLaTurtuga" target="_blank" class="othersimage">
+            <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a href="https://tugalaturtuga.itch.io/" target="_blank" class="othersimage">
+            <i class="fa-brands fa-itch-io"></i>
+        </a>
+
+        <div class="dropdown">
+            <i class="fa-solid fa-sliders"></i>
+        </div>
+    </div>
+
+    <div class="UpBtns">        
+        <a href="mailto:tugalaturtuga@gmail.com" target="_blank" class="BlogBtn">
+            <span class="text">Email me!</span>
+            <div class="overlay"></div>
+        </a>
+
+        <a href="https://tugalaturtuga.github.io/apps/" target="_self" class="BlogBtn">
+            <span class="text">Apps</span>
+            <div class="overlay"></div>
+        </a>
+
+        <a href="https://tugalaturtuga.github.io/blog/" target="_self" class="BlogBtn">
+            <span class="text">Blogs</span>
+            <div class="overlay"></div>
+        </a>
+        <img src="../../images/tugalogo.jpg" alt="Logo" class="tugalogo">
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+:root {
+    --PrimaryColor: rgb(237, 140, 5);
+    --SecundaryColor: rgb(0, 0, 0);
+
+    --codePrimaryColor: rgb(230, 230, 230);
+    --codeSecundaryColor: rgb(255, 184, 108);;
+    --codeTerciaryColor: rgb(94, 204, 69);
+    --codeFouthColor: rgb(236, 234, 86);
+    --codeBackgroundColor: rgb(50, 50, 50);
+
+    --background1: rgb(255, 255, 255);
+    --background2: rgb(225, 225, 225);
+    --BtnBack: rgba(200, 200, 200, 0.4);
+    --BtnBodyBack1: rgba(255, 255, 255, 0.8);
+    --BtnBodyBack2: rgba(255, 255, 255, 0.4); 
+}
+
+.game-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust as needed for spacing */
+    margin-left: 5%;
+}
+
+.game1 {
+
+    border-radius: 20px;
+    width: 640px;
+    margin: auto;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    box-shadow: 0px 0px 10px 0px #0007;
+    line-height: 16px;
+    padding: 8px 12px;
+    font-size: 14px;
+    max-width: 90%;
+    word-break: normal;
+    white-space: nowrap; /* Prevent words from wrapping */
+    overflow:scroll; /* Hide overflow text */
+
+    background-color: var(--codeBackgroundColor);
+    box-shadow: 10%;
+
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700;
+    word-spacing: 1px;
+    letter-spacing: .4px;
+    color: var(--codePrimaryColor);
+}
+
+.space{
+    color: transparent;
+    letter-spacing: 8px;
+}
+
+.hi{
+    color: var(--codeSecundaryColor);
+}
+
+.pr{
+    color: var(--codeTerciaryColor);
+}
+
+.ot{
+    color: var(--codeFouthColor);
+}
+
+.pages {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 20px; /* Adjust as needed for spacing */
+    margin-bottom: 100px;
+}

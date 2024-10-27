@@ -1,0 +1,122 @@
+
+:root {
+    --PrimaryColor: rgb(237, 140, 5);
+    --SecondaryColor: rgb(0, 0, 0);
+    --background1: rgb(255, 255, 255);
+    --background2: rgb(225, 225, 225);
+    --BtnBack: rgba(200, 200, 200, 0.4);
+    --BtnBodyBack1: rgba(255, 255, 255, 0.9);
+    --BtnBodyBack2: rgba(255, 255, 255, 0.5); 
+    --ButtonGridColor: rgb(200, 200, 200);
+    --ButtonGridHover: rgb(150, 150, 150);
+}
+
+body {
+    background: linear-gradient(to bottom, var(--background1), var(--background2));
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Radio Canada", sans-serif;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: var(--SecondaryColor);
+    text-align: left;
+    scroll-snap-align: y mandatory;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.header {
+    color: var(--PrimaryColor);
+    font-weight: 600;
+    font-size: 48px;
+    letter-spacing: -1px;
+    line-height: -1px;
+    margin-top: 20px;
+}
+
+.download-button-container {
+    display: flex;
+    width: 100%;
+    font-weight: 400;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.download-button {
+    padding: 10px 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: auto;
+    font-size: 18px;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+.description{
+    text-align-last: left;
+    color: var(--PrimaryColor);
+    margin: 0px;
+    padding: 0px;
+}
+
+p{
+    margin: 0px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--SecondaryColor);
+}
+
+.show-icon{
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Ensuring the show-icon and the adjacent content are laid out properly */
+.page1 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 95%;
+}
+
+.show-icon {
+    margin-right: 20px;
+}
+
+.header, .download-button-container {
+    margin-bottom: 10px;
+}
+
+.download-button-container {
+    margin-left: auto; /* Ensures the download button is to the right */
+}
+
+.description {
+    flex-basis: 100%; /* Ensures description takes full width below the icon */
+}
+
+/* Making sure the elements wrap below the icon on smaller screens */
+@media (max-width: 950px) {
+    .show-icon {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .header, .download-button-container {
+        margin-left: 0;
+    }
+}

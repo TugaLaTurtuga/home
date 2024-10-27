@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reload</title>
+    <link rel="icon" href="images/Reload.png" type="image/png" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <h1>https://github.com/TugaLaTurtuga/Reload</h1>
+
+    <div id="grid-container" class="grid-container">
+        <!-- Albums and Singles will be displayed here -->
+    </div>
+
+    <div class="footer">
+        <img src="images/Reload.png" alt="Logo" class="bottom-reload-icon" id="ReloadLogo"/>
+
+        <!-- Input for selecting folders -->
+        <div class="file_btns">
+            <label for="folderInput" class="file-upload-button">work in progress</label>
+            <input type="file" id="folderInput" webkitdirectory directory multiple style="display: none;">
+        </div>
+        <div class="bottom-right">
+            <img id="volumeImg" src="Images/Volume/full_volume.png" class="volume-img"></img>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" class="slider" style="width: 80%;"/>
+        </div>
+    </div>
+
+    <div class="settings">
+        <div class="st">Settings</div>
+        <!-- Slider for resizing grid items -->
+        <div class="slider-container">
+            <label for="gridSizeSlider">Grid Size: </label>
+            <input type="range" id="gridSizeSlider" min="0" max="100" value="25" class="slider">
+            <span id="gridSizeValue">025</span>
+            <p></p>
+            <label for="jumpForceSlider">Jump force: </label>
+            <input id="jumpForceSlider" min="0" max="10" value="2" step="0.01" type="range" class="slider">
+            <span id="jumpForceValue">02</span>
+        </div>
+    </div>
+
+    <div class="music-viewer">
+        <img id="coverImage" src="" alt="Album Cover" class="coverImage" />
+        <div class="controls">
+            <p>Now playing: </p>
+            <p id="name_of_the_music">_music_name_</p>
+            <img id="viewerPlayButton" src="images/play.png" alt="Btn" class="play-btn" />
+        </div>
+    </div>
+
+    <!-- js -->
+    <script src="css/UpdateSliderColor.js"></script>
+    <script src="TrackManager.js"></script>
+    <script src="Main.js"></script>
+</body>
+</html>

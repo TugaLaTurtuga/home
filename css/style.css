@@ -1,23 +1,29 @@
 :root {
-    --PrimaryColor: rgb(237, 140, 5);
-    --SecundaryColor: rgb(0, 0, 0);
-    --background1: rgb(255,255,255);
-    --background2: rgb(225,225,225);
+    --PrimaryColor: rgba(237, 140, 5, .5);
+    --SecundaryColor: #ccc;
+    --background1: rgb(1 18 25);
+    --background2: rgb(1 18 25);
     --BtnBack: rgba(200,200,200, 0.4);
     --BtnBodyBack1: rgba(255,255,255,0.9);
     --BtnBodyBack2: rgba(255,255,255,0.5); 
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: linear-gradient(to bottom, --background1, --background2);
+    background-color: rgb(1 18 25);
+    color: #ccc;
     margin: 0;
+    padding: 10px;
     height: 100%;
     font-family: "Radio Canada", sans-serif;
     color: var(--SecundaryColor);
     text-align-last: left;
     scroll-snap-align: y mandatory;
 }
-
 
 .page1{
     margin-left: 10px;
@@ -49,7 +55,6 @@ body {
     border-radius: 0px;
     border-style: none;
     box-sizing: border-box;
-    color: var(--PrimaryColor);
     overflow: hidden;
     cursor: pointer;
     display: inline-block;
@@ -62,40 +67,15 @@ body {
 .BlogBtn .text {
     position: relative;
     z-index: 1;
-    color: var(--PrimaryColor);
+    color: #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
 
-.BlogBtn .overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--BtnBack);
-    overflow: hidden;
-    width: 100%;
-    height: 0;
-    transition: height .35s ease-in-out;
-    z-index: 0;
-    border-radius: 5px;
-}
-
-.BlogBtn:hover .overlay {
-    height: 100%;
-}
-
-.BlogBtn::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0%;
-    width: 100%;
-    height: 2.5px; /* Adjust the height of the line */
-    background-color: var(--PrimaryColor);
-    z-index: 2; /* Ensure the line is above the overlay */
+.BlogBtn .text:hover {
+    color: #cccccc9e;
 }
 
 .fa-brands:hover {
@@ -113,11 +93,14 @@ body {
 }
 
 .footer {
-    position: fixed;
+    position: relative;
     text-align-last: left;
     width: 100%;
     bottom: 0;
-    background-color: var(--PrimaryColor);
+    margin-top: 40px;
+    margin-bottom: -10px;
+    margin-left: -10px;
+    background-color: rgba(237, 140, 5, 1);
     color: var(--SecundaryColor);
     padding: 10px;
 }
@@ -129,17 +112,6 @@ body {
 a, a:hover, a:visited, a:active {
     color: inherit;
     text-decoration: none;
-}
-
-.dropdown {
-    position: fixed;
-    background: transparent;
-    border-color: transparent;
-    bottom: 0;
-    right: 0;
-    margin-right: 0px;
-    text-align-last: right;
-    padding: 10px;
 }
 
 .youriptxt{
@@ -161,12 +133,14 @@ a, a:hover, a:visited, a:active {
 }
 
 h1{
-   font-size: 48px;
-   letter-spacing: -1px;
-   line-height: -1px;
+    color: #ccc;
+    font-size: 48px;
+    letter-spacing: -1px;
+    line-height: -1px;
 }
 
 h2{
+    color: #ccc;
     font-size: 32px;
     letter-spacing: -0.5px;
     line-height: -1px;
@@ -179,4 +153,262 @@ p{
 }
 h6{
     font-size: 5px;
+}
+
+.firstDiv {
+    background-color: rgb(1, 10, 15);
+    
+    margin: 5%;
+    margin-top: 2%;
+    margin-left: 60px;
+    border-radius: 10px;
+    padding: 100px;
+    width: 100%;
+    perspective: 1000px;
+    overflow: hidden;  /* Prevents overflow from the rotated grid */
+    position: relative;
+}
+
+.mainTitle {
+    z-index: 1000;
+    margin: -50px;
+}
+
+.mainTitle h1 {
+    color: #ccc;
+    font-size: 1000%;
+    transition: transform 0.3s ease, color 0.3s ease;  /* Hover transition */
+    margin-top: -3%;
+    margin-bottom: -3%;
+    cursor: default;
+}
+
+.mainTitle p {
+    font-size: 24px;
+    transition: transform 0.3s ease, color 0.3s ease;  /* Hover transition */
+    margin-top: 2%;
+    margin-left: 1%;
+    cursor: default;
+}
+
+.mainTitle h1:hover {
+    color: var(--PrimaryColor);
+    transform: scale(1.05);  /* Slight scale-up on hover */
+    transform: translateX(2%);
+}
+
+.mainTitle p:hover {
+    transform: scale(1.05);  /* Slight scale-up on hover */
+    transform: translateX(2%);
+}
+
+@media (max-aspect-ratio: 1/1.35) {
+    .mainTitle h1 {
+        font-size: 84px;
+    }
+    .mainTitle p {
+        font-size: 20px;
+    }
+
+    .firstDiv {
+        margin-left: 1%;
+    }
+}
+
+@media (max-aspect-ratio: 1/2) {
+    .mainTitle h1 {
+        font-size: 64px;
+    }
+    .mainTitle p {
+        font-size: 16px;
+    }
+}
+
+.grid {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 20px);  /* Match the cell size */
+    grid-template-rows: repeat(auto-fill, 20px);
+    gap: 0;  /* Removes the gap between cells */
+    width: 100vw;  /* Adjust for the size you want */
+    height: 100vh;
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-30deg);
+}
+
+.grid-cell {
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.1);  /* Base color for grid cells */
+    transition: background-color 0.2s ease;  /* Smooth transition */
+}
+
+.grid-cell.illuminated {
+    background-color: rgba(255, 255, 255, 0.1);  /* Glow effect on illuminated cells */
+}
+
+.illuminated {
+    position: absolute;
+    min-width: 200%;
+    min-height: 200%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(237, 140, 5, 0.01), transparent);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    transform: translate(-50%, -50%);
+}
+
+.illuminatedText {
+    position: absolute;
+    min-width: 200%;
+    min-height: 200%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(237, 140, 5, 0.15), transparent);
+    pointer-events: none;
+    opacity: 1;
+    mix-blend-mode: screen;
+    transform: translate(-50%, -50%);
+}
+
+.btns {
+    margin-left: -80px;
+    margin-top: 100px;
+    margin-bottom: -100px;
+    text-align-last: left;
+}
+
+.ama{
+    text-align-last: center;
+    margin-top: 100px;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 48px;
+    letter-spacing: -1px;
+    line-height: -1px;
+    font-weight: 600;
+}
+
+.grid-container {
+    display: grid;
+    gap: 20px;
+    margin-top: 10px;
+    margin-left: 1vh;
+    margin-right: 1vh;
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: -1px;
+    line-height: -1px;
+    color: var(--PrimaryColor);
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(50, 50, 50, .1);
+    box-shadow: 6px 8px rgba(0, 0, 0, .1);
+}
+
+.grid-item {
+    border: 0px solid #ccc;
+    background-color: rgba(50, 50, 50, .2);
+    border-radius: 10px;
+    text-align: center;
+    min-height: 50vh; /* Minimum height for grid items */
+    max-width: 80vh; /* Maximum width */
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    transition: transform .5s ease;
+    box-shadow: 6px 8px rgba(0, 0, 0, .1);
+}
+
+.grid-item:hover {
+    transform: translateY(-20px);
+}
+
+.grid-item img {
+    width: 100%; /* Image width based on grid item width */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.grid-item .button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+}
+
+.grid-item button {
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--PrimaryColor);
+    background-color: rgba(100, 100, 100, .1);
+    cursor: pointer;
+    border-radius: 50px;
+    transition: color .3s ease;
+}
+
+.grid-item button:hover {
+    background-color: rgba(100, 100, 100, .4);
+}
+
+.subtext {
+    text-align: left;
+    margin: 10px;
+    padding: 10px;
+    color: #ccc;
+    font-weight: 400;
+    font-size: 20px;
+    border-top: 2px solid var(--SecundaryColor);
+}
+
+/* Default to 1 column */
+.grid-container {
+    grid-template-columns: 1fr;
+}
+.grid-item {
+    min-height: 80vh;
+}
+
+/* 2 columns for medium screens */
+@media (min-width: 700px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr;
+        margin-left: 3vh;
+        margin-right: 3vh;
+    }
+    .grid-item {
+        min-height: 70vh;
+    }
+    .Hello_Text{
+        display: block;
+    }
+}
+
+/* 3 columns for larger screens */
+@media (min-width: 900px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-left: 0vh;
+        margin-right: 0vh;
+    }
+    .grid-item {
+        max-height: 50vh;
+    }
+}
+
+@media (min-width: 1200px) {
+    .grid-container {
+        margin-left: 15vh;
+        margin-right: 15vh;
+    }
 }

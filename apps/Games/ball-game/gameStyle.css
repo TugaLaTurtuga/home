@@ -1,0 +1,175 @@
+:root {
+    --terciaryColor: rgb(50, 50, 50);
+    --btnColor: rgb(255);
+    --btnColorOnHover: rgb(225);
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    flex-direction: column;
+    font-family: 'Radio Canada', sans-serif;
+}
+canvas {
+    border-radius: 20px;
+    width: 0px;
+    height: auto;
+    font-family: 'Radio Canada', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.ads {
+    margin: 30px;
+    text-align: center;
+}
+.download-div {
+    margin-bottom: 10px;
+}
+.controls {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: 'Radio Canada', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button {
+    border-radius: 5px;
+    padding: 5px;
+    border-color: var(--PrimaryColor);
+    background-color: var(--btnColor);
+    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+button:hover{
+    border-color: var(--terciaryColor);
+    background-color: var(--btnColorOnHover);
+}
+input{
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border-color: var(--terciaryColor);
+    background-color: var(--btnColor);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)
+}
+input:hover{
+    border-color: var(--PrimaryColor);
+    background-color: var(--btnColorOnHover);
+}
+.input-text{
+    padding: 10px;
+    width: 92%;
+    place-content: center;
+    margin-right: 0px;
+}
+#leaderboard {
+    display: none;
+    position: fixed;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#chossen-leaderboard {
+    margin-top: -37px;
+    color: var(--terciaryColor);
+    font-size: 12px;
+    text-align: center;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#leaderboard-list {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+#player-name-container {
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 20%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+#time-container{
+    display: none;
+    color: auto;
+    border-radius: 10px;
+    margin-bottom: -11px;
+    font-size: 16px;
+    font-family: 'Radio Canada', sans-serif;
+    font-weight: 600;
+    height: 25px;
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#stop-container{
+    display: none;
+    border-radius: 10px;
+    margin-top: -11px;
+    font-size: 16px;
+    font-family: 'Radio Canada', sans-serif;
+    font-weight: 600;
+    height: 25px;
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Globalbutton-container {
+    display: flex;
+    margin-left: 10.5%;
+    margin-bottom: 5px;
+    align-items: center;
+    font-family: 'Radio Canada', sans-serif; 
+    width: 150px; /* Adjusted for better visibility */
+    border-radius: 25px; /* Adjusted for visual effect */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(31, 16, 16, 0.2);
+    background-color: #ffffff; /* Background for the container */
+}
+
+.Globalbutton {
+    flex: 1;
+    font-family: 'Radio Canada', sans-serif;
+    padding: 10px 15px;
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 25px;
+    position: relative;
+    z-index: 1;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: none;
+}
+
+.Globalbutton:hover {
+    background-color: rgb(225, 225, 225); /* Light color on hover */
+    color: rgb(50, 50, 50); /* Darker text color on hover */
+}
+
+.Globalbutton.highlight {
+    background-color: rgb(200, 200, 200); /* Highlight color */
+    color: rgb(0, 0, 0); /* Highlight text color */
+}
+
+.Globalseparator {
+    font-size: 20px;
+    font-family: 'Radio Canada', sans-serif;
+    line-height: 1;
+    padding: 0 0;
+    color: rgb(50, 50, 50); /* Default color of the separator */
+    background-color: #ffffff; /* Background color of the separator */
+}

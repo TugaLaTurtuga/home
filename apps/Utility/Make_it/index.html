@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make it</title>
+    <link rel="icon" href="../../../images/tugalogo.jpg" type="image/jpeg">
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/d677bec6db.js" crossorigin="anonymous"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../../css/Containersstyle.css">
+    <link rel="stylesheet" href="../../css/apps.css">
+
+    <style>
+        .download-button{
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page1">
+        <img src="icon.webp" alt="Logo" class="show-icon">
+        <div class="header">
+            Make it
+
+            <div class="download-button-container">
+                <a href="itch://install/?game_id=2440575&upload_id=9411973" target="_blank" class="download-button" id="download-link">
+                    Download for MacOS
+                </a>
+                <a href="itch://install/?game_id=2440575&upload_id=9411975" target="_blank" class="download-button" id="download-link">
+                    Download for Windows
+                </a>
+                <a href="itch://install/?game_id=2440575&upload_id=9411978" target="_blank" class="download-button" id="download-link">
+                    Download for Linux
+                </a>
+            </div>
+        </div>
+
+        <div class="description">
+            <h1>What is Make it?</h1>
+            <p>
+               Make is a simple to do list
+            </p>
+            <h1>How does it work?</h1>
+            <p>
+                Create a "New space", name it then create items that you want to do
+            </p>
+            <p>
+                You can also set a time limit to your space bc yes
+            </p>
+        </div>
+    </div>
+    
+
+    <script>
+        document.getElementById('download-link').addEventListener('click', function() {
+            setTimeout(function() {
+                window.close();
+            }, 1000);
+        });
+    </script>
+
+<div class="footer">
+    <a href="https://tugalaturtuga.github.io/home/" target="_self" class="othersimage">
+        <i class="fa-solid fa-house"></i>
+    </a>
+
+    <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="youtube channel" class="othersimage">
+    <i class="fa-brands fa-youtube"></i>
+    </a>
+    <a href="https://github.com/TugaLaTurtuga" target="_blank" class="othersimage">
+        <i class="fa-brands fa-github"></i>
+    </a>
+
+    <a href="https://tugalaturtuga.itch.io/" target="_blank" class="othersimage">
+        <i class="fa-brands fa-itch-io"></i>
+    </a>
+
+    <div class="dropdown">
+        <i class="fa-solid fa-sliders"></i>
+    </div>
+</div>
+
+<div class="UpBtns">        
+    <a href="mailto:tugalaturtuga@gmail.com" target="_blank" class="BlogBtn">
+        <span class="text">Email me!</span>
+        <div class="overlay"></div>
+    </a>
+
+    <a href="https://tugalaturtuga.github.io/apps/" target="_self" class="BlogBtn">
+        <span class="text">Apps</span>
+        <div class="overlay"></div>
+    </a>
+
+    <a href="https://tugalaturtuga.github.io/blog/" target="_self" class="BlogBtn">
+        <span class="text">Blogs</span>
+        <div class="overlay"></div>
+    </a>
+    <img src="../../images/tugalogo.jpg" alt="Logo" class="tugalogo">
+</div>
+</body>
+</html>

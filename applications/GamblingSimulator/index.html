@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, 
+    initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gambling simulator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <link rel="icon" href="Images/Center.png" type="image/png" />
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/workersStyle.css">
+</head>
+<body>
+    <div class="money-count">
+        <p id="money-count">Money: $0.00</p>
+    </div>
+
+    <img src="Images/Center.png" alt="Logo" class="top-right-icon" id="GCLogo" onclick="SeeBank()"/>
+    <h1>Work in progress</h1>
+    <div class="game-container" id="job-clicker-section">
+       
+        <div class="clicker-section" id="clicker-section" style="display: block;">
+            <h1>Your job</h1>
+            <button class="earnMoney" onclick="earnMoney()">Work (Click to Earn)</button>
+            <div class="job-shop-section" id="job-shop-section"></div>
+        </div>
+        <div class="clicker-section" id="Workers-section" style="display: none;">
+            <div id="workers-title">
+                <h1>Workers</h1>
+                <p id="total-mps" class="total-mps">mps: 000</p>
+            </div>
+            <div class="games-grid" id="workers-grid">
+
+            </div>
+        </div>
+
+        <button class="see-workers-btn" id="seeWorkers" style="display: none;">See Workers</button>
+    </div>
+
+    <div class="game-container" id="games-section" style="display: block;">
+        <h1>Gambling Centre™</h1>
+       
+        <h1 class="game-name">Poker</h1>
+        <div class="games-grid" id="Poker">
+            <!-- Game cards will be created here by JavaScript -->
+        </div>
+    
+        <h1 class="game-name">Roulette</h1>
+        <div class="games-grid" id="Roulette">
+            <!-- Game cards will be created here by JavaScript -->
+        </div>
+       
+        <h1 class="game-name">Slots</h1>
+        <div class="games-grid" id="Slots">
+            <!-- Game cards will be created here by JavaScript -->
+        </div>
+    
+        <h1 class="game-name">Scratch Cards</h1>
+        <div class="games-grid" id="ScratchCards">
+            <!-- Game cards will be created here by JavaScript -->
+        </div>
+   
+        <h1 class="game-name">Lotteries</h1>
+        <div class="games-grid" id="Lotteries">
+            <!-- Lottery cards will be created here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="game-result"> <p id="game-result"></p> </div>
+
+    <div class="bottom-left-text" id="loanDiv"> <p>Loans: -$___</p></div>
+    <div class="bottom-right-text" id="salaryDiv"> <p>Salaries: -$___</p></div>
+    <div class="top-right-text" id="depositsDiv"> <p>Deposits: $___</p></div>
+
+    <h1 onclick="SeeBank()" style="cursor: pointer;">See bank</h1>
+
+    <div class="bottom-info">
+        <p id="loansPer">Loans: -$___ per __s</p>
+        <p id="salariesPer">Salaries: -$___ per __s</p>
+    </div>
+
+    <div class="stats" id="stats">
+        <!-- Stats will be put here by JavaScript -->
+    </div>
+
+    <input type="file" id="fileInput" name="fileInput", style="display: none;"> <!-- for upload file -->
+
+    <div class="settings" id="bank">
+        <h1>Bank</h1>
+        <div class="Globalbutton-container">
+            <button id="btn1" class="Globalbutton" onclick="ChangeBankView(true)">Loans</button>
+            <span class="Globalseparator">|</span>
+            <button id="btn2" class="Globalbutton" onclick="ChangeBankView(false)">Depos</button>
+        </div>
+
+        <div class="BankLoansDiv" id="BankLoansDiv">
+            <h2>Loans</h2>
+            <div class="opts-grid" id="LoansGrid">
+
+            </div>
+        </div>
+
+        <div class="BankDepositsDiv" id="BankDepositsDiv" style="display: none;">
+            <h2>Long term deposits</h2>
+            <div class="opts-grid" id="DepositsGrid">
+
+            </div>
+        </div>
+        <button class="closeBank" onclick="SeeBank()">Close</button>
+    </div>
+
+    <script src="js/Encoder.js"></script>
+    <script src="js/GameSettings.js"></script>
+    <script src="js/Loans.js"></script>
+    <script src="js/SavingSystem.js"></script>
+    <script src="js/MoneyScript.js"></script>
+    <script src="js/GamesScript.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/UpdateSliderCode.js"></script>
+
+    <div class="stats">
+        <h2>Beta 1.0</h2>
+        <h3>TugaLaTurtuga© 2024, GamblingCentre© 2024</h3>
+    </div>
+</body>
+</html>

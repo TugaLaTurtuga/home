@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuga's page</title>
+    <link rel="icon" href="images/tugalogo.jpg" type="image/jpeg" />
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,25 +17,51 @@
     <link rel="stylesheet" href="css/game.css">
 </head>
 <body>
+    <div class="firstDiv">
+        <div class="mainTitle">
+            <h1>Tuga</h1>
+            <h1>La</h1>
+            <h1>Turtuga</h1>
+            <p>A stupid programmer</p>
+        </div>
+        <div class="illuminated"></div>
+        <div class="illuminatedText"></div>
+        
+        <div class="btns">
+            <a href="mailto:tugalaturtuga@gmail.com" target="_blank" class="BlogBtn">
+                <span class="text">Email me!</span>
+                <div class="overlay"></div>
+            </a>
+
+            <a href="#apps" target="_self" class="BlogBtn scrollTo">
+                <span class="text">Apps</span>
+                <div class="overlay"></div>
+            </a>
+
+            <a href="#blogs" target="_self" class="BlogBtn scrollTo">
+                <span class="text">Blogs</span>
+                <div class="overlay"></div>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/AmimatorForFirstDiv.js"></script>
+
     <div class="page1">
-
-        <h1>Hey, I'm TugaLaTurtuga!</h1>
-        <p>This is my website!</p>
-
         <div class="game-container">
-            <div class="game1">
-                <!-- Ensure the URL format is correct -->
-                <iframe width=90% height="90%"
+            <div style="margin-bottom: -15px;">
+                <iframe width=100% height="100%"
                 src="https://www.youtube.com/embed/Ox4_eGW8omU?loop=1&playlist=Ox4_eGW8omU"
                 allowfullscreen></iframe>
             </div>
+            
             <div class="SideOfGame">
                 <h2>About me</h2> 
                 <p>I am a student who makes videogames sometimes.</p>
                 <h2>What I'm working on</h2>
                 <p>I'm obsessed with Slimm Saddy TD deluxe™ right now and I'm working on the Slimm Saddy TD deluxe™ from TugaLaTurtuga.</p>
                 <h2>Things I've been working on</h2>
-                <p>-Slimm saddy TD™</p>
+                <p>-Gamlbing simulator™</p>
                 <p>-Snowy™</p>
             </div>
         </div>
@@ -44,7 +71,18 @@
         </div>
     </div>
 
+    <div class="ama" style="color: #ccc;" id="apps">Apps</div>
+    <div class="grid-container" id="grid-container-app">
+        <!-- Grid items will be added here by JavaScript -->
+    </div>
+
+    <div class="ama" style="color: #ccc;" id="blogs">Blogs</div>
+    <div class="grid-container" id="grid-container-blog">
+        <!-- Grid items will be added here by JavaScript -->
+    </div>
     
+    <script src="js/Finder.js"></script>
+    <script>FindBlogs(); FindApps();</script>
 
     <div class="footer">
         <a href="https://tugalaturtuga.github.io/home/" target="_self" class="othersimage">
@@ -61,29 +99,24 @@
         <a href="https://tugalaturtuga.itch.io/" target="_blank" class="othersimage">
             <i class="fa-brands fa-itch-io"></i>
         </a>
-
-        <div class="dropdown">
-            <i class="fa-solid fa-sliders"></i>
-        </div>
     </div>
 
-    <div class="UpBtns">        
-        <a href="mailto:tugalaturtuga@gmail.com" target="_blank" class="BlogBtn">
-            <span class="text">Email me!</span>
-            <div class="overlay"></div>
-        </a>
+    <script>
+        // Smooth scroll with offset function
+        document.querySelectorAll('.scrollTo').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default anchor click behavior
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - 75; //offset
 
-        <a href="https://tugalaturtuga.github.io/apps/" target="_self" class="BlogBtn">
-            <span class="text">Apps</span>
-            <div class="overlay"></div>
-        </a>
-
-        <a href="https://tugalaturtuga.github.io/blog/" target="_self" class="BlogBtn">
-            <span class="text">Blogs</span>
-            <div class="overlay"></div>
-        </a>
-        <img src="images/tugalogo.jpg" alt="Logo" class="tugalogo">
-    </div>
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
     
 </body>
 </html>

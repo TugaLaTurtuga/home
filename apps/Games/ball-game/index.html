@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Game</title>
+    <link rel="icon" href="icon.webp" type="image/webp" />
+
+    <!-- Connect to external programs -->
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada&amp;display=swap" rel="stylesheet">
+
+    <!-- Preconnect to cloudflare -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/d677bec6db.js" crossorigin="anonymous"></script>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../../css/Containersstyle.css">
+    <link rel="stylesheet" href="gameStyle.css">
+
+    <!-- Game js -->
+    <script src="gamecode.js"></script>
+</head>
+<body>
+    <!-- Download for pc btn -->
+     <div class="download-div">
+        <a href="https://github.com/TugaLaTurtuga/Ball-game/archive/refs/heads/main.zip", target="_blank">
+            <button> Download game </button>
+        </a>
+     </div>
+
+    <!-- Game Controls -->
+    <div class="controls">
+        <label for="rows">Rows:</label>
+        <input type="number" id="rows" value="7" min="3" max="10" onchange="start()">
+        <label for="cols">Cols:</label>
+        <input type="number" id="cols" value="5" min="3" max="10" onchange="start()">
+        <button onclick="openOrCloseLeaderboard()">Show Leaderboard</button>
+    </div>     
+
+    <!-- Player Name Input -->
+    <div id="player-name-container">
+        <input type="text" id="player-name" class="input-text" placeholder="Enter your name (optional)">
+    </div>
+
+    <!-- Game time container -->
+    <div id="time-container"></div>
+
+    <!-- Game Canvas -->
+    <main></main>
+
+    <!-- Leaderboard -->
+    <div id="leaderboard">
+        <h2>Leaderboard</h2>        
+        <div id="chossen-leaderboard"></div>
+
+        <div class="Globalbutton-container">
+            <button id="btn1" class="Globalbutton">Global</button>
+            <span class="Globalseparator">|</span>
+            <button id="btn2" class="Globalbutton">Local</button>
+        </div>
+       
+        <div id="leaderboard-list"></div>
+        <button onclick="hideLeaderboard()">Close</button>
+    </div>
+
+    <!-- Clicks in-game container -->
+    <div id="stop-container">
+        <h3>Clicks: 0</h3>
+    </div>
+
+    <!-- Ads, couldn't add -->
+
+    <!-- Remove download button on mobile -->
+    <script>
+        const downloadDiv = document.querySelector('.download-div');
+        const body = document.querySelector('body')
+
+        
+        function adjustDownloadDivVisibility() {
+            const aspectRatio = window.innerHeight / window.innerWidth;
+            const thresholdForRemovingDownloadDiv = 1.35;
+            const thresholdForAddMoreMargin = .95;
+
+            if (thresholdForRemovingDownloadDiv < aspectRatio) {
+                body.style.marginTop = '25%'
+            }
+            else if (thresholdForAddMoreMargin < aspectRatio) {
+                body.style.marginTop = '17.5%'
+            }
+            else {
+                body.style.marginTop = '10%'
+            }
+        }
+
+        // Adjust visibility on load and on resize
+        window.addEventListener('load', adjustDownloadDivVisibility);
+        window.addEventListener('resize', adjustDownloadDivVisibility);
+
+        // Check if the user is accessing the page on a mobile device
+        var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|tvOS/i.test(navigator.userAgent);
+        if (isMobile) {
+          // User is accessing the page on a mobile device
+          downloadDiv.style.display = 'none';
+          console.log("Mobile device detected");
+        } else {
+          // User is accessing the page on a desktop device
+          downloadDiv.style.display = 'block'
+          console.log("Desktop device detected");
+        }
+    </script>
+
+    <!-- Website up and down -->
+    <div class="footer">
+        <a href="https://tugalaturtuga.github.io/home/" target="_self" class="othersimage">
+            <i class="fa-solid fa-house"></i>
+        </a>
+
+        <a href="https://www.youtube.com/@OverrratedChannel" target="_blank" title="youtube channel" class="othersimage">
+        <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://github.com/TugaLaTurtuga" target="_blank" class="othersimage">
+            <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a href="https://tugalaturtuga.itch.io/" target="_blank" class="othersimage">
+            <i class="fa-brands fa-itch-io"></i>
+        </a>
+
+        <div class="dropdown">
+            <i class="fa-solid fa-sliders"></i>
+        </div>
+    </div>
+
+    <div class="UpBtns">
+        <a href="https://tugalaturtuga.github.io/apps/Games/ball-game" target="_self" class="BlogBtn">
+            <span class="text">Stop game</span>
+            <div class="overlay"></div>
+        </a>
+
+        <a href="https://tugalaturtuga.github.io/apps/" target="_self" class="BlogBtn">
+            <span class="text">Apps</span>
+            <div class="overlay"></div>
+        </a>
+        <img src="../../images/tugalogo.jpg" alt="Logo" class="tugalogo">
+    </div>
+</body>
+</html>

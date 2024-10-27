@@ -1,0 +1,336 @@
+.worker-card {
+    aspect-ratio: 1;
+    min-height: 90%;
+    min-width: 90%;
+    max-height: 98%;
+    max-width: 98%;
+    background-color: #01222b;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0px;
+    box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
+    text-align: center;
+    max-width: 250px;
+    transition: transform 0.3s ease;
+    color: #000000;
+}
+
+.worker-card:hover {
+    transform: translateY(-5%); /* Lift effect */
+}
+
+.worker-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.worker-card h2 {
+    color: #ff8c00;
+    margin-top: 10px;
+}
+
+.worker-card p {
+    color: #016273;
+    margin: 10px 0;
+}
+
+.worker-card button {
+    padding: 10px 15px;
+    background-color: #017285;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #000000;
+}
+
+.worker-card button:hover {
+    background-color: #015261;
+}
+
+.worker-card button:disabled {
+    color: #01222b;
+}
+
+/* Slider styling */
+.slider {
+    width: 80%; /* Make slider full width of the card */
+    height: 8px;
+    border-radius: 10px;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    --slider-value: 100%; /* Start with max value for visual feedback */
+    --slider-color: red; /* This will be dynamically updated */
+    --slider-background-color: #ccc;
+    transform: translateY(-20px);
+}
+
+/* WebKit browsers (Chrome, Safari) */
+.slider::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--slider-color) 0%, var(--slider-color) var(--slider-value), var(--slider-background-color) var(--slider-value), var(--slider-background-color) 100%);
+    height: 8px;
+    border-radius: 10px;
+}
+
+/* WebKit browsers: Thumb styling */
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--slider-color);
+    cursor: pointer;
+    margin-top: -4px;
+}
+
+/* Firefox browsers */
+.slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--slider-color);
+    cursor: pointer;
+    border: none;
+}
+
+/* Firefox: Track with left part (before the thumb) colored dynamically */
+.slider::-moz-range-track {
+    background: linear-gradient(to right, var(--slider-color) 0%, var(--slider-color) var(--slider-value), var(--slider-background-color) var(--slider-value), var(--slider-background-color) 100%);
+    height: 8px;
+    border-radius: 10px;
+}
+
+h3 {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.hh3 {
+    margin-bottom: 3px;
+}
+
+.hhh3 {
+    margin-top: -23px;
+}
+
+.hhhh3 {
+    color: #ccc;
+    margin-top: 0px;
+    margin-bottom: -15px;
+}
+
+.top-right-icon {
+    top: 0;
+    right: 0;
+    width: 10%;
+    min-width: 64px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+
+.top-right-icon:hover {
+    cursor: pointer;
+}
+
+.top-right-text {
+    position:fixed;
+    z-index: 1000;
+    top: 25px;
+    right: 25px;
+    opacity: 0;
+    transform: translateX(250px);
+    transition: opacity 0.5s ease, transform .7s ease;
+
+    color: green;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.top-right-text.show {
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+.bottom-left-text {
+    position:fixed;
+    z-index: 1000;
+    bottom: 10px;
+    left: 25px;
+    opacity: 0;
+    transform: translateX(-250px);
+    transition: opacity 0.5s ease, transform .7s ease;
+
+    color: red;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.bottom-left-text.show {
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+.bottom-right-text {
+    position:fixed;
+    z-index: 1000;
+    bottom: 10px;
+    right: 25px;
+    opacity: 0;
+    transform: translateX(250px);
+    transition: opacity 0.5s ease, transform .7s ease;
+
+    color: red;
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.bottom-right-text.show {
+    opacity: 1;
+    transform: translateX(0px);
+}
+
+.bottom-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #01222b6a;
+    color: #f8f8f8;
+    border: 1px solid #f8f8f8;
+    z-index: 1;
+
+    width: 400px;
+    max-width: 90%;
+    height: 40px;
+
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bottom-info p{
+    color: red;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.stats p {
+    padding-left: 15px;
+    text-align: left;
+    color: #ccc;
+}
+
+.stats {
+    position: relative;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center; 
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #01222b19;
+    color: #f8f8f8;
+    border: 1px solid #f8f8f8;
+    z-index: 1;
+
+    width: 450px;
+    max-width: 95%;
+    height: auto;
+
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#btn {
+    padding: 5px;
+    margin: 5px;
+    background-color: #017285;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #000000;
+}
+
+#btn:hover {
+    background-color: #015261;
+}
+
+#total-mps {
+    margin-top: -30px;
+    color: #ccc;
+}
+
+#workers-title {
+    box-shadow: 10px 10px 6px rgba(0, 0, 0, 0.086);
+}
+
+.Globalbutton-container {
+    display: flex;
+    margin-left: 0%;
+    margin-top: -20px;
+    margin-bottom: 5px;
+    align-items: center;
+    font-family: 'Radio Canada', sans-serif; 
+    min-width: 150px; /* Adjusted for better visibility */
+    min-height: 35px;
+    border-radius: 25px; /* Adjusted for visual effect */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(31, 16, 16, 0.2);
+    background-color: #023c4a; /* Background for the container */
+}
+
+.Globalbutton {
+    flex: 1;
+    font-family: 'Radio Canada', sans-serif;
+    padding: 10px 15px;
+    border: none;
+    background-color: #023c4a;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 25px;
+    position: relative;
+    z-index: 1;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: none;
+    color: rgb(0, 0, 0);
+}
+
+.Globalbutton:hover {
+    background-color: #01121973; /* Light color on hover */
+}
+
+.Globalbutton.highlight {
+    background-color: #01121948; /* Highlight color */
+}
+
+.Globalseparator {
+    font-size: 20px;
+    font-family: 'Radio Canada', sans-serif;
+    line-height: 1;
+    padding: 0 0;
+    background-color: #023c4a;
+    color: #000000;
+}
+
+.closeBank {
+    margin-top: auto;
+    margin-bottom: -20px;
+    bottom: 0px;
+    padding: 5px;
+    background-color: rgba(255, 0, 0, 1);
+    color: rgb(0, 0, 0);
+    font-weight: 800;
+    
+    border: solid black 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    position: fixed;
+}
