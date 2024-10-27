@@ -24,6 +24,7 @@ body {
     color: var(--SecundaryColor);
     text-align-last: left;
     scroll-snap-align: y mandatory;
+    overflow-x: hidden;
 }
 
 .page1{
