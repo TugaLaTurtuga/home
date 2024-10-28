@@ -2,8 +2,6 @@ let incomePerSecond = 0;
 let clickPower = 1;
 let IsPayingsalaries = false;
 
-performance
-
 // Updates money and job shop section
 window.onload = () => {
     createJobShop();
@@ -13,22 +11,6 @@ window.onload = () => {
     calculatejobHeight();
     UpdateWorkersNumber();
 };
-
-function SeeSettings() {
-    const settingsElement = document.querySelector('.settings');
-
-    if (settingsElement.classList.contains('show')) {
-        settingsElement.classList.remove('show');
-    
-        // Delay changing visibility until after the opacity transition
-        setTimeout(() => {
-            settingsElement.classList.add('hide');
-        }, 300); // 300ms matches the CSS transition duration for opacity
-    } else {
-        settingsElement.classList.remove('hide');
-        settingsElement.classList.add('show');
-    }
-}
 
 // Clicking to earn money
 function earnMoney() {

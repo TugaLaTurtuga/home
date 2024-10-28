@@ -9,6 +9,14 @@ body {
     padding: 20px;
 }
 
+button {
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
 #seeWorkers {
     margin-top: auto; /* Pushes the button to the bottom */
     border-top: 50px;
@@ -161,6 +169,11 @@ body:hover::before {
     border: none;
     cursor: pointer;
     box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
+    transition: transform 0.1s ease;
+}
+
+.earnMoney:active {
+    transform: scale(0.95);
 }
 
 .earnMoney:hover {

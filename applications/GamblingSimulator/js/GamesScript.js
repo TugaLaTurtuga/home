@@ -152,7 +152,10 @@ function displayResult(win, winnings) {
         result = addictionMessages[randomIndex];
 
         if (playerBalance < 0) {
-            takeLoan(playerBalance * -1.2, 12, 4);
+            console.log('Not enough money, gambled everything 💀, taking loan');
+            needsLoan = true;
+            SeeBank();
+            ChangeBankView(true);
         }
     }
     totalMoneyWonOnGambling += winnings;

@@ -247,6 +247,52 @@ h3 {
     transform: translateX(-50%);
 }
 
+#Version {
+    cursor: pointer;
+}
+
+#changelog-content h2 {
+    margin-top: 15px;
+}
+
+#changelog-content p {
+    margin-top: -15px;
+}
+
+
+.changelog-sidebar {
+    width: 96%;
+    background-color: #01222ba8;
+    border: solid 1px #ccc;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 0px;
+    border-radius: 10px;
+}
+
+.changelog-btn {
+    background-color: #01222b;
+    min-width: 100px;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.changelog-btn:hover {
+    background-color: #043341;
+}
+
+.changelog-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
 #btn {
     padding: 5px;
     margin: 5px;
