@@ -79,8 +79,11 @@ function createCardImage(card) {
     return img;
 }
 
-function BlackjackendGame(wonOrLost) {
-    const winnings =  Math.floor(Math.random() * (GameSettings.prizeRange[1] - GameSettings.prizeRange[0] + 1)) + GameSettings.prizeRange[0];
+function BlackjackendGame(wonOrLost, IsBlackjack=false) {
+    let winnings = Math.floor(Math.random() * (GameSettings.prizeRange[1] - GameSettings.prizeRange[0] + 1)) + GameSettings.prizeRange[0];
+    if (IsBlackjack) {
+        winnings = winnings * 1.5;
+    }
 
     displayResult(wonOrLost, winnings);
     setTimeout(() => {
@@ -103,7 +106,7 @@ function Blackjackhit() {
         BlackjackendGame(false);
     } else if (playerScore === 21) {
         status.textContent = 'Blackjack! You win!';
-        BlackjackendGame(true);
+        BlackjackendGame(true, true);
     }
 }
 
