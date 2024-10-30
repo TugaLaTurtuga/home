@@ -17,15 +17,50 @@ function earnMoney() {
     addMoney(clickPower);
 }
 
-// Job shop creation
 function createJobShop() {
     const shopSection = document.getElementById('job-shop-section');
 
     // Create job buttons dynamically
     for (let job in jobCosts) {
         const jobButton = document.createElement('button');
-        jobButton.innerText = `Buy ${capitalizeFirstLetter(job)} (Cost: $${jobCosts[job]})`;
-        jobButton.onclick = () => buyJob(job);
+        jobButton.classList.add('job-button'); // Add a class for styling
+        jobButton.onclick = () => buyJob(job); // Set click event handler
+
+        // Create the image element and check if it exists
+        const imgPath = `Images/icons/${job}.png`
+        fetch(imgPath, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    const jobImage = document.createElement('img');
+                    jobImage.src = imgPath;
+                    jobImage.alt = `${job} icon`;
+                    jobImage.classList.add('job-image'); // Add class for styling
+
+                    // Append image to the button
+                    jobButton.appendChild(jobImage);
+                }
+            })
+            .catch(error => {
+                console.log("Image not found, skipping image addition: ", job);
+            });
+        console.log("Image not found, skipping image addition: ", job);
+
+        // Create a span for the job name
+        const jobName = document.createElement('span'); // Use span for inline element
+        jobName.innerText = capitalizeFirstLetter(job); // Set the job name
+        jobName.classList.add('job-name'); // Add a class for styling
+
+        // Set button text with formatted cost
+        const formattedCost = formatCost(jobCosts[job]);
+        const costText = document.createElement('span'); // Create a span for cost
+        costText.classList.add('cost-text'); // Add a class for styling
+        costText.innerText = ` Cost: $${formattedCost}`;
+
+        // Append job name and cost text to the button
+        jobButton.appendChild(jobName); // Append the job name to the button
+        jobButton.appendChild(costText); // Append cost to the button
+
+        // Append the button to the shop section
         shopSection.appendChild(jobButton);
     }
 }
@@ -37,25 +72,57 @@ function buyJob(job) {
         updateIncome();
         jobCosts[job] = Math.max(Math.floor(jobCosts[job] * 1.2), 1);  // Increment cost dynamically, but never allow it to be 0 or negative
         seeWorkersBtn();
-        updateJobShop();
+        updateJobShop(); // Update the job shop after a successful purchase
     } else {
         // Feedback for insufficient funds
         const buttons = document.querySelectorAll('#job-shop-section button');
         for (let i = 0; i < buttons.length; i++) {
             if (buttons[i].innerText.includes(capitalizeFirstLetter(job))) {
-                buttons[i].innerText = "Not enough money"; // Change button text
+                const costText = buttons[i].querySelector('.cost-text'); // Get the cost text span
+                costText.innerText = "Not enough money"; // Change cost text
+                costText.style.color = 'rgb(200, 0, 0)'; // Change text color to red
                 setTimeout(() => {
-                    buttons[i].innerText = `Buy ${capitalizeFirstLetter(job)} (Cost: $${jobCosts[job]})`;
-                }, 1000); 
+                    updateJobShop(); // Reset button text after timeout
+                }, 1000);
                 break;
             }
         }
     }
     IsPayingsalaries = true;
     saveGameData();
-    calculateTotalSalary(); // update the salary per s
-    calculatejobHeight();
+    calculateTotalSalary(); // Update the salary per second
     UpdateWorkersNumber();
+}
+
+// Updates the job shop with new costs
+function updateJobShop() {
+    const buttons = document.querySelectorAll('#job-shop-section button');
+    let i = 0;
+    for (let job in jobCosts) {
+        const formattedCost = formatCost(jobCosts[job]); // Format the cost
+        const costText = buttons[i].querySelector('.cost-text'); // Get the cost text span
+
+        // Update cost
+        costText.innerText = `Cost: $${formattedCost}`; // Update cost text
+        costText.style.color = 'black'; // Reset text color to black for valid purchases
+        
+        ++i;
+    }
+}
+
+// Calculate performance based on salary
+let firstTime = true;
+function UpdateWorkersNumber() {
+    for (let job in jobSalary) {
+        const roleCount = document.getElementById(`Amount of workers in ${job}`);
+        if (roleCount) {
+            roleCount.innerText = `Workers: ${Count[job]}`;
+        } if (Count[job] > 0 && firstTime) {
+            seeWorkersBtn();
+            seeWorkersBtn();
+            firstTime = false;
+        }
+    }
 }
 
 // Function to update the income per second based on performance
@@ -75,21 +142,6 @@ function updateIncome() {
     }
 }
 
-// Calculate performance based on salary
-let firstTime = true;
-function UpdateWorkersNumber() {
-    for (let job in jobSalary) {
-        const roleCount = document.getElementById(`Amount of workers in ${job}`);
-        if (roleCount) {
-            roleCount.innerText = `Workers: ${Count[job]}`;
-        } if (Count[job] > 0 && firstTime) {
-            seeWorkersBtn();
-            seeWorkersBtn();
-            firstTime = false;
-        }
-    }
-}
-
 const sw = document.getElementById("seeWorkers");
 const gameContainer = document.getElementById("clicker-section");
 function calculatejobHeight() {
@@ -106,9 +158,9 @@ function calculatejobHeight() {
         let flexDirection = computedStyle.flexDirection;
 
         if (flexDirection === "column") {
-            totalHeight = swHeight + jsHeight + 520;
+            totalHeight = swHeight + jsHeight + 610;
         } else {
-            totalHeight = swHeight + jsHeight + 300;
+            totalHeight = swHeight + jsHeight + 350;
         }
 
         // Set the gameContainer height
@@ -139,16 +191,6 @@ function seeWorkersBtn() {
             IsSeingWorkers = true;
         }
     };
-}
-
-// Updates the job shop with new costs
-function updateJobShop() {
-    const buttons = document.querySelectorAll('#job-shop-section button');
-    let i = 0;
-    for (let job in jobCosts) {
-        buttons[i].innerText = `Buy ${capitalizeFirstLetter(job)} (Cost: $${jobCosts[job]})`;
-        ++i;
-    }
 }
 
 // Salary to be paid per job type based on the income they generate

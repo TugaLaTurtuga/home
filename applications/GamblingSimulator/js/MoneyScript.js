@@ -1,6 +1,22 @@
+function formatCost(cost) {
+    if (cost >= 1_000_000_000_000_000) {
+        return (cost / 1_000_000_000_000_000).toFixed(2) + 'q';
+    } else if (cost >= 1_000_000_000_000) {
+        return (cost / 1_000_000_000_000).toFixed(2) + 't';
+    } else if (cost >= 1_000_000_000) {
+        return (cost / 1_000_000_000).toFixed(2) + 'b';
+    } else if (cost >= 1_000_000) {
+        return (cost / 1_000_000).toFixed(2) + 'm';
+    } else if (cost >= 10_000) {
+        return (cost / 1_000).toFixed(1) + 'k';
+    } else {
+        return cost; // Return the original cost if less than 10,000
+    }
+}
+
 // Update the displayed balance in both sections
 function updateBalance() {
-    document.getElementById('money-count').innerText = `Money: $${parseFloat(playerBalance).toFixed(2)}`;
+    document.getElementById('money-count').innerText = `Money: $${formatCost(parseFloat(playerBalance))}`;
 }
 
 // Add money and save the updated balance

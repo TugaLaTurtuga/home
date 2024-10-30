@@ -169,15 +169,12 @@ body:hover::before {
     border: none;
     cursor: pointer;
     box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
-    transition: transform 0.1s ease;
-}
-
-.earnMoney:active {
-    transform: scale(0.95);
+    transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
 }
 
 .earnMoney:hover {
     background-color: #01222b;
+    box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.15);
 }
 
 .job-shop-section {
@@ -194,8 +191,10 @@ body:hover::before {
 }
 
 .job-shop-section button {
+    position: relative; /* Enable positioning for absolute children */
     margin: 7.5px 10px;
     min-width: 45%; /* Adjust as needed */
+    min-height: 50px;
     padding: 10px 20px;
     font-size: 16px;
     background-color: #017285;
@@ -203,10 +202,47 @@ body:hover::before {
     border: none;
     cursor: pointer;
     color: #000000;
+    overflow: hidden; /* Hide overflow from absolute positioning */
 }
 
 .job-shop-section button:hover {
     background-color: #015261;
+}
+
+.job-image {
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    min-height: 170%;
+    width: auto;
+    max-height: 170%;
+    pointer-events: none;
+    opacity: 1;
+    mask-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)); /* Apply gradient mask */
+    -webkit-mask-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)); /* For Safari */
+}
+
+.job-shop-section button:hover .job-image {
+    opacity: .8;
+}
+
+.job-name {
+    position: absolute; /* Positioning the job name absolutely */
+    left: 10px; /* Position the job name to the right of the image */
+    top: 50%; /* Center the job name vertically */
+    transform: translateY(-50%); /* Center the job name vertically */
+    font-weight: bold; /* Make the job name bold */
+    font-size: 28px; /* Set font size */
+    z-index: 1;
+}
+
+.cost-text {
+    position: absolute;
+    right: 10px;
+    margin-left: auto;
+    top: 80%;
+    transform: translateY(-50%);
 }
 
 .clicker-section {
@@ -280,9 +316,6 @@ body:hover::before {
     /* Size of the settings div */
     width: 600px;
     height: 600px;
-
-    max-width: 95%;
-    max-height: 60%;
     
     /* Styling */
     border: solid 1px #4d4d4d71;

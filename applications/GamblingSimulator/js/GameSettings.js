@@ -275,16 +275,16 @@ let performance = {
 let jobCosts = {
     autoclicker: 50,
     freelancer: 500,
-    assistant: 2500,
-    developer: 7500,
-    consultant: 12500,
-    designer: 25000,
-    analyst: 50000,
-    manager: 100000,
-    company: 500000,
-    realestate: 1000000,
-    enterprise: 7500000,
-    factory: 1250000
+    assistant: 2_500,
+    developer: 7_500,
+    consultant: 12_500,
+    designer: 25_000,
+    analyst: 50_000,
+    manager: 100_000,
+    company: 500_000,
+    realestate: 1_000_000,
+    enterprise: 7_500_000,
+    factory: 12_500_000
 };
 
 let jobIncome = {

@@ -50,3 +50,12 @@ function SeeChangeLogs() {
         settingsDiv.classList.add("show");
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('keydown', function(event) {
+        if ((event.ctrlKey || event.metaKey) && (event.shiftKey || event.altKey) && event.code === 'KeyC') {
+            SeeChangeLogs()
+            event.preventDefault();
+        }
+    });
+});

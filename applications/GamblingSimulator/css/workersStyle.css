@@ -127,12 +127,11 @@ h3 {
     top: 0;
     right: 0;
     width: 10%;
-    min-width: 64px;
+    min-width: 100px;
     aspect-ratio: 1;
     border-radius: 50%;
-}
-
-.top-right-icon:hover {
+    margin-top: 0px;
+    margin-bottom: 10px;
     cursor: pointer;
 }
 
@@ -245,10 +244,16 @@ h3 {
 
     left: 50%;
     transform: translateX(-50%);
+    transition: transform 0.1s ease;
 }
 
 #Version {
     cursor: pointer;
+    transform-origin: center;
+}
+
+#Version:active {
+    transform: scale(0.9) translateX(-55%);
 }
 
 #changelog-content h2 {
@@ -302,6 +307,7 @@ h3 {
     border-radius: 5px;
     font-size: 14px;
     color: #000000;
+    transition: background 0ms, transform 0ms;
 }
 
 #btn:hover {
@@ -343,13 +349,17 @@ h3 {
     border-radius: 25px;
     position: relative;
     z-index: 1;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s;
     box-shadow: none;
     color: rgb(0, 0, 0);
 }
 
 .Globalbutton:hover {
     background-color: #01121973; /* Light color on hover */
+}
+
+.Globalbutton:active {
+    transform: scale(1);
 }
 
 .Globalbutton.highlight {
