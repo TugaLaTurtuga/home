@@ -2,5 +2,6 @@
     {"name": "Beta", "Description": "-Creation of the game -What else I can say?"},
     {"name": "Beta 1.0", "Description": "-Added the bank -Bug fixes"},
     {"name": "Beta 1.0.1", "Description": "-Creation of the change log -css improvements"},
-    {"name": "Beta 1.1", "Description": "-Money is now in k, m insted of 1_000, 1_000_000... -Worker btns now looks decent -Now insted of taking immidietly a loan (when the player has negative money) it takes to the bank -fixed workers price -Added images to the workers"}
+    {"name": "Beta 1.1", "Description": "-Money is now in k, m insted of 1_000, 1_000_000... -Worker btns now looks decent -Now insted of taking immidietly a loan (when the player has negative money) it takes to the bank -fixed workers price -Added images to the workers"},
+    {"name": "Beta 1.1.1", "Description": "-Creation of the game blackjack (but an actual game not just a btn) -Bug fixes"}
 ]

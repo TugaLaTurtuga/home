@@ -156,7 +156,43 @@ const games = {
             lossOfGettingAddicted: [5, 10]
         }
     ],
-    
+
+    Blackjack: [
+        { 
+            name: "Basic Blackjack", 
+            cost: 10, 
+            prizeRange: [20, 100], 
+            description: "Scratch and see if you win!", 
+            chance: 0.2, 
+            cooldown: 5,
+            playingTime: 0,
+            changeOfGettingAddicted: 0.05,
+            lossOfGettingAddicted: [1, 5]
+        },
+        { 
+            name: "Lucky Blackjack", 
+            cost: 15, 
+            prizeRange: [30, 150], 
+            description: "Higher chance of winning!", 
+            chance: 0.15, 
+            cooldown: 10,
+            playingTime: 0,
+            changeOfGettingAddicted: 0.1,
+            lossOfGettingAddicted: [3, 8]
+        },
+        { 
+            name: "Mega Blackjack", 
+            cost: 20, 
+            prizeRange: [50, 200], 
+            description: "Big wins await you!", 
+            chance: 0.1, 
+            cooldown: 15,
+            playingTime: 0,
+            changeOfGettingAddicted: 0.15,
+            lossOfGettingAddicted: [5, 10]
+        }
+    ],
+
     lotteries: [
         { 
             name: "Local Lottery", 

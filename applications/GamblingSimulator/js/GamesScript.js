@@ -9,7 +9,7 @@ function createGamesSection() {
         games[game].forEach((level) => {
             const gameCard = document.createElement('div');
             gameCard.className = 'game-card';
-            
+         
             const gameTitle = document.createElement('h2');
             gameTitle.innerText = `${level.name}`;
 
@@ -100,7 +100,6 @@ async function playGame(game, level, gameButton) {
         // Determine winnings based on chance
         if (randomChance < level.chance) {
             winnings = Math.floor(Math.random() * (level.prizeRange[1] - level.prizeRange[0] + 1)) + level.prizeRange[0];
-            addMoney(winnings);
             PrizeMoney = winnings;
             wonOrLost = true;
         } else {
@@ -112,13 +111,12 @@ async function playGame(game, level, gameButton) {
         if (addictionChance < level.changeOfGettingAddicted && wonOrLost) {
             const lossMultiplier = Math.floor(Math.random() * (level.lossOfGettingAddicted[1] - level.lossOfGettingAddicted[0] + 1)) + level.lossOfGettingAddicted[0];
             const lossAmount = level.cost * lossMultiplier;
-            deductMoney(lossAmount, true);
             PrizeMoney -= lossAmount;
             wonOrLost = null;
         }
 
         // Await the game-specific function and pass result details
-        await window[gameFunctionName](wonOrLost, PrizeMoney);  
+        await window[gameFunctionName](wonOrLost, PrizeMoney, level);  
     }
 }
 

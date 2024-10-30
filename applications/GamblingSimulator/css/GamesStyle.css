@@ -13,7 +13,7 @@
     /* Size of the settings div */
     min-width: 600px;
     min-height: 600px;
-   
+  
     /* Styling */
     border: solid 1px #4d4d4d71;
     background-color: #0112199a; /* Semi-transparent background */
@@ -22,7 +22,7 @@
     padding: 0px;
     border-radius: 10px;
     z-index: 10001; /* Ensure it's above all other elements */
-    
+ 
     /* Initial hidden state */
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -53,3 +53,23 @@
     pointer-events: auto; /* Enable interaction when visible */
     visibility: visible;
 }
+
+/* Black jack */
+#BlackjackGame {
+    max-width: 90%;
+    aspect-ratio: 1/0.9;
+    margin: 20px auto;
+    padding: 20px;
+    background: #333;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.score { font-size: 24px; margin: 10px 0; }
+.hand { display: flex; gap: 10px; justify-content: center; }
+.card { width: 80px; transition: transform 0.3s ease;}
+.card:hover { transform: translateY(-10%); }
+.show { display: block; }
+.hidden { display: none; }
+.BlackJackbuttons { margin: 20px; }
+.BlackJackbuttons button { padding: 10px 20px; font-size: 16px; cursor: pointer; }

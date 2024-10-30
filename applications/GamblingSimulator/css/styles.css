@@ -296,6 +296,7 @@ body:hover::before {
     cursor: pointer;
     padding: 10px;
     background-color: #023c4a;
+    color: #000000;
 }
 
 .opts-card button:hover {
