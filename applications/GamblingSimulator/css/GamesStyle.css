@@ -29,14 +29,6 @@
     pointer-events: none; /* Disable interaction when hidden */
 }
 
-@media (max-aspect-ratio: 1/1.5) {
-    #GamePlaceholder {
-        min-width: 90%;
-        min-height: 0px;
-        aspect-ratio: 1;
-    }
-}
-
 #GamePlaceholder h1 {
     color: #ff8c00;
     margin-top: -17px;
@@ -58,18 +50,30 @@
 #BlackjackGame {
     max-width: 90%;
     aspect-ratio: 1/0.9;
-    margin: 20px auto;
+    margin: 20px;
     padding: 20px;
     background: #333;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.score { font-size: 24px; margin: 10px 0; }
+.score { font-size: 200%; margin: 10px 0; }
 .hand { display: flex; gap: 10px; justify-content: center; }
-.card { width: 80px; transition: transform 0.3s ease;}
+.card { max-width: 10%; transition: transform 0.3s ease;}
 .card:hover { transform: translateY(-10%); }
 .show { display: block; }
 .hidden { display: none; }
 .BlackJackbuttons { margin: 20px; }
 .BlackJackbuttons button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+
+@media (max-aspect-ratio: 1/1.5) {
+    #GamePlaceholder {
+        min-width: 90%;
+        min-height: 0px;
+        aspect-ratio: 1;
+    }
+    .score { font-size: 150%;}
+}
+
+@media (max-aspect-ratio: 1/2) { .score { font-size: 100%;} #BlackjackGame{ max-width: 80%;}}
+@media (max-aspect-ratio: 1/2.5) { .score {margin-top: -1px; margin-bottom: -1px;} .card {margin-bottom: 0px;}}
