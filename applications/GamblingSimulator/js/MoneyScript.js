@@ -16,7 +16,7 @@ function formatCost(cost) {
 
 // Update the displayed balance in both sections
 function updateBalance() {
-    document.getElementById('money-count').innerText = `Money: $${formatCost(parseFloat(playerBalance))}`;
+    document.getElementById('money-count').innerText = `Money: $${formatCost(parseFloat(playerBalance).toFixed(2))}`;
 }
 
 // Add money and save the updated balance
