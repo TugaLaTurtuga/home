@@ -5,7 +5,6 @@ function createGamesSection() {
     // Create game cards dynamically for each game and level
     for (let game in games) {
         const gameGrid = document.getElementById(game.charAt(0).toUpperCase() + game.slice(1));
-        console.log(gameGrid);
 
         games[game].forEach((level) => {
             const gameCard = document.createElement('div');
