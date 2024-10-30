@@ -56,28 +56,6 @@ function initializeSliders() {
     });
 }
 
-
-
-function SeeBank() {
-    const settingsElement = document.querySelector('.settings');
-    if (settingsElement.classList.contains('show')) {
-        settingsElement.classList.remove('show');
-        
-        // Delay changing visibility until after the opacity transition
-        setTimeout(() => {
-            settingsElement.classList.add('hide');
-        }, 300); // 300ms matches the CSS transition duration for opacity
-    } else {
-        settingsElement.classList.remove('hide');
-        settingsElement.classList.add('show');
-    }
-
-    const buttons = document.querySelectorAll('.Globalbutton');
-    if (!Array.from(buttons).some(button => button.classList.contains('highlight'))) {
-        buttons[0].classList.add('highlight');
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const roles = [
         { name: "autoclicker", label: "Auto clicker" },

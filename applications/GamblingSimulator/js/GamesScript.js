@@ -1,37 +1,3 @@
-// Function to play the selected game
-function playGame(game, level, gameButton) {
-    const cost = level.cost; // Keep the cost reference, no need to deduct money here
-    
-    const randomChance = Math.random();
-    let winnings = 0;
-    let wonOrLost = null;
-    let PrizeMoney = 0;
-
-    // Determine winnings based on chance
-    if (randomChance < level.chance) {
-        winnings = Math.floor(Math.random() * (level.prizeRange[1] - level.prizeRange[0] + 1)) + level.prizeRange[0];
-        addMoney(winnings);
-        PrizeMoney = winnings;
-        wonOrLost = true;
-       
-    } else {
-        wonOrLost = false;
-    }
-
-    // Handle addiction mechanics
-    const addictionChance = Math.random();
-    if (addictionChance < level.changeOfGettingAddicted && wonOrLost) {
-        const lossMultiplier = Math.floor(Math.random() * (level.lossOfGettingAddicted[1] - level.lossOfGettingAddicted[0] + 1)) + level.lossOfGettingAddicted[0];
-        const lossAmount = level.cost * lossMultiplier; // Calculate the loss based on the cost and multiplier
-        deductMoney(lossAmount, true); // Deduct the loss amount from the player's total money
-        PrizeMoney -= lossAmount
-        wonOrLost = null;
-    }
-    displayResult(wonOrLost, PrizeMoney);
-
-    gameButton.innerText = `Play for $${cost}`; // Reset button text
-}
-
 // Initialize games section
 function createGamesSection() {
     const gamesSection = document.getElementById('games-section');
@@ -57,10 +23,10 @@ function createGamesSection() {
             // Store the last play time for the current game
             gameButton.lastPlayTime = 0;
 
-            gameButton.onclick = () => {
+            gameButton.onclick = async () => {
                 const currentTime = Date.now();
                 const cooldownTime = level.cooldown * 1000; // Convert cooldown to milliseconds
-
+            
                 // Check if enough money is available to play the game
                 if (!deductMoney(level.cost)) {
                     gameButton.innerText = "Not enough money";
@@ -71,18 +37,20 @@ function createGamesSection() {
                 }
                 totalMoneyGambled += level.cost;
                 ++amountOfTimesGambled;
-
+            
                 // Check if enough time has passed since last play
                 if (currentTime - gameButton.lastPlayTime >= cooldownTime) {
                     // Update last play time
                     gameButton.lastPlayTime = currentTime;
-
+            
                     // Change button text to "Playing..." when clicked
                     gameButton.innerText = `Playing...`;
                     gameButton.disabled = true; // Disable button during play
-                    playGame(game, level, gameButton);
-
-                    // Start cooldown countdown
+            
+                    // Wait for playGame to complete
+                    await playGame(game, level, gameButton);
+            
+                    // Start cooldown countdown only after playGame completes
                     let remainingTime = cooldownTime / 1000; // Convert to seconds
                     const countdownInterval = setInterval(() => {
                         if (remainingTime > 0) {
@@ -116,6 +84,44 @@ window.onload = () => {
     createGamesSection();
 };
 
+// Function to play the selected game
+async function playGame(game, level, gameButton) {
+    // Construct the name of the game-specific function to call
+    const gameFunctionName = game.charAt(0).toUpperCase() + game.slice(1) + 'Game';
+
+    // Check if the game-specific function exists
+    if (typeof window[gameFunctionName] === 'function') {
+        const cost = level.cost;
+        const randomChance = Math.random();
+        let winnings = 0;
+        let wonOrLost = null;
+        let PrizeMoney = 0;
+
+        // Determine winnings based on chance
+        if (randomChance < level.chance) {
+            winnings = Math.floor(Math.random() * (level.prizeRange[1] - level.prizeRange[0] + 1)) + level.prizeRange[0];
+            addMoney(winnings);
+            PrizeMoney = winnings;
+            wonOrLost = true;
+        } else {
+            wonOrLost = false;
+        }
+
+        // Handle addiction mechanics
+        const addictionChance = Math.random();
+        if (addictionChance < level.changeOfGettingAddicted && wonOrLost) {
+            const lossMultiplier = Math.floor(Math.random() * (level.lossOfGettingAddicted[1] - level.lossOfGettingAddicted[0] + 1)) + level.lossOfGettingAddicted[0];
+            const lossAmount = level.cost * lossMultiplier;
+            deductMoney(lossAmount, true);
+            PrizeMoney -= lossAmount;
+            wonOrLost = null;
+        }
+
+        // Await the game-specific function and pass result details
+        await window[gameFunctionName](wonOrLost, PrizeMoney);  
+    }
+}
+
 // Display result function
 let result = "RESULT";
 
@@ -128,7 +134,7 @@ function displayResult(win, winnings) {
     } else {
         const addictionMessages = [
             `You won! but got addicted $${winnings}. Guess the real prize is your dignity, huh?`,
-            `You won! but your money just became a donation to the Gambling Center© - $${winnings} gone!`,
+            `You won! but your money just became a donation to the Gambling Center© $${winnings} gone!`,
             `Congratulations! You won! Just remember, every victory has a price: $${winnings} to addiction. Good luck with that!`,
             `Nice win! But don’t get too comfy; addiction just took $${winnings} and left you a sad little trophy.`,
             `You hit the jackpot! Oh wait, the house just lifted $${winnings} from your pocket while you weren’t looking.`,

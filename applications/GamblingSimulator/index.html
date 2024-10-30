@@ -7,6 +7,7 @@
     <title>Gambling simulator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <link rel="icon" href="Images/Center.png" type="image/png" />
+    <link rel="stylesheet" href="css/GamesStyle.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/workersStyle.css">
 </head>
@@ -109,11 +110,16 @@
         <button class="closeBank" onclick="SeeBank()">Close</button>
     </div>
 
+    <div id="GamePlaceholder">
+        <!-- The game will be put here by JavaScript -->
+    </div>
+
     <script src="js/Encoder.js"></script>
     <script src="js/GameSettings.js"></script>
     <script src="js/Loans.js"></script>
     <script src="js/SavingSystem.js"></script>
     <script src="js/MoneyScript.js"></script>
+    <script src="js/GamesFunction.js"></script>
     <script src="js/GamesScript.js"></script>
     <script src="js/script.js"></script>
     <script src="js/UpdateSliderCode.js"></script>
@@ -121,6 +127,7 @@
     <div class="stats" id="Version" onclick="SeeChangeLogs()">
         <h2>Beta 1.1</h2>
         <h3>TugaLaTurtuga© 2024, GamblingCentre© 2024</h3>
+        <!-- <h4>Supporters:</h4> <h5>striker_6pt9</h5> <!-- maybe in the future -->
     </div>
     <h1>Work in progress</h1>
 

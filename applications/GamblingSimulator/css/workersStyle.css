@@ -225,6 +225,12 @@ h3 {
     color: #ccc;
 }
 
+.stats h4 {
+    margin-top: -15px;
+    text-align: left;
+    transform: translateX(10%);
+}
+
 .stats {
     position: relative;
     margin-top: 20px;

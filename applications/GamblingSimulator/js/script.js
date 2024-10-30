@@ -28,22 +28,27 @@ function createJobShop() {
 
         // Create the image element and check if it exists
         const imgPath = `Images/icons/${job}.png`
-        fetch(imgPath, { method: 'HEAD' })
-            .then(response => {
-                if (response.ok) {
-                    const jobImage = document.createElement('img');
-                    jobImage.src = imgPath;
-                    jobImage.alt = `${job} icon`;
-                    jobImage.classList.add('job-image'); // Add class for styling
-
-                    // Append image to the button
-                    jobButton.appendChild(jobImage);
-                }
-            })
-            .catch(error => {
-                console.log("Image not found, skipping image addition: ", job);
-            });
-        console.log("Image not found, skipping image addition: ", job);
+        try {
+            fetch(imgPath, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        const jobImage = document.createElement('img');
+                        jobImage.src = imgPath;
+                        jobImage.alt = `${job} icon`;
+                        jobImage.classList.add('job-image'); // Add class for styling
+        
+                        // Append image to the button
+                        jobButton.appendChild(jobImage);
+                    }
+                })
+                .catch(() => {
+                    // Do nothing to suppress the error
+                    // console.log("Image not found, skipping image addition: ", job);
+                });
+        } catch (error) {
+            // Do nothing to suppress the error
+            // console.log("Image not found, skipping image addition: ", job);
+        }
 
         // Create a span for the job name
         const jobName = document.createElement('span'); // Use span for inline element

@@ -1,0 +1,55 @@
+#GamePlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: top; /* Center content vertically */
+   
+    /* Positioning to center the settings div on the screen */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+    /* Size of the settings div */
+    min-width: 600px;
+    min-height: 600px;
+   
+    /* Styling */
+    border: solid 1px #4d4d4d71;
+    background-color: #0112199a; /* Semi-transparent background */
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
+    color: white; /* Text color */
+    padding: 0px;
+    border-radius: 10px;
+    z-index: 10001; /* Ensure it's above all other elements */
+    
+    /* Initial hidden state */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Disable interaction when hidden */
+}
+
+@media (max-aspect-ratio: 1/1.5) {
+    #GamePlaceholder {
+        min-width: 90%;
+        min-height: 0px;
+        aspect-ratio: 1;
+    }
+}
+
+#GamePlaceholder h1 {
+    color: #ff8c00;
+    margin-top: -17px;
+}
+
+#GamePlaceholder h2 {
+    color: #ff8c00;
+    font-size: 26px;
+    margin-top: 2px;
+}
+
+#GamePlaceholder.show {
+    opacity: 1;
+    pointer-events: auto; /* Enable interaction when visible */
+    visibility: visible;
+}
