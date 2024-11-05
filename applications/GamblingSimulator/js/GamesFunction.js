@@ -38,9 +38,9 @@ function RouletteGame(wonOrLost, winnings) {
         console.log("Playing Roulette...");
         
         if (PlayGames) {
-            SeeGame();
+            SeeGame(false);
             setTimeout(() => {
-                SeeGame();
+                SeeGame(false);
                 displayResult(wonOrLost, winnings);
                 resolve(true);
             }, 1000); // Duration of the game
