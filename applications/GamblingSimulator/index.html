@@ -7,22 +7,32 @@
     <title>Gambling simulator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <link rel="icon" href="Images/Center.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/GamesStyle.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/workersStyle.css">
 </head>
 <body>
+    <div class="settings" id="Settings"><h1>Settings</h1></div>
+    <script src="js/Settings.js"></script>
+
     <div class="money-count">
         <p id="money-count">Money: $0.00</p>
     </div>
 
     <img src="Images/Center.png" alt="Logo" class="top-right-icon" id="GCLogo" onclick="SeeBank()"/>
+
     <div class="game-container" id="job-clicker-section">
-      
+        <div id="EasyNav" style="max-width: 580px; width: 95%;"></div>
+        <script src="js/Addons/EasyNav.js"></script>
         <div class="clicker-section" id="clicker-section" style="display: block;">
             <h1>Your job</h1>
             <button class="earnMoney" onclick="earnMoney()">Work (Click to Earn)</button>
-            <script src="js/WorkBtnAminator.js"></script>
+            <script src="js/Addons/WorkBtnAminator.js"></script>
             <div class="job-shop-section" id="job-shop-section"></div>
         </div>
         <div class="clicker-section" id="Workers-section" style="display: none;">
@@ -63,7 +73,7 @@
 
         <h1 class="game-name">Blackjack</h1>
         <div class="games-grid" id="Blackjack">
-            <!-- Lottery cards will be created here by JavaScript -->
+            <!-- Blackjack options will be created here by JavaScript -->
         </div>
    
         <h1 class="game-name">Lotteries</h1>
@@ -133,7 +143,7 @@
     <script src="js/UpdateSliderCode.js"></script>
 
     <div class="stats" id="Version" onclick="SeeChangeLogs()">
-        <h2>Beta 1.1.1</h2>
+        <h2>Beta 1.1.2</h2>
         <h3>TugaLaTurtuga© 2024, GamblingCentre© 2024</h3>
         <!-- <h4>Supporters:</h4> <h5>striker_6pt9</h5> <!-- maybe in the future -->
     </div>

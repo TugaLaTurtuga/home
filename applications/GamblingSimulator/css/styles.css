@@ -7,6 +7,15 @@ body {
     text-align: center;
     overflow-x: hidden;
     padding: 20px;
+    font-family: "Rubik", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+html {
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
 }
 
 button {

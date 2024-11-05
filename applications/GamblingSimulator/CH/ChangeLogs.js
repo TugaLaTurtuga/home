@@ -14,10 +14,14 @@ function loadChangeLogs() {
                 const title = document.createElement("h2");
                 title.textContent = changeLog.name;
 
+                const Subtitle = document.createElement("h6");
+                Subtitle.textContent = changeLog.Subtitle;
+
                 const description = document.createElement("p");
                 description.innerHTML = changeLog.Description.replace(/-/g, "<br>-");
 
                 contentDiv.appendChild(title);
+                contentDiv.appendChild(Subtitle);
                 contentDiv.appendChild(description);
             }
 
@@ -49,6 +53,18 @@ function SeeChangeLogs() {
         loadChangeLogs(); // Load changelogs when showing
         settingsDiv.classList.add("show");
     }
+
+    // Select the .changelog-sidebar element
+    const changelogSidebar = document.querySelector('.changelog-sidebar');
+
+    // Add an event listener for the wheel event
+    changelogSidebar.addEventListener('wheel', function(event) {
+        // Prevent the default vertical scroll behavior
+        event.preventDefault();
+
+        // Scroll horizontally by the amount of vertical scroll (event.deltaY)
+        changelogSidebar.scrollLeft += event.deltaY;
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

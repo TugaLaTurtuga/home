@@ -99,6 +99,23 @@ function buyJob(job) {
     UpdateWorkersNumber();
 }
 
+function sellAllEmployes() {
+    let TotalPayedForAllJobs = 0;
+    for (let job in Count) {
+        console.log(jobCosts[job]);
+        TotalPayedForJob = (Count[job] * jobCosts[job]) / 1.2 / 10; // it divids for 10 to give some money to the bank
+        Count[job] = 0;
+        TotalPayedForAllJobs += TotalPayedForJob;
+    }
+    initializeDefaultValues(true); // Delete some of the game data
+    playerBalance += parseFloat(TotalPayedForAllJobs);
+
+    setTimeout(function() {
+        saveGameData();
+        window.location.reload();
+    }, 1000);
+}
+
 // Updates the job shop with new costs
 function updateJobShop() {
     const buttons = document.querySelectorAll('#job-shop-section button');
@@ -221,10 +238,14 @@ function startPassiveIncome() {
                 const totalSalary = calculateTotalSalary();
                 
                 if (!deductMoney(totalSalary, true)) {
-                    console.log('Not enough money for salaries, taking loan');
-                    needsLoan = true;
-                    SeeBank();
-                    ChangeBankView(true);
+                    if (!payingLoan) {
+                        console.log('Not enough money for salaries, taking loan');
+                        needsLoan = true;
+                        SeeBank();
+                        ChangeBankView(true, true);
+                    } else {
+                        PlayerWentbankrupt('You forgor that employes need money');
+                    }
                 } else {
                     console.log(`Paid salaries: $${totalSalary}`);
                 }

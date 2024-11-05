@@ -91,33 +91,36 @@ const games = {
             cost: 20, 
             prizeRange: [50, 300], 
             description: "Try your luck at slots!", 
-            chance: 0.1, 
+            chance: 0.4, 
             cooldown: 5,
             playingTime: 0,
             changeOfGettingAddicted: 0.05,
-            lossOfGettingAddicted: [2, 8]
+            lossOfGettingAddicted: [2, 8],
+            level: 1
         },
         { 
             name: "Pro Slotter", 
             cost: 40, 
             prizeRange: [100, 500], 
             description: "Higher bets yield higher rewards!", 
-            chance: 0.08, 
+            chance: 0.2, 
             cooldown: 10,
             playingTime: 0,
             changeOfGettingAddicted: 0.1,
-            lossOfGettingAddicted: [5, 10]
+            lossOfGettingAddicted: [5, 10],
+            level: 2
         },
         { 
             name: "Gambler Slotter", 
             cost: 60, 
             prizeRange: [200, 800], 
             description: "Spin for the jackpot!", 
-            chance: 0.05, 
+            chance: 0.1, 
             cooldown: 15,
             playingTime: 0,
             changeOfGettingAddicted: 0.15,
-            lossOfGettingAddicted: [10, 20]
+            lossOfGettingAddicted: [10, 20],
+            level: 3
         }
     ],
     
@@ -131,7 +134,8 @@ const games = {
             cooldown: 5,
             playingTime: 0,
             changeOfGettingAddicted: 0.05,
-            lossOfGettingAddicted: [1, 5]
+            lossOfGettingAddicted: [1, 5],
+            level: 1
         },
         { 
             name: "Lucky Scratch Card", 
@@ -142,7 +146,8 @@ const games = {
             cooldown: 10,
             playingTime: 0,
             changeOfGettingAddicted: 0.1,
-            lossOfGettingAddicted: [3, 8]
+            lossOfGettingAddicted: [3, 8],
+            level: 2
         },
         { 
             name: "Mega Scratch Card", 
@@ -153,7 +158,8 @@ const games = {
             cooldown: 15,
             playingTime: 0,
             changeOfGettingAddicted: 0.15,
-            lossOfGettingAddicted: [5, 10]
+            lossOfGettingAddicted: [5, 10],
+            level: 3
         }
     ],
 

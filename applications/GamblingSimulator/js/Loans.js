@@ -4,10 +4,7 @@ const loansDiv = document.getElementById("loanDiv");
 function takeLoan(amount, interest, time, IsSavingSystem=false) {
     amount = parseFloat(amount)
     if (payingLoan || isNaN(playerBalance)) {
-        console.log('Player bankrupt');
-        playerBalance = NaN;
-        updateBalance();
-        saveGameData();
+        PlayerWentbankrupt('Was already taking a loan');
         return;
     } payingLoan = true;
 
@@ -46,13 +43,11 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
         setTimeout(() => {resultElement.style.color = oldColor}, 3400) // change the color back to normal
     }
     needsLoan = false;
-  
+ 
     loanInterval = setInterval(() => {
         if (!deductMoney(monthlyPayment, true)) {
-            console.log('Player bankrupt');
-            playerBalance = NaN;
+            PlayerWentbankrupt("Can't pay loans");
             clearInterval(loanInterval); // Stop further payments
-            saveGameData();  // Save the final game state
             return;
         } else {
             console.log(`Paid loan: $${monthlyPayment.toFixed(2)}`);
@@ -140,8 +135,8 @@ function TakeLongTermDeposits(amount, interest, IsSimpleInterest, time, IsSaving
             remainingDepositTime = 0;
             remainingDepositValue = 0;
             console.log("Deposit term ended.");
-            return;
             IsTakingLTD = false;
+            return;
         }
 
         remainingTime--;
@@ -197,16 +192,14 @@ function DepositSaved(monthlyAmount, remainingTime) {
 }
 
 function SeeBank() {
-    const settingsElement = document.querySelector('.settings');
+    const settingsElement = document.querySelector('#bank');
     if (settingsElement.classList.contains('show')) {
         settingsElement.classList.remove('show');
-        
-        // Delay changing visibility until after the opacity transition
-        setTimeout(() => {
-            settingsElement.classList.add('hide');
-        }, 300); // 300ms matches the CSS transition duration for opacity
     } else {
-        settingsElement.classList.remove('hide');
+        if (payingLoan || IsTakingLTD) {
+            updateBank();
+        }
+
         settingsElement.classList.add('show');
     }
 
@@ -216,9 +209,10 @@ function SeeBank() {
     }
 }
 
-function ChangeBankView(View=null) {
+function ChangeBankView(View=null, DisableCloseBtn=false) {
     const buttons = document.querySelectorAll('.Globalbutton');
     let HightlightedBtn = null
+    document.querySelectorAll('#bank .closeBank').disabled = DisableCloseBtn;
 
     if (View) { // loan
         buttons.forEach(button => button.classList.remove('highlight')); 

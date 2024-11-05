@@ -261,7 +261,7 @@ function createLoanCard(option, index) {
     h3Title.innerText = `Opt ${index + 1}`;
     
     const h4Amount = document.createElement('h4');
-    h4Amount.innerText = `Amount: $${option.amount}`;
+    h4Amount.innerText = `Amount: $${formatCost(option.amount)}`;
 
     const h4Interest = document.createElement('h4');
     h4Interest.innerText = `Interest: ${option.interest}%`;
@@ -288,7 +288,14 @@ function createLoanCard(option, index) {
     const loanButton = document.createElement('button');
     loanButton.id = `btn-${index + 1}`;
     loanButton.innerText = 'Take loan';
-    loanButton.onclick = () => takeLoan(option.amount, option.interest, rangeSlider.value, false);
+    loanButton.onclick = (() => {
+        if (!payingLoan) {
+            takeLoan(option.amount, option.interest, rangeSlider.value, false);
+        } else {
+            loanButton.innerText = 'Already has a loan';
+            setTimeout (() => {loanButton.innerText = 'Take loan';}, 1000);
+        }
+    });
 
     loanCard.appendChild(h3Title);
     loanCard.appendChild(h4Amount);
@@ -362,13 +369,13 @@ function createDepositCard(option, index) {
     h3Title.innerText = `Opt ${index + 1}`;
 
     const h4Amount = document.createElement('h4');
-    h4Amount.innerText = `Amount: $${option.amount}`;
+    h4Amount.innerText = `Amount: $${formatCost(option.amount)}`;
 
     const h4Interest = document.createElement('h4');
     h4Interest.innerText = `Interest: ${option.interest}%`;
 
     const h5Type = document.createElement('h5');
-    let h5TypeText = `Type: Compost`;
+    let h5TypeText = `Type: Compound`;
     if (option.type) {
         h5TypeText = `Type: Simple`;
     }
@@ -396,7 +403,14 @@ function createDepositCard(option, index) {
     const depositButton = document.createElement('button');
     depositButton.id = `btn-depo-${index + 1}`;
     depositButton.innerText = 'Take deposit';
-    depositButton.onclick = () => TakeLongTermDeposits(parseFloat(option.amount), option.interest, false, rangeSlider.value);
+    depositButton.onclick = (() => {
+        if (!IsTakingLTD) {
+            TakeLongTermDeposits(parseFloat(option.amount), option.interest, false, rangeSlider.value)
+        } else {
+            depositButton.innerText = 'Already has a deposit';
+            setTimeout (() => {depositButton.innerText = 'Take deposit';}, 1000);
+        }
+    });
 
     depositCard.appendChild(h3Title);
     depositCard.appendChild(h4Amount);

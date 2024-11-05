@@ -46,7 +46,7 @@ function createGamesSection() {
                     // Change button text to "Playing..." when clicked
                     gameButton.innerText = `Playing...`;
                     gameButton.disabled = true; // Disable button during play
-            
+          
                     // Wait for playGame to complete
                     await playGame(game, level, gameButton);
             
@@ -115,8 +115,23 @@ async function playGame(game, level, gameButton) {
             wonOrLost = null;
         }
 
+        const gameCardButtons = document.querySelectorAll('.game-card button');
+
+        // Loop through each button and set disabled to true
+        gameCardButtons.forEach(button => {
+            button.disabled = true;
+        });
+
         // Await the game-specific function and pass result details
-        await window[gameFunctionName](wonOrLost, PrizeMoney, level);  
+        await window[gameFunctionName](wonOrLost, PrizeMoney, level);
+
+        // Loop through each button and set disabled to true
+        gameCardButtons.forEach(button => {
+            if (!button.innerText.includes('Cooldown')) {
+                button.disabled = false;
+            }
+        });
+        gameButton.disabled = true;
     }
 }
 
@@ -159,7 +174,7 @@ function displayResult(win, winnings) {
             console.log('Not enough money, gambled everything 💀, taking loan');
             needsLoan = true;
             SeeBank();
-            ChangeBankView(true);
+            ChangeBankView(true, true);
         }
     }
     totalMoneyWonOnGambling += winnings;

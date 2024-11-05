@@ -1,4 +1,3 @@
-const PlayGames = true; // will go to settings in the future or not
 const PlaceholderElement = document.querySelector('#GamePlaceholder');
 let GameSettings = { 
     name: "", 
@@ -13,9 +12,11 @@ let GameSettings = {
 };
 
 // All of the fuctions for each game
-function PokerGame(wonOrLost, winnings) {
+function PokerGame(wonOrLost, winnings, level) {
+    GameSettings = level;
     return new Promise(resolve => {
         console.log("Playing Poker...");
+        PlaceholderElement.innerHTML = '';
 
         if (PlayGames) {
             SeeGame(false);
@@ -33,9 +34,11 @@ function PokerGame(wonOrLost, winnings) {
     });
 }
 
-function RouletteGame(wonOrLost, winnings) {
+function RouletteGame(wonOrLost, winnings, level) {
+    GameSettings = level;
     return new Promise(resolve => {
         console.log("Playing Roulette...");
+        PlaceholderElement.innerHTML = '';
         
         if (PlayGames) {
             SeeGame(false);
@@ -52,18 +55,15 @@ function RouletteGame(wonOrLost, winnings) {
     });
 }
 
-function SlotsGame(wonOrLost, winnings) {
+function SlotsGame(wonOrLost, winnings, level) {
+    GameSettings = level;
     return new Promise(resolve => {
         console.log("Playing Slots...");
+        PlaceholderElement.innerHTML = '';
         
         if (PlayGames) {
-            SeeGame(false);
-            setTimeout(() => {
-                SeeGame(false);
-                addMoney(winnings);
-                displayResult(wonOrLost, winnings);
-                resolve(true);
-            }, 1000); // Duration of the game
+            SeeGame();
+            startSlots(resolve, level);
         } else {
             addMoney(winnings);
             displayResult(wonOrLost, winnings);
@@ -72,18 +72,15 @@ function SlotsGame(wonOrLost, winnings) {
     });
 }
 
-function ScratchCardsGame(wonOrLost, winnings) {
+function ScratchCardsGame(wonOrLost, winnings, level) {
+    GameSettings = level;
     return new Promise(resolve => {
         console.log("Playing Scratchcards...");
+        PlaceholderElement.innerHTML = '';
        
         if (PlayGames) {
-            SeeGame(false);
-            setTimeout(() => {
-                SeeGame(false);
-                addMoney(winnings);
-                displayResult(wonOrLost, winnings);
-                resolve(true);
-            }, 1000); // Duration of the game
+            SeeGame();
+            generateGrid(level.level + 2, level, resolve);
         } else {
             addMoney(winnings);
             displayResult(wonOrLost, winnings);
@@ -96,13 +93,13 @@ function BlackjackGame(wonOrLost, winnings, level) {
     GameSettings = level;
     return new Promise(resolve => {
         console.log("Playing Blackjack...");
-        
+        PlaceholderElement.innerHTML = '';
+       
         if (PlayGames) {
             SeeGame();
             PlaceholderElement.style.backgroundColor = "#2e8b57";
             PlaceholderElement.style.border = "solid 2px #ccc";
             PlaceholderElement.style.boxShadow = "0 10px 12px rgba(0, 0, 0, .4)";
-            PlaceholderElement.innerHTML = '';
 
             const gameDiv = document.createElement('div');
             gameDiv.id = 'BlackjackGame';
@@ -127,9 +124,11 @@ function BlackjackGame(wonOrLost, winnings, level) {
     });
 }
 
-function LotteriesGame(wonOrLost, winnings) {
+function LotteriesGame(wonOrLost, winnings, level) {
+    GameSettings = level;
     return new Promise(resolve => {
         console.log("Playing Lotteries...");
+        PlaceholderElement.innerHTML = '';
 
         if (PlayGames) {
             SeeGame(false);

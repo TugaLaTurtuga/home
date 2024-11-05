@@ -31,7 +31,7 @@ function loadGameData(loadData = true) {
         localStorage.removeItem('gameData'); // Clear local storage
         saveGameData();
         initializeDefaultValues(); // Reset in-memory game state variables
-      
+     
         console.log("Game data reset successfully.");
         setTimeout(function() {
             playerBalance = 0;
@@ -59,12 +59,21 @@ function loadGameData(loadData = true) {
 }
 
 // Initialize game with default values
-function initializeDefaultValues() {
+function initializeDefaultValues(IsSellingAllEmployes = false) {
     playerBalance = 0;
-    totalEarned = 0;
-    remainingLoan = 0;
-    remainingTime = 0;
+    if (!IsSellingAllEmployes) {
+        amountOfTimesGambled = 0;
+        totalMoneyGambled = 0;
+        totalMoneyWonOnGambling = 0;
+        totalEarned = 0;
+    }
+    totalLoansValue = 0;
+    payingLoan = false;
+    loanInterval = 0;
+    remainingLoanValue = 0;
+    remainingLoanTime = 0;
     loanInterest = 0;
+    needsLoan = false;
 
     Count = {
         autoclicker: 0,
@@ -83,22 +92,18 @@ function initializeDefaultValues() {
 
     jobCosts = {
         autoclicker: 50,
-        freelancer: 200,
-        assistant: 1000,
-        developer: 5000,
-        consultant: 100000,
-        designer: 15000,
-        analyst: 25000,
-        manager: 50000,
-        company: 100000,
-        realestate: 500000,
-        enterprise: 1000000,
-        factory: 15237358
+        freelancer: 500,
+        assistant: 2_500,
+        developer: 7_500,
+        consultant: 12_500,
+        designer: 25_000,
+        analyst: 50_000,
+        manager: 100_000,
+        company: 500_000,
+        realestate: 1_000_000,
+        enterprise: 7_500_000,
+        factory: 12_500_000
     };
-
-    amountOfTimesGambled = 0;
-    totalMoneyGambled = 0;
-    totalMoneyWonOnGambling = 0;
 
     updateBalance();
     saveGameData(); // Save default values as a fresh start
@@ -106,55 +111,55 @@ function initializeDefaultValues() {
 
 // Update game state with loaded data
 function updateGameData(gameData) {
-    playerBalance = gameData.Money || NaN;
-    if (!isNaN(playerBalance))
-    {
-        totalEarned = gameData.totalEarned || 0;
-        remainingLoanValue = gameData.remainingLoanValue || 0;
-        remainingLoanTime = gameData.remainingLoanTime || 0;
-        loanInterest = gameData.loanInterest || 0;
+    if (gameData.Money !== 0) {
+        playerBalance = gameData.Money || NaN;
+    } else {playerBalance = 0;}
         
-        remainingDepositValue = gameData.DepositMonthlyValue || 0;
-        remainingDepositTime = gameData.remainingDepositTime || 0;
+    totalEarned = gameData.totalEarned || 0;
+    remainingLoanValue = gameData.remainingLoanValue || 0;
+    remainingLoanTime = gameData.remainingLoanTime || 0;
+    loanInterest = gameData.loanInterest || 0;
+        
+    remainingDepositValue = gameData.DepositMonthlyValue || 0;
+    remainingDepositTime = gameData.remainingDepositTime || 0;
 
-        // Load all job-related data
-        Count = gameData.Count || {};
+    // Load all job-related data
+    Count = gameData.Count || {};
 
-        Income = gameData.Income || 0;
-        performance = gameData.performance || 0;
-        jobCosts = gameData.jobCosts || {
-            autoclicker: 50,
-            freelancer: 500,
-            assistant: 2500,
-            developer: 7500,
-            consultant: 12500,
-            designer: 25000,
-            analyst: 50000,
-            manager: 100000,
-            company: 500000,
-            realestate: 1000000,
-            enterprise: 7500000,
-            factory: 1250000
-        };
+    Income = gameData.Income || 0;
+    performance = gameData.performance || 0;
+    jobCosts = gameData.jobCosts || {
+        autoclicker: 50,
+        freelancer: 500,
+        assistant: 2500,
+        developer: 7500,
+        consultant: 12500,
+        designer: 25000,
+        analyst: 50000,
+        manager: 100000,
+        company: 500000,
+        realestate: 1000000,
+        enterprise: 7500000,
+        factory: 1250000
+    };
 
-        jobSalary = gameData.jobSalary || 0;
+    jobSalary = gameData.jobSalary || 0;
 
-        amountOfTimesGambled = gameData.amountOfTimesGambled || 0;
-        totalMoneyGambled = gameData.totalMoneyGambled || 0;
-        totalMoneyWonOnGambling = gameData.totalMoneyWonOnGambling || 0;
+    amountOfTimesGambled = gameData.amountOfTimesGambled || 0;
+    totalMoneyGambled = gameData.totalMoneyGambled || 0;
+    totalMoneyWonOnGambling = gameData.totalMoneyWonOnGambling || 0;
 
-        // Restart loan payment system if a loan is active
-        if (remainingLoanTime !== 0 && remainingLoanValue !== 0) {
-            takeLoan(remainingLoanValue / (1 + (loanInterest / 100)), loanInterest, remainingLoanTime, true); // Use saved loan values
-        } else {loanInterest = 0; remainingLoanTime = 0; remainingLoanValue = 0;}
+    // Restart loan payment system if a loan is active
+    if (remainingLoanTime !== 0 && remainingLoanValue !== 0) {
+        takeLoan(remainingLoanValue / (1 + (loanInterest / 100)), loanInterest, remainingLoanTime, true); // Use saved loan values
+    } else {loanInterest = 0; remainingLoanTime = 0; remainingLoanValue = 0;}
 
-        if (remainingDepositValue !== 0 && remainingDepositTime !== 0) {
-            DepositSaved(remainingDepositValue, remainingDepositTime)
-        } else {remainingDepositValue = 0; remainingDepositTime = 0;}
-    } else { // the player is bankrupt, delete the data
-        playerBalance = 0;
-    }
+    if (remainingDepositValue !== 0 && remainingDepositTime !== 0) {
+        DepositSaved(remainingDepositValue, remainingDepositTime)
+    } else {remainingDepositValue = 0; remainingDepositTime = 0;}
+    if (isNaN(playerBalance)) { PlayerWentbankrupt("You can't escape bankruptcy 😱🥶"); }
     updateBalance();
+
 }
 
 // Function to dynamically display game data

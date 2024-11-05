@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center; /* Center content horizontally */
     justify-content: top; /* Center content vertically */
-   
+  
     /* Positioning to center the settings div on the screen */
     position: fixed;
     top: 50%;
@@ -11,9 +11,9 @@
     transform: translate(-50%, -50%);
    
     /* Size of the settings div */
-    min-width: 600px;
-    min-height: 600px;
-  
+    width: 600px;
+    aspect-ratio: 1;
+
     /* Styling */
     border: solid 1px #4d4d4d71;
     background-color: #0112199a; /* Semi-transparent background */
@@ -46,7 +46,9 @@
     visibility: visible;
 }
 
-/* Black jack */
+/**************************
+ * Blackjack Game css *
+**************************/
 #BlackjackGame {
     max-width: 90%;
     aspect-ratio: 1/0.9;
@@ -66,14 +68,197 @@
 .BlackJackbuttons { margin: 20px; }
 .BlackJackbuttons button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
 
-@media (max-aspect-ratio: 1/1.5) {
-    #GamePlaceholder {
-        min-width: 90%;
-        min-height: 0px;
-        aspect-ratio: 1;
-    }
-    .score { font-size: 150%;}
+/**************************
+ * Slot Game css *
+**************************/
+
+.slot {
+    font-size: 50px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border: 4px solid #555;
+    border-radius: 10px;
+    margin: 0 10px;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
-@media (max-aspect-ratio: 1/2) { .score { font-size: 100%;} #BlackjackGame{ max-width: 80%;}}
-@media (max-aspect-ratio: 1/2.5) { .score {margin-top: -1px; margin-bottom: -1px;} .card {margin-bottom: 0px;}}
+#slotMachine {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    position: relative;
+}
+
+.symbols {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: -5000px;
+    animation-timing-function: linear;
+}
+@keyframes spin {
+    from { top: -5000px; }
+    to { top: 5px; }
+}
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+.lever-container {
+    position: relative;
+    height: 100px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+}
+.lever {
+    width: 40px;
+    height: 100px;
+    background-color: #888;
+    border-radius: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lever-ball {
+    width: 40px;
+    height: 40px;
+    background-color: #555;
+    border-radius: 50%;
+    position: absolute;
+    top: 0; /* Start at the top */
+    cursor: pointer;
+    transition: top 0.2s ease;
+}
+.message {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+select {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+select:hover {
+    background-color: #777;
+}
+
+@media (max-aspect-ratio: 1/1.5) {
+    #GamePlaceholder {
+        width: 90%;
+    }
+    .score { font-size: 150%;}
+    .slot {
+        font-size: 25px;
+        max-width: 40px;
+        max-height: 40px;
+    }
+}
+
+@media (max-aspect-ratio: 1/2) {
+    .score { font-size: 100%;} 
+    #BlackjackGame{ max-width: 80%;}
+    .slot {
+        font-size: 12.5px;
+        max-width: 20px;
+        max-height: 20px;
+    }
+}
+@media (max-aspect-ratio: 1/2.5) {
+    .score {margin-top: -1px; margin-bottom: -1px;}
+    .card {margin-bottom: 0px;}
+}
+
+/**************************
+ * scracth card Game css *
+**************************/
+
+.sc_container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border: 3px solid yellow;
+    overflow: hidden;
+}
+
+.sc_canvas {
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 1;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.sc_form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    gap: 5px;
+    display: grid;
+    background-color: rgb(212, 212, 212);
+    color: white;
+    visibility: visible;
+    z-index: 1;
+    justify-items: center;
+    align-items: center;
+
+    /* Use minmax to prevent collapse on smaller screens */
+    grid-template-columns: repeat(auto-fill, minmax(calc((100% - (5px * 4)) / 5), 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(calc((100% - (5px * 4)) / 5), 1fr));
+    grid-template-columns: repeat(var(--grid-size), minmax(0, 1fr)); /* Allow cells to shrink */
+}
+
+.prize {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(212, 212, 212);
+    border-radius: 0px;
+    color: #011219;
+    cursor: pointer;
+    visibility: visible;
+
+    /* Maintain square shape while fitting grid cells */
+    width: 100%;
+    height: 100%;
+   
+    font-size: 1em;
+}
+
+.prize p {
+    margin-top: -4px;
+    margin-bottom: -4px;
+}
+
+#prizeInfo {
+    align-items: center;
+    text-align-last: center;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+#resultMessage {
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: #333;
+    visibility: hidden;
+}

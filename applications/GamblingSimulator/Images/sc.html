@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Card with Matching Mechanic</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #GamePlaceholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            justify-content: top; /* Center content vertically */
+        
+            /* Positioning to center the settings div on the screen */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        
+            /* Size of the settings div */
+            width: 600px;
+            aspect-ratio: 1;
+
+            /* Styling */
+            border: solid 1px #4d4d4d71;
+            background-color: #0112199a; /* Semi-transparent background */
+            box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
+            color: white; /* Text color */
+            padding: 0px;
+            border-radius: 10px;
+            z-index: 10001; /* Ensure it's above all other elements */
+        
+            /* Initial hidden state */
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            pointer-events: all;
+        }
+
+        @media (max-aspect-ratio: 1/1.5) {
+            #GamePlaceholder {
+                width: 90%;
+            }
+        }
+
+        .sc_container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            border: 3px solid yellow;
+            overflow: hidden;
+        }
+
+        .sc_canvas {
+            position: absolute;
+            width: 100%;
+            aspect-ratio: 1;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .sc_form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            gap: 5px;
+            display: grid;
+            background-color: rgb(212, 212, 212);
+            color: white;
+            visibility: visible;
+            z-index: 1;
+            justify-items: center;
+            align-items: center;
+
+            /* Use minmax to prevent collapse on smaller screens */
+            grid-template-columns: repeat(auto-fill, minmax(calc((100% - (5px * 4)) / 5), 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(calc((100% - (5px * 4)) / 5), 1fr));
+            grid-template-columns: repeat(var(--grid-size), minmax(0, 1fr)); /* Allow cells to shrink */
+        }
+
+        .prize {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(212, 212, 212);
+            border-radius: 0px;
+            color: #011219;
+            cursor: pointer;
+            visibility: visible;
+
+            /* Maintain square shape while fitting grid cells */
+            width: 100%;
+            height: 100%;
+           
+            font-size: 1em;
+        }
+
+        .prize p {
+            margin-top: -4px;
+            margin-bottom: -4px;
+        }
+
+        #prizeInfo {
+            align-items: center;
+            text-align-last: center;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        #resultMessage {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #333;
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="resultMessage"></div>
+    <label for="gridSize">Choose grid size:</label>
+    <select id="gridSize">
+        <option value="3">3x3</option>
+        <option value="4">4x4</option>
+        <option value="5">5x5</option>
+    </select>
+    <button onclick="generateGrid()">Generate Prize Grid</button>
+
+    <div id="GamePlaceholder"></div>
+
+    <script>
+        let revealedSymbols = [];
+        let attempts = 0;
+        let totalCells;
+
+        const symbolSet = [
+            '💎', '💰', '🍀', 
+            '⭐', '🥶', '🍒', 
+            '💯', '💀', '👀',
+        ];
+        const colorSet = [
+            'rgb(50, 100, 50)', 'rgb(10, 100, 100)', 'rgb(150, 50, 50)', 
+            'rgb(100, 100, 100)', 'rgb(100, 100, 150)', 'rgb(100, 100, 50)', 
+            'rgb(150, 150, 150)', 'rgb(150, 50, 150)', 'rgb(150, 250, 150)',
+        ]
+
+        const PlaceholderElement = document.getElementById('GamePlaceholder');
+
+        function generateGrid() {
+            const gridSize = parseInt(document.getElementById('gridSize').value);
+            totalCells = gridSize * gridSize;
+            revealedSymbols = [];
+            attempts = 0;
+
+            const resultMessage = document.getElementById('resultMessage');
+            resultMessage.style.visibility = 'hidden';
+
+            PlaceholderElement.innerHTML = '';
+            PlaceholderElement.style.borderRadius = '0px';
+            PlaceholderElement.style.maxWidth = '450px';
+
+            const scContainer = document.createElement('div');
+            scContainer.className = 'sc_container';
+            PlaceholderElement.appendChild(scContainer);
+            PlaceholderElement.style.opacity = '1'; // TEMP
+
+            const canvas = document.createElement('canvas');
+            canvas.className = 'sc_canvas';
+            canvas.getContext('2d', { willReadFrequently: true });
+            scContainer.appendChild(canvas);
+
+            const form = document.createElement('div');
+            form.className = 'sc_form';
+            scContainer.appendChild(form);
+
+            form.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+            form.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+
+            // Create unique amounts
+            const uniqueAmounts = Array.from({ length: parseInt(totalCells / 1.2) }, () => `$${(Math.random() * 90 + 10) /* 10 - 100 */.toFixed(2)}`);
+            const amounts = Array.from({ length: totalCells }, (_, index) => uniqueAmounts[index % uniqueAmounts.length]);
+
+            // Determine if a duplicated line should be created (50% chance)
+            const hasDuplicateLine = Math.random() < 0.5;
+
+            if (hasDuplicateLine) {
+                const duplicateAmount = uniqueAmounts[Math.floor(Math.random() * uniqueAmounts.length)];
+
+                // Determine whether to create a row, column, or diagonal with the same prize
+                const lineType = ['row', 'column', 'diagonal'][Math.floor(Math.random() * 3)];
+
+                if (lineType === 'row') {
+                    const rowIndex = Math.floor(Math.random() * gridSize);
+                    for (let col = 0; col < gridSize; col++) {
+                        amounts[rowIndex * gridSize + col] = duplicateAmount;
+                    }
+                } else if (lineType === 'column') {
+                    const colIndex = Math.floor(Math.random() * gridSize);
+                    for (let row = 0; row < gridSize; row++) {
+                        amounts[row * gridSize + colIndex] = duplicateAmount;
+                    }
+                } else if (lineType === 'diagonal') {
+                    if (Math.random() < 0.5) {
+                        for (let i = 0; i < gridSize; i++) {
+                            amounts[i * gridSize + i] = duplicateAmount;
+                        }
+                    } else {
+                        for (let i = 0; i < gridSize; i++) {
+                            amounts[i * gridSize + (gridSize - 1 - i)] = duplicateAmount;
+                        }
+                    }
+                }
+            } else {
+                // Check and adjust if there’s an unintended win
+                const changedMoney = `$${(Math.random() * 100).toFixed(2)}`;
+                while (isWinningConfiguration(amounts, gridSize)) {
+                    const randomIndex = Math.floor(Math.random() * totalCells);
+                    amounts[randomIndex] = changedMoney;
+                    if (uniqueAmounts.indexOf(changedMoney) !== 1) { uniqueAmounts.appendChild(changedMoney) }
+                }
+            }
+
+            // Populate the grid with cells
+            amounts.forEach((amount, index) => {
+                const cell = document.createElement('div');
+                cell.className = 'prize';
+
+                // Find the index of the amount in uniqueAmounts to get the symbol
+                const symbolIndex = uniqueAmounts.indexOf(amount);
+                const symbol = symbolIndex !== -1 ? symbolSet[symbolIndex % symbolSet.length] : '❓'; // Default symbol if not found
+
+                const color = symbolIndex !== -1 ? colorSet[symbolIndex % colorSet.length] : 'rgb(150, 150, 150)'; // Default symbol if not found
+
+                // Set cell content
+                cell.innerHTML = `<div id="prizeInfo" style="background-color: ${color};"><p>${symbol}</p><p>${amount}</p></div>`;
+                cell.dataset.amount = amount;
+
+                form.appendChild(cell);
+
+                setTimeout(() => {
+                    const cellWidth = parseFloat(getComputedStyle(cell).width); // Get the computed width
+                    cell.style.fontSize = `${cellWidth / 5}px`; // Set font size relative to width
+                }, 0); // Use a timeout to ensure the width is computed after rendering
+            });
+
+            setupScratchEffect(canvas, scContainer);
+        }
+
+        // Helper function to check if there's a winning line
+        function isWinningConfiguration(amounts, gridSize) {
+            // Check rows
+            for (let row = 0; row < gridSize; row++) {
+                const start = row * gridSize;
+                if (amounts.slice(start, start + gridSize).every(val => val === amounts[start])) {
+                    return true;
+                }
+            }
+            // Check columns
+            for (let col = 0; col < gridSize; col++) {
+                if (Array.from({ length: gridSize }, (_, row) => amounts[row * gridSize + col])
+                    .every(val => val === amounts[col])) {
+                    return true;
+                }
+            }
+            // Check diagonals
+            if (Array.from({ length: gridSize }, (_, i) => amounts[i * gridSize + i])
+                .every(val => val === amounts[0])) {
+                return true;
+            }
+            if (Array.from({ length: gridSize }, (_, i) => amounts[i * gridSize + (gridSize - 1 - i)])
+                .every(val => val === amounts[gridSize - 1])) {
+                return true;
+            }
+            return false;
+        }
+
+        function checkWin() {
+            const gridSize = parseInt(document.getElementById('gridSize').value);
+            const cells = Array.from(document.querySelectorAll('.sc_form .prize'));
+            const resultMessage = document.getElementById('resultMessage');
+            resultMessage.style.visibility = 'visible';
+
+            // Helper function to get symbol from a cell
+            const getSymbol = (cell) => cell.querySelector('p').textContent;
+
+            // Check rows for win
+            for (let row = 0; row < gridSize; row++) {
+                const rowStartIndex = row * gridSize;
+                const rowSymbols = cells.slice(rowStartIndex, rowStartIndex + gridSize).map(getSymbol);
+                if (rowSymbols.every(symbol => symbol === rowSymbols[0])) {
+                    resultMessage.textContent = "Congratulations! You've won with a matching row!";
+                    return;
+                }
+            }
+
+            // Check columns for win
+            for (let col = 0; col < gridSize; col++) {
+                const colSymbols = [];
+                for (let row = 0; row < gridSize; row++) {
+                    colSymbols.push(getSymbol(cells[row * gridSize + col]));
+                }
+                if (colSymbols.every(symbol => symbol === colSymbols[0])) {
+                    resultMessage.textContent = "Congratulations! You've won with a matching column!";
+                    return true;
+                }
+            }
+
+            // Check top-left to bottom-right diagonal for win
+            const diagonal1Symbols = [];
+            for (let i = 0; i < gridSize; i++) {
+                diagonal1Symbols.push(getSymbol(cells[i * gridSize + i]));
+            }
+            if (diagonal1Symbols.every(symbol => symbol === diagonal1Symbols[0])) {
+                resultMessage.textContent = "Congratulations! You've won with a matching diagonal!";
+                return;
+            }
+
+            // Check top-right to bottom-left diagonal for win
+            const diagonal2Symbols = [];
+            for (let i = 0; i < gridSize; i++) {
+                diagonal2Symbols.push(getSymbol(cells[i * gridSize + (gridSize - 1 - i)]));
+            }
+            if (diagonal2Symbols.every(symbol => symbol === diagonal2Symbols[0])) {
+                resultMessage.textContent = "Congratulations! You've won with a matching diagonal!";
+                return;
+            }
+
+            // If no win condition is met
+            resultMessage.textContent = "Sorry, try again!";
+        }
+
+        function setupScratchEffect(canvas, scContainer) {
+            const ctx = canvas.getContext('2d');
+
+            const image = new Image();
+            const brush = new Image();
+
+            canvas.width = scContainer.clientWidth;
+            canvas.height = scContainer.clientHeight;
+
+            image.src = 'sc.png';
+            image.onload = function() {
+                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            };
+
+            brush.src = 'brush.png';
+            brush.onload = function() {
+                canvas.addEventListener('mousedown', handleMouseDown, false);
+                canvas.addEventListener('mousemove', handleMouseMove, false);
+                canvas.addEventListener('mouseup', handleMouseUp, false);
+                canvas.addEventListener('touchstart', handleMouseDown, false);
+                canvas.addEventListener('touchmove', handleMouseMove, false);
+                canvas.addEventListener('touchend', handleMouseUp, false);
+            };
+
+            function startErasing() {
+                ctx.globalCompositeOperation = 'destination-out';
+            }
+
+            function stopErasing() {
+                ctx.globalCompositeOperation = 'source-over';
+            }
+
+            let isDrawing, lastPoint;
+
+            function handleMouseDown(event) {
+                isDrawing = true;
+                lastPoint = getMousePosition(event);
+                startErasing();
+            }
+
+            function handleMouseMove(event) {
+                if (!isDrawing) return;
+
+                event.preventDefault();
+                const currentPoint = getMousePosition(event);
+                const dist = Math.sqrt(Math.pow(currentPoint.x - lastPoint.x, 2) + Math.pow(currentPoint.y - lastPoint.y, 2));
+                const angle = Math.atan2(currentPoint.x - lastPoint.x, currentPoint.y - lastPoint.y);
+
+                for (let i = 0; i < dist; i++) {
+                    const x = lastPoint.x + (Math.sin(angle) * i) - brush.width / 2;
+                    const y = lastPoint.y + (Math.cos(angle) * i) - brush.height / 2;
+                    ctx.drawImage(brush, x, y);
+                }
+
+                lastPoint = currentPoint;
+                checkScratchProgress();
+            }
+
+            function handleMouseUp(event) {
+                isDrawing = false;
+                stopErasing();
+            }
+
+            function getMousePosition(event) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: (event.clientX || event.touches[0].clientX) - rect.left,
+                    y: (event.clientY || event.touches[0].clientY) - rect.top
+                };
+            }
+
+            function checkScratchProgress() {
+                const scratched = ctx.getImageData(0, 0, canvas.width, canvas.height).data.filter((_, i) => i % 4 === 3 && _ === 0).length;
+                const scratchedPercent = (scratched / (canvas.width * canvas.height));
+
+                if (scratchedPercent >= .6) {
+                    canvas.style.display = 'none';
+                    checkWin()
+                    setTimeout (() => {
+                        PlaceholderElement.style.opacity = '0'; // TEMP
+                        setTimeout (() => {
+                            PlaceholderElement.style.borderRadius = '10px';
+                            PlaceholderElement.style.maxWidth = '600px';
+                        }, 300);
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
