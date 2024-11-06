@@ -17,7 +17,7 @@ function createGamesSection() {
             gameDescription.innerText = level.description;
 
             const gameButton = document.createElement('button');
-            gameButton.innerText = `Play for $${level.cost}`; // Initial button text
+            gameButton.innerText = `Play for $${formatCost(level.cost)}`; // Initial button text
             gameButton.disabled = false; // Initially enabled
 
             // Store the last play time for the current game
@@ -31,7 +31,7 @@ function createGamesSection() {
                 if (!deductMoney(level.cost)) {
                     gameButton.innerText = "Not enough money";
                     setTimeout(() => {
-                        gameButton.innerText = `Play for $${level.cost}`; // Reset button text after delay
+                        gameButton.innerText = `Play for $${formatCost(level.cost)}`; // Reset button text after delay
                     }, 1000);
                     return; // Exit the function early if not enough money
                 }
@@ -59,7 +59,7 @@ function createGamesSection() {
                         } else {
                             clearInterval(countdownInterval); // Clear interval when done
                             gameButton.disabled = false; // Re-enable the button
-                            gameButton.innerText = `Play for $${level.cost}`; // Reset button text
+                            gameButton.innerText = `Play for $${formatCost(level.cost)}`; // Reset button text
                         }
                     }, 100); // Update every 100 milliseconds
                 } else {
@@ -124,6 +124,7 @@ async function playGame(game, level, gameButton) {
 
         // Await the game-specific function and pass result details
         await window[gameFunctionName](wonOrLost, PrizeMoney, level);
+        SeeGame(null);
 
         // Loop through each button and set disabled to true
         gameCardButtons.forEach(button => {
@@ -142,8 +143,10 @@ function displayResult(win, winnings) {
     // Get the first element with the class 'game-result'
     const resultElement = document.getElementsByClassName('game-result')[0];
 
+    if (win) addMoney(winnings);
+
     if (win !== null) {
-        result = win ? `You won $${winnings}!` : "You lost!";         
+        result = win ? `You won $${winnings}!` : "You lost!";       
     } else {
         const addictionMessages = [
             `You won! but got addicted $${winnings}. Guess the real prize is your dignity, huh?`,
@@ -172,9 +175,15 @@ function displayResult(win, winnings) {
 
         if (playerBalance < 0) {
             console.log('Not enough money, gambled everything 💀, taking loan');
-            needsLoan = true;
-            SeeBank();
-            ChangeBankView(true, true);
+            if (!payingLoan) {
+                needsLoan = true;
+                SeeBank();
+                ChangeBankView(true, true);
+            } else {
+                PlayerWentbankrupt('gambled till the last cent 💀')
+            }
+
+            
         }
     }
     totalMoneyWonOnGambling += winnings;

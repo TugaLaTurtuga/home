@@ -1,6 +1,6 @@
 const EasyNavDiv = document.getElementById('EasyNav');
 
-if (hasTouchScreen || hasEasyNavEnabled) {
+if (hasEasyNavEnabled) {
     EasyNavDiv.innerHTML = `
     <div id="ENSlider" class="Globalbutton-container" style="margin-top: 0px; margin-bottom: -20px; overflow-x: scroll; ">
         <button id="TopBtn1" class="EasyNavbutton" onclick="SeePlaceInHtml(1)">Poker</button>

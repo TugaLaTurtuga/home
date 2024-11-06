@@ -22,12 +22,10 @@ function PokerGame(wonOrLost, winnings, level) {
             SeeGame(false);
             setTimeout(() => {
                 SeeGame(false);
-                addMoney(winnings);
                 displayResult(wonOrLost, winnings);
                 resolve(true);
             }, 1000); // Duration of the game
         } else {
-            addMoney(winnings);
             displayResult(wonOrLost, winnings);
             resolve(true);
         }
@@ -48,7 +46,6 @@ function RouletteGame(wonOrLost, winnings, level) {
                 resolve(true);
             }, 1000); // Duration of the game
         } else {
-            addMoney(winnings);
             displayResult(wonOrLost, winnings);
             resolve(true);
         }
@@ -62,10 +59,9 @@ function SlotsGame(wonOrLost, winnings, level) {
         PlaceholderElement.innerHTML = '';
         
         if (PlayGames) {
-            SeeGame();
+            SeeGame(true);
             startSlots(resolve, level);
         } else {
-            addMoney(winnings);
             displayResult(wonOrLost, winnings);
             resolve(true);
         }
@@ -79,10 +75,9 @@ function ScratchCardsGame(wonOrLost, winnings, level) {
         PlaceholderElement.innerHTML = '';
        
         if (PlayGames) {
-            SeeGame();
+            SeeGame(true);
             generateGrid(level.level + 2, level, resolve);
         } else {
-            addMoney(winnings);
             displayResult(wonOrLost, winnings);
             resolve(true);
         }
@@ -94,9 +89,9 @@ function BlackjackGame(wonOrLost, winnings, level) {
     return new Promise(resolve => {
         console.log("Playing Blackjack...");
         PlaceholderElement.innerHTML = '';
-       
+      
         if (PlayGames) {
-            SeeGame();
+            SeeGame(true);
             PlaceholderElement.style.backgroundColor = "#2e8b57";
             PlaceholderElement.style.border = "solid 2px #ccc";
             PlaceholderElement.style.boxShadow = "0 10px 12px rgba(0, 0, 0, .4)";
@@ -120,6 +115,9 @@ function BlackjackGame(wonOrLost, winnings, level) {
             `;
 
             BlackjackinitGame(resolve);
+        } else {
+            displayResult(wonOrLost, winnings);
+            resolve(true);
         }
     });
 }
@@ -133,13 +131,11 @@ function LotteriesGame(wonOrLost, winnings, level) {
         if (PlayGames) {
             SeeGame(false);
             setTimeout(() => {
-                addMoney(winnings);
                 SeeGame(false);
                 displayResult(wonOrLost, winnings);
                 resolve(true);
             }, 1000); // Duration of the game
         } else {
-            addMoney(winnings);
             displayResult(wonOrLost, winnings);
             resolve(true);
         }
@@ -148,10 +144,8 @@ function LotteriesGame(wonOrLost, winnings, level) {
 
 function SeeGame(hasGame=true) {
     if (hasGame) {
-        if (PlaceholderElement.classList.contains('show')) {
-            PlaceholderElement.classList.remove('show');
-        } else {
-            PlaceholderElement.classList.add('show');
-        }
+        PlaceholderElement.classList.add('show');
+    } else {
+        PlaceholderElement.classList.remove('show');
     }
 }

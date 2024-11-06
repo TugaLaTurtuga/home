@@ -53,9 +53,9 @@ function formatCost(cost) {
             suffix = 'k';
             break;
         default:
-            return cost.toFixed(2);  // Return original cost if less than 1,000
+            return cost % 1 === 0 ? cost.toFixed(0) : cost.toFixed(2);  // Return original cost if less than 1,000
     }
-    return (cost / magnitude).toFixed(2) + suffix;
+    return (cost / magnitude) % 1 === 0 ? (cost / magnitude).toFixed(0) + suffix : (cost / magnitude).toFixed(2) + suffix;
 }
 
 // Update the displayed balance in both sections

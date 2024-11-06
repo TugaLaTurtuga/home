@@ -1,238 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slot Machine with Lever</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background-color: #333;
-            color: white;
-            margin: 0;
-            padding: 20px;
-        }
-        .slot-machine {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            position: relative;
-        }
-        .slot {
-            font-size: 50px;
-            width: 80px;
-            height: 80px;
-            overflow: hidden;
-            border: 4px solid #555;
-            border-radius: 10px;
-            margin: 0 10px;
-            background-color: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        .symbols {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: -5000px;
-            animation-timing-function: linear;
-        }
-        @keyframes spin {
-            from { top: -5000px; }
-            to { top: 5px; }
-        }
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
-        }
-        .lever-container {
-            position: relative;
-            height: 100px;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .lever {
-            width: 40px;
-            height: 100px;
-            background-color: #888;
-            border-radius: 50px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .lever-ball {
-            width: 40px;
-            height: 40px;
-            background-color: #555;
-            border-radius: 50%;
-            position: absolute;
-            top: 0; /* Start at the top */
-            cursor: pointer;
-            transition: top 0.2s ease;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        select {
-            padding: 10px;
-            font-size: 1em;
-            background-color: #555;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        select:hover {
-            background-color: #777;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>On-Off Button</title>
+  <style>
+    /* Basic styling for button container */
+    .toggle-btn {
+      width: 60px;
+      height: 30px;
+      background-color: #ccc; /* Start color */
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      transition: background-color 0.1s ease-out;
+    }
+
+    /* Styling for the circle/knob that moves */
+    .toggle-btn .knob {
+      width: 30px;
+      height: 30px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: transform 0.1s ease-out;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Slot Machine</h1>
+<div class="toggle-btn" id="toggleBtn">
+  <div class="knob"></div>
+</div>
 
-    <div class="slot-machine" id="slotMachine"></div>
+<script>
+// easeOutExpo function to smooth the transition
+function easeOutExpo(x) {
+  return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+}
 
-    <div class="controls">
-        <select id="slotCount" onchange="initializeSlots()">
-            <option value="3">Level 1 - 3 Slots (10% Win Chance)</option>
-            <option value="5">Level 2 - 5 Slots (5% Win Chance)</option>
-            <option value="7">Level 3 - 7 Slots (1% Win Chance)</option>
-        </select>
-    </div>
+// Animation function for turning on the button (knob moves to the right and color changes)
+function animateTurnOn(duration) {
+  const toggleBtn = document.getElementById('toggleBtn');
+  const knob = toggleBtn.querySelector('.knob');
+  let start = null;
 
-    <div class="lever-container">
-        <div class="lever">
-            <div class="lever-ball" id="leverBall"></div>
-        </div>
-    </div>
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const easedProgress = easeOutExpo(progress);
 
-    <div class="message" id="message"></div>
+    // Animate the knob's position (move to the right)
+    knob.style.transform = `translateX(${easedProgress * 30}px)`;
 
-    <script>
-        const symbols = ["🍒", "🍋", "🍊", "🍉", "🍇", "⭐"];
-        const slotMachine = document.getElementById("slotMachine");
-        const leverBall = document.getElementById("leverBall");
-        let numSlots = 3;
-        let willWin = false;
-        let leverMoving = false;
+    // Calculate the background color transition from #ccc to #4CAF50
+    const startColor = { r: 204, g: 204, b: 204 }; // #ccc
+    const endColor = { r: 76, g: 175, b: 80 };   // #4CAF50
+    const r = Math.round(startColor.r + (endColor.r - startColor.r) * easedProgress);
+    const g = Math.round(startColor.g + (endColor.g - startColor.g) * easedProgress);
+    const b = Math.round(startColor.b + (endColor.b - startColor.b) * easedProgress);
 
-        function initializeSlots() {
-            numSlots = parseInt(document.getElementById("slotCount").value);
-            slotMachine.innerHTML = ""; // Clear existing slots
+    // Apply the calculated color
+    toggleBtn.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
-            // Define winning probabilities based on level
-            const winChances = { 3: .5, 5: 0.2, 7: 0.1 };
-            const randomNum = Math.random();
-            console.log(randomNum)
-            willWin = randomNum < winChances[numSlots];
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      // After the animation ends, set the state to "on"
+      toggleBtn.classList.add('on');
+    }
+  }
 
-            for (let i = 0; i < numSlots; i++) {
-                const slotDiv = document.createElement("div");
-                slotDiv.classList.add("slot");
-                const symbolsContainer = document.createElement("div");
-                symbolsContainer.classList.add("symbols");
-                slotDiv.appendChild(symbolsContainer);
-                slotMachine.appendChild(slotDiv);
-            }
-        }
+  requestAnimationFrame(step);
+}
 
-        // Initialize default slots when the page loads
-        initializeSlots();
+// Animation function for turning off the button (knob moves to the left and color changes)
+function animateTurnOff(duration) {
+  const toggleBtn = document.getElementById('toggleBtn');
+  const knob = toggleBtn.querySelector('.knob');
+  let start = null;
 
-        const spinDuration = 1000;
-        const totalSymbols = 100;
-    
-        function spin() {
-            initializeSlots();
-            const winningSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-            const slots = document.querySelectorAll(".slot .symbols");
-            const message = document.getElementById("message");
-            message.textContent = "Spinning...";
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const easedProgress = easeOutExpo(progress);
 
-            slots.forEach((symbolsContainer, index) => {
-                symbolsContainer.innerHTML = ""; // Clear previous symbols
+    // Animate the knob's position (move to the left)
+    knob.style.transform = `translateX(${(1 - easedProgress) * 30}px)`;
 
-                // Add symbols for each slot
-                for (let i = 0; i < (totalSymbols * (index + 1)); i++) {
-                    if (willWin && i === 0) {
-                        symbolsContainer.innerHTML = `<div>${winningSymbol}</div>`;
-                    } else {
-                        const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-                        const symbolElement = document.createElement("div");
-                        symbolElement.textContent = randomSymbol;
-                        symbolsContainer.appendChild(symbolElement);
-                    }
-                }
+    // Calculate the background color transition from #4CAF50 to #ccc
+    const startColor = { r: 76, g: 175, b: 80 };  // #4CAF50
+    const endColor = { r: 204, g: 204, b: 204 };  // #ccc
+    const r = Math.round(startColor.r + (endColor.r - startColor.r) * easedProgress);
+    const g = Math.round(startColor.g + (endColor.g - startColor.g) * easedProgress);
+    const b = Math.round(startColor.b + (endColor.b - startColor.b) * easedProgress);
 
-                // Apply CSS animation with consistent timing
-                symbolsContainer.style.animation = `spin ${spinDuration * (1 + (index + 1))}ms linear forwards`;
+    // Apply the calculated color
+    toggleBtn.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
-                // Reset animation after it ends
-                symbolsContainer.addEventListener("animationend", () => {
-                    symbolsContainer.style.animation = "none";
-                    symbolsContainer.style.top = "5px";
-                });
-            });
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      // After the animation ends, set the state to "off"
+      toggleBtn.classList.remove('on');
+    }
+  }
 
-            // Display result based on the pre-determined win/loss outcome
-            setTimeout(() => {
-                const results = Array.from(slots).map(slot => slot.querySelectorAll("div")[0].textContent);
+  requestAnimationFrame(step);
+}
 
-                if (willWin) {
-                    message.textContent = "🎉 Jackpot! You Win! 🎉";
-                } else {
-                    message.textContent = "Try Again!";
-                }
-
-                // Reset the lever ball position
-                leverBall.style.top = "0"; // Move the lever ball back to the top
-                leverMoving = false; // Allow moving again
-            }, spinDuration * (parseInt(document.getElementById("slotCount").value) + 1));
-        }
-
-        // Dragging the lever ball down
-        leverBall.addEventListener("mousedown", (event) => {
-            if (leverMoving) return; // Prevent moving while already moving
-            leverMoving = true;
-            let startY = event.clientY; // Store initial click position
-            let initialLeverTop = parseInt(window.getComputedStyle(leverBall).top); // Get initial lever position
-
-            function onMouseMove(mouseMoveEvent) {
-                const deltaY = mouseMoveEvent.clientY - startY; // Calculate distance moved
-                const newTop = Math.min(Math.max(initialLeverTop + deltaY, 0), 60); // Limit lever movement to a max of 70px down
-                leverBall.style.top = `${newTop}px`; // Move the lever ball down
-            }
-
-            function onMouseUp() {
-                if (parseInt(leverBall.style.top) >= 60) {
-                    spin(); // Start spinning if lever is fully pulled down
-                    leverBall.style.top = "60px"; // Reset position after spin
-                    
-                } else {
-                    leverBall.style.top = "0px";
-                }
-                leverMoving = false; // Allow moving again
-                document.removeEventListener("mousemove", onMouseMove); // Clean up event listeners
-                document.removeEventListener("mouseup", onMouseUp);
-            }
-
-            document.addEventListener("mousemove", onMouseMove);
-            document.addEventListener("mouseup", onMouseUp);
-        });
-    </script>
+// Event listener for the button click
+document.getElementById('toggleBtn').addEventListener('click', () => {
+  const toggleBtn = document.getElementById('toggleBtn');
+  if (toggleBtn.classList.contains('on')) {
+    animateTurnOff(10); // Animation to turn off the button
+  } else {
+    animateTurnOn(10); // Animation to turn on the button
+  }
+});
+</script>
 
 </body>
 </html>

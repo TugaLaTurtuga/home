@@ -97,8 +97,7 @@ function BlackjackendGame(wonOrLost, IsBlackjack=false) {
     displayResult(wonOrLost, IsBlackjack ? winnings * 1.5 : winnings);
 
     setTimeout(() => {
-        SeeGame();
-        if (wonOrLost) addMoney(winnings);
+        SeeGame(false);
         PlaceholderElement.style.backgroundColor = '';
         PlaceholderElement.style.border = '';
         PlaceholderElement.style.boxShadow = '';
@@ -172,7 +171,7 @@ function startSlots(resolve, level) {
         case 2:
             return initializeSlots(5);
         case 3:
-            return initializeSlots(7);
+            return initializeSlots(6);
     }
 }
 
@@ -259,46 +258,64 @@ function Slotspin() {
         leverMoving = null; // Allow moving again
         
         setTimeout(() => {
-            window.gameResolve(true);
-            SeeGame();
+            SeeGame(false);
         }, 1000)
-        
+
+        setTimeout(() => {
+            PlaceholderElement.innerHTML = ''
+            window.gameResolve(true);
+        }, 1300)
         
     }, spinDuration * (level + 1));
 }
 
-// Dragging the lever ball down
 function makeLever() {
     const leverBall = document.getElementById("leverBall");
-    leverBall.addEventListener("mousedown", (event) => {
+    
+    // Event handler to start the lever movement
+    function startMove(event) {
         if (leverMoving) return; // Prevent moving while already moving
-        if (leverMoving !== null) {leverMoving = true;}
-        let startY = event.clientY; // Store initial click position
-        let initialLeverTop = parseInt(window.getComputedStyle(leverBall).top); // Get initial lever position
+        if (leverMoving !== null) leverMoving = true;
 
-        function onMouseMove(mouseMoveEvent) {
-            const deltaY = mouseMoveEvent.clientY - startY; // Calculate distance moved
-            const newTop = Math.min(Math.max(initialLeverTop + deltaY, 0), 60); // Limit lever movement to a max of 60px down
-            leverBall.style.top = `${newTop}px`; // Move the lever ball down
+        // Determine the starting Y position, whether from a mouse or touch event
+        const startY = event.type === 'mousedown' ? event.clientY : event.touches[0].clientY;
+        const initialLeverTop = parseInt(window.getComputedStyle(leverBall).top); // Initial lever position
+
+        // Movement handler for both mouse and touch
+        function onMove(moveEvent) {
+            const currentY = moveEvent.type === 'mousemove' ? moveEvent.clientY : moveEvent.touches[0].clientY;
+            const deltaY = currentY - startY; // Calculate distance moved
+            const newTop = Math.min(Math.max(initialLeverTop + deltaY, 0), 60); // Limit lever movement between 0 and 60px
+            leverBall.style.top = `${newTop}px`; // Move lever ball
         }
 
-        function onMouseUp() {
-            if (leverMoving !== null) {
-                if (parseInt(leverBall.style.top) >= 60) {
-                    Slotspin(); // Start spinning if lever is fully pulled down
-                    leverBall.style.top = "60px"; // Keep it down after pulling
-                } else {
-                    leverBall.style.top = "0px"; // Reset if not fully pulled
-                }
-                leverMoving = false; // Allow moving again
-                document.removeEventListener("mousemove", onMouseMove); // Clean up event listeners
-                document.removeEventListener("mouseup", onMouseUp);
+        // End move and handle lever release
+        function endMove() {
+            if (parseInt(leverBall.style.top) >= 60) {
+                Slotspin(); // Start spinning if lever is fully pulled down
+                leverBall.style.top = "60px"; // Keep it down after pulling
+            } else {
+                leverBall.style.top = "0px"; // Reset if not fully pulled
             }
+            leverMoving = false; // Allow moving again
+
+            // Remove both mouse and touch listeners for cleanup
+            document.removeEventListener("mousemove", onMove);
+            document.removeEventListener("mouseup", endMove);
+            document.removeEventListener("touchmove", onMove);
+            document.removeEventListener("touchend", endMove);
         }
 
-        document.addEventListener("mousemove", onMouseMove);
-        document.addEventListener("mouseup", onMouseUp);
-    });
+        // Add both mouse and touch listeners for movement and end of interaction
+        document.addEventListener("mousemove", onMove);
+        document.addEventListener("mouseup", endMove);
+        document.addEventListener("touchmove", onMove);
+        document.addEventListener("touchend", endMove);
+    }
+
+    // Add both mouse and touch listeners for the start of interaction
+    leverBall.addEventListener("mousedown", startMove);
+    leverBall.addEventListener("touchstart", startMove);
 }
 
 /**************************
@@ -592,7 +609,7 @@ function setupScratchEffect(canvas, scContainer) {
             if ( winnings !== null) { displayResult(true, winnings) } else {displayResult(false, 0)}
 
             setTimeout (() => {
-                SeeGame();
+                SeeGame(false);
             }, 1000);
 
             setTimeout (() => { // Return to old settings

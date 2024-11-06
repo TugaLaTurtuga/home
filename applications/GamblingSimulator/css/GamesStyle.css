@@ -88,11 +88,15 @@
 }
 
 #slotMachine {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Maximum of 3 slots per row */
+    gap: 10px 0px;
     flex-direction: row;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 20px;
     position: relative;
+    flex-wrap: wrap; /* Allows slots to wrap in smaller layouts */
 }
 
 .symbols {
@@ -162,21 +166,15 @@ select:hover {
     #GamePlaceholder {
         width: 90%;
     }
-    .score { font-size: 150%;}
-    .slot {
-        font-size: 25px;
-        max-width: 40px;
-        max-height: 40px;
-    }
 }
 
 @media (max-aspect-ratio: 1/2) {
     .score { font-size: 100%;} 
     #BlackjackGame{ max-width: 80%;}
     .slot {
-        font-size: 12.5px;
-        max-width: 20px;
-        max-height: 20px;
+        font-size: 25px;
+        max-width: 40px;
+        max-height: 40px;
     }
 }
 @media (max-aspect-ratio: 1/2.5) {

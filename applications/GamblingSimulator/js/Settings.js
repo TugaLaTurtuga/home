@@ -1,5 +1,5 @@
 // TODO: Settings && Audio (Beta 1.3)
-let hasEasyNavEnabled = false;
+let hasEasyNavEnabled = true;
 let PlayGames = true;
 let FXVolume = 0;
 let MusicVolume = 0;
@@ -25,6 +25,8 @@ if ("maxTouchPoints" in navigator) {
         );
     }
 }
+
+if (hasTouchScreen) hasEasyNavEnabled = true // make the EasyNav enabled by default in mobile
 
 document.addEventListener('keydown', function(event) {
     if ((event.ctrlKey || event.metaKey) && (event.key === ',' || event.key === ';' || event.key === '.')) {
