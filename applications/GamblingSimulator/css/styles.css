@@ -257,6 +257,7 @@ body:hover::before {
 
 .clicker-section {
     min-width: 100%;
+    margin-top: -20px;
     padding: 20px;
 }
 
