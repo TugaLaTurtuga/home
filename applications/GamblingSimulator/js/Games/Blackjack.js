@@ -591,17 +591,16 @@ function setupScratchEffect(canvas, scContainer) {
             const winnings = checkWin();
             if ( winnings !== null) { displayResult(true, winnings) } else {displayResult(false, 0)}
 
-            setTimeout(() => {
+            setTimeout (() => {
                 SeeGame();
-                if (wonOrLost) addMoney(winnings);
-                PlaceholderElement.style.backgroundColor = '';
-                PlaceholderElement.style.border = '';
-                PlaceholderElement.style.boxShadow = '';
+            }, 1000);
+
+            setTimeout (() => { // Return to old settings
                 PlaceholderElement.style.borderRadius = '10px';
                 PlaceholderElement.style.maxWidth = '600px';
                 PlaceholderElement.innerHTML = '';
                 window.gameResolve(true);
-           }, 1000);
+            }, 1300);
         }
     }
 }
