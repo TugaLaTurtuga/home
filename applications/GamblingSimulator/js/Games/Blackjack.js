@@ -185,12 +185,19 @@ function initializeSlots(numSlots) {
     for (let i = 0; i < numSlots; i++) {
         const slotDiv = document.createElement("div");
         slotDiv.classList.add("slot");
+        
         const symbolsContainer = document.createElement("div");
         symbolsContainer.classList.add("symbols");
+        slotDiv.appendChild(symbolsContainer); 
+        slotMachine.appendChild(slotDiv);
 
-        slotDiv.appendChild(symbolsContainer); // Ensure symbols are added to the slotDiv
-        slotMachine.appendChild(slotDiv); // Append slotDiv to the slotMachine
-    }
+        setTimeout(() => {
+            const computedWidth = window.getComputedStyle(symbolsContainer).width;
+            symbolsContainer.style.fontSize = computedWidth;
+            console.log(symbolsContainer.style.fontSize, computedWidth);
+        }, 100)
+        
+    }    
 
     const message = document.createElement('div');
     message.id = 'message';
@@ -237,7 +244,7 @@ function Slotspin() {
         // Reset animation after it ends
         symbolsContainer.addEventListener("animationend", () => {
             symbolsContainer.style.animation = "none";
-            symbolsContainer.style.top = "5px"; // Reset the position for visual consistency
+            symbolsContainer.style.top = "10px"; // Reset the position for visual consistency
         });
     });
 

@@ -72,10 +72,10 @@
  * Slot Game css *
 **************************/
 
+/* Ensures the slot itself is square and responsive */
 .slot {
     font-size: 50px;
-    width: 80px;
-    height: 80px;
+    padding-bottom: 80px; /* Ensures height is the same as width for square */
     overflow: hidden;
     border: 4px solid #555;
     border-radius: 10px;
@@ -85,30 +85,51 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    box-sizing: border-box; /* Includes padding and border in width/height calculation */
+    aspect-ratio: 1; /* Ensures the slot is always a square */
 }
 
+/* Slot machine layout with flexbox */
 #slotMachine {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Maximum of 3 slots per row */
-    gap: 10px 0px;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
     position: relative;
-    flex-wrap: wrap; /* Allows slots to wrap in smaller layouts */
+    flex-wrap: wrap; /* Allows slots to wrap to new lines */
+    gap: 10px; /* Adjust the gap between the slots */
+    text-align-last: center;
+    min-width: 100%;
 }
 
-.symbols {
+/* Ensures slots maintain square aspect ratio and fit 3 per row */
+#slotMachine > .slot {
+    flex: 0 1 calc(33.33% - 50px); /* 3 slots per row, accounting for the gap */
+    max-width: calc(33.33% - 50px); /* Ensure no more than 3 items per row */
+    max-height: calc(50% - 50px);
+    box-sizing: border-box; /* Includes padding and border in width calculation */
+    aspect-ratio: 1; /* Ensures each slot stays square */
+}
+
+/* Styling for the symbols inside the slots */
+.slot .symbols {
+    width: calc(100% - 20px); /* Make the symbols 10px smaller than the slot */
+    position: absolute;
+    top: 10px; /* Center the symbols within the slot */
+    left: 10px;
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: -5000px;
-    animation-timing-function: linear;
+    justify-content: center;
+    align-items: center;
+  
+    /* Use font-size relative to the height */
+    line-height: 1; /* Prevent line-height from distorting the text */
 }
+
 @keyframes spin {
     from { top: -5000px; }
-    to { top: 5px; }
+    to { top: 10px; }
 }
 .controls {
     margin-top: 20px;
@@ -169,13 +190,7 @@ select:hover {
 }
 
 @media (max-aspect-ratio: 1/2) {
-    .score { font-size: 100%;} 
     #BlackjackGame{ max-width: 80%;}
-    .slot {
-        font-size: 25px;
-        max-width: 40px;
-        max-height: 40px;
-    }
 }
 @media (max-aspect-ratio: 1/2.5) {
     .score {margin-top: -1px; margin-bottom: -1px;}
