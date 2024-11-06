@@ -16,6 +16,7 @@ html {
     overflow-x: hidden;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
+    color: #01424f;
 }
 
 button {
