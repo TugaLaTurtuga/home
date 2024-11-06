@@ -597,9 +597,8 @@ function setupScratchEffect(canvas, scContainer) {
                     PlaceholderElement.style.borderRadius = '10px';
                     PlaceholderElement.style.maxWidth = '600px';
                     PlaceholderElement.innerHTML = '';
-                    setTimeout (() => { // Return to old settings
-                        window.gameResolve(true);
-                    }, 100);
+                    window.gameResolve(true);
+                    SeeGame();
                 }, 300);
             }, 1000);
         }
