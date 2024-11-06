@@ -180,10 +180,12 @@ function calculatejobHeight() {
         let flexDirection = computedStyle.flexDirection;
 
         if (flexDirection === "column") {
-            totalHeight = swHeight + jsHeight + 610;
+            totalHeight = swHeight + jsHeight + 630;
         } else {
-            totalHeight = swHeight + jsHeight + 350;
+            totalHeight = swHeight + jsHeight + 385;
         }
+
+        if (hasTouchScreen || hasEasyNavEnabled) {totalHeight += 120}
 
         // Set the gameContainer height
         gameContainer.style.height = `${totalHeight}px`;
