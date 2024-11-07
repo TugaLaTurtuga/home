@@ -194,8 +194,8 @@ function initializeSlots(numSlots) {
         setTimeout(() => {
             const computedWidth = window.getComputedStyle(symbolsContainer).width;
             symbolsContainer.style.fontSize = computedWidth;
-            console.log(symbolsContainer.style.fontSize, computedWidth);
-        }, 100)
+            symbolsContainer.style.height = computedWidth;
+        }, 10)
         
     }    
 
