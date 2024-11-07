@@ -195,7 +195,7 @@ function initializeSlots(numSlots) {
             const computedWidth = window.getComputedStyle(symbolsContainer).width;
             symbolsContainer.style.fontSize = computedWidth;
             symbolsContainer.style.height = computedWidth;
-        }, 10)
+        }, 100)
         
     }    
 
