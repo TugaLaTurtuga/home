@@ -76,17 +76,9 @@ function playNextTrack() {
         navigator.mediaSession.metadata = new MediaMetadata({
             title: shuffledMusicFiles[currentTrackIndex].split('/').pop().replace('.mp3', ''),
             artist: 'Tuga La Turtuga', // You can update this dynamically
-            album: 'Gambling Simulator', // You can update this dynamically
-            artwork: [
-                {
-                    src: 'icon.webp', // Path to your cover image
-                    sizes: '512x512', // Specify the size (adjust as needed)
-                    type: 'image/webp' // Specify the MIME type
-                }
-            ]
+            album: shuffledMusicFiles[currentTrackIndex].split('/').pop().replace('.mp3', ''), // You can update this dynamically
         });
         
-
         // Set up MediaSession actions (play, pause, etc.)
         navigator.mediaSession.setActionHandler('play', () => {
             currentAudio.play();
