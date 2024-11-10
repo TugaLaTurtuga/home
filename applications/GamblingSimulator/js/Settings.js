@@ -4,6 +4,7 @@ let SettingsVariables = {
     PlayGames: true,
 //    SFXVolume: 1,
     MusicVolume: 0, //.6,
+    TurnOffVolumeWhenUnfocused: true,
 };
 
 document.addEventListener('DOMContentLoaded', () => {

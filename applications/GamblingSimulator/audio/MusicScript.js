@@ -121,7 +121,6 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-
 // Function to play the previous track
 function playPreviousTrack() {
     currentTrackIndex -= 2;
@@ -164,3 +163,12 @@ function interactionHandler(e) {
 interactionEvents.forEach(event => {
     document.body.addEventListener(event, interactionHandler, { once: true });
 });
+
+// Listen for when the window loses focus
+let wasPausedByUnfocusing = false;
+window.addEventListener('blur', pauseMusic);
+function pauseMusic() {if(currentAudio && SettingsVariables.TurnOffVolumeWhenUnfocused && !currentAudio.paused) {currentAudio.pause(); wasPausedByUnfocusing = true;}}
+
+// Listen for when the window gains focus
+window.addEventListener('focus', playMusic);
+function playMusic() {if(currentAudio && SettingsVariables.TurnOffVolumeWhenUnfocused && wasPausedByUnfocusing) currentAudio.play()}
