@@ -1,10 +1,10 @@
 // List of MP3 files (replace this with your actual files or fetch dynamically)
 const musicFiles = [
-    'audio/Music/GO away from me.mp3',
-    'audio/Music/Drake Go Away.mp3',
-    'audio/Music/Go Away.mp3',
+    'audio/Music/GOAwayFromMe.mp3',
+    'audio/Music/DrakeGoAway.mp3',
+    'audio/Music/GoAway.mp3',
     'audio/Music/Touching.mp3',
-    'audio/Music/Touching kids.mp3',
+    'audio/Music/TouchingKids.mp3',
 ];
 
 // Function to shuffle the array
