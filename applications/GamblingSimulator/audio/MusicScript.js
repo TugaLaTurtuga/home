@@ -26,12 +26,17 @@ const musicVolumeSlider = document.getElementById('MusicVolume_settings');
 
 // Function to update the slider based on the audio volume
 function updateVolumeSlider() {
-    if (currentAudio) {
-        musicVolumeSlider.value = currentAudio.volume;
-
-        // settings
-        SettingsVariables.MusicVolume = currentAudio.volume;
-        document.getElementById('MusicVolume-value').innerText = `${Math.round(currentAudio.volume * 100)}%`
+    // Might change in the future
+    if (!hasTouchScreen) {
+        if (currentAudio) {
+            musicVolumeSlider.value = currentAudio.volume;
+    
+            // settings
+            SettingsVariables.MusicVolume = currentAudio.volume;
+            document.getElementById('MusicVolume-value').innerText = `${Math.round(currentAudio.volume * 100)}%`
+        }
+    } else {
+        currentAudio.volume = musicVolumeSlider.value
     }
 }
 
