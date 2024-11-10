@@ -156,7 +156,7 @@ function CreateSettings() {
         if (typeof value === 'number') {
             VariableDiv.innerHTML = `
                 <h3>${key}:</h3>
-                <input type="range" id="${key}_settings" min="0" max="1" step="0.01" value="${value}" class="slider" style="margin-top: 30px; min-width: 100px; width: 100px; max-width: 80%;">
+                <input type="range" id="${key}_settings" min="0" max="1" step="0.01" value="${value}" class="slider" style="margin-top: 32px; min-width: 100px; width: 100px; max-width: 80%;">
                 <span id="${key}-value" style="margin-top: 15px; margin-left: 2px;">${Math.round(value * 100)}%</span>
             `;
             settingsElement.appendChild(VariableDiv);
@@ -175,7 +175,7 @@ function CreateSettings() {
         } else if (typeof value === 'boolean') {
             VariableDiv.innerHTML = `
                 <h3>${key}:</h3>
-                <div class="toggle-btn ${value ? 'on' : ''}" id="${key}_settings" style="margin-top: -3px;">
+                <div class="toggle-btn ${value ? 'on' : ''}" id="${key}_settings">
                     <div class="knob"></div>
                 </div>
             `;

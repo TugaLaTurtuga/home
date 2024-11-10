@@ -70,7 +70,6 @@ function playNextTrack() {
         })
         .catch((error) => {
             isAlreadyPlayingMusic = false;
-            console.error('Error playing audio:', error);
         });
 
     // Once the track ends, play the next one
@@ -109,6 +108,19 @@ function playNextTrack() {
 
     currentTrackIndex++;
 }
+
+document.addEventListener('keydown', (event) => {
+    // Check if the spacebar key was pressed and currentAudio exists
+    if (event.key === ' ' && currentAudio) {
+        event.preventDefault();
+        if (currentAudio.paused) {
+            currentAudio.play();
+        } else {
+            currentAudio.pause();
+        }
+    }
+});
+
 
 // Function to play the previous track
 function playPreviousTrack() {
