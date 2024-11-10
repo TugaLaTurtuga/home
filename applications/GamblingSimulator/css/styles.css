@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #000000;
-    background: linear-gradient(to bottom, #01222b, #011219); /* Gradient from black-gray to black */
+    background: linear-gradient(to bottom, #01222b, #011219);
     margin: 0;
     justify-content: center;
     text-align: center;
@@ -16,7 +16,7 @@ html {
     overflow-x: hidden;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
-    background-color: #01424f;
+    background: linear-gradient(to bottom, #01222b, #011219);
 }
 
 button {
@@ -27,7 +27,7 @@ button:active {
     transform: scale(0.95);
 }
 
-#seeWorkers {
+.see-workers-btn {
     margin-top: auto; /* Pushes the button to the bottom */
     border-top: 50px;
     width: 100%;
@@ -42,7 +42,7 @@ button:active {
 }
 
 .see-workers-btn:hover {
-    background-color: #011219b4;
+    background-color: #01121977;
 }
 
 .game-container {
@@ -181,6 +181,10 @@ body:hover::before {
     /* max-height: 400px; */
     box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
     transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+
+    font-family: "Rubik", serif;
+    font-size: 24px;
+    font-weight: 500;
 }
 
 .earnMoney:hover {
@@ -214,6 +218,7 @@ body:hover::before {
     cursor: pointer;
     color: #000000;
     overflow: hidden; /* Hide overflow from absolute positioning */
+    font-family: "Rubik", serif;
 }
 
 .job-shop-section button:hover {
@@ -314,7 +319,7 @@ body:hover::before {
     background-color: #023c4a7d;
 }
 
-.settings {
+.OnTop {
     display: flex;
     flex-direction: column;
     align-items: center; /* Center content horizontally */
@@ -345,18 +350,18 @@ body:hover::before {
     pointer-events: none; /* Disable interaction when hidden */
 }
 
-.settings h1 {
+.OnTop h1 {
     color: #ff8c00;
     margin-top: -17px;
 }
 
-.settings h2 {
+.OnTop h2 {
     color: #ff8c00;
     font-size: 26px;
     margin-top: 2px;
 }
 
-.settings.show {
+.OnTop.show {
     opacity: 1;
     pointer-events: auto; /* Enable interaction when visible */
     visibility: visible;
@@ -364,13 +369,19 @@ body:hover::before {
 
 /* Media query for aspect ratio */
 @media (max-aspect-ratio: 1/1.25) {
-    .settings {
+    .OnTop {
         width: 400px;
         height: 600px;
     }
 
     .job-shop-section {
         flex-direction: column; /* Stack buttons vertically */
+    }
+
+    .earnMoney {
+        min-width: 95%;
+        font-size: 24px;
+        font-weight: 600;
     }
 
     .clicker-section {
@@ -383,12 +394,6 @@ body:hover::before {
 
     .job-shop-section button { 
         margin: 7.5px 0px;
-    }
-
-    .earnMoney {
-        min-width: 95%;
-        font-size: 32px;
-        font-weight: bolder;
     }
 }
 
@@ -425,7 +430,7 @@ body:hover::before {
     position: fixed;
     background-color: transparent;
     color: #f8f8f8;
-    z-index: 1000;
+    z-index: 100000;
     top: 0px;
     left: 25px;
     font-weight: 500;

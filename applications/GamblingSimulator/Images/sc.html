@@ -3,432 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scratch Card with Matching Mechanic</title>
+    <title>Casino Game Demos: Keno, Craps, Baccarat, and Roulette</title>
     <style>
+        /* General Styles */
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
-        }
-
-        #GamePlaceholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center content horizontally */
-            justify-content: top; /* Center content vertically */
-        
-            /* Positioning to center the settings div on the screen */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        
-            /* Size of the settings div */
-            width: 600px;
-            aspect-ratio: 1;
-
-            /* Styling */
-            border: solid 1px #4d4d4d71;
-            background-color: #0112199a; /* Semi-transparent background */
-            box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
-            color: white; /* Text color */
-            padding: 0px;
-            border-radius: 10px;
-            z-index: 10001; /* Ensure it's above all other elements */
-        
-            /* Initial hidden state */
-            opacity: 1;
-            transition: opacity 0.3s ease;
-            pointer-events: all;
-        }
-
-        @media (max-aspect-ratio: 1/1.5) {
-            #GamePlaceholder {
-                width: 90%;
-            }
-        }
-
-        .sc_container {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1;
-            border: 3px solid yellow;
-            overflow: hidden;
-        }
-
-        .sc_canvas {
-            position: absolute;
-            width: 100%;
-            aspect-ratio: 1;
-            top: 0;
-            left: 0;
-            z-index: 2;
-        }
-
-        .sc_form {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            gap: 5px;
-            display: grid;
-            background-color: rgb(212, 212, 212);
+            background-color: #333;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
             color: white;
-            visibility: visible;
-            z-index: 1;
-            justify-items: center;
-            align-items: center;
-
-            /* Use minmax to prevent collapse on smaller screens */
-            grid-template-columns: repeat(auto-fill, minmax(calc((100% - (5px * 4)) / 5), 1fr));
-            grid-template-rows: repeat(auto-fill, minmax(calc((100% - (5px * 4)) / 5), 1fr));
-            grid-template-columns: repeat(var(--grid-size), minmax(0, 1fr)); /* Allow cells to shrink */
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .game {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            background-color: #444;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 10px 5px 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+            white-space: pre-line; /* To preserve line breaks */
         }
 
-        .prize {
+        /* Dice Styles */
+        .diceWrap {
             display: flex;
-            flex-direction: column;
+            justify-content: space-around;
+            margin: 20px 0;
+            perspective: 1000px; /* For 3D effect */
+        }
+
+        .dice {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+            transform: rotateX(-30deg) rotateY(-30deg);
+            transition: transform 0.5s;
+        }
+
+        .diceFace {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #f6f3f0;
+            border: 2px solid #e8e5e2;
+            border-radius: 10px;
+            display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgb(212, 212, 212);
-            border-radius: 0px;
-            color: #011219;
-            cursor: pointer;
-            visibility: visible;
-
-            /* Maintain square shape while fitting grid cells */
-            width: 100%;
-            height: 100%;
-           
-            font-size: 1em;
+            box-sizing: border-box;
         }
 
-        .prize p {
-            margin-top: -4px;
-            margin-bottom: -4px;
+        /* Positioning each face */
+        .front  { transform: rotateY(  0deg) translateZ(50px); }
+        .back   { transform: rotateY(180deg) translateZ(50px); }
+        .right  { transform: rotateY( 90deg) translateZ(50px); }
+        .left   { transform: rotateY(-90deg) translateZ(50px); }
+        .top    { transform: rotateX( 90deg) translateZ(50px); }
+        .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+        /* Pips (Dots) */
+        .dot {
+            width: 15px;
+            height: 15px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 2px;
+            display: none; /* Hidden by default */
         }
 
-        #prizeInfo {
-            align-items: center;
-            text-align-last: center;
-            border-radius: 4px;
-            padding: 5px;
-        }
+        /* Dots Positioning */
+        .dot-1 { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .dot-2 { position: absolute; top: 20%; left: 20%; }
+        .dot-3 { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); }
+        .dot-4 { position: absolute; top: 20%; right: 20%; }
+        .dot-5 { position: absolute; top: 50%; left: 20%; }
+        .dot-6 { position: absolute; top: 50%; right: 20%; }
+        .dot-7 { position: absolute; bottom: 20%; left: 20%; }
+        .dot-8 { position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%); }
+        .dot-9 { position: absolute; bottom: 20%; right: 20%; }
 
-        #resultMessage {
-            font-size: 1.2em;
-            margin-top: 10px;
-            color: #333;
-            visibility: hidden;
-        }
+        /* Show dots for each face's number */
+        .front.one .dot-1 { display: block; }
+        .front.two .dot-1, .front.two .dot-9 { display: block; }
+        .front.three .dot-1, .front.three .dot-5, .front.three .dot-9 { display: block; }
+        .front.four .dot-1, .front.four .dot-3, .front.four .dot-7, .front.four .dot-9 { display: block; }
+        .front.five .dot-1, .front.five .dot-3, .front.five .dot-5, .front.five .dot-7, .front.five .dot-9 { display: block; }
+        .front.six .dot-1, .front.six .dot-3, .front.six .dot-4, .front.six .dot-6, .front.six .dot-7, .front.six .dot-9 { display: block; }
+
+        .back.one .dot-1 { display: block; }
+        .back.two .dot-1, .back.two .dot-9 { display: block; }
+        .back.three .dot-1, .back.three .dot-5, .back.three .dot-9 { display: block; }
+        .back.four .dot-1, .back.four .dot-3, .back.four .dot-7, .back.four .dot-9 { display: block; }
+        .back.five .dot-1, .back.five .dot-3, .back.five .dot-5, .back.five .dot-7, .back.five .dot-9 { display: block; }
+        .back.six .dot-1, .back.six .dot-3, .back.six .dot-4, .back.six .dot-6, .back.six .dot-7, .back.six .dot-9 { display: block; }
+
+        .left.one .dot-1 { display: block; }
+        .left.two .dot-1, .left.two .dot-9 { display: block; }
+        .left.three .dot-1, .left.three .dot-5, .left.three .dot-9 { display: block; }
+        .left.four .dot-1, .left.four .dot-3, .left.four .dot-7, .left.four .dot-9 { display: block; }
+        .left.five .dot-1, .left.five .dot-3, .left.five .dot-5, .left.five .dot-7, .left.five .dot-9 { display: block; }
+        .left.six .dot-1, .left.six .dot-3, .left.six .dot-4, .left.six .dot-6, .left.six .dot-7, .left.six .dot-9 { display: block; }
+
+        .right.one .dot-1 { display: block; }
+        .right.two .dot-1, .right.two .dot-9 { display: block; }
+        .right.three .dot-1, .right.three .dot-5, .right.three .dot-9 { display: block; }
+        .right.four .dot-1, .right.four .dot-3, .right.four .dot-7, .right.four .dot-9 { display: block; }
+        .right.five .dot-1, .right.five .dot-3, .right.five .dot-5, .right.five .dot-7, .right.five .dot-9 { display: block; }
+        .right.six .dot-1, .right.six .dot-3, .right.six .dot-4, .right.six .dot-6, .right.six .dot-7, .right.six .dot-9 { display: block; }
+
+        .top.one .dot-1 { display: block; }
+        .top.two .dot-1, .top.two .dot-9 { display: block; }
+        .top.three .dot-1, .top.three .dot-5, .top.three .dot-9 { display: block; }
+        .top.four .dot-1, .top.four .dot-3, .top.four .dot-7, .top.four .dot-9 { display: block; }
+        .top.five .dot-1, .top.five .dot-3, .top.five .dot-5, .top.five .dot-7, .top.five .dot-9 { display: block; }
+        .top.six .dot-1, .top.six .dot-3, .top.six .dot-4, .top.six .dot-6, .top.six .dot-7, .top.six .dot-9 { display: block; }
+
+        .bottom.one .dot-1 { display: block; }
+        .bottom.two .dot-1, .bottom.two .dot-9 { display: block; }
+        .bottom.three .dot-1, .bottom.three .dot-5, .bottom.three .dot-9 { display: block; }
+        .bottom.four .dot-1, .bottom.four .dot-3, .bottom.four .dot-7, .bottom.four .dot-9 { display: block; }
+        .bottom.five .dot-1, .bottom.five .dot-3, .bottom.five .dot-5, .bottom.five .dot-7, .bottom.five .dot-9 { display: block; }
+        .bottom.six .dot-1, .bottom.six .dot-3, .bottom.six .dot-4, .bottom.six .dot-6, .bottom.six .dot-7, .bottom.six .dot-9 { display: block; }
+
     </style>
 </head>
-
 <body>
-    <div id="resultMessage"></div>
-    <label for="gridSize">Choose grid size:</label>
-    <select id="gridSize">
-        <option value="3">3x3</option>
-        <option value="4">4x4</option>
-        <option value="5">5x5</option>
+
+<h1>Casino Game Demos</h1>
+<p>Play basic demos of Keno, Craps, Baccarat, and Roulette below.</p>
+
+<!-- Keno Game -->
+<div class="game" id="keno">
+    <h2>Keno</h2>
+    <p>Pick 5 numbers between 1 and 20:</p>
+    <input type="text" id="kenoNumbers" placeholder="e.g., 3, 7, 12, 15, 19">
+    <button class="button" onclick="playKeno()">Play Keno</button>
+    <div class="result" id="kenoResult"></div>
+</div>
+
+<!-- Craps Game -->
+<div class="game" id="craps">
+    <h2>Craps</h2>
+    <p>Roll two dice. If you get 7 or 11, you win. If you get 2, 3, or 12, you lose.</p>
+    <div class="diceWrap">
+        <!-- Dice 1 -->
+        <div class="dice rolling" id="dice1">
+            <div class="diceFace front one">
+                <div class="dot dot-5"></div>
+            </div>
+            <div class="diceFace back six">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-3"></div>
+                <div class="dot dot-4"></div>
+                <div class="dot dot-6"></div>
+                <div class="dot dot-7"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace left two">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace right two">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace top three">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-5"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace bottom four">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-3"></div>
+                <div class="dot dot-7"></div>
+                <div class="dot dot-9"></div>
+            </div>
+        </div>
+        <!-- Dice 2 -->
+        <div class="dice rolling" id="dice2">
+            <div class="diceFace front one">
+                <div class="dot dot-5"></div>
+            </div>
+            <div class="diceFace back six">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-3"></div>
+                <div class="dot dot-4"></div>
+                <div class="dot dot-6"></div>
+                <div class="dot dot-7"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace left two">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace right two">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace top three">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-5"></div>
+                <div class="dot dot-9"></div>
+            </div>
+            <div class="diceFace bottom four">
+                <div class="dot dot-1"></div>
+                <div class="dot dot-3"></div>
+                <div class="dot dot-7"></div>
+                <div class="dot dot-9"></div>
+            </div>
+        </div>
+    </div>
+    <button class="button" onclick="playCraps()">Roll Dice</button>
+    <div class="result" id="crapsResult"></div>
+</div>
+
+<!-- Baccarat Game -->
+<div class="game" id="baccarat">
+    <h2>Baccarat</h2>
+    <p>Choose to bet on the Player, Banker, or Tie:</p>
+    <select id="baccaratBet">
+        <option value="Player">Player</option>
+        <option value="Banker">Banker</option>
+        <option value="Tie">Tie</option>
     </select>
-    <button onclick="generateGrid()">Generate Prize Grid</button>
+    <button class="button" onclick="playBaccarat()">Place Bet</button>
+    <div class="result" id="baccaratResult"></div>
+</div>
 
-    <div id="GamePlaceholder"></div>
+<!-- Roulette Game -->
+<div class="game" id="roulette">
+    <h2>Roulette</h2>
+    <p>Choose your bet type:</p>
+    <select id="rouletteBetType" onchange="toggleRouletteOptions()">
+        <option value="Red">Red</option>
+        <option value="Black">Black</option>
+        <option value="Odd">Odd</option>
+        <option value="Even">Even</option>
+        <option value="Number">Specific Number</option>
+    </select>
+    <input type="number" id="rouletteNumber" min="0" max="36" placeholder="Choose a number" style="display:none;">
+    <button class="button" onclick="playRoulette()">Spin the Wheel</button>
+    <div class="result" id="rouletteResult"></div>
+</div>
 
-    <script>
-        let revealedSymbols = [];
-        let attempts = 0;
-        let totalCells;
+<!-- Controller -->
+<div class="controller">
+    <button id="rolling">Toggle Rolling Per Face</button><br />
+    <button id="throw">Roll</button> <span id="diceVal"></span><br />
+    x <input type="range" min="0" max="100" id="rx" value="40"><span id="nx">0</span><br />
+    y <input type="range" min="0" max="100" id="ry" value="35"><span id="ny">0</span><br />
+    z <input type="range" min="0" max="100" id="rz" value="15"><span id="nz">0</span><br />
+    Dice Type: 
+    <select name="diceType" id="diceType">
+        <option value="">Default</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="black">Black</option>
+        <option value="pink">Pink</option>
+    </select>
+</div>
 
-        const symbolSet = [
-            '💎', '💰', '🍀', 
-            '⭐', '🥶', '🍒', 
-            '💯', '💀', '👀',
-        ];
-        const colorSet = [
-            'rgb(50, 100, 50)', 'rgb(10, 100, 100)', 'rgb(150, 50, 50)', 
-            'rgb(100, 100, 100)', 'rgb(100, 100, 150)', 'rgb(100, 100, 50)', 
-            'rgb(150, 150, 150)', 'rgb(150, 50, 150)', 'rgb(150, 250, 150)',
-        ]
+<script>
+    // Keno Game Logic
+    function playKeno() {
+        const userInput = document.getElementById("kenoNumbers").value.split(",").map(Number);
+        if (userInput.length !== 5) {
+            document.getElementById("kenoResult").innerText = "Please pick exactly 5 numbers.";
+            return;
+        }
 
-        const PlaceholderElement = document.getElementById('GamePlaceholder');
+        const drawnNumbers = Array.from({length: 5}, () => Math.floor(Math.random() * 20) + 1);
+        const matches = userInput.filter(num => drawnNumbers.includes(num));
 
-        function generateGrid() {
-            const gridSize = parseInt(document.getElementById('gridSize').value);
-            totalCells = gridSize * gridSize;
-            revealedSymbols = [];
-            attempts = 0;
+        document.getElementById("kenoResult").innerText = 
+            `Drawn numbers: ${drawnNumbers.join(", ")}\n` +
+            `You matched ${matches.length} number(s): ${matches.join(", ")}\n` +
+            (matches.length >= 3 ? "You win!" : "You lose.");
+    }
 
-            const resultMessage = document.getElementById('resultMessage');
-            resultMessage.style.visibility = 'hidden';
+    // Craps Game Logic with Dice Animation
+    const perFace = [
+        [-0.1, 0.3, -1],
+        [-0.1, 0.6, -0.4],
+        [-0.85, -0.42, 0.73],
+        [-0.8, 0.3, -0.75],
+        [0.3, 0.45, 0.9],
+        [-0.16, 0.6, 0.18]
+    ];
 
-            PlaceholderElement.innerHTML = '';
-            PlaceholderElement.style.borderRadius = '0px';
-            PlaceholderElement.style.maxWidth = '450px';
+    function playCraps() {
+        const die1 = Math.floor(Math.random() * 6) + 1;
+        const die2 = Math.floor(Math.random() * 6) + 1;
+        const total = die1 + die2;
 
-            const scContainer = document.createElement('div');
-            scContainer.className = 'sc_container';
-            PlaceholderElement.appendChild(scContainer);
-            PlaceholderElement.style.opacity = '1'; // TEMP
+        animateDice("dice1", die1);
+        animateDice("dice2", die2);
 
-            const canvas = document.createElement('canvas');
-            canvas.className = 'sc_canvas';
-            canvas.getContext('2d', { willReadFrequently: true });
-            scContainer.appendChild(canvas);
-
-            const form = document.createElement('div');
-            form.className = 'sc_form';
-            scContainer.appendChild(form);
-
-            form.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-            form.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
-
-            // Create unique amounts
-            const uniqueAmounts = Array.from({ length: parseInt(totalCells / 1.2) }, () => `$${(Math.random() * 90 + 10) /* 10 - 100 */.toFixed(2)}`);
-            const amounts = Array.from({ length: totalCells }, (_, index) => uniqueAmounts[index % uniqueAmounts.length]);
-
-            // Determine if a duplicated line should be created (50% chance)
-            const hasDuplicateLine = Math.random() < 0.5;
-
-            if (hasDuplicateLine) {
-                const duplicateAmount = uniqueAmounts[Math.floor(Math.random() * uniqueAmounts.length)];
-
-                // Determine whether to create a row, column, or diagonal with the same prize
-                const lineType = ['row', 'column', 'diagonal'][Math.floor(Math.random() * 3)];
-
-                if (lineType === 'row') {
-                    const rowIndex = Math.floor(Math.random() * gridSize);
-                    for (let col = 0; col < gridSize; col++) {
-                        amounts[rowIndex * gridSize + col] = duplicateAmount;
-                    }
-                } else if (lineType === 'column') {
-                    const colIndex = Math.floor(Math.random() * gridSize);
-                    for (let row = 0; row < gridSize; row++) {
-                        amounts[row * gridSize + colIndex] = duplicateAmount;
-                    }
-                } else if (lineType === 'diagonal') {
-                    if (Math.random() < 0.5) {
-                        for (let i = 0; i < gridSize; i++) {
-                            amounts[i * gridSize + i] = duplicateAmount;
-                        }
-                    } else {
-                        for (let i = 0; i < gridSize; i++) {
-                            amounts[i * gridSize + (gridSize - 1 - i)] = duplicateAmount;
-                        }
-                    }
-                }
+        setTimeout(() => {
+            let result;
+            if (total === 7 || total === 11) {
+                result = `You rolled a ${total}. You win!`;
+            } else if (total === 2 || total === 3 || total === 12) {
+                result = `You rolled a ${total}. You lose!`;
             } else {
-                // Check and adjust if there’s an unintended win
-                const changedMoney = `$${(Math.random() * 100).toFixed(2)}`;
-                while (isWinningConfiguration(amounts, gridSize)) {
-                    const randomIndex = Math.floor(Math.random() * totalCells);
-                    amounts[randomIndex] = changedMoney;
-                    if (uniqueAmounts.indexOf(changedMoney) !== 1) { uniqueAmounts.appendChild(changedMoney) }
-                }
+                result = `You rolled a ${total}. Try again!`;
             }
 
-            // Populate the grid with cells
-            amounts.forEach((amount, index) => {
-                const cell = document.createElement('div');
-                cell.className = 'prize';
+            document.getElementById("crapsResult").innerText = result;
+        }, 1000);
+    }
 
-                // Find the index of the amount in uniqueAmounts to get the symbol
-                const symbolIndex = uniqueAmounts.indexOf(amount);
-                const symbol = symbolIndex !== -1 ? symbolSet[symbolIndex % symbolSet.length] : '❓'; // Default symbol if not found
+    function animateDice(diceId, value) {
+        const dice = document.getElementById(diceId);
+        dice.classList.add("rolling");
 
-                const color = symbolIndex !== -1 ? colorSet[symbolIndex % colorSet.length] : 'rgb(150, 150, 150)'; // Default symbol if not found
+        setTimeout(() => {
+            dice.style.transform = `rotate3d(${perFace[value - 1].join(",")}, 360deg)`;
+            dice.classList.remove("rolling");
+            setFaceClass(dice, value);
+        }, 500);
+    }
 
-                // Set cell content
-                cell.innerHTML = `<div id="prizeInfo" style="background-color: ${color};"><p>${symbol}</p><p>${amount}</p></div>`;
-                cell.dataset.amount = amount;
+    function setFaceClass(dice, value) {
+        // Remove existing number classes
+        dice.classList.remove("one", "two", "three", "four", "five", "six");
+        // Add new number class
+        dice.classList.add(["one", "two", "three", "four", "five", "six"][value - 1]);
+    }
 
-                form.appendChild(cell);
-
-                setTimeout(() => {
-                    const cellWidth = parseFloat(getComputedStyle(cell).width); // Get the computed width
-                    cell.style.fontSize = `${cellWidth / 5}px`; // Set font size relative to width
-                }, 0); // Use a timeout to ensure the width is computed after rendering
-            });
-
-            setupScratchEffect(canvas, scContainer);
+    // Baccarat Game Logic
+    function playBaccarat() {
+        const playerScore = Math.floor(Math.random() * 9) + 1;
+        const bankerScore = Math.floor(Math.random() * 9) + 1;
+        const bet = document.getElementById("baccaratBet").value;
+    
+        let result;
+        if (playerScore > bankerScore) {
+            result = "Player wins with " + playerScore + " points.";
+        } else if (bankerScore > playerScore) {
+            result = "Banker wins with " + bankerScore + " points.";
+        } else {
+            result = "It's a Tie with both scoring " + playerScore + ".";
         }
+    
+        const outcome = 
+            (bet === "Player" && playerScore > bankerScore) || 
+            (bet === "Banker" && bankerScore > playerScore) ||
+            (bet === "Tie" && playerScore === bankerScore) 
+            ? "You win your bet!" : "You lose your bet.";
+    
+        document.getElementById("baccaratResult").innerText = result + " " + outcome;
+    }
 
-        // Helper function to check if there's a winning line
-        function isWinningConfiguration(amounts, gridSize) {
-            // Check rows
-            for (let row = 0; row < gridSize; row++) {
-                const start = row * gridSize;
-                if (amounts.slice(start, start + gridSize).every(val => val === amounts[start])) {
-                    return true;
-                }
-            }
-            // Check columns
-            for (let col = 0; col < gridSize; col++) {
-                if (Array.from({ length: gridSize }, (_, row) => amounts[row * gridSize + col])
-                    .every(val => val === amounts[col])) {
-                    return true;
-                }
-            }
-            // Check diagonals
-            if (Array.from({ length: gridSize }, (_, i) => amounts[i * gridSize + i])
-                .every(val => val === amounts[0])) {
-                return true;
-            }
-            if (Array.from({ length: gridSize }, (_, i) => amounts[i * gridSize + (gridSize - 1 - i)])
-                .every(val => val === amounts[gridSize - 1])) {
-                return true;
-            }
-            return false;
+    // Roulette Game Logic
+    function playRoulette() {
+        const betType = document.getElementById("rouletteBetType").value;
+        const selectedNumber = parseInt(document.getElementById("rouletteNumber").value, 10);
+        const spinResult = Math.floor(Math.random() * 37);
+        const isRed = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36].includes(spinResult);
+        const color = spinResult === 0 ? "Green" : isRed ? "Red" : "Black";
+        const isEven = spinResult !== 0 && spinResult % 2 === 0;
+    
+        let outcome;
+        if (betType === "Number" && spinResult === selectedNumber) {
+            outcome = `The wheel landed on ${spinResult}. You win!`;
+        } else if (
+            (betType === "Red" && color === "Red") || 
+            (betType === "Black" && color === "Black") ||
+            (betType === "Odd" && spinResult % 2 !== 0 && spinResult !== 0) ||
+            (betType === "Even" && isEven)
+        ) {
+            outcome = `The wheel landed on ${spinResult} (${color}, ${isEven ? "Even" : "Odd"}). You win!`;
+        } else {
+            outcome = `The wheel landed on ${spinResult} (${color}, ${isEven ? "Even" : "Odd"}). You lose.`;
         }
+        
+        document.getElementById("rouletteResult").innerText = outcome;
+    }
 
-        function checkWin() {
-            const gridSize = parseInt(document.getElementById('gridSize').value);
-            const cells = Array.from(document.querySelectorAll('.sc_form .prize'));
-            const resultMessage = document.getElementById('resultMessage');
-            resultMessage.style.visibility = 'visible';
+    function toggleRouletteOptions() {
+        const betType = document.getElementById("rouletteBetType").value;
+        const numberInput = document.getElementById("rouletteNumber");
+        numberInput.style.display = betType === "Number" ? "inline" : "none";
+    }
 
-            // Helper function to get symbol from a cell
-            const getSymbol = (cell) => cell.querySelector('p').textContent;
+    // Controller Logic
+    let allVal = {
+        x: 0,
+        y: 0,
+        z: 0
+    };
 
-            // Check rows for win
-            for (let row = 0; row < gridSize; row++) {
-                const rowStartIndex = row * gridSize;
-                const rowSymbols = cells.slice(rowStartIndex, rowStartIndex + gridSize).map(getSymbol);
-                if (rowSymbols.every(symbol => symbol === rowSymbols[0])) {
-                    resultMessage.textContent = "Congratulations! You've won with a matching row!";
-                    return;
-                }
+    const getVal = () => {
+        ['x','y','z'].forEach(i => {
+            let n = Math.cos((document.getElementById(`r${i}`).value / 100) * Math.PI).toFixed(3);
+            document.getElementById(`n${i}`).innerText = n;
+            allVal[i] = n;
+        });
+    };
+
+    const setVal = (num, diceId) => {
+        const rotation = perFace[num - 1];
+        const dice = document.getElementById(diceId);
+        dice.style.transform = `rotate3d(${rotation.join(",")}, 360deg)`;
+    };
+
+    const setDice = () => {
+        getVal();
+        ['dice1', 'dice2'].forEach(diceId => {
+            const transform = `rotate3d(${Object.values(allVal).join(",")}, 360deg)`;
+            document.getElementById(diceId).style.transform = transform;
+        });
+    };
+
+    // Initialize
+    setDice();
+
+    // Event Listeners
+    document.querySelectorAll(".controller input[type=range]").forEach(range => {
+        range.addEventListener("input", setDice);
+    });
+
+    document.getElementById("rolling").addEventListener("click", () => {
+        document.querySelectorAll(".dice").forEach(dice => {
+            dice.classList.toggle("rolling");
+        });
+    });
+
+    document.getElementById("throw").addEventListener("click", () => {
+        const diceVal1 = Math.floor(Math.random() * 6) + 1;
+        const diceVal2 = Math.floor(Math.random() * 6) + 1;
+        document.querySelectorAll(".dice").forEach(dice => {
+            dice.classList.remove("rolling");
+        });
+        animateDice("dice1", diceVal1);
+        animateDice("dice2", diceVal2);
+        document.getElementById("diceVal").innerText = `${diceVal1} - ${diceVal2}`;
+    });
+
+    document.getElementById("diceType").addEventListener("change", () => {
+        const diceType = document.getElementById("diceType").value;
+        document.querySelectorAll(".dice").forEach(dice => {
+            dice.classList.remove("red", "blue", "black", "pink");
+            if (diceType) {
+                dice.classList.add(diceType);
             }
+        });
+    });
+</script>
 
-            // Check columns for win
-            for (let col = 0; col < gridSize; col++) {
-                const colSymbols = [];
-                for (let row = 0; row < gridSize; row++) {
-                    colSymbols.push(getSymbol(cells[row * gridSize + col]));
-                }
-                if (colSymbols.every(symbol => symbol === colSymbols[0])) {
-                    resultMessage.textContent = "Congratulations! You've won with a matching column!";
-                    return true;
-                }
-            }
-
-            // Check top-left to bottom-right diagonal for win
-            const diagonal1Symbols = [];
-            for (let i = 0; i < gridSize; i++) {
-                diagonal1Symbols.push(getSymbol(cells[i * gridSize + i]));
-            }
-            if (diagonal1Symbols.every(symbol => symbol === diagonal1Symbols[0])) {
-                resultMessage.textContent = "Congratulations! You've won with a matching diagonal!";
-                return;
-            }
-
-            // Check top-right to bottom-left diagonal for win
-            const diagonal2Symbols = [];
-            for (let i = 0; i < gridSize; i++) {
-                diagonal2Symbols.push(getSymbol(cells[i * gridSize + (gridSize - 1 - i)]));
-            }
-            if (diagonal2Symbols.every(symbol => symbol === diagonal2Symbols[0])) {
-                resultMessage.textContent = "Congratulations! You've won with a matching diagonal!";
-                return;
-            }
-
-            // If no win condition is met
-            resultMessage.textContent = "Sorry, try again!";
-        }
-
-        function setupScratchEffect(canvas, scContainer) {
-            const ctx = canvas.getContext('2d');
-
-            const image = new Image();
-            const brush = new Image();
-
-            canvas.width = scContainer.clientWidth;
-            canvas.height = scContainer.clientHeight;
-
-            image.src = 'sc.png';
-            image.onload = function() {
-                ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-            };
-
-            brush.src = 'brush.png';
-            brush.onload = function() {
-                canvas.addEventListener('mousedown', handleMouseDown, false);
-                canvas.addEventListener('mousemove', handleMouseMove, false);
-                canvas.addEventListener('mouseup', handleMouseUp, false);
-                canvas.addEventListener('touchstart', handleMouseDown, false);
-                canvas.addEventListener('touchmove', handleMouseMove, false);
-                canvas.addEventListener('touchend', handleMouseUp, false);
-            };
-
-            function startErasing() {
-                ctx.globalCompositeOperation = 'destination-out';
-            }
-
-            function stopErasing() {
-                ctx.globalCompositeOperation = 'source-over';
-            }
-
-            let isDrawing, lastPoint;
-
-            function handleMouseDown(event) {
-                isDrawing = true;
-                lastPoint = getMousePosition(event);
-                startErasing();
-            }
-
-            function handleMouseMove(event) {
-                if (!isDrawing) return;
-
-                event.preventDefault();
-                const currentPoint = getMousePosition(event);
-                const dist = Math.sqrt(Math.pow(currentPoint.x - lastPoint.x, 2) + Math.pow(currentPoint.y - lastPoint.y, 2));
-                const angle = Math.atan2(currentPoint.x - lastPoint.x, currentPoint.y - lastPoint.y);
-
-                for (let i = 0; i < dist; i++) {
-                    const x = lastPoint.x + (Math.sin(angle) * i) - brush.width / 2;
-                    const y = lastPoint.y + (Math.cos(angle) * i) - brush.height / 2;
-                    ctx.drawImage(brush, x, y);
-                }
-
-                lastPoint = currentPoint;
-                checkScratchProgress();
-            }
-
-            function handleMouseUp(event) {
-                isDrawing = false;
-                stopErasing();
-            }
-
-            function getMousePosition(event) {
-                const rect = canvas.getBoundingClientRect();
-                return {
-                    x: (event.clientX || event.touches[0].clientX) - rect.left,
-                    y: (event.clientY || event.touches[0].clientY) - rect.top
-                };
-            }
-
-            function checkScratchProgress() {
-                const scratched = ctx.getImageData(0, 0, canvas.width, canvas.height).data.filter((_, i) => i % 4 === 3 && _ === 0).length;
-                const scratchedPercent = (scratched / (canvas.width * canvas.height));
-
-                if (scratchedPercent >= .6) {
-                    canvas.style.display = 'none';
-                    checkWin()
-                    setTimeout (() => {
-                        PlaceholderElement.style.opacity = '0'; // TEMP
-                        setTimeout (() => {
-                            PlaceholderElement.style.borderRadius = '10px';
-                            PlaceholderElement.style.maxWidth = '600px';
-                        }, 300);
-                    }, 1000);
-                }
-            }
-        }
-    </script>
 </body>
 </html>

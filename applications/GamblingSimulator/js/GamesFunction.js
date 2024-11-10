@@ -18,16 +18,16 @@ function PokerGame(wonOrLost, winnings, level) {
         console.log("Playing Poker...");
         PlaceholderElement.innerHTML = '';
 
-        if (PlayGames) {
-            SeeGame(false);
-            setTimeout(() => {
-                SeeGame(false);
+        if (SettingsVariables.PlayGames) {
+            setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000); // Duration of the game
+            }, 1000)
         } else {
-            displayResult(wonOrLost, winnings);
-            resolve(true);
+            setTimeout (() => {
+                displayResult(wonOrLost, winnings);
+                resolve(true);
+            }, 1000)
         }
     });
 }
@@ -38,16 +38,16 @@ function RouletteGame(wonOrLost, winnings, level) {
         console.log("Playing Roulette...");
         PlaceholderElement.innerHTML = '';
         
-        if (PlayGames) {
-            SeeGame(false);
-            setTimeout(() => {
-                SeeGame(false);
+        if (SettingsVariables.PlayGames) {
+            setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000); // Duration of the game
+            }, 1000)
         } else {
-            displayResult(wonOrLost, winnings);
-            resolve(true);
+            setTimeout (() => {
+                displayResult(wonOrLost, winnings);
+                resolve(true);
+            }, 1000)
         }
     });
 }
@@ -58,12 +58,14 @@ function SlotsGame(wonOrLost, winnings, level) {
         console.log("Playing Slots...");
         PlaceholderElement.innerHTML = '';
         
-        if (PlayGames) {
+        if (SettingsVariables.PlayGames) {
             SeeGame(true);
             startSlots(resolve, level);
         } else {
-            displayResult(wonOrLost, winnings);
-            resolve(true);
+            setTimeout (() => {
+                displayResult(wonOrLost, winnings);
+                resolve(true);
+            }, 1000)
         }
     });
 }
@@ -74,12 +76,14 @@ function ScratchCardsGame(wonOrLost, winnings, level) {
         console.log("Playing Scratchcards...");
         PlaceholderElement.innerHTML = '';
        
-        if (PlayGames) {
+        if (SettingsVariables.PlayGames) {
             SeeGame(true);
             generateGrid(level.level + 2, level, resolve);
         } else {
-            displayResult(wonOrLost, winnings);
-            resolve(true);
+            setTimeout (() => {
+                displayResult(wonOrLost, winnings);
+                resolve(true);
+            }, 1000)
         }
     });
 }
@@ -90,7 +94,7 @@ function BlackjackGame(wonOrLost, winnings, level) {
         console.log("Playing Blackjack...");
         PlaceholderElement.innerHTML = '';
       
-        if (PlayGames) {
+        if (SettingsVariables.PlayGames) {
             SeeGame(true);
             PlaceholderElement.style.backgroundColor = "#2e8b57";
             PlaceholderElement.style.border = "solid 2px #ccc";
@@ -116,8 +120,10 @@ function BlackjackGame(wonOrLost, winnings, level) {
 
             BlackjackinitGame(resolve);
         } else {
-            displayResult(wonOrLost, winnings);
-            resolve(true);
+            setTimeout (() => {
+                displayResult(wonOrLost, winnings);
+                resolve(true);
+            }, 1000)
         }
     });
 }
@@ -128,16 +134,16 @@ function LotteriesGame(wonOrLost, winnings, level) {
         console.log("Playing Lotteries...");
         PlaceholderElement.innerHTML = '';
 
-        if (PlayGames) {
-            SeeGame(false);
+        if (SettingsVariables.PlayGames) {
             setTimeout(() => {
-                SeeGame(false);
                 displayResult(wonOrLost, winnings);
                 resolve(true);
             }, 1000); // Duration of the game
         } else {
-            displayResult(wonOrLost, winnings);
-            resolve(true);
+            setTimeout (() => {
+                displayResult(wonOrLost, winnings);
+                resolve(true);
+            }, 1000)
         }
     });
 }

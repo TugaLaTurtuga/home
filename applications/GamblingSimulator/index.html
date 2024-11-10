@@ -15,9 +15,14 @@
     <link rel="stylesheet" href="css/GamesStyle.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/workersStyle.css">
+    <link rel="stylesheet" href="css/Settings.css">
 </head>
 <body>
-    <div class="settings" id="Settings"><h1>Settings</h1></div>
+    <div class="settingsWholeDiv">
+        <h1>Settings</h1>
+        <div class="settings" id="settings"></div>
+    </div>
+   
     <script src="js/Settings.js"></script>
 
     <div class="money-count">
@@ -33,7 +38,6 @@
             <script src="js/Addons/WorkBtnAminator.js"></script>
 
             <div id="EasyNav" style="max-width: 800px; width: 100%; margin-top: 30px; margin-bottom: 40px;"></div>
-            <script src="js/Addons/EasyNav.js"></script>
 
             <div class="job-shop-section" id="job-shop-section"></div>
         </div>
@@ -90,9 +94,7 @@
     <div class="bottom-right-text" id="salaryDiv"> <p>Salaries: -$___</p></div>
     <div class="top-right-text" id="depositsDiv"> <p>Deposits: $___</p></div>
 
-    <h1 onclick="SeeBank()" style="cursor: pointer;">See bank</h1>
-
-    <div class="bottom-info">
+    <div class="bottom-info" onclick="SeeBank()">
         <p id="loansPer">Loans: -$___ per __s</p>
         <p id="salariesPer">Salaries: -$___ per __s</p>
     </div>
@@ -103,7 +105,7 @@
 
     <input type="file" id="fileInput" name="fileInput", style="display: none;"> <!-- for upload file -->
 
-    <div class="settings" id="bank">
+    <div class="OnTop" id="bank">
         <h1>Bank</h1>
         <div class="Globalbutton-container">
             <button id="btn1" class="Globalbutton" onclick="ChangeBankView(true)">Loans</button>
@@ -150,7 +152,7 @@
     </div>
     <h1>Work in progress</h1>
 
-    <div class="settings" id="CH">
+    <div class="OnTop" id="CH">
         <h1>Change logs</h1>
         <div id="sidebar" class="changelog-sidebar">
             <!-- Sidebar buttons for each changelog will go here -->
@@ -162,5 +164,8 @@
     </div>
   
     <script src="CH/ChangeLogs.js"></script>
+
+    <script src="audio/MusicScript.js"></script>
+    <script src="js/Addons/EasyNav.js"></script>
 </body>
 </html>

@@ -1,0 +1,144 @@
+/* Basic styling for button container */
+.toggle-btn {
+    width: 60px;
+    height: 30px;
+    background-color: #ccc; /* Start color */
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    justify-content: center;
+    transition: background-color 0.1s ease-out;
+}
+
+/* Styling for the circle/knob that moves */
+.toggle-btn .knob {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.1s ease-out;
+}
+
+.settingsWholeDiv {
+    /* Positioning to center the settings div on the screen */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background-color: transparent; /* Background color to match the settings */
+    color: #ff8c00;
+    padding: 10px;
+    max-width: 99%; /* Slightly wider to cover container borders */
+    width: 90%; /* Slightly wider to cover container borders */
+    text-align: center;
+    z-index: 100000;
+
+    /* Initial hidden state */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.settingsWholeDiv h1 {
+    position: absolute;
+    top: -10px; /* Move the heading above the settings box */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100001;
+    margin: 0;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    overflow-y: scroll; /* Allow content to overflow */
+    overflow-x: hidden;
+
+    /* Positioning to center the settings div on the screen */
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    
+    /* Size of the settings div */
+    max-width: 80%;
+    width: 400px;
+    aspect-ratio: 1.5/1;
+
+    /* Styling */
+    border: solid 1px #4d4d4d71;
+    padding: 40px;
+    background-color: #0112199a; /* Semi-transparent background */
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
+    color: white;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.settings h2 {
+    color: #ff8c00;
+    font-size: 26px;
+    margin-top: 2px;
+}
+
+.settings h3 {
+    color: #ccc;
+    font-size: 20px;
+    margin-top: 2px;
+}
+
+.settingsWholeDiv.show {
+    opacity: 1;
+    pointer-events: auto; /* Enable interaction when visible */
+    visibility: visible;
+}
+
+/* Styling for each setting item */
+.setting-item {
+    display: flex;
+    align-items: left; /* Center content vertically */
+    justify-content: left; /* Space out elements horizontally */
+    gap: 10px;
+    left: 10%;
+    padding: 2.5px 20px;
+    margin-bottom: 15px;
+}
+
+/* Styling for the toggle button */
+.toggle-btn {
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.1s ease-out;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Styling for the knob that moves */
+.toggle-btn .knob {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.1s ease-out;
+}
+
+/* Styling for the percentage display */
+.setting-item span {
+    margin-left: -5px;
+    font-size: 14px;
+    color: #ff8c00;
+}

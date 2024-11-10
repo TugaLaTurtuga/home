@@ -12,6 +12,24 @@ function updateSliderBackground(slider) {
     slider.style.setProperty('--slider-value', `${percentage}%`); // Set slider value dynamically
 }
 
+// Function to set the slider color dynamically
+function setSliderColor(slider, color, differentThumbColor = false, thumbColor = 'white') {
+    // Set the main track color
+    slider.style.setProperty('--slider-color', color);
+
+    // Set a different color for the thumb if specified
+    if (differentThumbColor) {
+        slider.style.setProperty('--slider-thumb-color', thumbColor);
+    } else {
+        // Fallback to the same color as the track
+        slider.style.setProperty('--slider-thumb-color', color);
+    }
+}
+
+function setSliderBackGroundColor(slider, color) {
+    slider.style.setProperty('--slider-background-color', color);
+}
+
 // Function to handle scroll events on the slider
 function handleSliderScroll(event, slider) {
     event.preventDefault(); // Prevent the page from scrolling

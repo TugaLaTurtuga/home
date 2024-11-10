@@ -185,7 +185,7 @@ function calculatejobHeight() {
             totalHeight = swHeight + jsHeight + 385;
         }
 
-        if (hasEasyNavEnabled) totalHeight += 120;
+        if (SettingsVariables.EasyNav) totalHeight += 80;
 
         // Set the gameContainer height
         gameContainer.style.height = `${totalHeight}px`;

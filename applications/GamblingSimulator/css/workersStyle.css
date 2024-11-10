@@ -53,7 +53,6 @@
     color: #01222b;
 }
 
-/* Slider styling */
 .slider {
     width: 80%; /* Make slider full width of the card */
     height: 8px;
@@ -63,6 +62,7 @@
     cursor: pointer;
     --slider-value: 100%; /* Start with max value for visual feedback */
     --slider-color: red; /* This will be dynamically updated */
+    --slider-thumb-color: red; /* New variable for thumb color */
     --slider-background-color: #ccc;
     transform: translateY(-20px);
 }
@@ -80,7 +80,7 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: var(--slider-color);
+    background-color: var(--slider-thumb-color); /* Use the new variable */
     cursor: pointer;
     margin-top: -4px;
 }
@@ -90,7 +90,7 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background-color: var(--slider-color);
+    background-color: var(--slider-thumb-color); /* Use the new variable */
     cursor: pointer;
     border: none;
 }
@@ -142,7 +142,7 @@ h3 {
 
 .top-right-text {
     position:fixed;
-    z-index: 1000;
+    z-index: 100000;
     top: 25px;
     right: 25px;
     opacity: 0;
@@ -151,7 +151,7 @@ h3 {
 
     color: green;
     font-size: 24px;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .top-right-text.show {
@@ -161,7 +161,7 @@ h3 {
 
 .bottom-left-text {
     position:fixed;
-    z-index: 1000;
+    z-index: 100000;
     bottom: 10px;
     left: 25px;
     opacity: 0;
@@ -170,7 +170,7 @@ h3 {
 
     color: red;
     font-size: 28px;
-    font-weight: 900;
+    font-weight: 500;
 
     max-width: 89.5%;
 }
@@ -182,7 +182,7 @@ h3 {
 
 .bottom-right-text {
     position:fixed;
-    z-index: 1000;
+    z-index: 100000;
     bottom: 10px;
     right: 25px;
     opacity: 0;
@@ -191,7 +191,7 @@ h3 {
 
     color: red;
     font-size: 28px;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .bottom-right-text.show {
@@ -218,12 +218,18 @@ h3 {
 
     left: 50%;
     transform: translateX(-50%);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.bottom-info:active {
+    transform: translateX(-50%) scale(0.9);
 }
 
 .bottom-info p{
     color: red;
     font-size: 20px;
-    font-weight: 900;
+    font-weight: 800;
 }
 
 .stats p {
@@ -359,7 +365,6 @@ h6 {
 
 .Globalbutton {
     flex: 1;
-    font-family: 'Radio Canada', sans-serif;
     padding: 10px 15px;
     border: none;
     background-color: #023c4a;
@@ -387,7 +392,6 @@ h6 {
 
 .EasyNavbutton {
     flex: 1;
-    font-family: 'Radio Canada', sans-serif;
     padding: 10px 15px;
     border: none;
     background-color: #023c4a;
@@ -408,7 +412,6 @@ h6 {
 
 .Globalseparator {
     font-size: 20px;
-    font-family: 'Radio Canada', sans-serif;
     line-height: 1;
     padding: 0 0;
     background-color: #023c4a;
