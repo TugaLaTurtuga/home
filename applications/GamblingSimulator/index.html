@@ -21,6 +21,7 @@
     <div class="settingsWholeDiv">
         <h1>Settings</h1>
         <div class="settings" id="settings"></div>
+        <button class="closeBank" onclick="SeeSettings()" style="z-index: 100001; transform: translate(-50%, -37%);">Close</button>
     </div>
    
     <script src="js/Settings.js"></script>
@@ -93,8 +94,6 @@
     <div class="bottom-left-text" id="loanDiv"> <p>Loans: -$___</p></div>
     <div class="bottom-right-text" id="salaryDiv"> <p>Salaries: -$___</p></div>
     <div class="top-right-text" id="depositsDiv"> <p>Deposits: $___</p></div>
-
-    <h1 style="cursor:pointer" onclick="SeeSettings()">Settings</h1>
 
     <div class="bottom-info" onclick="SeeBank()">
         <p id="loansPer">Loans: -$___ per __s</p>
