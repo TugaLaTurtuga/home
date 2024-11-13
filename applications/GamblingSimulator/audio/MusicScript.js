@@ -5,6 +5,7 @@ const musicFiles = [
     'audio/Music/Those pedos/Go away.mp3',
     'audio/Music/Those pedos/Go away from me.mp3',
     'audio/Music/Those pedos/Drake go away.mp3',
+    'audio/Music/Those pedos/The court has decided.mp3',
 ];
 
 // Function to shuffle the array
@@ -22,25 +23,25 @@ const shuffledMusicFiles = shuffleArray(musicFiles);
 let currentTrackIndex = 0;
 let isAlreadyPlayingMusic = false;
 let currentAudio = null;
-let audioContext = null; // For iOS AudioContext
+let audioContext = null;
+let gainNode = null;
 const musicVolumeSlider = document.getElementById('MusicVolume_settings');
 
 // Function to initialize AudioContext (needed for iOS Safari)
 function initializeAudioContext() {
     if (!audioContext) {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
+        gainNode = audioContext.createGain();
+        gainNode.connect(audioContext.destination);
     }
 }
 
 // Function to update the slider based on the audio volume
 function updateVolumeSlider() {
-    if (currentAudio) {
-        musicVolumeSlider.value = currentAudio.volume;
-        SettingsVariables.MusicVolume = currentAudio.volume;
-        document.getElementById('MusicVolume-value').innerText = `${Math.round(currentAudio.volume * 100)}%`;
+    if (currentAudio && gainNode) {
+        musicVolumeSlider.value = gainNode.gain.value;
+        SettingsVariables.MusicVolume = gainNode.gain.value;
+        document.getElementById('MusicVolume-value').innerText = `${Math.round(gainNode.gain.value * 100)}%`;
     }
 }
 
@@ -58,8 +59,15 @@ function playNextTrack() {
 
     currentAudio = new Audio(shuffledMusicFiles[currentTrackIndex]);
 
-    // Set initial volume (convert string to number)
-    currentAudio.volume = parseFloat(musicVolumeSlider.value);
+    // Ensure AudioContext is initialized
+    initializeAudioContext();
+
+    // Create a media element source for the current track
+    const trackSource = audioContext.createMediaElementSource(currentAudio);
+    trackSource.connect(gainNode);
+
+    // Set initial volume using GainNode
+    gainNode.gain.value = parseFloat(musicVolumeSlider.value);
 
     // Sync the slider with the audio volume
     updateVolumeSlider();
@@ -68,7 +76,7 @@ function playNextTrack() {
         .then(() => {
             isAlreadyPlayingMusic = true;
         })
-        .catch((error) => {
+        .catch(() => {
             isAlreadyPlayingMusic = false;
         });
 
@@ -96,8 +104,8 @@ function playNextTrack() {
         // Set up MediaSession actions (play, pause, etc.)
         navigator.mediaSession.setActionHandler('play', () => currentAudio.play());
         navigator.mediaSession.setActionHandler('pause', () => currentAudio.pause());
-        navigator.mediaSession.setActionHandler('previoustrack', () => playPreviousTrack());
-        navigator.mediaSession.setActionHandler('nexttrack', () => playNextTrack());
+        navigator.mediaSession.setActionHandler('previoustrack', playPreviousTrack);
+        navigator.mediaSession.setActionHandler('nexttrack', playNextTrack);
         navigator.mediaSession.setActionHandler('seekbackward', (details) => {
             currentAudio.currentTime = Math.max(currentAudio.currentTime - (details.seekOffset || 10), 0);
         });
@@ -109,8 +117,17 @@ function playNextTrack() {
     currentTrackIndex++;
 }
 
+// Function to play the previous track
+function playPreviousTrack() {
+    currentTrackIndex -= 2;
+    if (currentTrackIndex < 0) {
+        currentTrackIndex = shuffledMusicFiles.length - 1;
+    }
+    playNextTrack();
+}
+
+// Event listener for spacebar to play/pause
 document.addEventListener('keydown', (event) => {
-    // Check if the spacebar key was pressed and currentAudio exists
     if (event.key === ' ' && currentAudio) {
         event.preventDefault();
         if (currentAudio.paused) {
@@ -121,19 +138,10 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Function to play the previous track
-function playPreviousTrack() {
-    currentTrackIndex -= 2;
-    if (currentTrackIndex < 0) {
-        currentTrackIndex = shuffledMusicFiles.length - 1;
-    }
-    playNextTrack();
-}
-
 // Event listener for volume slider
 musicVolumeSlider.addEventListener('input', () => {
-    if (currentAudio) {
-        currentAudio.volume = parseFloat(musicVolumeSlider.value);
+    if (gainNode) {
+        gainNode.gain.value = parseFloat(musicVolumeSlider.value);
         updateVolumeSlider();
     }
 });
@@ -144,14 +152,13 @@ const interactionEvents = [
     'touchstart', 'touchend', 'touchmove', 'wheel', 'focus', 'blur'
 ];
 
-// Define the interaction handler as a named function
-function interactionHandler(e) {
+// Interaction handler to initialize audio on iOS
+function interactionHandler() {
     if (!isAlreadyPlayingMusic) {
-        initializeAudioContext(); // Ensure AudioContext is ready for iOS
+        initializeAudioContext();
         playNextTrack();
 
         if (isAlreadyPlayingMusic) {
-            // Remove the event listeners after starting the music
             interactionEvents.forEach(event => {
                 document.body.removeEventListener(event, interactionHandler);
             });
@@ -159,16 +166,23 @@ function interactionHandler(e) {
     }
 }
 
-// Loop through all interaction events and add the event listeners
+// Add event listeners for user interactions
 interactionEvents.forEach(event => {
     document.body.addEventListener(event, interactionHandler, { once: true });
 });
 
-// Listen for when the window loses focus
+// Handle focus and blur events for pausing/resuming
 let wasPausedByUnfocusing = false;
-window.addEventListener('blur', pauseMusic);
-function pauseMusic() {if(currentAudio && SettingsVariables.TurnOffVolumeWhenUnfocused && !currentAudio.paused) {currentAudio.pause(); wasPausedByUnfocusing = true;}}
+window.addEventListener('blur', () => {
+    if (currentAudio && SettingsVariables.TurnOffVolumeWhenUnfocused && !currentAudio.paused) {
+        currentAudio.pause();
+        wasPausedByUnfocusing = true;
+    }
+});
 
-// Listen for when the window gains focus
-window.addEventListener('focus', playMusic);
-function playMusic() {if(currentAudio && SettingsVariables.TurnOffVolumeWhenUnfocused && wasPausedByUnfocusing) currentAudio.play()}
+window.addEventListener('focus', () => {
+    if (currentAudio && SettingsVariables.TurnOffVolumeWhenUnfocused && wasPausedByUnfocusing) {
+        currentAudio.play();
+        wasPausedByUnfocusing = false;
+    }
+});
