@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make it</title>
+    <link rel="icon" type="image/webp" href="icon.webp">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/Settings.css">
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/d677bec6db.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="Header">
+        <h1>
+            <span data-translate="helloUser">Hello, </span><span class="UserNameH1" id="UserNameH1">user</span>! 👋
+        </h1>
+        <div id="profile-selector settings-btn">
+            <select id="profile-select" class="profile-selector">
+                <!-- Populated dynamically -->
+            </select>
+        </div>
+    </div>
+
+    <div id="app">
+        <div id="main">
+            <button id="add-task-btn">+</button>
+        </div>
+        <div class="sort-container">
+            <button class="sort-btn active-sort-btn" data-translate="SortByUrgency" id="s-btn-urgency">Sort by Urgency</button>
+            <button class="sort-btn" data-translate="SortByCreationTime" id="s-btn-CT">Sort by Creation Time</button>
+            <button class="sort-btn" data-translate="Sort_a-z" id="s-btn-a-z">Sort A-Z</button>
+            <button class="sort-btn" data-translate="seeHistoric" id="history-btn">See historic</button>
+        </div>
+        <div id="tasks-container"></div>
+    </div>
+
+    <div id="settings">
+        <h2 data-translate="settings">Settings</h2>
+
+        <div style="margin-left: 15px;">
+            <!-- Language Management -->
+            <label for="language-select" data-translate="language">Language:</label>
+            <select id="language-select" style="margin-bottom: 10px;">
+                <option value="en">English</option>
+                <option value="pt">Português</option>
+                <option value="es">Español</option>
+                <option value="it">Italienisch</option>
+                <option value="de">Deutsch</option>
+                <option value="zh">普通话</option>
+                <option value="hi">हिन्दी</option>
+                <option value="fr">French</option>
+            </select>
+            <br>
+     
+            <!-- Theme Selection -->
+            <label for="theme-select" data-translate="theme">Theme: </label>
+            <select id="theme-select">
+                <option value="light" data-translate="light">Light</option>
+                <option value="dark" data-translate="dark">Dark</option>
+                <option value="dracula" data-translate="dracula">Dracula</option>
+            </select>
+            <br>
+
+            <div class="settings-item">
+                <h4 data-translate="MusicVolume">MusicVolume:</h4>
+                <input type="range" id="MusicVolume_settings" min="0" max="1" step="0.01" value="1" class="slider" style="margin-top: 36px; margin-left: 10px; min-width: 100px; width: 100px; max-width: 80%; --slider-value: 100%;;">
+                <span id="MusicVolume-value" style="margin-top: 28.5px; margin-left: 5px; font-size: 14px;">100%</span>
+            </div>
+        </div>
+
+        <!-- Profile Management -->
+        <div id="profile-management" style="margin-left: 5px;">
+            <h3 data-translate="profileManagement">Profile Management</h3>
+            <div id="profile-list"></div>
+            <button id="add-profile-btn" data-translate="addProfile">Add Profile</button>
+        </div>
+
+        <div id="settings" style="width: 100%;"><h2 data-translate="otherSettings">Other settings</h2></div>
+        <!-- Data Management -->
+        <div style="margin-left: 5px;">
+            <button id="delete-data-btn" data-translate="deleteData">Delete Data</button>
+            <button id="download-data-btn" data-translate="downloadData">Download Data</button>
+            <input type="file" id="load-data-input" style="display:none;">
+            <button id="load-data-btn" data-translate="loadData">Load Data</button>
+        </div>
+
+        <div style="margin-left: 5px;">
+            <button id="userName-btn" data-translate="chagneUserName" onclick="changeUserName()">Chagne User name</button>
+
+            <!-- 
+                <__ For the future  __>
+            <div style="margin-left: 20px; margin-bottom: 10px; border-radius: 10px; box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15); width: 200px; padding: 10px;">
+                <label for="primary-color" data-translate="primaryColor">Primary Color</label>
+                <input type="color" id="primary-color" style="padding: 0;" value="#00ff33"/>
+                <br>
+                <label for="secondary-color" data-translate="secondaryColor">Secondary Color</label>
+                <input type="color" id="secondary-color" style="padding: 0;" value="#0088ff"/>
+            </div>
+            -->
+
+            <button id="about-btn" data-translate="about">About</button>
+        </div>
+    </div>    
+
+    <div id="add-task-modal" class="task-creator hidden">
+        <div id="modal-content">
+            <h2 data-translate="addTaskModalTitle">Add Task</h2>
+            <label for="task-title" data-translate="taskTitle">Title:</label>
+            <input type="text" id="task-title" placeholder="Enter task title">
+            <p></p>
+   
+            <label for="task-urgency" data-translate="taskUrgency">Urgency:</label>
+            <select id="task-urgency">
+                <option value=".">.</option>
+                <option value="!">!</option>
+                <option value="!!">!!</option>
+                <option value="!!!">!!!</option>
+            </select>
+            <p></p>
+
+            <label for="task-profile" data-translate="taskProfile">Profile:</label>
+            <select id="task-profile" class="profile-selector">
+                <!-- Populated dynamically -->
+            </select>
+    
+            <label for="task-type" data-translate="taskType">Type:</label>
+            <select id="task-type">
+                <!-- Populated dynamically based on profile -->
+            </select>
+
+            <p></p>
+            <label for="task-time" data-translate="taskTime">Time to Completion:</label>
+            <input type="datetime-local" id="task-time">
+    
+            <div id="modal-buttons">
+                <button id="cancel-btn" data-translate="cancel">Cancel</button>
+                <button id="save-task-btn" data-translate="saveTask">Save</button>
+            </div>
+
+            <p></p>
+            <div>
+                <label data-translate="additionalSettings">Additional settings:</label>
+                <div id="task-dependency-container"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="audio/MusicScript.js"></script>
+</body>
+</html>

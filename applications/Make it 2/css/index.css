@@ -1,0 +1,462 @@
+/* ========== Theme Variables ========== */
+/* Default Theme Variables */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --accent-color: #6200ee;
+    --hover-color: #e0e0e0;
+}
+
+/* Dark Theme Variables */
+:root.dark-theme {
+    --bg-color: #161616;
+    --text-color: #ccc;
+    --accent-color: #bb86fc;
+    --hover-color: #2a2a2a;
+}
+
+/* Dracula Theme Variables */
+:root.dracula-theme {
+    --bg-color: #282a36;
+    --text-color: #f8f8f2;
+    --accent-color: #ff79c6;
+    --hover-color: #44475a;
+}
+
+input {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: var(--accent-color) 2px solid;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* ========== General Styles ========== */
+body {
+    font-family: "Rubik", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-optical-sizing: auto;
+
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    height: 100vh;
+
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ========== Header ========== */
+.Header {
+    position: relative;
+    height: 10%;
+    width: 100%;
+    background: linear-gradient(to right, #08f, #f60);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-weight: 900;
+    z-index: 100000;
+}
+
+.Header h1 {
+    margin-top: 7.5%;
+    margin-left: 5.6%;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+/* ========== Gradient Animation ========== */
+@keyframes gradient-animation {
+    0% {
+        background-position: 100% 50%;
+        transform: scale(3) translateX(-25%) translateY(4%);
+    }
+    40% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+        transform: scale(1) translateX(0) translateY(0);
+    }
+}
+
+.UserNameH1 {
+    display: inline-block;
+    font-weight: bold;
+    background: linear-gradient(90deg, #00ff33, #0088ff, #00ff33);
+    background-size: 200% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradient-animation 3s ease;
+    background-position: 0% 50%;
+}
+
+#app {
+    position: relative;
+    width: 95%; 
+    padding: 20px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+/* ========== Buttons ========== */
+button {
+    padding: 10px;
+    margin: 7.5px 5px;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--hover-color);
+}
+
+#modal-buttons button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: var(--accent-color);
+    color: white;
+}
+
+#modal-buttons button:hover {
+    background-color: var(--hover-color);
+}
+
+/* Add Task Button */
+#add-task-btn {
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    font-size: 2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 100000;
+}
+
+#add-task-btn:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.1);
+}
+
+/* ========== Task Container ========== */
+#tasks-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    min-width: 100%;
+}
+
+.task {
+    border: 1px solid var(--text-color);
+    flex: 1 1 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background: var(--bg-color);
+    transition: background-color 0.3s, transform 0.2s;
+    box-sizing: border-box;
+}
+
+/* For smaller screens: 2 columns */
+@media (max-width: 1260px) {
+    .task {
+        flex: 1 1 calc(50% - 20px); /* 2 columns */
+        max-width: calc(50% - 20px);
+    }
+}
+
+/* For very small screens: 1 column */
+@media (max-width: 840px) {
+    .task {
+        flex: 1 1 100%; /* 1 column */
+        max-width: 100%;
+    }
+}
+.task:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.02);
+}
+
+.task-header {
+    position: relative;
+    max-width: 95%;
+}
+
+/* ========== Subtask Container ========== */
+.subtask-btn {
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    margin: 0;
+}
+
+.subtask-container {
+    margin-top: 10px;
+    padding: 10px;
+    border-top: 1px solid var(--text-color);
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.subtask-container.visible {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.subtask-container.hidden {
+    max-height: 0;
+    opacity: 0;
+}
+
+.subtask-section {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+}
+
+/* Subtask Grid */
+.subtask-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.subtask-grid > .subtask-section {
+    flex: 1;
+    text-align: center;
+    min-width: 20%;
+    min-height: 150px;
+    padding: 10px;
+}
+
+/* Subtask List */
+.subtask-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-height: 50px;
+    border: 1px dashed var(--accent-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+}
+
+.subtask {
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid var(--accent-color);
+    border-radius: 3px;
+    background-color: var(--bg-color);
+    cursor: grab;
+    text-align-last: center;
+    text-align: center;
+}
+
+.subtask:active {
+    cursor: grabbing;
+    opacity: 0.5;
+}
+
+/* Subtask Section Header */
+.subtask-section h4 {
+    margin: 0 0 10px 0;
+}
+
+/* ========== Delete Section ========== */
+.subtask-delete-section {
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+    border: 1px dashed var(--accent-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+}
+
+.delete-area {
+    padding: 20px;
+    border: 2px solid red;
+    color: red;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: rgba(255, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.delete-area:hover {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.delete-type-btn {
+    color: var(--bg-color);
+}
+
+.delete-type-btn:hover {
+    color: var(--text-color);
+}
+
+/* ========== Modal ========== */
+#modal-content {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* ========== Miscellaneous ========== */
+.timer {
+    font-size: 0.8rem;
+    color: gray;
+    transition: all 0.2s ease;
+}
+
+.hidden {
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.task-creator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the element */
+    opacity: 1;
+    pointer-events: all;
+    transition: all 0.2s ease;
+}
+
+.task-creator.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#main {
+    margin-top: 20px;
+}
+
+#settings {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid var(--text-color);
+    width: 80%;
+}
+
+.profile-div {
+    margin-left: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--bg-color);
+}
+
+.profile-div h4 {
+    margin: 0 0 10px;
+}
+
+.profile-div h5 {
+    margin-top: -5px;
+}
+
+#profile-section  {
+    margin: 10px 10px;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    border: 1px solid var(--text-color);
+}
+
+.profile-seperator {
+    margin-left: 15px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+ul li button {
+    margin: 10px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 3px;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+
+.sort-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sort-btn.active-sort-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--text-color);
+}
+
+#profile-select  {
+    position: absolute;
+    bottom: -15px;
+    right: 30px;
+    padding: 5px;
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    border-radius: 5px;
+    border: 1px solid var(--text-color);
+}
+
+.subtask-dependencies{
+    border-radius: 10px;
+    background-color: var(--bg-color);
+    border: var(--accent-color) 2px solid;
+    padding: 10px;
+    margin: 10px;
+}

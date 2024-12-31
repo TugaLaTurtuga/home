@@ -1,0 +1,104 @@
+/* Basic styling for button container */
+.toggle-btn {
+    width: 60px;
+    height: 30px;
+    background-color: #ccc; /* Start color */
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    justify-content: center;
+    transition: background-color 0.1s ease-out;
+}
+
+/* Styling for the circle/knob that moves */
+.toggle-btn .knob {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.1s ease-out;
+}
+
+/* Styling for the toggle button */
+.toggle-btn {
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.1s ease-out;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Styling for the knob that moves */
+.toggle-btn .knob {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.1s ease-out;
+}
+
+.settings-item {
+    display: flex;
+}
+
+.slider {
+    width: 80%; /* Make slider full width of the card */
+    height: 8px;
+    border-radius: 10px;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    --slider-value: 100%; /* Start with max value for visual feedback */
+    --slider-color: red; /* This will be dynamically updated */
+    --slider-thumb-color: red; /* New variable for thumb color */
+    --slider-background-color: #ccc;
+    transform: translateY(-20px);
+}
+
+/* WebKit browsers (Chrome, Safari) */
+.slider::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--slider-color) 0%, var(--slider-color) var(--slider-value), var(--slider-background-color) var(--slider-value), var(--slider-background-color) 100%);
+    height: 8px;
+    border-radius: 10px;
+}
+
+/* WebKit browsers: Thumb styling */
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--slider-thumb-color); /* Use the new variable */
+    cursor: pointer;
+    margin-top: -4px;
+}
+
+/* Firefox browsers */
+.slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--slider-thumb-color); /* Use the new variable */
+    cursor: pointer;
+    border: none;
+}
+
+/* Firefox: Track with left part (before the thumb) colored dynamically */
+.slider::-moz-range-track {
+    background: linear-gradient(to right, var(--slider-color) 0%, var(--slider-color) var(--slider-value), var(--slider-background-color) var(--slider-value), var(--slider-background-color) 100%);
+    height: 8px;
+    border-radius: 10px;
+}
