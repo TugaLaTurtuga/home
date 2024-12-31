@@ -71,8 +71,9 @@ const apps = [
     { name: "apps/Games/ball-game", displayText: "Ball game"},
     { name: "apps/Utility/Reload", displayText: "Reload" },
     { name: "apps/Utility/Make_it", displayText: "Make it" },
+    { name: "applications/Make it 2", displayText: "Make it 2"},
     { name: "apps/Stutility/Windows_destroyer", displayText: "Windows destroyer" },
-    { name: "applications/GamblingSimulator", displayText: "Gambling simulator"}
+    { name: "applications/GamblingSimulator", displayText: "Gambling simulator"},
 ];
 
 function FindApps(place = false) {
