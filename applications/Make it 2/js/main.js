@@ -190,7 +190,7 @@ function renderSettings() {
                 <h5 data-translate="dependencies">dependencies</h5>
                 
                 <div class="profile-seperator">
-                    <input type="text" data-translate="newDependency" placeholder="newDependency" id="new-dependency-${profileName}">
+                    <input type="text" data-translate="newDependency" placeholder="newCondition" id="new-dependency-${profileName}">
                     <button class="add-dependency-btn" data-profile="${profileName}" data-translate="addDependency">addDependency</button>
 
                     <ul id="dependency-list-${profileName}">
@@ -925,8 +925,8 @@ saveTaskBtn.addEventListener('click', () => {
     const taskUrgency = document.getElementById('task-urgency').value;
     const taskProfile = document.getElementById('task-profile').value;
     const taskType = document.getElementById('task-type').value;
-    const taskTime = document.getElementById('task-time').value;
-    
+    let taskCreationTime = document.getElementById('task-time').value;
+   
     const tDependencies = Array.from(document.querySelectorAll('.task-dependency:checked'))
     .map(checkbox => checkbox.value);
     let taskDependencies = {};
@@ -941,15 +941,14 @@ saveTaskBtn.addEventListener('click', () => {
     console.log(taskDependencies);
 
     if (taskTitle) {
+        if (!taskCreationTime) taskCreationTime = new Date().toISOString()
         tasks.push({
             title: taskTitle,
             urgency: taskUrgency,
             profile: taskProfile,
             type: taskType,
-            creationTime: new Date().toISOString(),
-            timeToCompletion: taskTime || 'None',
+            creationTime: taskCreationTime,
             dependencies: taskDependencies,
-            timer: '00:00:00',
             subtasks: [],
         });
 

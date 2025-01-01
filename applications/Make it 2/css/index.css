@@ -319,11 +319,11 @@ button:hover {
     background-color: rgba(255, 0, 0, 0.2);
 }
 
-.delete-type-btn {
+.delete-type-btn, .delete-dependency-btn {
     color: var(--bg-color);
 }
 
-.delete-type-btn:hover {
+.delete-type-btn:hover, .delete-dependency-btn:hover {
     color: var(--text-color);
 }
 
