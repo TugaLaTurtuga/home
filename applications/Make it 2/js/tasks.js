@@ -508,8 +508,8 @@ function createDraggableSubtask(task, taskIndex, subtask) {
         function onMouseMove(event) {
             itemClone.style.position = 'absolute';
             itemClone.style.zIndex = '1000';
-            itemClone.style.left = `${event.clientX - offsetX + 50}px`;
-            itemClone.style.top = `${event.clientY - offsetY + 150}px`;
+            itemClone.style.left = `${event.clientX - offsetX}px`;
+            itemClone.style.top = `${event.clientY - offsetY}px`;
         }
 
         function onMouseUp (event) {
@@ -561,6 +561,11 @@ function getClosestDroppableSection(x, y) {
 }
 
 function checkTaskCompletion(task, taskIndex) {
+    task.subtasks.forEach(subtask => {
+        if (typeof subtask.status === 'undefined') {
+            deleteSubtask(subtask, task, taskIndex);
+        }
+    });
     if (task.subtasks.length > 0 && task.subtasks.every(subtask => subtask.status === 'Done')) {
         // Move task to historic save
         const historicTasks = JSON.parse(localStorage.getItem('historicTasks') || '[]');
