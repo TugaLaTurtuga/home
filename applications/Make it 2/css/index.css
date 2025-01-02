@@ -241,7 +241,6 @@ button:hover {
 
 .subtask-section {
     margin-bottom: 10px;
-    padding: 10px;
     border: 1px solid var(--text-color);
     border-radius: 5px;
     background-color: var(--bg-color);
@@ -260,29 +259,19 @@ button:hover {
     text-align: center;
     min-width: 20%;
     min-height: 150px;
-    padding: 10px;
-}
-
-/* Subtask List */
-.subtask-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    min-height: 50px;
-    border: 1px dashed var(--accent-color);
-    border-radius: 5px;
-    background-color: var(--bg-color);
 }
 
 .subtask {
     padding: 5px 10px;
     margin: 5px;
     border: 1px solid var(--accent-color);
-    border-radius: 3px;
+    border-radius: 5px;
     background-color: var(--bg-color);
     cursor: grab;
     text-align-last: center;
     text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 1em;
 }
 
 .subtask:active {

@@ -1,0 +1,334 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--background-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+}
+
+.slider {
+    min-width: 200px;
+    max-width: 200px;
+    margin-top: -30px;
+}
+
+/* Root Variables for Modes */
+:root {
+    --background-color: #333;
+    --text-color: #fff;
+    --primary-bg: #2c2c2c;
+    --active-bg: #007bff;
+    --border-color: #ccc;
+    --button-bg: #555;
+    --button-text: #fff;
+    --input-bg: #444;
+    --input-border: #777;
+    --slide-button-active-bg: #345679;;
+    --slide-button-inactive-bg: #555;
+}
+
+[data-theme="light"] {
+    --background-color: #f7f7f7;
+    --text-color: #333;
+    --primary-bg: #eee;
+    --active-bg: #007bff;
+    --border-color: #333;
+    --button-bg: #007bff;
+    --button-text: #fff;
+    --input-bg: #fff;
+    --input-border: #ddd;
+    --slide-button-active-bg: #007bff;
+    --slide-button-inactive-bg: #bbb;
+}
+
+#app {
+    display: flex;
+    align-items: center; /* Center content horizontally */
+    justify-content: top; /* Center content vertically */
+}
+
+/* Slide Navigator */
+#slide-navigator {
+    background-color: var(--primary-bg);
+    border-right: 3px solid var(--border-color);
+    padding: 10px;
+    height: 100vh;
+    top: -100px;
+    width: 200px;
+    overflow-y: auto;
+    text-align-last: center;
+    transition: transform 0.2s ease;
+    z-index: 1000;
+}
+
+#slide-navigator.hidden {
+    transform: translateX(-100%);
+}
+
+#slide-navigator input {
+    width: 90%;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid var(--input-border);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+}
+
+#slide-navigator button {
+    padding: 7.3px;
+}
+
+#slide-navigator div {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0px 2px;
+    margin-top: 10px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    background-color: var(--slide-button-inactive-bg); /* Inactive state */
+    transition: all 0.3s ease;
+}
+
+#slide-navigator div.active {
+    background-color: var(--slide-button-active-bg); /* Active state */
+}
+
+/* Main Area */
+#main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Change to 'flex-start' to avoid vertical centering */
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    transition: margin-left 0.3s ease, margin-right 0.3s ease; /* Smooth transition */
+}
+
+/* Slide Container */
+#slide-container {
+    height: 60vh;
+    max-width: 100%;
+    aspect-ratio: 16/9;
+    border: 3px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--primary-bg);
+    transition: width 0.3s ease;
+}
+
+.slide {
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.slide.active {
+    display: block;
+}
+
+/* Resizable Handles for Elements */
+.resizable {
+    position: absolute;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.resizable .resize-handle {
+    position: absolute;
+    background-color: #ff6600;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.resizable .resize-handle.top-left {
+    top: -6px;
+    left: -6px;
+    cursor: nwse-resize;
+}
+
+.resizable .resize-handle.top-right {
+    top: -6px;
+    right: -6px;
+    cursor: nesw-resize;
+}
+
+.resizable .resize-handle.bottom-left {
+    bottom: -6px;
+    left: -6px;
+    cursor: nesw-resize;
+}
+
+.resizable .resize-handle.bottom-right {
+    bottom: -6px;
+    right: -6px;
+    cursor: nwse-resize;
+}
+
+.resizable img {
+    display: block;
+}
+
+/* Rotation Handle */
+.rotate-handle {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Context Menu Styling */
+#context-menu {
+    display: none;
+    position: absolute;
+    background-color: var(--primary-bg);
+    z-index: 100000;
+    pointer-events: all;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+.context-div {
+    background-color: var(--primary-bg);
+    border: 3px solid var(--border-color);
+    border-radius: 10px;
+    margin: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+.context-section {
+    margin-top: 10px;
+}
+
+.context-section input[type="range"] {
+    width: 100%;
+}
+
+.context-section label {
+    margin-right: 10px;
+}
+
+/* Basic preview modal styling */
+.preview-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.preview-modal-content {
+    position: relative;
+    margin: auto;
+    top: 50px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Close button for preview modal */
+.close-preview {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #000;
+    cursor: pointer;
+}
+
+.preview-slide {
+    width: 100%;
+    margin: 10px 0;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 5px;
+    max-width: 80%;
+    max-height: 80%;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+}
+
+.preview-mode .slide {
+    display: none;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+}
+
+.preview-mode {
+    display: block;
+    overflow: hidden;
+}
+
+#presentation-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+}
+
+#boldBtn.active {
+    font-weight: bold;
+    background-color: var(--active-bg);
+}
+
+/* Button styling */
+button, .button, input {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 10px 10px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    transition: transform 0.1 ease;
+}
+
+button:hover, .button:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}

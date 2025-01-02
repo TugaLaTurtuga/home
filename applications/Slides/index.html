@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://kit.fontawesome.com/d677bec6db.js" crossorigin="anonymous"></script>
+    <title>Slides</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Slide Navigator -->
+        <div id="slide-navigator"></div>
+
+        <!-- Main Presentation Area -->
+        <div id="main-area">
+            <!-- Toolbar -->
+            <div id="toolbar" style="margin: 20px;">
+                <!-- New Add Text, Shapes, and Transitions -->
+                <button onclick="addText()">Add Text</button>
+
+                <button id="addFormBtn">Add form</button>
+                <select id="Forms" class="button">
+                    <option value="">Select Shape</option>
+                    <option value="rectangle">Rectangle</option>
+                    <option value="circle">Circle</option>
+                </select>
+               
+                <button onclick="addTransition()">Add Transition</button>
+            </div>
+
+            <!-- Slide Container -->
+            <div id="slide-container"></div>
+
+            <!-- Slideshow Controls -->
+            <div id="slideshow-controls" style="margin: 10px;">
+                <button onclick="prevSlide()">Previous</button>
+                <button onclick="nextSlide()">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="context-menu">
+
+        <!-- Shape Options -->
+        <div id="shape-options" class="context-div" style="display: none;">
+            Shape Options
+            <button id="advanced-options-btn" style="position: absolute; top: 15px; right: 15px;"><i class="fa-solid fa-bars"></i></button>
+
+            <div class="context-section">
+                <!-- Image Upload for Shape -->
+                <input type="file" id="shapeImageUploader" accept="image/*" style="display: none;" onchange="insertShapeImage(event)">
+                <button onclick="document.getElementById('shapeImageUploader').click()">Insert Image</button>
+
+                <!-- Add Text to Shape -->
+                <button id="addTextToShapeBtn">Add Text</button>
+
+                <button id="transparent-shape">Transparent</button>
+            </div>
+
+            <div class="context-section">
+                <!-- Shape Background Color -->
+                <label for="shapeColor">Background Color:</label>
+                <input type="color" id="shapeColor" />
+            </div>
+
+            <!-- Shape Border Toggle -->
+            <label for="shapeBorderToggle">Border:</label>
+            <input type="checkbox" id="shapeBorderToggle" />
+
+            <!-- Shape Border Color -->
+            <label for="shapeBorderColor">Border Color:</label>
+            <input type="color" id="shapeBorderColor" />
+
+            <div class="context-section">
+                <!-- Shape Border Radius -->
+                <label for="shapeBorderRadius">Border Radius:</label>
+                <div class="context-section">
+                    <input type="range" class="slider" id="shapeBorderRadius" min="0" max="1" step=".01" />
+                </div>
+            </div>
+            <div class="context-section">
+                <!-- Shape Border Width -->
+                <label for="shapeBorderWidth">Border Width:</label>
+                <div class="context-section">
+                    <input type="range" class="slider" id="shapeBorderWidth" min="0" max="20" step=".02" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Options with Advanced Button -->
+        <div id="text-options" class="context-div" style="display: none;">
+            Text Options
+            <button id="advanced-options-btn" style="position: absolute; top: 15px; right: 15px;"><i class="fa-solid fa-bars"></i></button>
+            
+            <div class="context-section">
+                <label for="fontSizeInput">Font Size:</label>
+                <input type="number" id="fontSizeInput" min="1" max="100" />
+                <button id="boldBtn">Bold</button>
+            </div>
+
+            <div class="context-section">
+                <!-- Color Picker for Text Color -->
+                <label for="textColorInput">Text Color:</label>
+                <input type="color" id="textColorInput" />
+
+                <!-- Add a Dropdown for Text Alignment -->
+                <label for="textAlignSelect">Text Alignment:</label>
+                <select id="textAlignSelect" class="button">
+                    <option value="left">Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                </select>
+            </div>
+
+            <!-- Advanced Options Section -->
+            <div id="advanced-options" style="display: none;">
+                <div class="context-section">
+                    <label for="textBackgroundInput">Background Color:</label>
+                    <input type="color" class="button" id="textBackgroundInput" />
+                </div>
+
+                <div class="context-section">
+                    <label for="letterSpacingInput">Letter Spacing:</label>
+                    <input type="number" class="button" id="letterSpacingInput" min="-10" max="10" step="0.1" />
+                </div>
+
+                <div class="context-section">
+                    <label for="lineHeightInput">Line Height:</label>
+                    <input type="number" class="button" id="lineHeightInput" min="-10" max="10" step="0.1" />
+                </div>
+
+                <div class="context-section">
+                    <label for="fontFamilySelect">Font Family:</label>
+                    <select class="button" id="fontFamilySelect">
+                        <option value="Arial">Arial</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <!-- Add more fonts as needed -->
+                    </select>
+                </div>
+
+                <div class="context-section">
+                    <label for="italicToggle">Italic:</label>
+                    <input type="checkbox" class="button" id="italicToggle" />
+                </div>
+
+                <div class="context-section">
+                    <label for="underlineToggle">Underline:</label>
+                    <input type="checkbox" class="button" id="underlineToggle" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide Options -->
+        <div id="slide-options" class="context-div" style="display: none;">
+            Slide Options
+            <button id="advanced-options-btn" style="position: absolute; top: 15px; right: 15px;"><i class="fa-solid fa-bars"></i></button>
+
+            <div class="context-section">
+                <label for="slideAnimationInput">Slider Animation:</label>
+                <select id="slideAnimationInput">
+                    <option value="ease">Ease</option>
+                    <option value="linear">Linear</option>
+                    <option value="ease-in">Ease-In</option>
+                    <option value="ease-out">Ease-Out</option>
+                    <option value="ease-in-out">Ease-In-Out</option>
+                </select>
+            </div>            
+
+            <div class="context-section">
+                <label for="slideBackgroundInput">Slider Background Color:</label>
+                <input type="color" id="slideBackgroundInput" />
+
+                <label for="slideColorInput">Slider Default Color:</label>
+                <input type="color" id="slideColorInput" />
+            </div>
+        </div>
+
+        <!-- Animation Options -->
+        <div id="advanced-options" class="context-div" style="display: none;">
+            Aminations
+            <!-- Shadow Toggle -->
+            <div class="context-section">
+                <label for="shadowToggle">Shadow:</label>
+                <input type="checkbox" id="shadowToggle" />
+            </div>
+            <div class="context-section">
+                <label for="animationSelect">Select Animation:</label>
+                <select id="animationSelect">
+                    <option value="none">None</option>
+                    <option value="fade">Fade</option>
+                    <option value="slide">Slide</option>
+                    <option value="zoom">Zoom</option>
+                    <!-- Add more animation types as needed -->
+                </select>
+            </div>
+
+            <div class="context-section">
+                <label for="animationDuration">Duration:</label>
+                <input type="number" id="animationDuration" min="0" max="10" step="0.1" />
+            </div>
+        </div>
+
+
+        <div class="context-div" id="element-options">
+            <!-- Z-Index -->
+            <div class="context-section">
+                <label for="zIndexInput">Z-Index:</label>
+                <div class="context-section">
+                    <input type="range" class="slider" id="zIndexInput" min="0" max="100" step="1" />
+                </div>
+            </div>
+
+            <!-- Opacity -->
+            <div class="context-section">
+                <label for="opacityInput">Opacity:</label>
+                <div class="context-section">
+                    <input type="range" class="slider" id="opacityInput" min="0" max="1" step="0.01" />
+                </div>
+            </div>
+            <button id="deleteElement">Delete element</button>
+        </div>
+    </div>
+
+    <p style="position: absolute; bottom: -32px; text-align-last: center; left: 48%; font-size: 14px;">TugaLaTurtuga© 2024 WORK IN PROGRESS</p>
+
+    <!-- Preview Modal Structure -->
+    <div id="preview-modal" class="preview-modal">
+        <div class="preview-modal-content">
+            <div id="presentation-preview"></div>
+            <button id="close-preview" class="close-preview">X</button>
+        </div>
+    </div>
+
+
+    <script src="js/script.js"></script>
+    <script src="js/Download.js"></script>
+    <script src="js/Resizable.js"></script>
+    <script src="js/contextMenu.js"></script>
+</body>
+</html>
