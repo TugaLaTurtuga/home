@@ -493,51 +493,53 @@ function createDraggableSubtask(task, taskIndex, subtask) {
     item.textContent = subtask.name;
 
     // Make draggable functionality
-    item.addEventListener('mousedown', event => {
-        event.preventDefault();
-
-        const itemClone = item.cloneNode(true); // Create a clone to drag
-        itemClone.classList.add('dragging');
-        itemClone.style.width = item.offsetWidth + 'px';
-        itemClone.textContent = item.textContent;
-        document.body.appendChild(itemClone);
-
-        let offsetX = event.clientX - item.getBoundingClientRect().left;
-        let offsetY = event.clientY - item.getBoundingClientRect().top;
-
-        function onMouseMove(event) {
-            itemClone.style.position = 'absolute';
-            itemClone.style.zIndex = '1000';
-            itemClone.style.left = `${event.clientX - offsetX}px`;
-            itemClone.style.top = `${event.clientY - offsetY}px`;
-        }
-
-        function onMouseUp (event) {
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('touchstart', onMouseMove);
-            itemClone.remove();
-        
-            const closestSection = getClosestDroppableSection(event.clientX, event.clientY);
-            console.log(`Dropped subtask to ${closestSection.dataset.status}`);
-            if (closestSection.dataset.status === undefined) { // Delete the subtask
-                console.log(`Deleted subtask: ${subtask}`);
-                deleteSubtask(subtask, task, taskIndex);
-            } else if (closestSection && closestSection.dataset.status !== subtask.status) {
-                subtask.status = closestSection.dataset.status;
-                saveData();
-                renderSubtasks(closestSection.parentElement.parentElement, task, taskIndex);
-                checkTaskCompletion(task, taskIndex);
-            }
-        }
-
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('touchstart', onMouseMove);
-
-        document.addEventListener('mouseup', onMouseUp, { once: true });
-        document.addEventListener('touchend', onMouseUp, { once: true });
-    });
+    item.addEventListener('mousedown', event => DragSubtask(event, item, subtask, task, taskIndex));
+    item.addEventListener('touchmove', event => DragSubtask(event, item, subtask, task, taskIndex));
 
     return item;
+}
+
+function DragSubtask(event, item, subtask, task, taskIndex) {
+    event.preventDefault();
+    const itemClone = item.cloneNode(true); // Create a clone to drag
+    itemClone.classList.add('dragging');
+    itemClone.style.width = item.offsetWidth + 'px';
+    itemClone.textContent = item.textContent;
+    document.body.appendChild(itemClone);
+
+    let offsetX = event.clientX - item.getBoundingClientRect().left;
+    let offsetY = event.clientY - item.getBoundingClientRect().top;
+
+    function onMouseMove(event) {
+        itemClone.style.position = 'absolute';
+        itemClone.style.zIndex = '1000';
+        itemClone.style.left = `${event.clientX - offsetX}px`;
+        itemClone.style.top = `${event.clientY - offsetY}px`;
+    }
+
+    function onMouseUp (event) {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('touchstart', onMouseMove);
+        itemClone.remove();
+    
+        const closestSection = getClosestDroppableSection(event.clientX, event.clientY);
+        console.log(`Dropped subtask to ${closestSection.dataset.status}`);
+        if (closestSection.dataset.status === undefined) { // Delete the subtask
+            console.log(`Deleted subtask: ${subtask}`);
+            deleteSubtask(subtask, task, taskIndex);
+        } else if (closestSection && closestSection.dataset.status !== subtask.status) {
+            subtask.status = closestSection.dataset.status;
+            saveData();
+            renderSubtasks(closestSection.parentElement.parentElement, task, taskIndex);
+            checkTaskCompletion(task, taskIndex);
+        }
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('touchstart', onMouseMove);
+
+    document.addEventListener('mouseup', onMouseUp, { once: true });
+    document.addEventListener('touchend', onMouseUp, { once: true });
 }
 
 function getClosestDroppableSection(x, y) {
