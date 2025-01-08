@@ -135,7 +135,7 @@ function openHistoric() {
 historyBtn.addEventListener('click', openHistoric);
 
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'h') openHistoric();
+    if (e.key === 'h' && (e.ctrlKey || e.metaKey) ) { openHistoric(); }
 });
 
 // Buttons for sorting
