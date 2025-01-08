@@ -431,6 +431,7 @@ function renderSubtasks(container = false, task, taskIndex) {
         
                 dependenciesDiv.appendChild(dependencyLabel);
                 dependenciesDiv.appendChild(dependencyInput);
+                dependenciesDiv.appendChild(document.createElement('br'));
             });
         
             console.log(task.dependencies);
