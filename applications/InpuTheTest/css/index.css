@@ -1,0 +1,94 @@
+/* Fullscreen black background */
+body {
+    background-color: black;
+    color: white;
+    font-family: "Rubik", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    margin: 50px;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    height: 100vh;
+    overflow: hidden;
+    font-size: 1.5rem;
+}
+
+/* Restart button */
+#restart-btn {
+    font-family: "Rubik", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 50px;
+    width: 125px;
+    border-radius: 50px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 1;
+}
+
+#restart-btn:hover {
+    background-color: rgb(40, 40, 40);
+}
+
+#inp {
+    opacity: 0;
+    position: fixed;
+    bottom: -1000px;
+    left: -1000px;
+}
+
+/* Container for the typewriter effect */
+#typewriter-container {
+    display: flex;
+    flex-direction: column-reverse; /* New lines appear at the top */
+    align-items: flex-start;
+    height: calc(60% - 100px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Each line of typed text */
+.typewriter-line {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    font-size: 2.5rem;
+    white-space: nowrap;
+    width: 100%; /* Ensure each line takes the full width */
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+/* Individual characters */
+.typed-char {
+    color: white;
+    white-space: nowrap;
+    margin-right: 5px;
+    transition: all 0.2s ease;
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+#kp {
+    position: absolute;
+    bottom: 20px;
+    left: 2%;
+}
+
+#kpd {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
