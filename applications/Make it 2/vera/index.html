@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vera</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-theme="atom">
+    <div id="notification-container" class="notification-container"></div>
+    <div id="header">Old Boards:</div>
+    <div class="kanban-board" id="kanban-board">
+        <!-- Columns will be dynamically generated here -->
+    </div>
+
+    <div class="edit-container" id="edit-container">
+        <div class="board-controls" id="board-controls">
+            <button id="rename-board-btn" class="control-btn" onclick="openAddBoardModal()">Rename Board</button>
+            <button id="edit-board-btn" class="control-btn" onclick="openBoardEditor()">Edit Board</button>
+            <button id="clean-board-btn" class="control-btn" onclick="cleanKanbanTasks()">Clean Board</button>
+            <button id="edit-combos-btn" class="control-btn" onclick="openComboTasksEditor()">Edit Combo Tasks</button>
+        </div>
+        <button id="finish-board" class="control-btn" onclick="sendToHistoric(currentBoardId)">Finish board</button>
+    </div>
+    
+    <!-- Add/Edit Task Modal -->
+    <div class="modal" id="task-modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Add Task</h2>
+            <textarea id="task-content" placeholder="Enter task name..."></textarea>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal('task-modal', true)">Cancel</button>
+                <button class="save-btn" onclick="saveTask()">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Board Editor Modal -->
+    <div class="modal" id="board-editor-modal">
+        <div class="modal-content board-editor-content">
+            <h2>Edit Board: <span id="board-editor-title"></span></h2>
+            <div class="board-editor-container">
+                <div id="board-columns-list">
+                    <!-- Column editor items will be generated here -->
+                </div>
+                <div class="board-editor-controls">
+                    <button id="add-column-btn" onclick="openColumnModal()" class="add-column-btn">+ Add Column</button>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="cancelBoardChanges()">Cancel</button>
+                <button class="save-btn" onclick="saveBoardChanges(true)">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- New Column Modal -->
+    <div class="modal" id="column-modal">
+        <div class="modal-content">
+            <h2 id="column-modal-title">Add Column</h2>
+            <div class="column-form">
+                <div class="form-group">
+                    <label for="column-name">Column Name</label>
+                    <input type="text" id="column-name" placeholder="Enter column name...">
+                </div>
+                <div class="form-group">
+                    <label for="column-color">Column Color</label>
+                    <input type="color" id="column-color" value="#3498db">
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal('column-modal')">Cancel</button>
+                <button class="save-btn" onclick="saveColumnDetails()" id="save-column-btn">Save Column</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Board Manager Modal -->
+    <div class="modal" id="board-manager-modal">
+        <div class="modal-content board-manager-content">
+            <h2>Manage Boards</h2>
+            <div class="board-manager-container">
+                <div id="boards-list">
+                    <!-- Board items will be generated here -->
+                </div>
+                <div class="board-manager-controls">
+                    <button id="add-board-btn" onclick="createNewBoard()" class="add-board-btn">+ Add New Board</button>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal('board-manager-modal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Combo Tasks Editor Modal -->
+    <div class="modal" id="combo-tasks-modal">
+        <div class="modal-content combo-tasks-content">
+            <h2>Edit Combo Tasks</h2>
+            <div class="combo-tasks-container">
+                <div id="combo-tasks-list">
+                    <!-- Combo task items will be generated here -->
+                </div>
+                <div class="combo-tasks-controls">
+                    <button id="add-combo-btn" onclick="addNewComboTask()" class="add-combo-btn">+ Add Combo Task</button>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal('combo-tasks-modal')">Cancel</button>
+                <button class="save-btn" onclick="saveComboTasksChanges()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/css/notification.js"></script>
+    <script src="js/dragTask.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/boardEditor.js"></script>
+    <script src="js/comboTasks.js"></script>
+</body>
+</html>

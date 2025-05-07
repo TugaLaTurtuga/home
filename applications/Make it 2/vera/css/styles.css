@@ -1,0 +1,592 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+/* Typography */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* Layout Components */
+.kanban-board {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.column {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    width: 300px;
+    min-height: 500px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.column-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-list {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.task {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    cursor: grab;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.task:hover {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.task p {
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+.task.dragging {
+    opacity: 0.5;
+}
+
+.task-counter {
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 14px;
+}
+
+.task-buttons {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+.column-footer {
+    margin-top: 15px;
+}
+
+/* Buttons */
+.add-task-btn, 
+.add-column-btn,
+.control-btn,
+.save-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-task-btn, 
+.add-column-btn {
+    width: 100%;
+    padding: 10px;
+}
+
+.add-column-btn {
+    margin-top: 5px;
+}
+
+.edit-btn, 
+.delete-btn,
+.edit-column-btn, 
+.delete-column-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.edit-btn, 
+.delete-btn {
+    font-size: 14px;
+}
+
+.edit-column-btn, 
+.delete-column-btn {
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+.edit-btn:hover, 
+.delete-btn:hover,
+.edit-column-btn:hover, 
+.delete-column-btn:hover {
+    opacity: 1;
+}
+
+.cancel-btn {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+.control-btn {
+    border: none;
+    height: 50px;
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 250;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content,
+.board-editor-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content {
+    margin: 15% auto;
+    width: 80%;
+    max-width: 500px;
+}
+
+.modal h2 {
+    margin-bottom: 20px;
+}
+
+.modal textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Board Editor */
+.board-editor-content {
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.board-editor-container {
+    margin: 15px 0;
+}
+
+.column-editor-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-left: 5px solid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.column-drag-handle {
+    cursor: grab;
+    margin-right: 10px;
+    opacity: 0.5;
+}
+
+.column-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.column-name {
+    font-weight: bold;
+}
+
+.column-editor-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.column-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-group input {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-group input[type="color"] {
+    height: 40px;
+    padding: 0 2px;
+}
+
+/* Notification System */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 251;
+}
+
+.notification {
+    padding: 15px 20px;
+    max-width: 300px;
+    background: #555;
+    border: 4px solid #666;
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.notification:hover {
+    opacity: 0.9;
+}
+
+.notification button {
+    border: none;
+    position: absolute;
+    bottom: 5px;
+    right: 80px;
+    background-color: #2ecc71;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#deny-btn {
+    right: 10px;
+    background-color: #cc2e2e;
+}
+
+.success {
+    background: #2ecc71;
+}
+
+.error {
+    background: #e74c3c;
+}
+
+/* Edit Container */
+.edit-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100vw;
+    background-color: #3498db;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    text-align-last: center;
+    gap: 20px;
+}
+
+.on-board {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 16px 10px;
+    color: black;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+/* Drag and Drop */
+.dropzone {
+    min-height: 10px;
+    transition: background-color 0.2s;
+}
+
+.dropzone.active {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(250px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(250px); }
+}
+
+.fade-in {
+    animation: fadeIn 0.2s ease;
+}
+
+.fade-out {
+    animation: fadeOut 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .kanban-board {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .column {
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Theme Variables */
+:root {
+    --bg: #f5f7fa;
+    --text: #333;
+    --column-bg: #e9ecef;
+    --task-bg: #ffffff;
+    --btn-bg: #3498db;
+    --btn-hover: #2980b9;
+    --header-color: #2c3e50;
+    --border-color: #ccc;
+    --modal-bg: #ffffff;
+    --notification-bg: #555;
+    --success-bg: #2ecc71;
+    --error-bg: #e74c3c;
+    --editbar-bg: #3498db;
+    --input-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Theme: Dark */
+body[data-theme="dark"] {
+    --bg: #1e1e1e;
+    --text: #e0e0e0;
+    --column-bg: #2c2c2c;
+    --task-bg: #3a3a3a;
+    --btn-bg: #3f51b5;
+    --btn-hover: #5c6bc0;
+    --header-color: #f5f5f5;
+    --border-color: #555;
+    --modal-bg: #2b2b2b;
+    --notification-bg: #444;
+    --success-bg: #27ae60;
+    --error-bg: #c0392b;
+    --editbar-bg: #3f51b5;
+    --input-bg: #444;
+    --shadow: rgba(255, 255, 255, 0.05);
+}
+
+/* Theme: Atom */
+body[data-theme="atom"] {
+    --bg: #2b2f38;
+    --text: #c5c8c6;
+    --column-bg: #3b4048;
+    --task-bg: #434a52;
+    --btn-bg: #528bff;
+    --btn-hover: #427aeb;
+    --header-color: #98c379;
+    --border-color: #666;
+    --modal-bg: #3e4451;
+    --notification-bg: #5c6370;
+    --success-bg: #98c379;
+    --error-bg: #e06c75;
+    --editbar-bg: #528bff;
+    --input-bg: #2c313c;
+    --shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Theme: Dracula */
+body[data-theme="dracula"] {
+    --bg: #282a36;
+    --text: #f8f8f2;
+    --column-bg: #44475a;
+    --task-bg: #6272a4;
+    --btn-bg: #bd93f9;
+    --btn-hover: #ff79c6;
+    --header-color: #ffb86c;
+    --border-color: #6272a4;
+    --modal-bg: #44475a;
+    --notification-bg: #6272a4;
+    --success-bg: #50fa7b;
+    --error-bg: #ff5555;
+    --editbar-bg: #bd93f9;
+    --input-bg: #44475a;
+    --shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Apply theme variables */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+.column,
+.column-editor-item {
+    background-color: var(--column-bg);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.task {
+    background-color: var(--task-bg);
+    box-shadow: 0 1px 3px var(--shadow);
+}
+
+.task:hover {
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.board-selector {
+    border: none;
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    transition: background-color 0.2s ;
+}
+
+#finish-board {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+#header {
+    color: var(--header-color);
+    padding: 10px;
+    height: 50px;
+    justify-self: center;
+    width: 500px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: 700;
+    box-shadow: 0 4px 10px var(--shadow);
+}
+
+.historic-board {
+    background-color: var(--column-bg);
+    padding: 10px;
+    margin: 10px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: default;
+    transition: all 0.2s;
+}
+
+.historic-board:hover {
+    background-color: var(--border-color);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.add-task-btn,
+.add-column-btn,
+.control-btn,
+.board-selector,
+.save-btn {
+    background-color: var(--btn-bg);
+    color: var(--text);
+}
+
+.add-task-btn:hover,
+.add-column-btn:hover,
+.board-selector:hover,
+.control-btn:hover {
+    background-color: var(--btn-hover);
+}
+
+.modal-content {
+    background-color: var(--modal-bg);
+}
+
+input, textarea {
+    background-color: var(--input-bg);
+    color: var(--text);
+}
+
+.notification {
+    background-color: var(--notification-bg);
+}
+
+.success {
+    background-color: var(--success-bg);
+}
+
+.error {
+    background-color: var(--error-bg);
+}
+
+.edit-container {
+    background-color: var(--editbar-bg);
+}
