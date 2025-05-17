@@ -31,6 +31,10 @@ function FindBlogs(place = false) {
         img.src = `${blog.name}/icon.png`;
         img.alt = `${blog.displayText} icon`;
 
+        img.onload = function() {
+            div.style.paddingLeft = `${img.width + 20}px`;
+        };
+
         const text = document.createElement('div');
         text.textContent = blog.displayText;
 
@@ -102,6 +106,31 @@ function FindApps(place = false) {
         img.alt = `${app.displayText} icon`;
         img.className = 'grid-icon';
 
+        function adjustPadding() {
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            div.style.paddingLeft = '0';
+            div.style.paddingTop = '0';
+
+            if (aspectRatio > 1) {
+                const maxPadding = parseFloat(getComputedStyle(div).width);
+                const padded = Math.min(img.width + 20, maxPadding);
+                div.style.paddingLeft = `${padded}px`;
+            } else {
+                const maxPadding = parseFloat(getComputedStyle(div).height);
+                const padded = Math.min(img.height + 20, maxPadding);
+                div.style.paddingTop = `${padded}px`;
+            }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+                    adjustPadding();
+                }
+            });
+        }, { threshold: 0.2 });
+        observer.observe(div);
+
         div.appendChild(img);
 
         const text = document.createElement('div');
@@ -135,3 +164,6 @@ function FindApps(place = false) {
         gridContainer.appendChild(div);
     });
 }
+
+FindBlogs();
+FindApps();
