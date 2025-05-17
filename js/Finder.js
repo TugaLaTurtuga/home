@@ -28,8 +28,12 @@ function FindBlogs(place = false) {
         div.className = 'grid-item';
 
         const img = document.createElement('img');
-        img.src = `${blog.name}/icon.png`; // Use shortened name
+        img.src = `${blog.name}/icon.png`;
         img.alt = `${blog.displayText} icon`;
+
+        img.onload = function() {
+            div.style.paddingLeft = `${img.width + 20}px`;
+        };
 
         const text = document.createElement('div');
         text.textContent = blog.displayText;
@@ -38,7 +42,7 @@ function FindBlogs(place = false) {
         subtext.className = 'subtext';
 
         // Fetch the content of the Description.txt file
-        fetch(`${blog.name}/Description.txt`) // Use shortened name
+        fetch(`${blog.name}/Description.txt`)
             .then(response => response.text())
             .then(data => {
                 subtext.textContent = data;
@@ -48,21 +52,17 @@ function FindBlogs(place = false) {
                 console.error('Error fetching description:', error);
             });
 
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'buttoncontainer';
-
-        const button = document.createElement('button');
-        button.textContent = 'See blog';
-        button.onclick = function() {
-            window.open(blog.name, '_self'); // Use shortened name
+        const button_SM = document.createElement('button');
+        button_SM.textContent = 'See more';
+        button_SM.className = 'see-more-btn';
+        button_SM.onclick = function() {
+            window.open(blog.name, '_blank');
         };
-
-        buttonContainer.appendChild(button);
 
         div.appendChild(img);
         div.appendChild(text);
         div.appendChild(subtext);
-        div.appendChild(buttonContainer);
+        div.appendChild(button_SM);
         gridContainer.appendChild(div);
     });
 }
@@ -97,22 +97,50 @@ function FindApps(place = false) {
     const gridContainer = document.getElementById('grid-container-app');
 
     // Create grid items for each subpage
-    allApps.forEach((blog, index) => {
+    allApps.forEach((app, index) => {
         const div = document.createElement('div');
         div.className = 'grid-item';
 
         const img = document.createElement('img');
-        img.src = `${blog.name}/icon.webp`; // Use shortened name
-        img.alt = `${blog.displayText} icon`;
+        img.src = `${app.name}/icon.webp`;
+        img.alt = `${app.displayText} icon`;
+        img.className = 'grid-icon';
+
+        function adjustPadding() {
+            const aspectRatio = window.innerWidth / window.innerHeight;
+            div.style.paddingLeft = '0';
+            div.style.paddingTop = '0';
+
+            if (aspectRatio > 1) {
+                const maxPadding = parseFloat(getComputedStyle(div).width);
+                const padded = Math.min(img.width + 20, maxPadding);
+                div.style.paddingLeft = `${padded}px`;
+            } else {
+                const maxPadding = parseFloat(getComputedStyle(div).height);
+                const padded = Math.min(img.height + 20, maxPadding);
+                div.style.paddingTop = `${padded}px`;
+            }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+                    adjustPadding();
+                }
+            });
+        }, { threshold: 0.2 });
+        observer.observe(div);
+
+        div.appendChild(img);
 
         const text = document.createElement('div');
-        text.textContent = blog.displayText;
+        text.textContent = app.displayText;
 
         const subtext = document.createElement('div');
         subtext.className = 'subtext';
 
         // Fetch the content of the Description.txt file
-        fetch(`${blog.name}/Description.txt`) // Use shortened name
+        fetch(`${app.name}/Description.txt`)
             .then(response => response.text())
             .then(data => {
                 subtext.textContent = data;
@@ -122,21 +150,20 @@ function FindApps(place = false) {
                 console.error('Error fetching description:', error);
             });
 
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'buttoncontainer';
-
-        const button = document.createElement('button');
-        button.textContent = 'See app';
-        button.onclick = function() {
-            window.open(blog.name, '_self'); // Use shortened name
+        const button_SM = document.createElement('button');
+        button_SM.textContent = 'See more';
+        button_SM.className = 'see-more-btn';
+        button_SM.onclick = function() {
+            window.open(app.name, '_blank');
         };
-
-        buttonContainer.appendChild(button);
 
         div.appendChild(img);
         div.appendChild(text);
         div.appendChild(subtext);
-        div.appendChild(buttonContainer);
+        div.appendChild(button_SM);
         gridContainer.appendChild(div);
     });
 }
+
+FindBlogs();
+FindApps();

@@ -195,6 +195,7 @@ h6{
     line-height: -1px;
     color: var(--PrimaryColor);
 }
+
 .grid-item {
     border: 0px solid var(--SecundaryColor);
     background-color: var(--BtnBack);
