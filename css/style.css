@@ -8,7 +8,7 @@ html,
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #333;
+    background-color: #000;
     overflow-x: hidden;
     overflow-y: scroll;
     color: #fff;
@@ -186,6 +186,7 @@ svg {
     aspect-ratio: 1;
     width: 300px;
     overflow: hidden;
+    font-size: 2em;
     transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.2, 2), background 0.3s ease-in, padding 0.2s ease-out;
     backdrop-filter: blur(10px) brightness(0.7);
     z-index: 10;
@@ -195,6 +196,10 @@ svg {
     background: #bbbbbb55;
     transform: scale(1.05) translateY(-15px);
     transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.2, 2), background 0.1s ease-out, padding 0.2s ease-out;
+}
+
+.grid-item .subtext {
+    font-size: 0.5em;
 }
 
 .grid-item .see-more-btn {
@@ -207,13 +212,18 @@ svg {
     border-radius: 0px 10px 0px 10px;
     height: 30px;
     color: #fff;
-    font-size: 20px;
+    font-size: 0.7em;
     padding: 10px 20px 30px 20px;
     font-weight: 900;
     cursor: pointer;
     flex-shrink: 0;
     z-index: 11;
     transition: all 0.2s cubic-bezier(0.1, 0.8, 0.2, 2);
+}
+
+.grid-item .see-more-btn:hover {
+    background: rgba(50, 50, 50, .3);
+    transform: translateX(5px) translateY(-5px);
 }
 
 .grid-item img {
@@ -223,6 +233,7 @@ svg {
     left: 0;
     z-index: 1;
 }
+
 
 @media (max-aspect-ratio: 1/1) {
     .grid-container {
@@ -236,6 +247,7 @@ svg {
         max-width: 100%;
         box-sizing: border-box;
         height: 80vh;
+        font-size: 2.5em;
         margin: 0;
     }
 
@@ -254,6 +266,12 @@ svg {
 
     .card .bt {
         font-size: 32px;
+    }
+
+    .top-part { max-width: none; }
+    .grid-item .see-more-btn {
+        font-size: 1em;
+        height: 60px;
     }
 }
 
@@ -289,21 +307,4 @@ svg {
     .grid-item:nth-child(even):hover {
         transform: scale(1.05) translateY(-15px) translateX(-28px);
     }
-}
-
-.grid-item .buttoncontainer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: right;
-    align-items: right;
-    z-index: 2;
-}
-
-.grid-item .see-more-btn:hover {
-    background: rgba(50, 50, 50, .3);
-    transform: translateX(5px) translateY(-5px);
 }
