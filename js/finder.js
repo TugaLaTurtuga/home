@@ -1,14 +1,13 @@
 function adjustPadding(div, img) {
     const aspectRatio = window.innerWidth / window.innerHeight;
-    div.style.paddingLeft = '10px';
-    div.style.paddingTop = '10px';
+    div.style.padding = '10px';
     if (aspectRatio > 1) {
         const maxPadding = parseFloat(getComputedStyle(div).width);
-        const padded = Math.min(img.width + 20, maxPadding);
+        const padded = Math.min(img.width + 10, maxPadding);
         div.style.paddingLeft = `${padded}px`;
     } else {
         const maxPadding = parseFloat(getComputedStyle(div).height);
-        const padded = Math.min(img.height + 20, maxPadding);
+        const padded = Math.min(img.height + 10, maxPadding);
         div.style.paddingTop = `${padded}px`;
     }
 }

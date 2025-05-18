@@ -196,6 +196,7 @@ svg {
     background: #bbbbbb55;
     transform: scale(1.05) translateY(-15px);
     transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.2, 2), background 0.1s ease-out, padding 0.2s ease-out;
+    z-index: 20;
 }
 
 .grid-item .subtext {
