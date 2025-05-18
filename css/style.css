@@ -16,7 +16,9 @@ body {
 
 .page {
     height: 100vh;
+    min-height: 100vh;
     width: 100vw;
+    min-width: 100vh;
     margin: 0;
     padding: 10px;
     background: black;
@@ -242,6 +244,18 @@ svg {
     .grid-item img {
         height: auto;
         width: 100%;
+    }
+
+    .card {
+        max-width: none;
+    }
+
+    .card .title {
+        font-size: 64px;
+    }
+
+    .card .bt {
+        font-size: 32px;
     }
 }
 

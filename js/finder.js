@@ -1,3 +1,18 @@
+function adjustPadding(div, img) {
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    div.style.paddingLeft = '10px';
+    div.style.paddingTop = '10px';
+    if (aspectRatio > 1) {
+        const maxPadding = parseFloat(getComputedStyle(div).width);
+        const padded = Math.min(img.width + 20, maxPadding);
+        div.style.paddingLeft = `${padded}px`;
+    } else {
+        const maxPadding = parseFloat(getComputedStyle(div).height);
+        const padded = Math.min(img.height + 20, maxPadding);
+        div.style.paddingTop = `${padded}px`;
+    }
+}
+
 const blogs = [
     { name: 'blogs/blogs/First-blog', displayText: "First blog!" },
 ];
@@ -31,26 +46,10 @@ function FindBlogs(place = false) {
         img.src = `${blog.name}/icon.png`;
         img.alt = `${blog.displayText} icon`;
 
-        function adjustPadding() {
-            const aspectRatio = window.innerWidth / window.innerHeight;
-            div.style.paddingLeft = '0';
-            div.style.paddingTop = '0';
-
-            if (aspectRatio > 1) {
-                const maxPadding = parseFloat(getComputedStyle(div).width);
-                const padded = Math.min(img.width + 20, maxPadding);
-                div.style.paddingLeft = `${padded}px`;
-            } else {
-                const maxPadding = parseFloat(getComputedStyle(div).height);
-                const padded = Math.min(img.height + 20, maxPadding);
-                div.style.paddingTop = `${padded}px`;
-            }
-        }
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-                    adjustPadding();
+                    adjustPadding(div, img);
                 }
             });
         }, { threshold: 0.2 });
@@ -129,26 +128,10 @@ function FindApps(place = false) {
         img.alt = `${app.displayText} icon`;
         img.className = 'grid-icon';
 
-        function adjustPadding() {
-            const aspectRatio = window.innerWidth / window.innerHeight;
-            div.style.paddingLeft = '0';
-            div.style.paddingTop = '0';
-
-            if (aspectRatio > 1) {
-                const maxPadding = parseFloat(getComputedStyle(div).width);
-                const padded = Math.min(img.width + 20, maxPadding);
-                div.style.paddingLeft = `${padded}px`;
-            } else {
-                const maxPadding = parseFloat(getComputedStyle(div).height);
-                const padded = Math.min(img.height + 20, maxPadding);
-                div.style.paddingTop = `${padded}px`;
-            }
-        }
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-                    adjustPadding();
+                    adjustPadding(div, img);
                 }
             });
         }, { threshold: 0.2 });

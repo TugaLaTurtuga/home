@@ -48,7 +48,9 @@ document.addEventListener('mousemove', updateMouseFromEvent);
 document.addEventListener('touchmove', updateMouseFromEvent, { passive: true });
 document.addEventListener('mouseleave', mouseX, mouseY = -1000);
 document.addEventListener('touchend', mouseX, mouseY = -1000);
-document.addEventListener('wheel', mouseY = e.clientY + window.scrollY);
+document.addEventListener('wheel', (e) => {
+    mouseY = e.clientY + window.scrollY;
+});
 
 const gridSize = 30;
 function createBalls() {
@@ -142,9 +144,10 @@ function drawBalls() {
     requestAnimationFrame(drawBalls);
 }
 
-page.addEventListener('click', addForceRadius(200, 1.5));
+page.addEventListener('click', () => addForceRadius(200, 1.5));
 
-function addForceRadius( size = 100, bm = 1.5 ) {
+function addForceRadius(size = 100, bm = 1.5) {
+    console.log('addForceRadius', size, bm);
     const startForceRadius = forceRadius; // Start radius
     const targetForceRadius = Math.min(startForceRadius + (((startForceRadius + canvas.maxDist * size) / canvas.maxDist)), canvas.maxDist * 1.75);
     const duration = 200; // Duration in milliseconds
@@ -167,6 +170,7 @@ function addForceRadius( size = 100, bm = 1.5 ) {
     }
     animate();
 }
+
 createBalls();
 drawBalls();
 
