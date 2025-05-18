@@ -20,6 +20,7 @@ window.addEventListener('resize', () => {
     canvas.maxDist = Math.max(canvas.width, canvas.height);
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
+    console.log('canvas resized', canvas.width, canvas.height);
     createBalls();
 });
 
