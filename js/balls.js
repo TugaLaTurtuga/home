@@ -49,9 +49,25 @@ document.addEventListener('mousemove', updateMouseFromEvent);
 document.addEventListener('touchmove', updateMouseFromEvent, { passive: true });
 document.addEventListener('mouseleave', mouseX, mouseY = -1000);
 document.addEventListener('touchend', mouseX, mouseY = -1000);
+
 document.addEventListener('wheel', (e) => {
-    mouseY = e.clientY + window.scrollY;
+    mouseY = window.scrollY + e.clientY;
 });
+
+document.addEventListener('scroll', (e) => {
+    y = getCursorPositionAndAddToMouseY(e);
+    mouseY = window.scrollY + y;
+});
+
+function getCursorYPosition(e) {
+    let y;
+    if (e.touches && e.touches.length > 0) {
+        y = e.touches[0].clientY;
+    } else {
+        y = e.clientY;
+    }
+    return y;
+}
 
 const gridSize = 30;
 function createBalls() {
