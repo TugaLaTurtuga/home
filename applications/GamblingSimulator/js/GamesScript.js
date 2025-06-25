@@ -35,8 +35,8 @@ function createGamesSection() {
                     }, 1000);
                     return; // Exit the function early if not enough money
                 }
-                totalMoneyGambled += level.cost;
-                ++amountOfTimesGambled;
+                player.totalMoneyGambled += level.cost;
+                ++player.amountOfTimesGambled;
             
                 // Check if enough time has passed since last play
                 if (currentTime - gameButton.lastPlayTime >= cooldownTime) {
@@ -173,10 +173,10 @@ function displayResult(win, winnings) {
         const randomIndex = Math.floor(Math.random() * addictionMessages.length);
         result = addictionMessages[randomIndex];
 
-        if (playerBalance < 0) {
+        if (player.balance < 0) {
             console.log('Not enough money, gambled everything 💀, taking loan');
-            if (!payingLoan) {
-                needsLoan = true;
+            if (!player.payingLoan) {
+                player.needsLoan = true;
                 SeeBank();
                 ChangeBankView(true, true);
             } else {
@@ -186,7 +186,7 @@ function displayResult(win, winnings) {
             
         }
     }
-    totalMoneyWonOnGambling += winnings;
+    player.totalMoneyWonOnGambling += winnings;
     saveGameData();
 
     const waitTime = result.length * 60; // Adjust wait time based on result length

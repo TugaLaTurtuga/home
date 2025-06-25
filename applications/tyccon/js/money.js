@@ -61,6 +61,7 @@ function formatCost(cost) {
 // Update the displayed balance in both sections
 function updateBalance() {
     document.getElementById('money-count').innerText = `Money: $${formatCost(parseFloat(player.balance))}`;
+    console.log(`Balance updated: $${formatCost(parseFloat(player.balance))}`);
 }
 
 function PlayerWentbankrupt(reason = 'You are so bad at this game') {
@@ -119,3 +120,26 @@ function deductMoney(amount, IsSalary = false) {
         }
     }
 }
+
+
+function saveGameData() {
+    localStorage.setItem('pixelCooker-playerData', JSON.stringify(player));
+}
+
+function loadGameData(reset = false) {
+    if (reset) {
+        // Reset player data to default (not implemented)
+        player = getDefaultPlayerData();
+        saveGameData();
+    } else {
+        const data = localStorage.getItem('pixelCooker-playerData');
+        if (data) {
+            player = JSON.parse(data);
+        }
+    }
+
+    updateBalance();
+}
+
+
+updateBalance();

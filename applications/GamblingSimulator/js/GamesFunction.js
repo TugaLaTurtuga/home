@@ -96,8 +96,6 @@ function BlackjackGame(wonOrLost, winnings, level) {
       
         if (SettingsVariables.PlayGames) {
             SeeGame(true);
-            PlaceholderElement.style.backgroundColor = "#2e8b57";
-            PlaceholderElement.style.border = "solid 2px #ccc";
             PlaceholderElement.style.boxShadow = "0 10px 12px rgba(0, 0, 0, .4)";
 
             const gameDiv = document.createElement('div');

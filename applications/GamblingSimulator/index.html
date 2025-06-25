@@ -30,9 +30,16 @@
         <p id="money-count">Money: $0.00</p>
     </div>
 
-    <img src="icon.webp" alt="Logo" class="top-right-icon" id="GCLogo" onclick="SeeBank()"/>
+    <div class="sidebar">
+        <button class="sidebar-button" id="workers-btn" onclick="ShowPage(0)">Workers</button>
+        <button class="sidebar-button" id="games-btn" onclick="ShowPage(1)">Casino</button>
+        <button class="sidebar-button" id="bank-btn" onclick="SeeBank()">Bank</button>
+        <button class="sidebar-button" id="changelog-btn" onclick="SeeChangeLogs()">Change Logs</button>
+        <button class="sidebar-button" id="settings-btn" onclick="SeeSettings()">Settings</button>
+    </div>
 
     <div class="game-container" id="job-clicker-section">
+        <img src="icon.webp" alt="Logo" class="top-right-icon" id="GCLogo" onclick="SeeBank()"/>
         <div class="clicker-section" id="clicker-section" style="display: block;">
             <h1>Your job</h1>
             <button class="earnMoney" onclick="earnMoney()">Work (Click to Earn)</button>

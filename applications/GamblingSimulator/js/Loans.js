@@ -3,21 +3,21 @@ const Time = 25; // Time in seconds between payments
 const loansDiv = document.getElementById("loanDiv");
 function takeLoan(amount, interest, time, IsSavingSystem=false) {
     amount = parseFloat(amount)
-    if (payingLoan || isNaN(playerBalance)) {
+    if (player.payingLoan || isNaN(player.balance)) {
         PlayerWentbankrupt('Was already taking a loan');
         return;
-    } payingLoan = true;
+    } player.payingLoan = true;
 
     const interestRate = interest / 100;
 
     const totalLoanValue = amount + (amount * interestRate);
     console.log(totalLoanValue);
     const monthlyPayment = totalLoanValue / time; // Monthly payment to pay off over the specified period
-    remainingLoanTime = time; // Save the time remaining for the loan
+    player.remainingLoanTime = time; // Save the time remaining for the loan
 
     document.getElementById("loansPer").innerText = `Loans: -$${monthlyPayment.toFixed(2)} per ${Time}s`;
-    loanInterest = interest;
-    remainingLoanValue = totalLoanValue;
+    player.loanInterest = interest;
+    player.remainingLoanValue = totalLoanValue;
     saveGameData();
 
     if (!IsSavingSystem) {
@@ -42,17 +42,17 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
         }, 3000);
         setTimeout(() => {resultElement.style.color = oldColor}, 3400) // change the color back to normal
     }
-    needsLoan = false;
+    player.needsLoan = false;
  
-    loanInterval = setInterval(() => {
+    player.loanInterval = setInterval(() => {
         if (!deductMoney(monthlyPayment, true)) {
             PlayerWentbankrupt("Can't pay loans");
-            clearInterval(loanInterval); // Stop further payments
+            clearInterval(player.loanInterval); // Stop further payments
             return;
         } else {
             console.log(`Paid loan: $${monthlyPayment.toFixed(2)}`);
-            remainingLoanValue -= monthlyPayment;
-            remainingLoanTime--;
+            player.remainingLoanValue -= monthlyPayment;
+            player.remainingLoanTime--;
             saveGameData();
 
             loansDiv.innerText = `Loans: -$${monthlyPayment.toFixed(2)}`;
@@ -61,12 +61,12 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
                 loansDiv.classList.remove('show');
             }, 1500);
 
-            if (remainingLoanTime <= 0) {
-                payingLoan = false;
-                remainingLoanValue = 0;
-                clearInterval(loanInterval); // Stop loan payments once the loan is fully paid
+            if (player.remainingLoanTime <= 0) {
+                player.payingLoan = false;
+                player.remainingLoanValue = 0;
+                clearInterval(player.loanInterval); // Stop loan payments once the loan is fully paid
                 document.getElementById("loansPer").innerText = `Loans: -$___ per __s`;
-                loanInterest = 0;
+                player.loanInterest = 0;
                 console.log('Loan fully repaid');
             }
         }
@@ -127,20 +127,20 @@ function TakeLongTermDeposits(amount, interest, IsSimpleInterest, time, IsSaving
     }
 
     let remainingTime = totalMonths;
-    remainingDepositValue = monthlyAmount;
-    remainingDepositTime = remainingTime;
+    player.remainingDepositValue = monthlyAmount;
+    player.remainingDepositTime = remainingTime;
     const depositInterval = setInterval(() => {
         if (remainingTime <= 0) {
             clearInterval(depositInterval);
-            remainingDepositTime = 0;
-            remainingDepositValue = 0;
+            player.remainingDepositTime = 0;
+            player.remainingDepositValue = 0;
             console.log("Deposit term ended.");
             IsTakingLTD = false;
             return;
         }
 
         remainingTime--;
-        remainingDepositTime--;
+        player.remainingDepositTime--;
 
         // Add monthly interest to balance
         addMoney(monthlyAmount);
@@ -164,15 +164,15 @@ function DepositSaved(monthlyAmount, remainingTime) {
     const depositInterval = setInterval(() => {
         if (remainingTime <= 0) {
             clearInterval(depositInterval);
-            remainingDepositTime = 0;
-            remainingDepositValue = 0;
+            player.remainingDepositTime = 0;
+            player.remainingDepositValue = 0;
             console.log("Deposit term ended.");
             IsTakingLTD = false;
             return;
         }
 
         remainingTime--;
-        remainingDepositTime--;
+        player.remainingDepositTime--;
 
         // Add monthly interest to balance
         addMoney(monthlyAmount);
@@ -196,7 +196,7 @@ function SeeBank() {
     if (settingsElement.classList.contains('show')) {
         settingsElement.classList.remove('show');
     } else {
-        if (payingLoan || IsTakingLTD) {
+        if (player.payingLoan || IsTakingLTD) {
             updateBank();
         }
 

@@ -222,7 +222,7 @@ function getRandomInt(min, max) {
 function updateLoanOptions() {
     loanOptions.forEach(option => {
         const minAmount = getRandomInt(1000, 2500)
-        const randomAmount = getRandomInt(playerBalance * 0.1, playerBalance * 0.6);
+        const randomAmount = getRandomInt(player.balance * 0.1, player.balance * 0.6);
         // Use the same function to format the amount
         if (minAmount > randomAmount) {
             option.amount = formatLoanAmount(minAmount); 
@@ -307,7 +307,7 @@ function createLoanCard(option, index) {
     loanButton.id = `btn-${index + 1}`;
     loanButton.innerText = 'Take loan';
     loanButton.onclick = (() => {
-        if (!payingLoan) {
+        if (!player.payingLoan) {
             takeLoan(option.amount, option.interest, rangeSlider.value, false);
         } else {
             loanButton.innerText = 'Already has a loan';
@@ -350,7 +350,7 @@ function initializeDepositGrid() {
 function updateDepositOptions() {
     depositOptions.forEach(option => {
         const minAmount = getRandomInt(1000, 2500)
-        const randomAmount = getRandomInt(playerBalance * 0.1, playerBalance * 0.6);
+        const randomAmount = getRandomInt(player.balance * 0.1, player.balance * 0.6);
         // Use the same function to format the amount
         if (minAmount > randomAmount) {
             option.amount = formatLoanAmount(minAmount); 

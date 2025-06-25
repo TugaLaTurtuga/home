@@ -108,7 +108,7 @@ function sellAllEmployes() {
         TotalPayedForAllJobs += TotalPayedForJob;
     }
     initializeDefaultValues(true); // Delete some of the game data
-    playerBalance += parseFloat(TotalPayedForAllJobs);
+    player.balance += parseFloat(TotalPayedForAllJobs);
 
     setTimeout(function() {
         saveGameData();
@@ -233,16 +233,16 @@ let TimeUntilPayingSalaries = 0;
 const salaryDiv = document.getElementById("salaryDiv");
 function startPassiveIncome() {
     setInterval(() => {
-        if (!isNaN(playerBalance) && !needsLoan) {
+        if (!isNaN(player.balance) && !player.needsLoan) {
             addMoney(incomePerSecond); // Increment player's balance by income
 
             if (TimeUntilPayingSalaries >= TimeToPaySalaries) {
                 const totalSalary = calculateTotalSalary();
                 
                 if (!deductMoney(totalSalary, true)) {
-                    if (!payingLoan) {
+                    if (!player.payingLoan) {
                         console.log('Not enough money for salaries, taking loan');
-                        needsLoan = true;
+                        player.needsLoan = true;
                         SeeBank();
                         ChangeBankView(true, true);
                     } else {

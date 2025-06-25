@@ -6,7 +6,6 @@ body {
     justify-content: center;
     text-align: center;
     overflow-x: hidden;
-    padding: 20px;
     font-family: "Rubik", serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -31,36 +30,30 @@ button:active {
     margin-top: auto; /* Pushes the button to the bottom */
     border-top: 50px;
     width: 100%;
+    margin: 20px;
     height: 100px;
     padding: 10px 20px;
     font-size: 20px;
-    background-color: #01222bc2;
-    color: #000000;
+    background-color: #06323ec2;
+    color: white;
     border-radius: 10px;
     border: none;
     cursor: pointer;
 }
 
 .see-workers-btn:hover {
-    background-color: #01121977;
+    background-color: #094556c2;
 }
 
 .game-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    max-width: 800px;
+    width: 100vw;
     margin: 0 auto;
-    background-color: #023b4a6e;
-    padding: 20px;
-    border-radius: 10px;
-    border: solid #01222b 1px; /* Fixed the border syntax */
-    box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
-    position: relative; /* Position relative for the grid effect */
-    z-index: 1; /* Ensure it is above the background grid */
-    margin-bottom: 20px;
-    width: 100%; /* Ensure the container takes full width */
-    box-sizing: border-box; /* Include padding in the width calculation */
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
 }
 
 /* Ensure the container is bigger than its content */
@@ -74,7 +67,7 @@ h1 {
 }
 
 .game-name {
-    color: #011219;
+    color: white;
 }
 
 /* Grid for games section */
@@ -90,11 +83,8 @@ h1 {
 
 /* Game cards */
 .game-card {
-    aspect-ratio: 1;
-    min-height: 85%;
-    min-width: 85%;
-    max-height: 85%;
-    max-width: 85%;
+    height: 85%;
+    width: 85%;
     background-color: #01222b;
     padding: 10px;
     border-radius: 10px;
@@ -102,7 +92,7 @@ h1 {
     box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
     text-align: center;
     max-width: 250px;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s cubic-bezier(0.075, 0.82, .2, 2);
 }
 
 .game-card:hover {
@@ -121,7 +111,7 @@ h1 {
 }
 
 .game-card p {
-    color: #000000;
+    color: white;
     margin: 10px 0;
 }
 
@@ -132,12 +122,12 @@ h1 {
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
-    color: #000000;
+    color: white;
 }
 
 .game-card button:hover {
     background-color: #015261;
-    color: #000000;
+    color: white;
 }
 
 .game-card button:disabled {
@@ -174,7 +164,7 @@ body:hover::before {
     padding: 10px 20px;
     font-size: 16px;
     background-color: #01424f;
-    color: #000000;
+    color: white;
     border-radius: 10px;
     border: none;
     cursor: pointer;
@@ -197,12 +187,12 @@ body:hover::before {
     margin-bottom: 20px;
     padding: 20px;
     border-radius: 20px;
-    background-color: #01121988;
+    background-color: #01222b;
     display: flex; /* Use flexbox for layout */
     flex-wrap: wrap; /* Allow buttons to wrap in smaller screens */
     justify-content: space-between; /* Space between buttons */
     box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
-    color: #000000;
+    color: white;
 }
 
 .job-shop-section button {
@@ -216,7 +206,7 @@ body:hover::before {
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    color: #000000;
+    color: black;
     overflow: hidden; /* Hide overflow from absolute positioning */
     font-family: "Rubik", serif;
 }
@@ -287,6 +277,7 @@ body:hover::before {
     background-color: #01222b;
     padding: 10px;
     border-radius: 10px;
+    color: white;
     margin: 30px;
     margin-top: -10px;
     box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
@@ -312,7 +303,7 @@ body:hover::before {
     cursor: pointer;
     padding: 10px;
     background-color: #023c4a;
-    color: #000000;
+    color: white;
 }
 
 .opts-card button:hover {
@@ -408,7 +399,7 @@ body:hover::before {
     background-color: #01121988;
     color: #f8f8f8;
     border: 1px solid #f8f8f8;
-    z-index: 999;
+    z-index: 1002;
 
     bottom: 10px;
     left: 50%;

@@ -1,22 +1,24 @@
 // Save game data to localStorage
 function saveGameData() {
     const gameData = {
-        Money: playerBalance,
-        totalEarned : totalEarned,
-        remainingLoanValue: remainingLoanValue,
-        remainingLoanTime: remainingLoanTime,
-        loanInterest: loanInterest,
-        DepositMonthlyValue: remainingDepositValue,
-        remainingDepositTime: remainingDepositTime,
+        Money: player.balance,
+        totalEarned : player.totalEarned,
+        remainingLoanValue: player.remainingLoanValue,
+        remainingLoanTime: player.remainingLoanTime,
+        loanInterest: player.loanInterest,
+        DepositMonthlyValue: player.remainingDepositValue,
+        remainingDepositTime: player.remainingDepositTime,
         Count: Count,
         Income: Income,
         performance: performance,
         jobCosts: jobCosts,
         jobSalary: jobSalary,
-        amountOfTimesGambled: amountOfTimesGambled,
-        totalMoneyGambled: totalMoneyGambled,
-        totalMoneyWonOnGambling: totalMoneyWonOnGambling
+        amountOfTimesGambled: player.amountOfTimesGambled,
+        totalMoneyGambled: player.totalMoneyGambled,
+        totalMoneyWonOnGambling: player.totalMoneyWonOnGambling
     };
+
+    console.log(gameData);
     localStorage.setItem('gameData', JSON.stringify(gameData));
     displayGameData(gameData); // Call displayGameData with gameData after saving
 }
@@ -34,7 +36,7 @@ function loadGameData(loadData = true) {
      
         console.log("Game data reset successfully.");
         setTimeout(function() {
-            playerBalance = 0;
+            player.balance = 0;
             saveGameData();
             window.location.reload();
         }, 1000);
@@ -45,7 +47,7 @@ function loadGameData(loadData = true) {
     if (!savedData) {
         console.log("No saved game data found, starting a new game.");
         initializeDefaultValues();
-        playerBalance = 0;
+        player.balance = 0;
         return;
     }
 
@@ -60,20 +62,20 @@ function loadGameData(loadData = true) {
 
 // Initialize game with default values
 function initializeDefaultValues(IsSellingAllEmployes = false) {
-    playerBalance = 0;
+    player.balance = 0;
     if (!IsSellingAllEmployes) {
-        amountOfTimesGambled = 0;
-        totalMoneyGambled = 0;
-        totalMoneyWonOnGambling = 0;
-        totalEarned = 0;
+        player.amountOfTimesGambled = 0;
+        player.totalMoneyGambled = 0;
+        player.totalMoneyWonOnGambling = 0;
+        player.totalEarned = 0;
     }
-    totalLoansValue = 0;
-    payingLoan = false;
-    loanInterval = 0;
-    remainingLoanValue = 0;
-    remainingLoanTime = 0;
-    loanInterest = 0;
-    needsLoan = false;
+    player.totalLoansValue = 0;
+    player.payingLoan = false;
+    player.loanInterval = 0;
+    player.remainingLoanValue = 0;
+    player.remainingLoanTime = 0;
+    player.loanInterest = 0;
+    player.needsLoan = false;
 
     Count = {
         autoclicker: 0,
@@ -112,16 +114,16 @@ function initializeDefaultValues(IsSellingAllEmployes = false) {
 // Update game state with loaded data
 function updateGameData(gameData) {
     if (gameData.Money !== 0) {
-        playerBalance = gameData.Money || NaN;
-    } else {playerBalance = 0;}
+        player.balance = gameData.Money || NaN;
+    } else {player.balance = 0;}
         
-    totalEarned = gameData.totalEarned || 0;
-    remainingLoanValue = gameData.remainingLoanValue || 0;
-    remainingLoanTime = gameData.remainingLoanTime || 0;
-    loanInterest = gameData.loanInterest || 0;
+    player.totalEarned = gameData.totalEarned || 0;
+    player.remainingLoanValue = gameData.remainingLoanValue || 0;
+    player.remainingLoanTime = gameData.remainingLoanTime || 0;
+    player.loanInterest = gameData.loanInterest || 0;
         
-    remainingDepositValue = gameData.DepositMonthlyValue || 0;
-    remainingDepositTime = gameData.remainingDepositTime || 0;
+    player.remainingDepositValue = gameData.DepositMonthlyValue || 0;
+    player.remainingDepositTime = gameData.remainingDepositTime || 0;
 
     // Load all job-related data
     Count = gameData.Count || {};
@@ -145,19 +147,19 @@ function updateGameData(gameData) {
 
     jobSalary = gameData.jobSalary || 0;
 
-    amountOfTimesGambled = gameData.amountOfTimesGambled || 0;
-    totalMoneyGambled = gameData.totalMoneyGambled || 0;
-    totalMoneyWonOnGambling = gameData.totalMoneyWonOnGambling || 0;
+    player.amountOfTimesGambled = gameData.amountOfTimesGambled || 0;
+    player.totalMoneyGambled = gameData.totalMoneyGambled || 0;
+    player.totalMoneyWonOnGambling = gameData.totalMoneyWonOnGambling || 0;
 
     // Restart loan payment system if a loan is active
-    if (remainingLoanTime !== 0 && remainingLoanValue !== 0) {
-        takeLoan(remainingLoanValue / (1 + (loanInterest / 100)), loanInterest, remainingLoanTime, true); // Use saved loan values
-    } else {loanInterest = 0; remainingLoanTime = 0; remainingLoanValue = 0;}
+    if (player.remainingLoanTime !== 0 && player.remainingLoanValue !== 0) {
+        takeLoan(player.remainingLoanValue / (1 + (player.loanInterest / 100)), player.loanInterest, player.remainingLoanTime, true); // Use saved loan values
+    } else {player.loanInterest = 0; player.remainingLoanTime = 0; player.remainingLoanValue = 0;}
 
-    if (remainingDepositValue !== 0 && remainingDepositTime !== 0) {
-        DepositSaved(remainingDepositValue, remainingDepositTime)
-    } else {remainingDepositValue = 0; remainingDepositTime = 0;}
-    if (isNaN(playerBalance)) { PlayerWentbankrupt("You can't escape bankruptcy 😱🥶"); }
+    if (player.remainingDepositValue !== 0 && player.remainingDepositTime !== 0) {
+        DepositSaved(player.remainingDepositValue, player.remainingDepositTime)
+    } else {player.remainingDepositValue = 0; player.remainingDepositTime = 0;}
+    if (isNaN(player.balance)) { PlayerWentbankrupt("You can't escape bankruptcy 😱🥶"); }
     updateBalance();
 
 }
@@ -186,10 +188,10 @@ function displayGameData(gameData) {
             const lowerKey = key.toLowerCase();  // Convert key to lowercase for case-insensitive check
     
             // Check the key name, not the value
-            if (lowerKey === 'totalearned' && !isDigit(value)) {
-                value = playerBalance;
+            if (lowerKey === 'player.totalEarned' && !isDigit(value)) {
+                value = player.balance;
             } else if (lowerKey === 'money' && !isDigit(value)) {
-                value = totalEarned / 10;
+                value = player.totalEarned / 10;
             }
     
             // Display the item if:

@@ -9,20 +9,17 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-   
-    /* Size of the settings div */
-    width: 600px;
-    aspect-ratio: 1;
+    width: 100%;
+    height: 100%;
 
     /* Styling */
-    border: solid 1px #4d4d4d71;
-    background-color: #0112199a; /* Semi-transparent background */
+    border: solid 2px #ccc;
+    background-color: #2e8b57; /* Semi-transparent background */
     box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
     color: white; /* Text color */
     padding: 0px;
-    border-radius: 10px;
-    z-index: 10001; /* Ensure it's above all other elements */
- 
+    z-index: 1001; /* Ensure it's above all other elements */
+
     /* Initial hidden state */
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -50,12 +47,9 @@
  * Blackjack Game css *
 **************************/
 #BlackjackGame {
-    max-width: 90%;
-    aspect-ratio: 1/0.9;
     margin: 20px;
     padding: 20px;
     background: #333;
-    border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
@@ -183,15 +177,6 @@ select:hover {
     background-color: #777;
 }
 
-@media (max-aspect-ratio: 1/1.5) {
-    #GamePlaceholder {
-        width: 90%;
-    }
-}
-
-@media (max-aspect-ratio: 1/2) {
-    #BlackjackGame{ max-width: 80%;}
-}
 @media (max-aspect-ratio: 1/2.5) {
     .score {margin-top: -1px; margin-bottom: -1px;}
     .card {margin-bottom: 0px;}

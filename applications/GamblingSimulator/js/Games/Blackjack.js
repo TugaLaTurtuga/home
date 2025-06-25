@@ -354,8 +354,8 @@ function generateGrid(gridSize, level, resolve) {
     attempts = 0;
 
     PlaceholderElement.innerHTML = '';
-    PlaceholderElement.style.borderRadius = '0px';
     PlaceholderElement.style.maxWidth = '450px';
+    PlaceholderElement.style.maxHeight = '450px';
 
     const scContainer = document.createElement('div');
     scContainer.className = 'sc_container';
@@ -620,8 +620,8 @@ function setupScratchEffect(canvas, scContainer) {
             }, 1000);
 
             setTimeout (() => { // Return to old settings
-                PlaceholderElement.style.borderRadius = '10px';
-                PlaceholderElement.style.maxWidth = '600px';
+                PlaceholderElement.style.maxWidth = '';
+                PlaceholderElement.style.maxHeight = '';
                 PlaceholderElement.innerHTML = '';
                 window.gameResolve(true);
             }, 1300);

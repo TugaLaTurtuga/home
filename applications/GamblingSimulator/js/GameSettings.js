@@ -1,18 +1,19 @@
-let amountOfTimesGambled = 0;
-let totalMoneyGambled = 0;
-let totalMoneyWonOnGambling = 0;
-let playerBalance = 0;
-let totalEarned = 0;
-let totalLoansValue = 0;
-let payingLoan = false;
-let loanInterval = 0;
-let remainingLoanValue = 0;
-let remainingLoanTime = 0;
-let loanInterest = 0;
-let needsLoan = false;
-
-let remainingDepositValue = 0;
-let remainingDepositTime = 0;
+const player = {
+    balance: 0,
+    amountOfTimesGambled: 0,
+    totalMoneyGambled: 0,
+    totalMoneyWonOnGambling: 0,
+    totalEarned: 0,
+    totalLoansValue: 0,
+    payingLoan: false,
+    loanInterval: 0,
+    remainingLoanValue: 0,
+    remainingLoanTime: 0,
+    loanInterest: 0,
+    needsLoan: false,
+    remainingDepositValue: 0,
+    remainingDepositTime: 0,
+};
 
 const games = {
     poker: [
