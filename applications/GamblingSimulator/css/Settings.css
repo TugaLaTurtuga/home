@@ -59,23 +59,11 @@
     align-items: left;
     overflow: scroll;
 
-    /* Positioning to center the settings div on the screen */
     position: relative;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    
-    /* Size of the settings div */
-    max-width: 80%;
-    width: 400px;
-    aspect-ratio: 1.5/1;
 
     /* Styling */
-    border: solid 1px #4d4d4d71;
     padding: 40px;
-    background-color: #0112199a; /* Semi-transparent background */
-    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
     color: white;
-    border-radius: 10px;
     z-index: 1;
 }
 

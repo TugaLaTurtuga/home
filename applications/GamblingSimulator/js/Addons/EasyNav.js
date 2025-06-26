@@ -32,7 +32,6 @@ function PutEasyNav() {
     } else {
         EasyNavDiv.innerHTML = '';
     }
-    calculatejobHeight();
 }
 PutEasyNav();
 

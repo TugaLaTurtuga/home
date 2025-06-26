@@ -112,7 +112,7 @@ window.onload = function() {
     // Keyboard shortcuts
     document.addEventListener('keydown', function(event) {
         if ((event.ctrlKey || event.metaKey) && (event.key === ',' || event.key === ';' || event.key === '.')) {
-            SeeSettings()
+            showPage(3)
         } else if (event.key === ' ' || event.key === 'k') {
             PlayMusic();
         } else if (event.key === 'Enter' && loadSettingsButton) {
@@ -131,26 +131,11 @@ window.onload = function() {
     const ReloadLogo = document.getElementById('ReloadLogo');
 
     ReloadLogo.addEventListener('click', () => {
-        SeeSettings()
+        showPage(3)
     });
 
     initializeSliders(); // code in css/UpdateSliderColor.js that updates the sliders color
 };
-
-function SeeSettings() {
-    const settingsElement = document.querySelector('.settings');
-    if (settingsElement.classList.contains('show')) {
-        settingsElement.classList.remove('show');
-    
-        // Delay changing visibility until after the opacity transition
-        setTimeout(() => {
-            settingsElement.classList.add('hide');
-        }, 300); // 300ms matches the CSS transition duration for opacity
-    } else {
-        settingsElement.classList.remove('hide');
-        settingsElement.classList.add('show');
-    }
-}
 
 // Function to adjust grid size
 function adjustGridSize(event) {

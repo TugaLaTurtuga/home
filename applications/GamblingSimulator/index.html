@@ -18,11 +18,6 @@
     <link rel="stylesheet" href="css/Settings.css">
 </head>
 <body>
-    <div class="settingsWholeDiv">
-        <h1>Settings</h1>
-        <div class="settings" id="settings"></div>
-        <button class="closeBank" onclick="SeeSettings()" style="z-index: 100001; transform: translate(-50%, -37%) scale(1);">Close</button>
-    </div>
    
     <script src="js/Settings.js"></script>
 
@@ -31,15 +26,13 @@
     </div>
 
     <div class="sidebar">
-        <button class="sidebar-button" id="workers-btn" onclick="ShowPage(0)">Workers</button>
-        <button class="sidebar-button" id="games-btn" onclick="ShowPage(1)">Casino</button>
+        <button class="sidebar-button" id="workers-btn" onclick="showPage(1)">Workers</button>
+        <button class="sidebar-button" id="games-btn" onclick="showPage(2)">Casino</button>
         <button class="sidebar-button" id="bank-btn" onclick="SeeBank()">Bank</button>
-        <button class="sidebar-button" id="changelog-btn" onclick="SeeChangeLogs()">Change Logs</button>
-        <button class="sidebar-button" id="settings-btn" onclick="SeeSettings()">Settings</button>
+        <button class="sidebar-button" id="settings-btn" onclick="showPage(3)">Settings</button>
     </div>
 
     <div class="game-container" id="job-clicker-section">
-        <img src="icon.webp" alt="Logo" class="top-right-icon" id="GCLogo" onclick="SeeBank()"/>
         <div class="clicker-section" id="clicker-section" style="display: block;">
             <h1>Your job</h1>
             <button class="earnMoney" onclick="earnMoney()">Work (Click to Earn)</button>
@@ -63,6 +56,7 @@
     </div>
 
     <div class="game-container" id="games-section" style="display: block;">
+        <img src="icon.webp" alt="Logo" class="top-right-icon" id="GCLogo" onclick="SeeBank()"/>
         <h1>Gambling Centre™</h1>
        
         <h1 class="game-name">Poker</h1>
@@ -102,19 +96,27 @@
     <div class="bottom-right-text" id="salaryDiv"> <p>Salaries: -$___</p></div>
     <div class="top-right-text" id="depositsDiv"> <p>Deposits: $___</p></div>
 
-    <h1 style="cursor: pointer;" onclick="SeeSettings();">Settings</h1>
+    <div class="game-container" style="margin-top: 100px; display: block;" id="moreOptionsDiv">
+        <div class="settings"></div>
 
-    <div class="bottom-info" onclick="SeeBank()">
-        <p id="loansPer">Loans: -$___ per __s</p>
-        <p id="salariesPer">Salaries: -$___ per __s</p>
+        <div class="bottom-info" onclick="SeeBank()">
+            <p id="loansPer">Loans: -$___ per __s</p>
+            <p id="salariesPer">Salaries: -$___ per __s</p>
+        </div>
+
+        <div class="stats" id="stats">
+            <!-- Stats will be put here by JavaScript -->
+        </div>
+
+        <input type="file" id="fileInput" name="fileInput", style="display: none;"> <!-- for upload file -->
+
+        <div class="stats" id="Version" onclick="SeeChangeLogs()">
+            <h2 id="VersionName"></h2>
+            <h3>TugaLaTurtuga© 2025, GamblingCentre© 2025</h3>
+        </div>
+        <h1>Work in progress</h1>
     </div>
-
-    <div class="stats" id="stats">
-        <!-- Stats will be put here by JavaScript -->
-    </div>
-
-    <input type="file" id="fileInput" name="fileInput", style="display: none;"> <!-- for upload file -->
-
+    
     <div class="OnTop" id="bank">
         <h1>Bank</h1>
         <div class="Globalbutton-container">
@@ -143,6 +145,7 @@
         <!-- The game will be put here by JavaScript -->
     </div>
 
+    <script src="js/Addons/pagination.js"></script>
     <script src="js/Encoder.js"></script>
     <script src="js/GameSettings.js"></script>
     <script src="js/Loans.js"></script>
@@ -156,11 +159,7 @@
     <script src="js/script.js"></script>
     <script src="js/UpdateSliderCode.js"></script>
 
-    <div class="stats" id="Version" onclick="SeeChangeLogs()">
-        <h2 id="VersionName"></h2>
-        <h3>TugaLaTurtuga© 2024, GamblingCentre© 2024</h3>
-    </div>
-    <h1>Work in progress</h1>
+    
 
     <div class="OnTop" id="CH">
         <h1>Change logs</h1>
@@ -175,7 +174,7 @@
   
     <script src="CH/ChangeLogs.js"></script>
 
-    <script src="audio/MusicScript.js"></script>
+    <!-- <script src="audio/MusicScript.js"></script> -->
     <script src="js/Addons/EasyNav.js"></script>
 </body>
 </html>

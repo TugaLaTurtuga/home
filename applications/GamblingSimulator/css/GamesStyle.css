@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Center content horizontally */
-    justify-content: top; /* Center content vertically */
   
     /* Positioning to center the settings div on the screen */
     position: fixed;

@@ -2,9 +2,7 @@ let SettingsVariables = {
     EasyNav: false,
     AminateClickToEarn: true,
     PlayGames: true,
-//    SFXVolume: 1,
-    MusicVolume: 0, //.6,
-    TurnOffVolumeWhenUnfocused: true,
+    SFXVolume: 1,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,26 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('SettingsVariables');
             location.reload(); // Refresh to apply default settings
         } else if ((event.ctrlKey || event.metaKey) && (event.key === ',' || event.key === ';' || event.key === '.')) {
-            SeeSettings();
+            showPage(3);
         }
     });
 });
-
-function SeeSettings() {
-    const settingsElement = document.querySelector('.settingsWholeDiv');
-
-    if (!settingsElement) {
-        console.error('Settings element not found');
-        return;
-    }
-
-    // Toggle the visibility of the settings
-    if (settingsElement.classList.contains('show')) {
-        settingsElement.classList.remove('show');
-    } else {
-        settingsElement.classList.add('show');
-    }
-}
 
 var hasTouchScreen = false;
 
@@ -145,7 +127,8 @@ function updateToggleUI(id, isTurningOn) {
 
 function CreateSettings() {
     loadSettings();
-    const settingsElement = document.getElementById('settings');
+    const settingsElement = document.querySelector(`#moreOptionsDiv .settings`);
+    console.log(settingsElement);
     if (!settingsElement) return;
 
     settingsElement.innerHTML = '';
@@ -161,11 +144,12 @@ function CreateSettings() {
                 <span id="${key}-value" style="margin-top: 15px; margin-left: 2px;">${Math.round(value * 100)}%</span>
             `;
             settingsElement.appendChild(VariableDiv);
+
             const rangeInput = document.getElementById(`${key}_settings`);
             setTimeout(() => {
                 setSliderColor(rangeInput, 'rgb(76, 175, 80)', true, 'white');
             }, 1000);
-           
+
             rangeInput.addEventListener('input', (event) => {
                 const newValue = parseFloat(event.target.value);
                 SettingsVariables[key] = newValue;
@@ -188,4 +172,7 @@ function CreateSettings() {
     });
 }
 
-CreateSettings();
+document.addEventListener('DOMContentLoaded', () => {
+    CreateSettings();
+});
+

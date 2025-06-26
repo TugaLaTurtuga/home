@@ -11,8 +11,8 @@
     box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
     text-align: center;
     max-width: 250px;
-    transition: transform 0.3s ease;
-    color: #000000;
+    transition: transform 0.2s cubic-bezier(0.075, 0.82, .2, 2);
+    color: white;
 }
 
 .worker-card:hover {
@@ -27,7 +27,8 @@
 
 .worker-card h2 {
     color: #ff8c00;
-    margin-top: 10px;
+    margin-top: -5px;
+    padding-bottom: 10px;
 }
 
 .worker-card p {
@@ -42,7 +43,7 @@
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
-    color: #000000;
+    color: white;
 }
 
 .worker-card button:hover {
@@ -119,12 +120,12 @@ h3 {
 
 .hhhh3 {
     color: #ccc;
-    margin-top: 0px;
-    margin-bottom: -15px;
+    margin-top: -38px;
+    padding-bottom: 10px;
 }
 
 .top-right-icon {
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 10px;
     width: 64px;
@@ -142,13 +143,16 @@ h3 {
 }
 
 .top-right-text {
-    position:fixed;
+    position: fixed;
     z-index: 100000;
-    top: 25px;
-    right: 25px;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
     opacity: 0;
     transform: translateX(250px);
-    transition: opacity 0.5s ease, transform .7s ease;
+    transition: opacity 0.5s ease, transform .4s cubic-bezier(0.075, 0.82, .2, 1.5);
 
     color: green;
     font-size: 24px;
@@ -164,13 +168,16 @@ h3 {
     position:fixed;
     z-index: 100000;
     bottom: 10px;
-    left: 25px;
+    left: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
     opacity: 0;
     transform: translateX(-250px);
-    transition: opacity 0.5s ease, transform .7s ease;
+    transition: opacity 0.5s ease, transform .4s cubic-bezier(0.075, 0.82, .2, 1.5);
 
     color: red;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 500;
 
     max-width: 89.5%;
@@ -182,16 +189,19 @@ h3 {
 }
 
 .bottom-right-text {
-    position:fixed;
+    position: fixed;
     z-index: 100000;
     bottom: 10px;
-    right: 25px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
     opacity: 0;
     transform: translateX(250px);
-    transition: opacity 0.5s ease, transform .7s ease;
+    transition: opacity 0.5s ease, transform .4s cubic-bezier(0.075, 0.82, .2, 1.5);
 
     color: red;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 500;
 }
 
@@ -276,12 +286,20 @@ h3 {
     transform: scale(0.9) translateX(-55%);
 }
 
+#changelog-content {
+    flex: 1;
+    padding: 20px;
+    text-align-last: left;
+    overflow-y: scroll;
+}
+
 #changelog-content h2 {
     margin-top: 15px;
 }
 
 #changelog-content p {
     margin-top: -15px;
+    line-height: 1.8;
 }
 
 .changelog-sidebar {
@@ -308,12 +326,6 @@ h3 {
 
 .changelog-btn:hover {
     background-color: #043341;
-}
-
-.changelog-content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
 }
 
 h6 {
@@ -345,10 +357,6 @@ h6 {
     color: #ccc;
 }
 
-#workers-title {
-    box-shadow: 10px 10px 6px rgba(0, 0, 0, 0.086);
-}
-
 .Globalbutton-container {
     display: flex;
     margin-left: 0%;
@@ -376,7 +384,7 @@ h6 {
     z-index: 1;
     transition: background-color 0.3s;
     box-shadow: none;
-    color: rgb(0, 0, 0);
+    color: white;
 }
 
 .Globalbutton:hover {
@@ -425,7 +433,7 @@ h6 {
     bottom: 0px;
     padding: 5px;
     background-color: rgba(255, 0, 0, 1);
-    color: white;
+    color: black;
     font-weight: 800;
     
     border: solid black 2px;

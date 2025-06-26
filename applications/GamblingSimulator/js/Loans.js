@@ -15,7 +15,7 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
     const monthlyPayment = totalLoanValue / time; // Monthly payment to pay off over the specified period
     player.remainingLoanTime = time; // Save the time remaining for the loan
 
-    document.getElementById("loansPer").innerText = `Loans: -$${monthlyPayment.toFixed(2)} per ${Time}s`;
+    document.getElementById("loansPer").innerText = `Loans: -$${formatCost(monthlyPayment.toFixed(2))} per ${Time}s`;
     player.loanInterest = interest;
     player.remainingLoanValue = totalLoanValue;
     saveGameData();
@@ -24,7 +24,7 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
         addMoney(amount); // Adds loan amount to player's balance
 
         const resultElement = document.getElementsByClassName('game-result')[0];
-        result = `Taking loan of: $${amount.toFixed(2)} for ${time} months`
+        result = `Taking loan of: $${formatCost(amount)} for ${time} months`
         resultElement.innerText = result;
         const oldColor = resultElement.style.color
         resultElement.style.color = 'red';
@@ -36,11 +36,8 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
         }
         // Add the 'show' class to display the result
         resultElement.classList.add('show');
-        setTimeout(() => {
-            resultElement.classList.remove('show');
-            
-        }, 3000);
-        setTimeout(() => {resultElement.style.color = oldColor}, 3400) // change the color back to normal
+        setTimeout(() => resultElement.classList.remove('show'), 3000);
+        setTimeout(() => resultElement.style.color = oldColor, 3200);
     }
     player.needsLoan = false;
  
@@ -55,7 +52,7 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
             player.remainingLoanTime--;
             saveGameData();
 
-            loansDiv.innerText = `Loans: -$${monthlyPayment.toFixed(2)}`;
+            loansDiv.innerText = `Loans: -$${formatCost(monthlyPayment)}`;
             loansDiv.classList.add('show');
             setTimeout(() => {
                 loansDiv.classList.remove('show');
@@ -107,7 +104,7 @@ function TakeLongTermDeposits(amount, interest, IsSimpleInterest, time, IsSaving
     
     if (!IsSavingSystem) {
         const resultElement = document.getElementsByClassName('game-result')[0];
-        const result = `Deposited: $${originalAmount.toFixed(2)} at ${interest}% interest`;
+        const result = `Deposited: $${formatCost(originalAmount)} at ${interest}% interest`;
         resultElement.innerText = result;
         const oldColor = resultElement.style.color;
         resultElement.style.color = 'green';
@@ -118,12 +115,8 @@ function TakeLongTermDeposits(amount, interest, IsSimpleInterest, time, IsSaving
             console.error("Error removing 'show' class because it doesn't exist");
         }
         resultElement.classList.add('show');
-        setTimeout(() => {
-            resultElement.classList.remove('show');
-        }, 3000);
-        setTimeout(() => {
-            resultElement.style.color = oldColor;
-        }, 3400);
+        setTimeout(() => resultElement.classList.remove('show'), 3000);
+        setTimeout(() => resultElement.style.color = oldColor, 3200);
     }
 
     let remainingTime = totalMonths;
@@ -145,11 +138,11 @@ function TakeLongTermDeposits(amount, interest, IsSimpleInterest, time, IsSaving
         // Add monthly interest to balance
         addMoney(monthlyAmount);
 
-        console.log(`Monthly payout: $${monthlyAmount.toFixed(2)} added to balance.`);
+        console.log(`Monthly payout: $${formatCost(monthlyAmount)} added to balance.`);
 
         // Update depositsDiv with monthly payout
         const depositsDiv = document.getElementById('depositsDiv');
-        depositsDiv.innerText = `Deposits: $${monthlyAmount.toFixed(2)}`;
+        depositsDiv.innerText = `Deposits: $${formatCost(monthlyAmount)}`;
         depositsDiv.classList.add('show');
         setTimeout(() => {
             depositsDiv.classList.remove('show');
@@ -177,11 +170,11 @@ function DepositSaved(monthlyAmount, remainingTime) {
         // Add monthly interest to balance
         addMoney(monthlyAmount);
 
-        console.log(`Monthly payout: $${monthlyAmount.toFixed(2)} added to balance.`);
+        console.log(`Monthly payout: $${formatCost(monthlyAmount)} added to balance.`);
 
         // Update depositsDiv with monthly payout
         const depositsDiv = document.getElementById('depositsDiv');
-        depositsDiv.innerText = `Deposits: $${monthlyAmount.toFixed(2)}`;
+        depositsDiv.innerText = `Deposits: $${formatCost(monthlyAmount)}`;
         depositsDiv.classList.add('show');
         setTimeout(() => {
             depositsDiv.classList.remove('show');

@@ -8,7 +8,6 @@ window.onload = () => {
     createGamesSection();
     startPassiveIncome();
     calculateTotalSalary();
-    calculatejobHeight();
     UpdateWorkersNumber();
 };
 
@@ -155,63 +154,31 @@ function updateIncome() {
         incomePerSecond += mpsInJob;
         const mpsInJobText = document.getElementById(`mps in ${job}`);
         if (mpsInJobText) {
-            mpsInJobText.innerText = `mps: $${mpsInJob.toFixed(2)}`;
+            mpsInJobText.innerText = `mps: $${formatCost(mpsInJob)}`;
         }
     }
     if (incomePerSecond != 0) {
-        document.getElementById('total-mps').innerText = `mps: $${incomePerSecond.toFixed(2)}`;
+        document.getElementById('total-mps').innerText = `mps: $${formatCost(incomePerSecond)}`;
         IsPayingsalaries = true;
     }
 }
 
 const sw = document.getElementById("seeWorkers");
 const gameContainer = document.getElementById("clicker-section");
-function calculatejobHeight() {
-    if (!IsSeingWorkers) {
-        let js = document.getElementById("job-shop-section");
-
-        // Use offsetHeight to get the rendered height of the element
-        let jsHeight = js.offsetHeight || 200;
-        let swHeight = 100;
-        let totalHeight = 0;
-
-        // Use getComputedStyle to check the applied flex-direction
-        let computedStyle = window.getComputedStyle(js);
-        let flexDirection = computedStyle.flexDirection;
-
-        if (flexDirection === "column") {
-            totalHeight = swHeight + jsHeight + 630;
-        } else {
-            totalHeight = swHeight + jsHeight + 385;
-        }
-
-        if (SettingsVariables.EasyNav) totalHeight += 80;
-
-        // Set the gameContainer height
-        gameContainer.style.height = `${totalHeight}px`;
-    }
-}
-
-window.addEventListener('resize', () => {
-    calculatejobHeight();
-});
 
 let IsSeingWorkers = false;
 function seeWorkersBtn() {
     sw.style.display = 'block'
     document.getElementById("seeWorkers").onclick = () => { 
-        window.scrollTo(0, 50);
         if (IsSeingWorkers) {
             document.getElementById("clicker-section").style.display = "block";
             document.getElementById("Workers-section").style.display = "none";
             sw.innerText = 'See Workers';
             IsSeingWorkers = false;
-            calculatejobHeight();
         } else {
             document.getElementById("clicker-section").style.display = "none";
             document.getElementById("Workers-section").style.display = "block";
             sw.innerText = 'See Jobs';
-            gameContainer.style.height = "auto";
             IsSeingWorkers = true;
         }
     };
@@ -223,7 +190,7 @@ function calculateTotalSalary() {
     for (let job in Count) {
         totalSalary += Count[job] * jobSalary[job];
     } if (totalSalary !== 0) {
-        document.getElementById("salariesPer").innerText = `Salaries: -$${totalSalary.toFixed(2)} per ${TimeToPaySalaries}s`;
+        document.getElementById("salariesPer").innerText = `Salaries: -$${formatCost(totalSalary)} per ${TimeToPaySalaries}s`;
     }
     return totalSalary;
 }
@@ -253,7 +220,7 @@ function startPassiveIncome() {
                 }
                 TimeUntilPayingSalaries = 0;
 
-                salaryDiv.innerText = `Salaries: -$${totalSalary.toFixed(2)}`;
+                salaryDiv.innerText = `Salaries: -$${formatCost(totalSalary)}`;
                 salaryDiv.classList.add('show');
                 setTimeout(() => {
                     salaryDiv.classList.remove('show');

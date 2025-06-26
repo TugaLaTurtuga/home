@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentPerformance = Math.round(performance[role.name] * 100);
 
         const currentSalaryText = document.createElement('h3');
-        currentSalaryText.innerText = `Current salary: $${(currentSalary * Count[role.name]).toFixed(2)}`;
+        currentSalaryText.innerText = `Current salary: $${formatCost(currentSalary * Count[role.name])}`;
 
         const currentPerformanceText = document.createElement('h3');
         currentPerformanceText.innerText = `Current performance: ${currentPerformance}%`;
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         salarySlider.className = "slider";
 
         const newSalaryDisplay = document.createElement('h3');
-        newSalaryDisplay.innerText = `New salary: $${currentSalary * Count[role.name]}`;
+        newSalaryDisplay.innerText = `New salary: $${formatCost(currentSalary * Count[role.name])}`;
 
         const newPerformanceDisplay = document.createElement('h3');
         newPerformanceDisplay.innerText = `New performance: ${currentPerformance}%`;
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newSalary = worstSalary + (perfectSalary - worstSalary) * sliderValue;
             const newPerformance = Math.max(0.2, sliderValue);
 
-            newSalaryDisplay.innerText = `New salary: $${(newSalary * Count[role.name]).toFixed(2)}`;
+            newSalaryDisplay.innerText = `New salary: $${formatCost(newSalary * Count[role.name])}`;
             newPerformanceDisplay.innerText = `New performance: ${(newPerformance * 100).toFixed(0)}%`;
         };
 
@@ -144,9 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const worstSalary = salaries[role.name].worstSalary;
         jobSalary[role.name] = worstSalary + (perfectSalary - worstSalary) * sliderValue;
         performance[role.name] = Math.max(0.2, sliderValue);
-        currentSalaryText.innerText = `Current salary: $${(jobSalary[role.name] * Count[role.name]).toFixed(2)}`;
+        currentSalaryText.innerText = `Current salary: $${formatCost(jobSalary[role.name] * Count[role.name])}`;
         currentPerformanceText.innerText = `Current performance: ${(performance[role.name] * 100).toFixed(0)}%`;
-        updateIncome();
 
         const saveButton = document.createElement('button');
         saveButton.innerText = "Save changes";
@@ -159,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             jobSalary[role.name] = worstSalary + (perfectSalary - worstSalary) * sliderValue;
             performance[role.name] = sliderValue;
 
-            currentSalaryText.innerText = `Current salary: $${(jobSalary[role.name] * Count[role.name]).toFixed(2)}`;
+            currentSalaryText.innerText = `Current salary: $${formatCost(jobSalary[role.name] * Count[role.name])}`;
             currentPerformanceText.innerText = `Current performance: ${(performance[role.name] * 100).toFixed(0)}%`;
 
             calculateTotalSalary();
@@ -169,11 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const mpsText = document.createElement('h3');
         mpsText.id = `mps in ${role.name}`;
-        mpsText.innerText = `mps: $500.00`;
+        mpsText.innerText = `mps: $0.00`;
 
-        workerCard.appendChild(mpsText);
+        
         mpsText.className = "hhhh3"
         workerCard.appendChild(roleTitle);
+        workerCard.appendChild(mpsText);
         workerCard.appendChild(roleCount);
         roleCount.className = "hhh3"
         workerCard.appendChild(currentSalaryText);
@@ -206,6 +206,9 @@ document.addEventListener('DOMContentLoaded', () => {
             SeeBank();
         }
     });
+
+    calculateTotalSalary();
+    updateIncome();
     initializeLoanGrid();
     initializeDepositGrid();
     updateBank();
