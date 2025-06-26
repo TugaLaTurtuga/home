@@ -102,7 +102,7 @@ function BlackjackendGame(wonOrLost, IsBlackjack=false) {
         PlaceholderElement.style.border = '';
         PlaceholderElement.style.boxShadow = '';
         window.gameResolve(true);
-    }, 1000);
+    }, 1000 * gameSpeed);
 }
 
 // Player hits to draw another card
@@ -128,7 +128,7 @@ function Blackjackstand() {
             BlackjackupdateAndRender();
 
             // Continue drawing if dealer score is less than 17
-            setTimeout(dealerDraw, 500);
+            setTimeout(dealerDraw, 500 * gameSpeed);
         } else {
             // Determine the winner after dealer finishes drawing
             const status = document.getElementById('status');
@@ -195,7 +195,7 @@ function initializeSlots(numSlots) {
             const computedWidth = window.getComputedStyle(symbolsContainer).width;
             symbolsContainer.style.fontSize = computedWidth;
             console.log(symbolsContainer.style.fontSize, computedWidth);
-        }, 100)
+        }, 100 * gameSpeed)
         
     }    
 
@@ -266,14 +266,14 @@ function Slotspin() {
         
         setTimeout(() => {
             SeeGame(false);
-        }, 1000)
+        }, 1000 * gameSpeed)
 
         setTimeout(() => {
             PlaceholderElement.innerHTML = ''
             window.gameResolve(true);
-        }, 1300)
+        }, 1300 * gameSpeed)
         
-    }, spinDuration * (level + 1));
+    }, spinDuration * (level + 1) * gameSpeed);
 }
 
 function makeLever() {
@@ -617,14 +617,14 @@ function setupScratchEffect(canvas, scContainer) {
 
             setTimeout (() => {
                 SeeGame(false);
-            }, 1000);
+            }, 1000 * gameSpeed);
 
             setTimeout (() => { // Return to old settings
                 PlaceholderElement.style.maxWidth = '';
                 PlaceholderElement.style.maxHeight = '';
                 PlaceholderElement.innerHTML = '';
                 window.gameResolve(true);
-            }, 1300);
+            }, 1300 * gameSpeed);
         }
     }
 }

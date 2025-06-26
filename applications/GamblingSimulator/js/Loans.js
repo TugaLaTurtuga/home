@@ -2,6 +2,7 @@ const Time = 25; // Time in seconds between payments
 
 const loansDiv = document.getElementById("loanDiv");
 function takeLoan(amount, interest, time, IsSavingSystem=false) {
+    playSoundAffect('jobSell', 1);
     amount = parseFloat(amount)
     if (player.payingLoan || isNaN(player.balance)) {
         PlayerWentbankrupt('Was already taking a loan');
@@ -67,11 +68,12 @@ function takeLoan(amount, interest, time, IsSavingSystem=false) {
                 console.log('Loan fully repaid');
             }
         }
-    }, 1000 * Time); // Check every second, but payments happen every Time seconds
+    }, 1000 * Time * gameSpeed); // Check every second, but payments happen every Time seconds
 }
 
 let IsTakingLTD = false;
 function TakeLongTermDeposits(amount, interest, IsSimpleInterest, time, IsSavingSystem = false) {
+    playSoundAffect('warning', 1);
     amount = parseFloat(amount);
     if (!IsSavingSystem) {
         if (IsTakingLTD) {
@@ -149,7 +151,7 @@ function TakeLongTermDeposits(amount, interest, IsSimpleInterest, time, IsSaving
         }, 1500);
 
         saveGameData();  // Save progress each month
-    }, 1000 * Time);  // Run every Time interval
+    }, 1000 * Time * gameSpeed);  // Run every Time interval
 }
 
 function DepositSaved(monthlyAmount, remainingTime) {
@@ -181,7 +183,7 @@ function DepositSaved(monthlyAmount, remainingTime) {
         }, 1500);
 
         saveGameData();  // Save progress each month
-    }, 1000 * Time);  // Run every Time interval
+    }, 1000 * Time * gameSpeed);  // Run every Time interval
 }
 
 function SeeBank() {

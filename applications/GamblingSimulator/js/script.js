@@ -13,6 +13,7 @@ window.onload = () => {
 
 // Clicking to earn money
 function earnMoney() {
+    playSoundAffect('click');
     addMoney(clickPower);
 }
 
@@ -73,12 +74,14 @@ function createJobShop() {
 function buyJob(job) {
     if (deductMoney(jobCosts[job])) {
         Count[job]++;
+        playSoundAffect('jobPurchase');
         updateIncome();
         jobCosts[job] = Math.max(Math.floor(jobCosts[job] * 1.2), 1);  // Increment cost dynamically, but never allow it to be 0 or negative
         seeWorkersBtn();
         updateJobShop(); // Update the job shop after a successful purchase
     } else {
         // Feedback for insufficient funds
+        playSoundAffect('jobSell');
         const buttons = document.querySelectorAll('#job-shop-section button');
         for (let i = 0; i < buttons.length; i++) {
             if (buttons[i].innerText.includes(capitalizeFirstLetter(job))) {
@@ -169,13 +172,15 @@ const gameContainer = document.getElementById("clicker-section");
 let IsSeingWorkers = false;
 function seeWorkersBtn() {
     sw.style.display = 'block'
-    document.getElementById("seeWorkers").onclick = () => { 
+    document.getElementById("seeWorkers").onclick = () => {
         if (IsSeingWorkers) {
+            playSoundAffect('click', 1); 
             document.getElementById("clicker-section").style.display = "block";
             document.getElementById("Workers-section").style.display = "none";
             sw.innerText = 'See Workers';
             IsSeingWorkers = false;
         } else {
+            playSoundAffect('click', 1.1); 
             document.getElementById("clicker-section").style.display = "none";
             document.getElementById("Workers-section").style.display = "block";
             sw.innerText = 'See Jobs';
@@ -234,7 +239,7 @@ function startPassiveIncome() {
         } else {
 
         }
-    }, 1000); // Every second
+    }, 1000 * gameSpeed); // Every second
 }
 
 // Utility function to capitalize first letter

@@ -32,14 +32,14 @@ function createGamesSection() {
                     gameButton.innerText = "Not enough money";
                     setTimeout(() => {
                         gameButton.innerText = `Play for $${formatCost(level.cost)}`; // Reset button text after delay
-                    }, 1000);
+                    }, 1000 * gameSpeed);
                     return; // Exit the function early if not enough money
                 }
                 player.totalMoneyGambled += level.cost;
                 ++player.amountOfTimesGambled;
             
                 // Check if enough time has passed since last play
-                if (currentTime - gameButton.lastPlayTime >= cooldownTime) {
+                if (currentTime - gameButton.lastPlayTime >= cooldownTime * gameSpeed) {
                     // Update last play time
                     gameButton.lastPlayTime = currentTime;
             
@@ -61,7 +61,7 @@ function createGamesSection() {
                             gameButton.disabled = false; // Re-enable the button
                             gameButton.innerText = `Play for $${formatCost(level.cost)}`; // Reset button text
                         }
-                    }, 100); // Update every 100 milliseconds
+                    }, 100 * gameSpeed); // Update every 100 milliseconds
                 } else {
                     // Calculate remaining time
                     const elapsedTime = currentTime - gameButton.lastPlayTime; // Time since last play

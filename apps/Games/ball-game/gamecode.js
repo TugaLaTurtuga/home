@@ -462,7 +462,7 @@ let SavingUrl = new URL('https://66b4edb79f9169621ea4e564.mockapi.io/api/leaderb
             // Set canClick to true after 10ms
             setTimeout(() => {
                 canClick = true;
-            }, 10);
+            }, 10 * gameSpeed);
         }
 
         function updateLeaderboardDisplay() {

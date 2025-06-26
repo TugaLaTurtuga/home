@@ -111,7 +111,7 @@ function addCharacter(char) {
     setTimeout(() => {
         charSpan.style.transform = 'translateY(0px)';
         charSpan.style.opacity = 1;
-    }, 10);
+    }, 10 * gameSpeed);
     // If line overflows, create a new one
     if (currentLine.getBoundingClientRect().width >= document.body.getBoundingClientRect().width - 50) {
         currentLine.removeChild(charSpan);
@@ -133,8 +133,8 @@ function fadeOutOldLines() {
                 lines[i].style.transform = 'translateY(-100px)';
                 setTimeout(() => {
                     typewriterContainer.removeChild(lines[i])
-                }, 300)
-            }, 300)
+                }, 300 * gameSpeed)
+            }, 300 * gameSpeed)
         }
     }
 }

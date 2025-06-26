@@ -4,17 +4,17 @@ function PutEasyNav() {
     if (SettingsVariables.EasyNav) {
         EasyNavDiv.innerHTML = `
         <div id="ENSlider" class="Globalbutton-container" style="margin-top: 0px; margin-bottom: -20px; overflow-x: scroll; ">
-            <button id="TopBtn1" class="EasyNavbutton" onclick="SeePlaceInHtml(1)">Poker</button>
+            <button id="TopBtn1" class="EasyNavbutton" onclick="ScrollToCasinoGame(1); playSoundAffect('click', 1)">Poker</button>
             <span class="Globalseparator">|</span>
-            <button id="TopBtn2" class="EasyNavbutton" onclick="SeePlaceInHtml(2)">Roulette</button>
+            <button id="TopBtn2" class="EasyNavbutton" onclick="ScrollToCasinoGame(2); playSoundAffect('click', 1)">Roulette</button>
             <span class="Globalseparator">|</span>
-            <button id="TopBtn2" class="EasyNavbutton" onclick="SeePlaceInHtml(3)">Slots</button>
+            <button id="TopBtn2" class="EasyNavbutton" onclick="ScrollToCasinoGame(3); playSoundAffect('click', 1)">Slots</button>
             <span class="Globalseparator">|</span>
-            <button id="TopBtn2" class="EasyNavbutton" onclick="SeePlaceInHtml(4)">Scratch Cards</button>
+            <button id="TopBtn2" class="EasyNavbutton" onclick="ScrollToCasinoGame(4); playSoundAffect('click', 1)">Scratch Cards</button>
             <span class="Globalseparator">|</span>
-            <button id="TopBtn2" class="EasyNavbutton" onclick="SeePlaceInHtml(5)">Blackjack</button>
+            <button id="TopBtn2" class="EasyNavbutton" onclick="ScrollToCasinoGame(5); playSoundAffect('click', 1)">Blackjack</button>
             <span class="Globalseparator">|</span>
-            <button id="TopBtn2" class="EasyNavbutton" onclick="SeePlaceInHtml(6)">Lotteries</button>
+            <button id="TopBtn2" class="EasyNavbutton" onclick="ScrollToCasinoGame(6); playSoundAffect('click', 1)">Lotteries</button>
         </div>
         `
     
@@ -35,7 +35,7 @@ function PutEasyNav() {
 }
 PutEasyNav();
 
-function SeePlaceInHtml(Place) {
+function ScrollToCasinoGame(Place) {
     Place = parseInt(Place);
     switch (Place) {
         case 1:

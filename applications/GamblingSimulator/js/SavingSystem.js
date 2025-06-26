@@ -18,7 +18,6 @@ function saveGameData() {
         totalMoneyWonOnGambling: player.totalMoneyWonOnGambling
     };
 
-    console.log(gameData);
     localStorage.setItem('gameData', JSON.stringify(gameData));
     displayGameData(gameData); // Call displayGameData with gameData after saving
 }

@@ -22,12 +22,12 @@ function PokerGame(wonOrLost, winnings, level) {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         } else {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         }
     });
 }
@@ -42,12 +42,12 @@ function RouletteGame(wonOrLost, winnings, level) {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         } else {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         }
     });
 }
@@ -65,7 +65,7 @@ function SlotsGame(wonOrLost, winnings, level) {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         }
     });
 }
@@ -83,7 +83,7 @@ function ScratchCardsGame(wonOrLost, winnings, level) {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         }
     });
 }
@@ -121,7 +121,7 @@ function BlackjackGame(wonOrLost, winnings, level) {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         }
     });
 }
@@ -136,12 +136,12 @@ function LotteriesGame(wonOrLost, winnings, level) {
             setTimeout(() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000); // Duration of the game
+            }, 1000 * gameSpeed); // Duration of the game
         } else {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
                 resolve(true);
-            }, 1000)
+            }, 1000 * gameSpeed)
         }
     });
 }

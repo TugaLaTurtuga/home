@@ -117,7 +117,7 @@ function openContextMenu(event) {
     // Load the appropriate options for the selected element
     setTimeout(() => {
         loadContextOptions();
-    }, 1);
+    }, 1 * gameSpeed);
     
 
     const contextMenu = document.getElementById('context-menu');

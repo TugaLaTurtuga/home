@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveButton.innerText = "Save changes";
 
         saveButton.onclick = () => {
+            playSoundAffect('saveChanges', 1); // Play click sound effect
             const sliderValue = parseFloat(salarySlider.value);
             const perfectSalary = salaries[role.name].perfectSalary;
             const worstSalary = salaries[role.name].worstSalary;
@@ -313,8 +314,9 @@ function createLoanCard(option, index) {
         if (!player.payingLoan) {
             takeLoan(option.amount, option.interest, rangeSlider.value, false);
         } else {
+            playSoundAffect('warning', 1); // Play warning sound effect
             loanButton.innerText = 'Already has a loan';
-            setTimeout (() => {loanButton.innerText = 'Take loan';}, 1000);
+            setTimeout (() => {loanButton.innerText = 'Take loan';}, 1000 * gameSpeed);
         }
     });
 
@@ -429,6 +431,7 @@ function createDepositCard(option, index) {
             TakeLongTermDeposits(parseFloat(option.amount), option.interest, false, rangeSlider.value)
         } else {
             depositButton.innerText = 'Already has a deposit';
+            playSoundAffect('warning', 1); // Play warning sound effect
             setTimeout (() => {depositButton.innerText = 'Take deposit';}, 1000);
         }
     });
@@ -460,5 +463,5 @@ function updateBank() {
         } else if (getComputedStyle(bankDepositsDiv).display === 'block') {
             initializeLoanGrid(); // Only show loans
         }
-    }, 100000);  // Runs every 100000 milliseconds (100 seconds)
+    }, 100000 * gameSpeed);  // Runs every 100000 milliseconds (100 seconds)
 }

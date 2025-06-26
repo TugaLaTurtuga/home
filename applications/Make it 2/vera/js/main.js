@@ -364,7 +364,7 @@ function createTaskElement(task, column) {
         taskElement.classList.add('dragging');
         setTimeout(() => {
             taskElement.style.display = 'none';
-        }, 0);
+        }, 0 * gameSpeed);
     });
     
     taskElement.addEventListener('dragend', () => {

@@ -136,6 +136,7 @@ h3 {
     margin-bottom: 10px;
     cursor: pointer;
     transition: scale 0.1s ease;
+    z-index: 100000;
 }
 
 .top-right-icon:active {
@@ -212,7 +213,7 @@ h3 {
 
 .bottom-info {
     position: relative;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center; 
     border-radius: 10px;
@@ -223,14 +224,18 @@ h3 {
     border: 1px solid #f8f8f8;
     z-index: 1;
 
-    width: 400px;
+    width: 350px;
     max-width: 90%;
-    height: 40px;
+    height: 110px;
 
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
-    transition: transform 0.1s ease;
+    transition: transform 0.1s cubic-bezier(0.075, 0.82, .2, 2);
+}
+
+.bottom-info:hover {
+    transform: translateX(-50%) scale(1.05);
 }
 
 .bottom-info:active {

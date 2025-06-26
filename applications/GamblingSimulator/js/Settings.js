@@ -1,8 +1,11 @@
+const gameSpeed = 1;
+const DEBUG_MODE = false;
+
 let SettingsVariables = {
     EasyNav: false,
     AminateClickToEarn: true,
     PlayGames: true,
-    SFXVolume: 1,
+    SFXVolume: 0.8,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,7 +50,12 @@ function loadSettings() {
     if (savedSettings) {
         try {
             const parsedSettings = JSON.parse(savedSettings);
-            SettingsVariables = { ...SettingsVariables, ...parsedSettings };
+            // Only update keys that already exist in SettingsVariables
+            Object.keys(parsedSettings).forEach(key => {
+                if (key in SettingsVariables) {
+                    SettingsVariables[key] = parsedSettings[key];
+                }
+            });
         } catch (error) {
             console.error("Failed to load settings:", error);
         }
@@ -148,7 +156,7 @@ function CreateSettings() {
             const rangeInput = document.getElementById(`${key}_settings`);
             setTimeout(() => {
                 setSliderColor(rangeInput, 'rgb(76, 175, 80)', true, 'white');
-            }, 1000);
+            }, 500);
 
             rangeInput.addEventListener('input', (event) => {
                 const newValue = parseFloat(event.target.value);
