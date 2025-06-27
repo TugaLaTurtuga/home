@@ -1,0 +1,114 @@
+body {
+    background-color: #212121;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+}
+
+#canvas {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#item-name {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: 20px;
+    color: #ffffff;
+    z-index: 2;
+    font-weight: 900;
+    font-size: 24px;
+}
+
+#item-carrying-name {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 20px;
+    color: #ffffff;
+    z-index: 2;
+    font-weight: 900;
+    font-size: 24px;
+}
+
+#food-name {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: -10px;
+    color: #ffffff;
+    z-index: 2;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+#food-carrying-name {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: -10px;
+    color: #ffffff;
+    z-index: 2;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+#up-shop {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #fff;
+    background-color: #33333345;
+    width: 250px;
+    padding: 0px 10px;
+    backdrop-filter: blur(10px);
+    height: 50px;
+    z-index: 4;
+    font-weight: 900;
+    font-size: 24px;
+    margin: 0;
+}
+
+#up-shop p {
+    margin: 15px 0 0 0;
+}
+
+.shop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    font-weight: 900;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    background-color: #282828;
+    padding: 10px;
+    align-items: left;
+    overflow-y: scroll;
+}
+
+.shop-item {
+    font-weight: 900;
+    background-color: #353535;
+    border-radius: 10px;
+    margin: 5px;
+    margin-top: 15px;
+    padding: 10px 20px;
+}
+
+.shop-item p {
+    color: #fff;
+    text-align-last: center;
+}
+
+h2 {
+    color: #fff;
+    font-size: 32px;
+    margin: 0;
+}
