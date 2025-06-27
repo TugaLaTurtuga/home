@@ -115,6 +115,7 @@ function buyFood(name, data, id) {
 
                     if (deductMoney(data.price)) {
                         data.id = id;
+                        data.name = name;
                         delivery.food[x][y][0] = { name, data };
                         ++delivery.food[x][y][1];
                         if (DEBUG_MODE) console.log(`Food bought: ${name} for ${data.price}`);

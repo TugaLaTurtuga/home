@@ -151,22 +151,22 @@ const items = {
 let player = {
     balance: 100,
     items: {
-        'food': {
+        food: {
             level: 1,
         },
 
-        'utensils': {
+        utensils: {
             level: 1,
         },
 
-        'upgrades': {
+        upgrades: {
             level: 1,
             grid: 0,
             seller: 0,
             delivery: 0,
         },
 
-        'robots': {
+        robots: {
             level: 1,
         },
     }
@@ -235,4 +235,10 @@ function initializeFoodHolders() {
     }
 }
 
-if (DEBUG_MODE) player.balance = 1_000_000_000;
+if (DEBUG_MODE) { 
+    player.balance = 1_000_000_000;
+    player.items.food.level = 1000;
+    player.items.utensils.level = 1000;
+    player.items.upgrades.level = 1000;
+    player.items.robots.level = 1000;
+}

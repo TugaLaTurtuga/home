@@ -141,8 +141,9 @@ window.addEventListener('keyup', (e) => {
             }
 
             const utensil = carrying.data;
+            const oldCarrying = carrying;
+            console.log(carrying);
             if (utensil?.size) {
-                const oldCarrying = carrying;
                 if (!placeDownForUtensilPlusSDfjnkdspsdhjklfshdjkfsdlofhseui(utensil)) {
                     carrying = oldCarrying;
                 }
@@ -315,8 +316,10 @@ window.addEventListener('keydown', (e) => {
 });
 
 async function init() {
-    await initializeFoodHolders();
-    await initializeDefaultUtensils();
+    await Promise.all([
+        initializeFoodHolders(),
+        initializeDefaultUtensils()
+    ]);
     render();
 }
 init();
