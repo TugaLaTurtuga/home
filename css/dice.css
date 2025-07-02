@@ -1,0 +1,64 @@
+.dice-wrap {
+    width: 300px;
+    perspective: 10000px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.dice {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg);
+  transition: transform 0.6s ease-out;
+  margin: 50px auto;
+}
+
+.face {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: white;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border-radius: 0px;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.center { top: 42px; left: 42px; }
+
+.top-left     { top: 20px; left: 20px; }
+.top-right    { top: 20px; right: 20px; }
+.middle-left  { top: 42px; left: 20px; }
+.middle-right { top: 42px; right: 20px; }
+.bottom-left  { bottom: 20px; left: 20px; }
+.bottom-right { bottom: 20px; right: 20px; }
+
+/* Cube face positions */
+.face1 { transform: rotateY(0deg)    translateZ(50px); }
+.face2 { transform: rotateY(-90deg)  translateZ(50px); }
+.face3 { transform: rotateY(180deg)  translateZ(50px); }
+.face4 { transform: rotateY(90deg)   translateZ(50px); }
+.face5 { transform: rotateX(90deg)   translateZ(50px); }
+.face6 { transform: rotateX(-90deg)  translateZ(50px); }
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

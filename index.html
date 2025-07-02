@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dice.css">
     <link rel="icon" href="images/tugalogo.jpg" type="image/jpeg" />
 </head>
 <body>
@@ -68,6 +69,14 @@
         border-bottom: none;
     " >
         <h1>Page 5</h1>
+        <div class="dice-wrap">
+            <div class="dice" id="dice1" dicePos="1"></div>
+            <div class="dice" id="dice2" dicePos="1"></div>
+        </div>
+
+        <button onclick="rollDice([document.getElementById('dice1'), document.getElementById('dice2')])">Roll Dice</button>
+        <script src="js/dice.js"></script>
+
     </div>
 
     <script src="js/balls.js"></script>
