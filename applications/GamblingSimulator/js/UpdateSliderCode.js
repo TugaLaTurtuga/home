@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const roleCount = document.createElement('h3');
         roleCount.id = `Amount of workers in ${role.name}`;
-        roleCount.innerText = `Workers: ${Count[role.name]}`;
+        roleCount.innerText = `Workers: ${player.count[role.name]}`;
 
-        const currentSalary = jobSalary[role.name].toFixed(2);
-        const currentPerformance = Math.round(performance[role.name] * 100);
+        const currentSalary = player.jobSalary[role.name].toFixed(2);
+        const currentPerformance = Math.round(player.performance[role.name] * 100);
 
         const currentSalaryText = document.createElement('h3');
-        currentSalaryText.innerText = `Current salary: $${formatCost(currentSalary * Count[role.name])}`;
+        currentSalaryText.innerText = `Current salary: $${formatCost(currentSalary * player.count[role.name])}`;
 
         const currentPerformanceText = document.createElement('h3');
         currentPerformanceText.innerText = `Current performance: ${currentPerformance}%`;
@@ -118,34 +118,34 @@ document.addEventListener('DOMContentLoaded', () => {
         salarySlider.min = "0.3";
         salarySlider.max = "1.5";
         salarySlider.step = "0.01";
-        salarySlider.value = performance[role.name];
+        salarySlider.value = player.performance[role.name];
         salarySlider.className = "slider";
 
         const newSalaryDisplay = document.createElement('h3');
-        newSalaryDisplay.innerText = `New salary: $${formatCost(currentSalary * Count[role.name])}`;
+        newSalaryDisplay.innerText = `New salary: $${formatCost(currentSalary * player.count[role.name])}`;
 
         const newPerformanceDisplay = document.createElement('h3');
         newPerformanceDisplay.innerText = `New performance: ${currentPerformance}%`;
 
         salarySlider.oninput = function () {
             const sliderValue = parseFloat(salarySlider.value);
-            const perfectSalary = salaries[role.name].perfectSalary;
-            const worstSalary = salaries[role.name].worstSalary;
+            const perfectSalary = player.salaries[role.name].perfectSalary;
+            const worstSalary = player.salaries[role.name].worstSalary;
 
             const newSalary = worstSalary + (perfectSalary - worstSalary) * sliderValue;
             const newPerformance = Math.max(0.2, sliderValue);
 
-            newSalaryDisplay.innerText = `New salary: $${formatCost(newSalary * Count[role.name])}`;
+            newSalaryDisplay.innerText = `New salary: $${formatCost(newSalary * player.count[role.name])}`;
             newPerformanceDisplay.innerText = `New performance: ${(newPerformance * 100).toFixed(0)}%`;
         };
 
         const sliderValue = parseFloat(salarySlider.value);
-        const perfectSalary = salaries[role.name].perfectSalary;
-        const worstSalary = salaries[role.name].worstSalary;
-        jobSalary[role.name] = worstSalary + (perfectSalary - worstSalary) * sliderValue;
-        performance[role.name] = Math.max(0.2, sliderValue);
-        currentSalaryText.innerText = `Current salary: $${formatCost(jobSalary[role.name] * Count[role.name])}`;
-        currentPerformanceText.innerText = `Current performance: ${(performance[role.name] * 100).toFixed(0)}%`;
+        const perfectSalary = player.salaries[role.name].perfectSalary;
+        const worstSalary = player.salaries[role.name].worstSalary;
+        player.jobSalary[role.name] = worstSalary + (perfectSalary - worstSalary) * sliderValue;
+        player.performance[role.name] = Math.max(0.2, sliderValue);
+        currentSalaryText.innerText = `Current salary: $${formatCost(player.jobSalary[role.name] * player.count[role.name])}`;
+        currentPerformanceText.innerText = `Current performance: ${(player.performance[role.name] * 100).toFixed(0)}%`;
 
         const saveButton = document.createElement('button');
         saveButton.innerText = "Save changes";
@@ -153,14 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
         saveButton.onclick = () => {
             playSoundAffect('saveChanges', 1); // Play click sound effect
             const sliderValue = parseFloat(salarySlider.value);
-            const perfectSalary = salaries[role.name].perfectSalary;
-            const worstSalary = salaries[role.name].worstSalary;
+            const perfectSalary = player.salaries[role.name].perfectSalary;
+            const worstSalary = player.salaries[role.name].worstSalary;
 
-            jobSalary[role.name] = worstSalary + (perfectSalary - worstSalary) * sliderValue;
-            performance[role.name] = sliderValue;
+            player.jobSalary[role.name] = worstSalary + (perfectSalary - worstSalary) * sliderValue;
+            player.performance[role.name] = sliderValue;
 
-            currentSalaryText.innerText = `Current salary: $${formatCost(jobSalary[role.name] * Count[role.name])}`;
-            currentPerformanceText.innerText = `Current performance: ${(performance[role.name] * 100).toFixed(0)}%`;
+            currentSalaryText.innerText = `Current salary: $${formatCost(player.jobSalary[role.name] * player.count[role.name])}`;
+            currentPerformanceText.innerText = `Current performance: ${(player.performance[role.name] * 100).toFixed(0)}%`;
 
             calculateTotalSalary();
             updateIncome();

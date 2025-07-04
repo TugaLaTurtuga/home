@@ -21,7 +21,7 @@ function createJobShop() {
     const shopSection = document.getElementById('job-shop-section');
 
     // Create job buttons dynamically
-    for (let job in jobCosts) {
+    for (let job in player.jobCosts) {
         const jobButton = document.createElement('button');
         jobButton.classList.add('job-button'); // Add a class for styling
         jobButton.onclick = () => buyJob(job); // Set click event handler
@@ -56,7 +56,7 @@ function createJobShop() {
         jobName.classList.add('job-name'); // Add a class for styling
 
         // Set button text with formatted cost
-        const formattedCost = formatCost(jobCosts[job]);
+        const formattedCost = formatCost(player.jobCosts[job]);
         const costText = document.createElement('span'); // Create a span for cost
         costText.classList.add('cost-text'); // Add a class for styling
         costText.innerText = ` Cost: $${formattedCost}`;
@@ -72,11 +72,11 @@ function createJobShop() {
 
 // Buying a job upgrade
 function buyJob(job) {
-    if (deductMoney(jobCosts[job])) {
-        Count[job]++;
+    if (deductMoney(player.jobCosts[job])) {
+        player.count[job]++;
         playSoundAffect('jobPurchase');
         updateIncome();
-        jobCosts[job] = Math.max(Math.floor(jobCosts[job] * 1.2), 1);  // Increment cost dynamically, but never allow it to be 0 or negative
+        player.jobCosts[job] = Math.max(Math.floor(player.jobCosts[job] * 1.2), 1);  // Increment cost dynamically, but never allow it to be 0 or negative
         seeWorkersBtn();
         updateJobShop(); // Update the job shop after a successful purchase
     } else {
@@ -103,10 +103,10 @@ function buyJob(job) {
 
 function sellAllEmployes() {
     let TotalPayedForAllJobs = 0;
-    for (let job in Count) {
-        console.log(jobCosts[job]);
-        TotalPayedForJob = (Count[job] * jobCosts[job]) / 1.2 / 10; // it divids for 10 to give some money to the bank
-        Count[job] = 0;
+    for (let job in player.count) {
+        console.log(player.jobCosts[job]);
+        TotalPayedForJob = (player.count[job] * player.jobCosts[job]) / 1.2 / 10; // it divids for 10 to give some money to the bank
+        player.count[job] = 0;
         TotalPayedForAllJobs += TotalPayedForJob;
     }
     initializeDefaultValues(true); // Delete some of the game data
@@ -122,8 +122,8 @@ function sellAllEmployes() {
 function updateJobShop() {
     const buttons = document.querySelectorAll('#job-shop-section button');
     let i = 0;
-    for (let job in jobCosts) {
-        const formattedCost = formatCost(jobCosts[job]); // Format the cost
+    for (let job in player.jobCosts) {
+        const formattedCost = formatCost(player.jobCosts[job]); // Format the cost
         const costText = buttons[i].querySelector('.cost-text'); // Get the cost text span
 
         // Update cost
@@ -137,11 +137,11 @@ function updateJobShop() {
 // Calculate performance based on salary
 let firstTime = true;
 function UpdateWorkersNumber() {
-    for (let job in jobSalary) {
+    for (let job in player.jobSalary) {
         const roleCount = document.getElementById(`Amount of workers in ${job}`);
         if (roleCount) {
-            roleCount.innerText = `Workers: ${Count[job]}`;
-        } if (Count[job] > 0 && firstTime) {
+            roleCount.innerText = `Workers: ${player.count[job]}`;
+        } if (player.count[job] > 0 && firstTime) {
             seeWorkersBtn();
             seeWorkersBtn();
             firstTime = false;
@@ -149,19 +149,19 @@ function UpdateWorkersNumber() {
     }
 }
 
-// Function to update the income per second based on performance
+// Function to update the player.income per second based on performance
 function updateIncome() {
-    incomePerSecond = 0;
-    for (let job in Count) {
-        mpsInJob = Count[job] * jobIncome[job] * performance[job];
-        incomePerSecond += mpsInJob;
+    player.incomePerSecond = 0;
+    for (let job in player.count) {
+        mpsInJob = player.count[job] * player.jobIncome[job] * player.performance[job];
+        player.incomePerSecond += mpsInJob;
         const mpsInJobText = document.getElementById(`mps in ${job}`);
         if (mpsInJobText) {
             mpsInJobText.innerText = `mps: $${formatCost(mpsInJob)}`;
         }
     }
-    if (incomePerSecond != 0) {
-        document.getElementById('total-mps').innerText = `mps: $${formatCost(incomePerSecond)}`;
+    if (player.incomePerSecond != 0) {
+        document.getElementById('total-mps').innerText = `mps: $${formatCost(player.incomePerSecond)}`;
         IsPayingsalaries = true;
     }
 }
@@ -189,11 +189,11 @@ function seeWorkersBtn() {
     };
 }
 
-// Salary to be paid per job type based on the income they generate
+// Salary to be paid per job type based on the player.income they generate
 function calculateTotalSalary() {
     let totalSalary = 0;
-    for (let job in Count) {
-        totalSalary += Count[job] * jobSalary[job];
+    for (let job in player.count) {
+        totalSalary += player.count[job] * player.jobSalary[job];
     } if (totalSalary !== 0) {
         document.getElementById("salariesPer").innerText = `Salaries: -$${formatCost(totalSalary)} per ${TimeToPaySalaries}s`;
     }
@@ -206,7 +206,7 @@ const salaryDiv = document.getElementById("salaryDiv");
 function startPassiveIncome() {
     setInterval(() => {
         if (!isNaN(player.balance) && !player.needsLoan) {
-            addMoney(incomePerSecond); // Increment player's balance by income
+            addMoney(player.incomePerSecond); // Increment player's balance by player.income
 
             if (TimeUntilPayingSalaries >= TimeToPaySalaries) {
                 const totalSalary = calculateTotalSalary();
@@ -235,7 +235,7 @@ function startPassiveIncome() {
             if (IsPayingsalaries) {
                 TimeUntilPayingSalaries++;
             }
-            clickPower = 1 + incomePerSecond * 0.01;
+            clickPower = 1 + player.incomePerSecond * 0.01;
         } else {
 
         }

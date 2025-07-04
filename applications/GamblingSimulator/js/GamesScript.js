@@ -52,12 +52,12 @@ function createGamesSection() {
             
                     // Start cooldown countdown only after playGame completes
                     let remainingTime = cooldownTime / 1000; // Convert to seconds
-                    const countdownInterval = setInterval(() => {
+                    const countDownInterval = setInterval(() => {
                         if (remainingTime > 0) {
                             gameButton.innerText = `Cooldown: ${remainingTime.toFixed(1)}s`; // Show one decimal place
                             remainingTime -= 0.1; // Decrease remaining time by 0.1 seconds
                         } else {
-                            clearInterval(countdownInterval); // Clear interval when done
+                            clearInterval(countDownInterval); // Clear interval when done
                             gameButton.disabled = false; // Re-enable the button
                             gameButton.innerText = `Play for $${formatCost(level.cost)}`; // Reset button text
                         }

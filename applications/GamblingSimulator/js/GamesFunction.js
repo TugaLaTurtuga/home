@@ -60,7 +60,7 @@ function SlotsGame(wonOrLost, winnings, level) {
         
         if (SettingsVariables.PlayGames) {
             SeeGame(true);
-            startSlots(resolve, level);
+            startSlots(resolve, level, winnings);
         } else {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);
@@ -78,7 +78,7 @@ function ScratchCardsGame(wonOrLost, winnings, level) {
        
         if (SettingsVariables.PlayGames) {
             SeeGame(true);
-            generateGrid(level.level + 2, level, resolve);
+            generateGrid(level.level + 2, level, resolve, wonOrLost, winnings);
         } else {
             setTimeout (() => {
                 displayResult(wonOrLost, winnings);

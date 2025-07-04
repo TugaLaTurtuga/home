@@ -46,6 +46,8 @@
  * Blackjack Game css *
 **************************/
 #BlackjackGame {
+    width: 80%;
+    aspect-ratio: 1 / 0.6;
     margin: 20px;
     padding: 20px;
     background: #333;

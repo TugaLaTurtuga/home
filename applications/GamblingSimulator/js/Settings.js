@@ -1,6 +1,3 @@
-const gameSpeed = 1;
-const DEBUG_MODE = false;
-
 let SettingsVariables = {
     EasyNav: false,
     AminateClickToEarn: true,

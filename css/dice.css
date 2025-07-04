@@ -56,9 +56,3 @@
 .face4 { transform: rotateY(90deg)   translateZ(50px); }
 .face5 { transform: rotateX(90deg)   translateZ(50px); }
 .face6 { transform: rotateX(-90deg)  translateZ(50px); }
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}

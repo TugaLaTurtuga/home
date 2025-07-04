@@ -1,3 +1,6 @@
+const gameSpeed = 1 / 1; // the divisor is in fast it is, 1/4 makes the game 4x faster (excluding aminations)
+const DEBUG_MODE = false; // not-finished
+
 const player = {
     balance: 0,
     amountOfTimesGambled: 0,
@@ -13,6 +16,104 @@ const player = {
     needsLoan: false,
     remainingDepositValue: 0,
     remainingDepositTime: 0,
+    income: {
+        autoclicker: 0,
+        freelancer: 0,
+        assistant: 0,
+        developer: 0,
+        consultant: 0,
+        designer: 0,
+        analyst: 0,
+        manager: 0,
+        company: 0,
+        realestate: 0,
+        enterprise: 0,
+        factory: 0
+    },
+    count: {
+        autoclicker: 0,
+        freelancer: 0,
+        assistant: 0,
+        developer: 0,
+        consultant: 0,
+        designer: 0,
+        analyst: 0,
+        manager: 0,
+        company: 0,
+        realestate: 0,
+        enterprise: 0,
+        factory: 0
+    },
+    performance: { 
+        autoclicker: 1,
+        freelancer: 1,
+        assistant: 1,
+        developer: 1,
+        consultant: 1,
+        designer: 1,
+        analyst: 1,
+        manager: 1,
+        company: 1,
+        realestate: 1,
+        enterprise: 1,
+        factory: 1
+    },
+    jobCosts: {
+        autoclicker: 50,
+        freelancer: 500,
+        assistant: 2_500,
+        developer: 7_500,
+        consultant: 12_500,
+        designer: 25_000,
+        analyst: 50_000,
+        manager: 100_000,
+        company: 500_000,
+        realestate: 1_000_000,
+        enterprise: 7_500_000,
+        factory: 12_500_000
+    },
+    jobIncome: {
+        autoclicker: .5,
+        freelancer: 1,
+        assistant: 2.5,
+        developer: 5,
+        consultant: 10,
+        designer: 25,
+        analyst: 50,
+        manager: 100,
+        company: 150,
+        realestate: 200,
+        enterprise: 350,
+        factory: 500
+    },
+    salaries: {
+        autoclicker: { perfectSalary: 10, worstSalary: 5 },
+        assistant: { perfectSalary: 50, worstSalary: 20 },
+        company: { perfectSalary: 200, worstSalary: 50 },
+        enterprise: { perfectSalary: 500, worstSalary: 100 },
+        realestate: { perfectSalary: 1000, worstSalary: 400 },
+        factory: { perfectSalary: 5000, worstSalary: 1000 },
+        freelancer: { perfectSalary: 30, worstSalary: 15 },
+        developer: { perfectSalary: 100, worstSalary: 50 },
+        manager: { perfectSalary: 250, worstSalary: 100 },
+        designer: { perfectSalary: 120, worstSalary: 60 },
+        analyst: { perfectSalary: 150, worstSalary: 75 },
+        consultant: { perfectSalary: 500, worstSalary: 200 }
+    },
+    jobSalary: {
+        autoclicker: 0,
+        assistant: 0,
+        company: 0,
+        enterprise: 0,
+        realestate: 0,
+        factory: 0,
+        freelancer: 0,
+        developer: 0,
+        manager: 0,
+        designer: 0,
+        analyst: 0,
+        consultant: 0
+    }
 };
 
 const games = {
@@ -25,8 +126,8 @@ const games = {
             chance: 0.5, 
             cooldown: 1, 
             playingTime: 0,
-            changeOfGettingAddicted: 0.1, // chance of getting addicted
-            lossOfGettingAddicted: [5, 15] // times the cost
+            changeOfGettingAddicted: 0.1,
+            lossOfGettingAddicted: [5, 15]
         },
         { 
             name: "Advanced Poker", 
@@ -270,107 +371,60 @@ const games = {
     ]
 };
 
-let Count = {
-    autoclicker: 0,
-    freelancer: 0,
-    assistant: 0,
-    developer: 0,
-    consultant: 0,
-    designer: 0,
-    analyst: 0,
-    manager: 0,
-    company: 0,
-    realestate: 0,
-    enterprise: 0,
-    factory: 0
-};
+function initializeDefaultValues(IsSellingAllEmployes = false) {
+    player.balance = 0;
+    if (!IsSellingAllEmployes) {
+        player.amountOfTimesGambled = 0;
+        player.totalMoneyGambled = 0;
+        player.totalMoneyWonOnGambling = 0;
+        player.totalEarned = 0;
+    }
+    player.totalLoansValue = 0;
+    player.payingLoan = false;
+    player.loanInterval = 0;
+    player.remainingLoanValue = 0;
+    player.remainingLoanTime = 0;
+    player.loanInterest = 0;
+    player.needsLoan = false;
 
-let Income = {
-    autoclicker: 0,
-    freelancer: 0,
-    assistant: 0,
-    developer: 0,
-    consultant: 0,
-    designer: 0,
-    analyst: 0,
-    manager: 0,
-    company: 0,
-    realestate: 0,
-    enterprise: 0,
-    factory: 0
-};
+    // Reset all job-related data in player object
+    for (let job in player.count) {
+        player.count[job] = 0;
+        player.performance[job] = 1;
+        player.jobSalary[job] = 0;
+    }
 
-let performance = { 
-    autoclicker: 1,
-    freelancer: 1,
-    assistant: 1,
-    developer: 1,
-    consultant: 1,
-    designer: 1,
-    analyst: 1,
-    manager: 1,
-    company: 1,
-    realestate: 1,
-    enterprise: 1,
-    factory: 1
-}; // Performance starts at 100%
+    // Reset job costs to default values
+    player.jobCosts = {
+        autoclicker: 50,
+        freelancer: 500,
+        assistant: 2_500,
+        developer: 7_500,
+        consultant: 12_500,
+        designer: 25_000,
+        analyst: 50_000,
+        manager: 100_000,
+        company: 500_000,
+        realestate: 1_000_000,
+        enterprise: 7_500_000,
+        factory: 12_500_000
+    };
 
-let jobCosts = {
-    autoclicker: 50,
-    freelancer: 500,
-    assistant: 2_500,
-    developer: 7_500,
-    consultant: 12_500,
-    designer: 25_000,
-    analyst: 50_000,
-    manager: 100_000,
-    company: 500_000,
-    realestate: 1_000_000,
-    enterprise: 7_500_000,
-    factory: 12_500_000
-};
+    // Reset job income to default values
+    player.jobIncome = {
+        autoclicker: .5,
+        freelancer: 1,
+        assistant: 2.5,
+        developer: 5,
+        consultant: 10,
+        designer: 25,
+        analyst: 50,
+        manager: 100,
+        company: 150,
+        realestate: 200,
+        enterprise: 350,
+        factory: 500
+    };
 
-let jobIncome = {
-    autoclicker: .5,
-    freelancer: 1,
-    assistant: 2.5,
-    developer: 5,
-    consultant: 10,
-    designer: 25,
-    analyst: 50,
-    manager: 100,
-    company: 150,
-    realestate: 200,
-    enterprise: 350,
-    factory: 500
-};
-
-const salaries = {
-    autoclicker: { perfectSalary: 10, worstSalary: 5 },
-    assistant: { perfectSalary: 50, worstSalary: 20 },
-    company: { perfectSalary: 200, worstSalary: 50 },
-    enterprise: { perfectSalary: 500, worstSalary: 100 },
-    realestate: { perfectSalary: 1000, worstSalary: 400 },
-    factory: { perfectSalary: 5000, worstSalary: 1000 },
-    freelancer: { perfectSalary: 30, worstSalary: 15 },
-    developer: { perfectSalary: 100, worstSalary: 50 },
-    manager: { perfectSalary: 250, worstSalary: 100 },
-    designer: { perfectSalary: 120, worstSalary: 60 },
-    analyst: { perfectSalary: 150, worstSalary: 75 },
-    consultant: { perfectSalary: 500, worstSalary: 200 }
-};
-
-let jobSalary = {
-    autoclicker: 0,
-    assistant: 0,
-    company: 0,
-    enterprise: 0,
-    realestate: 0,
-    factory: 0,
-    freelancer: 0,
-    developer: 0,
-    manager: 0,
-    designer: 0,
-    analyst: 0,
-    consultant: 0
-};
+    updateBalance();
+}

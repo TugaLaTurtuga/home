@@ -346,7 +346,7 @@ const colorSet = [
 
 let UsergridSize = 0;
 
-function generateGrid(gridSize, level, resolve) {
+function generateGrid(gridSize, level, resolve, wonOrLost, winnings) {
     window.gameResolve = resolve;
     totalCells = gridSize * gridSize;
     UsergridSize = gridSize
@@ -613,6 +613,7 @@ function setupScratchEffect(canvas, scContainer) {
         if (scratchedPercent >= .6) {
             canvas.style.display = 'none';
             const winnings = checkWin();
+            console.log(winnings)
             if ( winnings !== null) { displayResult(true, winnings) } else {displayResult(false, 0)}
 
             setTimeout (() => {

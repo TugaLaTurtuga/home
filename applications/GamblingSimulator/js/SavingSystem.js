@@ -1,48 +1,23 @@
-// Save game data to localStorage
+// Save player data to localStorage
 function saveGameData() {
-    const gameData = {
-        Money: player.balance,
-        totalEarned : player.totalEarned,
-        remainingLoanValue: player.remainingLoanValue,
-        remainingLoanTime: player.remainingLoanTime,
-        loanInterest: player.loanInterest,
-        DepositMonthlyValue: player.remainingDepositValue,
-        remainingDepositTime: player.remainingDepositTime,
-        Count: Count,
-        Income: Income,
-        performance: performance,
-        jobCosts: jobCosts,
-        jobSalary: jobSalary,
-        amountOfTimesGambled: player.amountOfTimesGambled,
-        totalMoneyGambled: player.totalMoneyGambled,
-        totalMoneyWonOnGambling: player.totalMoneyWonOnGambling
-    };
-
-    localStorage.setItem('gameData', JSON.stringify(gameData));
-    displayGameData(gameData); // Call displayGameData with gameData after saving
+    localStorage.setItem('gameData', JSON.stringify(player));
+    displayGameData();
 }
 
-// Load saved game data from localStorage
-let firstTimeDeleted = true;
+// Load or reset player data
 function loadGameData(loadData = true) {
     let savedData = localStorage.getItem('gameData');
     
     if (!loadData && confirm("Are you sure you want to reset the game? This will delete all your progress.")) {
-        savedData = null;
-        localStorage.removeItem('gameData'); // Clear local storage
+        localStorage.removeItem('gameData');
+        initializeDefaultValues();
+        player.balance = 0;
         saveGameData();
-        initializeDefaultValues(); // Reset in-memory game state variables
-     
         console.log("Game data reset successfully.");
-        setTimeout(function() {
-            player.balance = 0;
-            saveGameData();
-            window.location.reload();
-        }, 1000);
         return;
     }
 
-    // If there's no savedData, initialize with default values
+    // Initialize with default values if no saved data
     if (!savedData) {
         console.log("No saved game data found, starting a new game.");
         initializeDefaultValues();
@@ -50,307 +25,207 @@ function loadGameData(loadData = true) {
         return;
     }
 
-    // Parse and load the game data if savedData exists
+    // Load saved player data
     console.log("Loading saved game data...");
     const gameData = JSON.parse(savedData);
-    updateGameData(gameData);
-
-    // Call displayGameData after successfully loading game data
-    displayGameData(gameData);
+    updatePlayerData(gameData);
+    displayGameData();
 }
 
-// Initialize game with default values
-function initializeDefaultValues(IsSellingAllEmployes = false) {
-    player.balance = 0;
-    if (!IsSellingAllEmployes) {
-        player.amountOfTimesGambled = 0;
-        player.totalMoneyGambled = 0;
-        player.totalMoneyWonOnGambling = 0;
-        player.totalEarned = 0;
+// Update player object with loaded data
+function updatePlayerData(gameData) {
+    // Copy all properties to player
+    Object.assign(player, gameData);
+
+    // Ensure balance is valid
+    if (player.balance === 0 || isNaN(player.balance)) {
+        player.balance = 0;
     }
-    player.totalLoansValue = 0;
-    player.payingLoan = false;
-    player.loanInterval = 0;
-    player.remainingLoanValue = 0;
-    player.remainingLoanTime = 0;
-    player.loanInterest = 0;
-    player.needsLoan = false;
 
-    Count = {
-        autoclicker: 0,
-        freelancer: 0,
-        assistant: 0,
-        developer: 0,
-        consultant: 0,
-        designer: 0,
-        analyst: 0,
-        manager: 0,
-        company: 0,
-        realestate: 0,
-        enterprise: 0,
-        factory: 0
-    };
-
-    jobCosts = {
-        autoclicker: 50,
-        freelancer: 500,
-        assistant: 2_500,
-        developer: 7_500,
-        consultant: 12_500,
-        designer: 25_000,
-        analyst: 50_000,
-        manager: 100_000,
-        company: 500_000,
-        realestate: 1_000_000,
-        enterprise: 7_500_000,
-        factory: 12_500_000
-    };
-
-    updateBalance();
-    saveGameData(); // Save default values as a fresh start
-}
-
-// Update game state with loaded data
-function updateGameData(gameData) {
-    if (gameData.Money !== 0) {
-        player.balance = gameData.Money || NaN;
-    } else {player.balance = 0;}
-        
-    player.totalEarned = gameData.totalEarned || 0;
-    player.remainingLoanValue = gameData.remainingLoanValue || 0;
-    player.remainingLoanTime = gameData.remainingLoanTime || 0;
-    player.loanInterest = gameData.loanInterest || 0;
-        
-    player.remainingDepositValue = gameData.DepositMonthlyValue || 0;
-    player.remainingDepositTime = gameData.remainingDepositTime || 0;
-
-    // Load all job-related data
-    Count = gameData.Count || {};
-
-    Income = gameData.Income || 0;
-    performance = gameData.performance || 0;
-    jobCosts = gameData.jobCosts || {
-        autoclicker: 50,
-        freelancer: 500,
-        assistant: 2500,
-        developer: 7500,
-        consultant: 12500,
-        designer: 25000,
-        analyst: 50000,
-        manager: 100000,
-        company: 500000,
-        realestate: 1000000,
-        enterprise: 7500000,
-        factory: 1250000
-    };
-
-    jobSalary = gameData.jobSalary || 0;
-
-    player.amountOfTimesGambled = gameData.amountOfTimesGambled || 0;
-    player.totalMoneyGambled = gameData.totalMoneyGambled || 0;
-    player.totalMoneyWonOnGambling = gameData.totalMoneyWonOnGambling || 0;
-
-    // Restart loan payment system if a loan is active
+    // Restart loan payment system if active
     if (player.remainingLoanTime !== 0 && player.remainingLoanValue !== 0) {
-        takeLoan(player.remainingLoanValue / (1 + (player.loanInterest / 100)), player.loanInterest, player.remainingLoanTime, true); // Use saved loan values
-    } else {player.loanInterest = 0; player.remainingLoanTime = 0; player.remainingLoanValue = 0;}
+        takeLoan(player.remainingLoanValue / (1 + (player.loanInterest / 100)), player.loanInterest, player.remainingLoanTime, true);
+    } else {
+        player.loanInterest = 0; 
+        player.remainingLoanTime = 0; 
+        player.remainingLoanValue = 0;
+    }
 
+    // Resume deposit if active
     if (player.remainingDepositValue !== 0 && player.remainingDepositTime !== 0) {
-        DepositSaved(player.remainingDepositValue, player.remainingDepositTime)
-    } else {player.remainingDepositValue = 0; player.remainingDepositTime = 0;}
-    if (isNaN(player.balance)) { PlayerWentbankrupt("You can't escape bankruptcy 😱🥶"); }
+        DepositSaved(player.remainingDepositValue, player.remainingDepositTime);
+    } else {
+        player.remainingDepositValue = 0; 
+        player.remainingDepositTime = 0;
+    }
+    
+    // Check for bankruptcy
+    if (isNaN(player.balance)) { 
+        PlayerWentbankrupt("You can't escape bankruptcy 😱🥶"); 
+    }
     updateBalance();
-
 }
 
-// Function to dynamically display game data
-function displayGameData(gameData) {
+// Display player stats
+function displayGameData() {
     const statsDiv = document.getElementById('stats');
     
-    // Ensure statsDiv exists before proceeding
     if (!statsDiv) {
         console.error("Stats div not found");
         return;
     }
 
-    // Clear previous stats
     statsDiv.innerHTML = '';
 
-    // Create the main stats header
     const header = document.createElement('h1');
     header.innerText = "Game Stats";
     statsDiv.appendChild(header);
 
-    for (const key in gameData) {
-        if (gameData.hasOwnProperty(key)) {
-            let value = gameData[key];  // Access the value by key
-            const lowerKey = key.toLowerCase();  // Convert key to lowercase for case-insensitive check
+    // Display player properties
+    for (const key in player) {
+        if (player.hasOwnProperty(key)) {
+            let value = player[key];
+            const lowerKey = key.toLowerCase();
     
-            // Check the key name, not the value
-            if (lowerKey === 'player.totalEarned' && !isDigit(value)) {
+            // Handle special cases
+            if (lowerKey === 'totalearned' && !isDigit(value)) {
                 value = player.balance;
-            } else if (lowerKey === 'money' && !isDigit(value)) {
+            } else if (lowerKey === 'balance' && !isDigit(value)) {
                 value = player.totalEarned / 10;
             }
     
-            // Display the item if:
-            // 1. It is a digit and not zero
-            // 2. The key does NOT contain 'deposit' or 'loan' OR it contains them and meets criteria
+            // Only display numeric values that aren't zero
             if (isDigit(value) && value !== 0) {
-                
                 const statItem = document.createElement('p');
                 statItem.innerHTML = `<strong>${capitalizeFirstLetter(key.replace(/([A-Z])/g, ' $1'))}:</strong> ${formatValue(value)}`;
                 statsDiv.appendChild(statItem);
             }
         }
     }
-    // Button to download game data
-    const downloadGameDataBtn = document.createElement('button');
-    downloadGameDataBtn.id = "btn"
-    downloadGameDataBtn.innerText = 'Download Game Data';
-    downloadGameDataBtn.onclick = () => downloadGameData(); // Set click event to trigger the download
 
-    // Button to trigger file input for uploading game data
-    const fileInputBtn = document.createElement('button');
-    fileInputBtn.id = "btn"
-    fileInputBtn.innerText = 'Upload Game Data';
-    fileInputBtn.onclick = () => fileInput.click(); // Set click event to trigger file input
+    // Add control buttons
+    const downloadBtn = document.createElement('button');
+    downloadBtn.id = "btn";
+    downloadBtn.innerText = 'Download Game Data';
+    downloadBtn.onclick = downloadGameData;
 
-    // Button to delete game data
-    const deleteGameDataBtn = document.createElement('button');
-    deleteGameDataBtn.id = "btn"
-    deleteGameDataBtn.innerText = 'Delete Game Data';
-    deleteGameDataBtn.onclick = () => loadGameData(false); // Set click event to delete game data
+    const uploadBtn = document.createElement('button');
+    uploadBtn.id = "btn";
+    uploadBtn.innerText = 'Upload Game Data';
+    uploadBtn.onclick = () => fileInput.click();
 
-    statsDiv.appendChild(downloadGameDataBtn);
-    statsDiv.appendChild(fileInputBtn);
-    statsDiv.appendChild(deleteGameDataBtn);
+    const deleteBtn = document.createElement('button');
+    deleteBtn.id = "btn";
+    deleteBtn.innerText = 'Delete Game Data';
+    deleteBtn.onclick = () => loadGameData(false);
+
+    statsDiv.appendChild(downloadBtn);
+    statsDiv.appendChild(uploadBtn);
+    statsDiv.appendChild(deleteBtn);
 }
 
+// Helper functions
 function isDigit(value) {
     return !isNaN(value) && !isNaN(parseFloat(value));
 }
 
-// Helper function to format values for display
 function formatValue(value) {
     value = parseFloat(value);
     if (typeof value === 'number') {
         return value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
     }
-    return value; // Return as is for non-number types
+    return value;
 }
 
-// Download game data (Base85 encoding before zipping)
-function downloadGameData() {
-    const gameData = localStorage.getItem('gameData');
-    if (!gameData) {
-        console.error("No game data found to download.");
-        return;
-    }
-
-    // Convert gameData (string) to a encoded (Uint8Array)
-    const byteArray = new TextEncoder().encode(gameData);
-    const Encoded = encrypt(byteArray);
-
-    // Create a ZIP file and add the encoded data
-    const zip = new JSZip();
-    zip.file("gameData.txt", Encoded); // Store the encoded game data as a text file
-
-    // Generate the ZIP file for download
-    zip.generateAsync({ type: "blob" }).then(function (content) {
-        // Trigger download of the ZIP file
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(content);
-        link.download = 'Gambling-sim-data.zip'; // Name the file
-        link.click();
-    }).catch(function (err) {
-        console.error("Error generating zip:", err);
-    });
-}
-
-// Load game data from uploaded zip file
-function loadGameDataFromFile(file) {
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-        // Read the file content as a binary string
-        const zipData = event.target.result;
-
-        // Load the ZIP file
-        JSZip.loadAsync(zipData).then(function (zip) {
-            // Read the Base85-encoded game data file
-            return zip.file("gameData.txt").async("string");
-        }).then(function (base85Encoded) {
-            // Decode the Base85-encoded string back to Uint8Array
-            const decodedData = decrypt(base85Encoded);
-
-            // Convert the Uint8Array back to a string
-            let gameDataString = new TextDecoder().decode(decodedData);
-
-            // Clean the string by trimming
-            gameDataString = gameDataString.trim();
-
-            // Remove unwanted escape sequences including specific control characters
-            gameDataString = gameDataString.replace(/\\x[0-9A-Fa-f]{2}/g, ''); // Remove \xYY sequences
-            gameDataString = gameDataString.replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
-
-            // Optional: Check for other invalid characters and log their positions
-            const invalidChars = gameDataString.match(/[^"\{\}\[\],:0-9a-zA-Z.\-+_ ]/g);
-            if (invalidChars) {
-                console.error("Invalid characters detected in the game data string:", invalidChars);
-                return; // Exit early if invalid characters are found
-            }
-
-            // Parse the string back to a JSON object
-            try {
-                const gameData = JSON.parse(gameDataString);
-                // Update game state with the loaded data
-                updateGameData(gameData);
-                console.log("Game data loaded successfully.");
-            } catch (parseError) {
-                console.error("Error parsing game data:", parseError);
-            }
-        }).catch(function (err) {
-            console.error("Error loading game data:", err);
-        });
-    };
-
-    reader.readAsArrayBuffer(file); // Read the file as binary data
-
-    setTimeout(function() {
-        window.location.reload();
-    }, 500);
-}
-
-// Helper function to capitalize the first letter of a string
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// Download player data as encrypted zip
+function downloadGameData() {
+    const playerData = JSON.stringify(player);
+    
+    if (!playerData || playerData === '{}') {
+        console.error("No player data found to download.");
+        return;
+    }
+
+    const byteArray = new TextEncoder().encode(playerData);
+    const encoded = encrypt(byteArray);
+
+    const zip = new JSZip();
+    zip.file("gameData.txt", encoded);
+
+    zip.generateAsync({ type: "blob" }).then(content => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = 'Gambling-sim-data.zip';
+        link.click();
+    }).catch(err => {
+        console.error("Error generating zip:", err);
+    });
+}
+
+// Load player data from uploaded file
+function loadGameDataFromFile(file) {
+    const reader = new FileReader();
+
+    reader.onload = event => {
+        const zipData = event.target.result;
+
+        JSZip.loadAsync(zipData).then(zip => {
+            return zip.file("gameData.txt").async("string");
+        }).then(base85Encoded => {
+            const decodedData = decrypt(base85Encoded);
+            let playerDataString = new TextDecoder().decode(decodedData);
+            
+            // Clean the data string
+            playerDataString = playerDataString.trim();
+            playerDataString = playerDataString.replace(/\\x[0-9A-Fa-f]{2}/g, '');
+            playerDataString = playerDataString.replace(/[\x00-\x1F\x7F]/g, '');
+
+            const invalidChars = playerDataString.match(/[^"\{\}\[\],:0-9a-zA-Z.\-+_ ]/g);
+            if (invalidChars) {
+                console.error("Invalid characters detected in player data:", invalidChars);
+                return;
+            }
+
+            try {
+                const playerData = JSON.parse(playerDataString);
+                updatePlayerData(playerData);
+                console.log("Player data loaded successfully.");
+            } catch (parseError) {
+                console.error("Error parsing player data:", parseError);
+            }
+        }).catch(err => {
+            console.error("Error loading player data:", err);
+        });
+    };
+
+    reader.readAsArrayBuffer(file);
+}
+
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-    // Load saved game data after DOM is fully loaded
     loadGameData();
     saveGameData();
-    displayGameData();
 
-    // Add keyboard shortcuts
-    document.addEventListener('keydown', function(event) {
+    // Keyboard shortcuts
+    document.addEventListener('keydown', event => {
         if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.code === 'KeyQ') {
-            loadGameData(false); // Delete data
+            loadGameData(false);
         } else if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.code === 'KeyD') {
-            downloadGameData(); // Call the download function
+            downloadGameData();
         } else if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.code === 'KeyU') {
             fileInput.click();
         }
     });
 
-    // Handle file input for uploading game data
     const fileInput = document.getElementById('fileInput');
-    
-    fileInput.addEventListener('change', function(event) {
+    fileInput.addEventListener('change', event => {
         const file = event.target.files[0];
         if (file) {
-            loadGameDataFromFile(file); // Load game data from the selected file
+            loadGameDataFromFile(file);
         }
     });
 });
