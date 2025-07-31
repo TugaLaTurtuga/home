@@ -700,14 +700,7 @@ async function saveTask() {
             const c = content.toLowerCase();
             let comboName = '';
 
-            if (
-                c.startsWith('task:') ||
-                c.startsWith('ct:') ||
-                c.startsWith('combo:') ||
-                c.startsWith('tc:') ||
-                c.startsWith('!') ||
-                c.startsWith(':')
-            ) {
+            if ( c.startsWith('!') || c.startsWith(':') ) {
                 comboName = content.split(/:|!/)[1]?.toLowerCase().trim();
                 console.log('Combo name:', comboName);
                 if (comboName) {
