@@ -58,7 +58,6 @@ function showNotification(message, borderColor = '#2ecc71', duration = 3000, con
 
             // Keyboard support
             const keyListener = (e) => {
-                console.log(e.key);
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     document.removeEventListener('keydown', keyListener);

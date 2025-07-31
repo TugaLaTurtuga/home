@@ -182,7 +182,7 @@ function saveComboTaskDetails() {
     const tasksInput = document.getElementById('combo-tasks-textarea').value.trim();
     
     if (!namesInput || !tasksInput) {
-        showNotification('Names and tasks cannot be empty!', '#ff0000');
+        showNotification("Names nor tasks can't be empty!", '#ff0000');
         return;
     }
     
@@ -207,6 +207,15 @@ function saveComboTaskDetails() {
     };
     
     if (isNewCombo) {
+        // Check if any name already exists in another combo task
+        for (let i = 0; i < comboTasks.length; i++) {
+            for (let existingName of comboTasks[i].name) {
+                if (names.includes(existingName)) {
+                    showNotification('A combo task with one of these names already exists!', '#ff0000');
+                    return;
+                }
+            }
+        }
         comboTasks.push(comboTask);
     } else {
         comboTasks[editingComboIndex] = comboTask;
@@ -220,7 +229,7 @@ function saveComboTaskDetails() {
 
 // Delete combo task
 async function deleteComboTask(index) {
-    const confirmed = await showNotification('Are you sure you want to delete this combo task?', '#333', 5000, true);
+    const confirmed = await showNotification(`Are you sure you want to delete ${comboTasks[index].name[0]}'s combo task?`, '#333', 5000, true);
     
     if (confirmed) {
         comboTasks.splice(index, 1);
