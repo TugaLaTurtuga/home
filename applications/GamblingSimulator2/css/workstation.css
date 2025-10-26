@@ -1,0 +1,104 @@
+.companies-container {
+  padding: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 210px;
+  height: 100vh;
+  background-color: var(--trackItemColor);
+  min-height: 100%;
+}
+
+.companies-container .company-item {
+  background-color: var(--bg-2);
+  padding: 10px;
+  margin: 3px;
+  border-left: 2px var(--sliderBgColor) solid;
+  border-top: 2px var(--sliderBgColor) solid;
+  border-right: 2px var(--trackItemOnHover) solid;
+  border-bottom: 2px var(--trackItemOnHover) solid;
+}
+
+.companies-container .company-item:active {
+  border-right: 2px var(--sliderBgColor) solid;
+  border-bottom: 2px var(--sliderBgColor) solid;
+  border-left: 2px var(--trackItemOnHover) solid;
+  border-top: 2px var(--trackItemOnHover) solid;
+  color: var(--textSubColor);
+}
+
+.companies-container .company-item.active {
+  border-right: 2px var(--sliderBgColor) solid;
+  border-bottom: 2px var(--sliderBgColor) solid;
+  border-left: 2px var(--trackItemOnHover) solid;
+  border-top: 2px var(--trackItemOnHover) solid;
+  color: var(--activeColor);
+}
+
+.companies-container .company-item .company-add {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 300;
+  margin: -12px 0px;
+  color: var(--textSubColor);
+}
+
+.companies-div .company-data-container {
+  --min-height: 20%;
+  --height: 50%;
+  background-color: var(--bg-2);
+  padding: 10px;
+  margin: 0px 5px;
+  margin-top: 0;
+  border-left: 2px var(--sliderBgColor) solid;
+  border-top: 2px var(--sliderBgColor) solid;
+  border-right: 2px var(--trackItemOnHover) solid;
+  border-bottom: 2px var(--trackItemOnHover) solid;
+  height: var(--height);
+  min-height: var(--min-height);
+}
+
+.companies-div .company-employees-container {
+  --min-height: 20%;
+  --height: 50%;
+  position: relative;
+  background-color: var(--sliderBgColor);
+  padding: 10px;
+  margin: 0px 5px;
+  border-left: 2px var(--sliderBgColor) solid;
+  border-top: 2px var(--sliderBgColor) solid;
+  border-right: 2px var(--trackItemOnHover) solid;
+  border-bottom: 2px var(--trackItemOnHover) solid;
+  height: var(--height);
+  min-height: var(--min-height);
+}
+
+.companies-div .company-employees-performance {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--bg-2);
+  border-top: 2px var(--textSubColor) solid;
+  border-left: 2px var(--textSubColor) solid;
+  border-right: 2px var(--bg-2) solid;
+  padding: 7px 8px;
+  height: 2rem !important;
+  color: var(--textSubColor);
+  width: 14rem;
+}
+
+.companies-div .company-employees-morale {
+  position: absolute;
+  top: calc(2rem + 5px);
+  right: 5px;
+  border-left: 2px var(--bg-2) solid;
+  border-bottom: 2px var(--textSubColor) solid;
+  border-right: 2px var(--textSubColor) solid;
+  background: var(--bg-2);
+  padding: 7px 8px;
+  height: 2rem !important;
+  color: var(--textSubColor);
+  width: 14rem;
+}

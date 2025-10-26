@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gambling Simulator 2</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/tooltip.css" />
+    <link rel="stylesheet" href="css/notification.css" />
+    <link rel="stylesheet" href="css/slider.css" />
+    <link rel="stylesheet" href="css/workstation.css" />
+    <link rel="stylesheet" href="css/b.css" />
+  </head>
+  <body theme="">
+    <div class="footer">
+      <p id="money-count">$$$</p>
+      <div class="footer-btn-container">
+        <button class="footer-btn" id="open-page" page="workstation">
+          Workstation
+        </button>
+        <button class="footer-btn" id="open-page" page="investments">
+          Investments
+        </button>
+        <button class="footer-btn" id="open-page" page="casino">Casino</button>
+        <button class="footer-btn" id="open-page" page="bank">Bank</button>
+        <button class="footer-btn" id="open-page" page="settings">
+          Settings
+        </button>
+      </div>
+    </div>
+
+    <div class="page" page="workstation">
+      <div class="companies-div">
+        <div class="companies-container">
+          <div class="company-item active">
+            <p class="company-name">Company A</p>
+            <p class="company-type">Type: Tech</p>
+            <p class="company-mps">MPS: $___</p>
+            <p class="company-value">Market cap: $___</p>
+          </div>
+          <div class="company-item">
+            <p class="company-name">Company B</p>
+            <p class="company-type">Type: Taxi</p>
+            <p class="company-mps">MPS: $___</p>
+            <p class="company-value">Market cap: $___</p>
+          </div>
+          <div class="company-item">
+            <p class="company-name">Company C</p>
+            <p class="company-type">Type: Bank</p>
+            <p class="company-mps">MPS: $___</p>
+            <p class="company-value">Market cap: $___</p>
+          </div>
+          <div class="company-item">
+            <p class="company-add">+</p>
+          </div>
+        </div>
+        <div class="company-data-container">
+          <p class="company-data-header">Company A</p>
+        </div>
+        <div class="company-employees-container">
+          <p class="company-employees-header">Employees: 1_000</p>
+          <p class="company-employees-performance">Performance: 100.0%</p>
+          <p class="company-employees-morale">Morale: 100.0%</p>
+
+          <p class="company-employees-attendance">Attendance: 100.0%</p>
+
+          <p class="company-employees-salary">Median Salary: $___</p>
+
+          <input
+            type="range"
+            min="0.3"
+            max="1.5"
+            step="0.001"
+            style="--bg: var(--bg-2)"
+          />
+
+          <p class="company-employees-power-ups-text">Power Ups:</p>
+          <div class="company-employees-power-ups">
+            <div class="company-employees-power-up" title="CRAZY POWER UP">
+              <img
+                class="company-employees-power-up-img"
+                src=""
+                alt="Power Up 1"
+              />
+            </div>
+          </div>
+
+          <p class="company-employees-power-ups-store">Power Ups store:</p>
+        </div>
+      </div>
+    </div>
+    <div class="page" page="investments">1</div>
+    <div class="page" page="casino">
+      <div class="casino-container" id="casino-container"></div>
+    </div>
+    <div class="page" page="bank">3</div>
+    <div class="page" page="settings">4</div>
+
+    <div class="notifications" id="notifications" aria-live="polite"></div>
+
+    <script src="js/notification.js"></script>
+    <script src="js/pageOpener.js"></script>
+    <script src="js/vars.js"></script>
+    <script src="js/moneyHandler.js"></script>
+    <script src="js/workstation.js"></script>
+    <script src="js/casinoItemsHandler.js"></script>
+  </body>
+</html>

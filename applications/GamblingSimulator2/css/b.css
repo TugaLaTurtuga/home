@@ -1,0 +1,164 @@
+body {
+  background-color: var(--bg-1);
+  color: var(--textColor);
+  transition: none;
+}
+
+* {
+  font-family: "Bitcount Single";
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 1,
+    "ELSH" 1,
+    "ELXP" 1;
+}
+
+button {
+  background-color: var(--trackItemColor);
+  color: var(--textColor);
+  border-left: var(--sliderBgColor) 2px solid;
+  border-top: var(--sliderBgColor) 2px solid;
+  border-right: var(--bg-1) 2px solid;
+  border-bottom: var(--bg-1) 2px solid;
+  padding: 10px 14px;
+}
+
+button:active {
+  border-left: var(--bg-1) 2px solid;
+  border-top: var(--bg-1) 2px solid;
+  border-right: var(--sliderBgColor) 2px solid;
+  border-bottom: var(--sliderBgColor) 2px solid;
+}
+
+.page {
+  display: block;
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+.footer {
+  z-index: 20;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px var(--sliderBgColor) solid;
+  border-right: 2px var(--trackItemOnHover) solid;
+  border-bottom: none;
+  border-radius: 0;
+  padding: 5px 10px;
+  background-color: var(--bg-2);
+  color: var(--textColor);
+}
+
+.footer-btn-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.footer-btn {
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+  border-left: var(--sliderBgColor) 2px solid;
+  border-top: var(--sliderBgColor) 2px solid;
+  border-right: var(--bg-1) 2px solid;
+  border-bottom: var(--bg-1) 2px solid;
+  padding: 10px 14px;
+}
+
+.footer-btn:active {
+  border-left: var(--bg-1) 2px solid;
+  border-top: var(--bg-1) 2px solid;
+  border-right: var(--sliderBgColor) 2px solid;
+  border-bottom: var(--sliderBgColor) 2px solid;
+  color: var(--textSubColor);
+}
+
+.footer-btn.active {
+  border-left: var(--bg-1) 2px solid;
+  border-top: var(--bg-1) 2px solid;
+  border-right: var(--sliderBgColor) 2px solid;
+  border-bottom: var(--sliderBgColor) 2px solid;
+  color: var(--activeColor);
+}
+
+#money-count {
+  position: static;
+  transform: none;
+  margin: 0;
+}
+
+.casino-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.casino-item {
+  background-color: var(--bg-2);
+  border-left: var(--sliderBgColor) 2px solid;
+  border-top: var(--sliderBgColor) 2px solid;
+  border-right: var(--bg-1) 2px solid;
+  border-bottom: var(--bg-1) 2px solid;
+  aspect-ratio: 1;
+}
+
+.casino-item .casino-btn {
+  background: transparent;
+  position: sticky;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 10px);
+  margin: 5px;
+  border-left: var(--sliderBgColor) 2px solid;
+  border-top: var(--sliderBgColor) 2px solid;
+  border-right: var(--bg-1) 2px solid;
+  border-bottom: var(--bg-1) 2px solid;
+  padding: 10px 14px;
+}
+
+.casino-item .casino-btn:active {
+  border-left: var(--bg-1) 2px solid;
+  border-top: var(--bg-1) 2px solid;
+  border-right: var(--sliderBgColor) 2px solid;
+  border-bottom: var(--sliderBgColor) 2px solid;
+}
+
+.casino-item .casino-header {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+  padding: 8px 0px;
+  border: none;
+  border-bottom: var(--activeColor) 2px solid;
+}
+
+.casino-item .casino-input-text {
+  text-align: left;
+  margin: 4px 3px;
+  margin-bottom: 0px;
+  border: none;
+}
+
+.casino-item .casino-description {
+  margin: 0px 10px;
+  text-align: left;
+  padding: 10px;
+  border: none;
+  font-size: 0.95rem;
+  border-top: var(--activeColor) 2px solid;
+  border-bottom: var(--activeColor) 2px solid;
+}

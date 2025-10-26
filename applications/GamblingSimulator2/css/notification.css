@@ -1,0 +1,64 @@
+/* Notifications container */
+.notifications {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  width: 320px;
+  max-width: calc(100% - 32px);
+  pointer-events: none; /* allow clicks to pass except on notification items themselves */
+}
+
+/* Individual notification */
+.notification {
+  --color: var(--activeColor);
+  pointer-events: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: var(--bg-2);
+
+  border-left: 2px var(--sliderBgColor) solid;
+  border-top: 2px var(--sliderBgColor) solid;
+  border-right: 2px var(--trackItemOnHover) solid;
+  border-bottom: 2px var(--trackItemOnHover) solid;
+
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+  color: var(--color);
+  border-radius: 0px;
+  overflow: hidden;
+
+  /* Center scaling */
+  transform-origin: center center;
+  /* transition: transform 0.2s linear; */
+  transition: none;
+
+  opacity: 1;
+}
+
+.notification.hide {
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.notification .title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.notification .body {
+  font-size: 13px;
+  color: var(--textColor);
+  line-height: 1.2;
+}
+
+.notification .meta {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--textColor);
+  cursor: pointer;
+}

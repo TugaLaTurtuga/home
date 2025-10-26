@@ -1,0 +1,870 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font);
+}
+
+/* Root mode */
+:root {
+  --activeColor: #66cf20;
+  --bg-1: #121212;
+  --bg-2: #333333;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: rgb(187, 187, 187);
+  --font: Rubik, system-ui;
+  --sidebarColor: rgba(24, 24, 24, 0.7);
+  --sliderBgColor: rgb(90, 90, 90);
+  --spinnerColor: rgb(255, 255, 255);
+  --textColor: rgb(245, 245, 245);
+  --textSubColor: rgb(170, 170, 170);
+  --trackItemColor: rgb(34, 34, 34);
+  --trackItemOddColor: rgb(29, 29, 29);
+  --trackItemOnHover: rgb(40, 40, 40);
+}
+
+/* Arctic mode */
+[theme="arctic"] {
+  --activeColor: #64d2ff;
+  --bg-1: #0c111b;
+  --bg-2: #152238;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #7fdbff;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #0c111bb3;
+  --sliderBgColor: #2b3b55;
+  --spinnerColor: #7fdbff;
+  --textColor: #e6f2ff;
+  --textSubColor: #a8c5e6;
+  --trackItemColor: #152238;
+  --trackItemOddColor: #121c2e;
+  --trackItemOnHover: #1c2c45;
+}
+
+/* Atom mode */
+[theme="atom"] {
+  --activeColor: #5ecb15;
+  --bg-1: #282c34;
+  --bg-2: #21252b;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #61afef;
+  --font: Rubik, sans-serif;
+  --sidebarColor: rgb(33, 37, 43, 0.7);
+  --sliderBgColor: #5c6370;
+  --spinnerColor: #61afef;
+  --textColor: #d5e0f3;
+  --textSubColor: #3560b1;
+  --trackItemColor: #282c34;
+  --trackItemOddColor: #23272e;
+  --trackItemOnHover: #2c313a;
+}
+
+/* Aubergine mode */
+[theme="aubergine"] {
+  --activeColor: #7cf29a;
+  --bg-1: #1c0f2e;
+  --bg-2: #27123d;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #c084fc;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1c0f2eb3;
+  --sliderBgColor: #4a2d72;
+  --spinnerColor: #c084fc;
+  --textColor: #f3e8ff;
+  --textSubColor: #d8b4fe;
+  --trackItemColor: #27123d;
+  --trackItemOddColor: #221035;
+  --trackItemOnHover: #31184e;
+}
+
+/* Catppuccin frappe mode */
+[theme="catppuccin-frappe"] {
+  --activeColor: #a6d189;
+  --bg-1: #414559;
+  --bg-2: #414559;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #af8cca;
+  --font: "Fira Code", sans-serif;
+  --sidebarColor: rgba(42, 44, 60, 0.57);
+  --sliderBgColor: rgba(98, 104, 128, 0.85);
+  --spinnerColor: rgba(140, 170, 238, 0.32);
+  --textColor: #c6d0f5;
+  --textSubColor: #7e8ec9;
+  --trackItemColor: #414559;
+  --trackItemOddColor: #414559;
+  --trackItemOnHover: rgba(74, 80, 104, 0.92);
+}
+
+/* Catppuccin latte mode */
+[theme="catppuccin-latte"] {
+  --activeColor: #40a02b;
+  --bg-1: #eff1f5;
+  --bg-2: #e6e9ef;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #1e66f5;
+  --font: "Fira Code", sans-serif;
+  --sidebarColor: #eff1f5b3;
+  --sliderBgColor: #ccd0da;
+  --spinnerColor: #1e66f5;
+  --textColor: #4c4f69;
+  --textSubColor: #8c8fa1;
+  --trackItemColor: #edeef3;
+  --trackItemOddColor: #e2e6ec;
+  --trackItemOnHover: #dadee6;
+}
+
+/* Catppuccin macchiato mode */
+[theme="catppuccin-macchiato"] {
+  --activeColor: #a6da95;
+  --bg-1: #24273a;
+  --bg-2: #363a4f;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #8aadf4;
+  --font: "Fira Code", sans-serif;
+  --sidebarColor: #24273ab3;
+  --sliderBgColor: #5b6078;
+  --spinnerColor: #8aadf4;
+  --textColor: #cad3f5;
+  --textSubColor: #8087a2;
+  --trackItemColor: #363a4f;
+  --trackItemOddColor: #2f3347;
+  --trackItemOnHover: #40465c;
+}
+
+/* Catppuccin mocha mode */
+[theme="catppuccin-mocha"] {
+  --activeColor: #a6e3a1;
+  --bg-1: #1e1e2e;
+  --bg-2: #313244;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #89b4fa;
+  --font: "Fira Code", sans-serif;
+  --sidebarColor: #1e1e2eb3;
+  --sliderBgColor: #45475a;
+  --spinnerColor: #89b4fa;
+  --textColor: #cdd6f4;
+  --textSubColor: #6c7086;
+  --trackItemColor: #313244;
+  --trackItemOddColor: #2b2d3a;
+  --trackItemOnHover: #3a3c52;
+}
+
+/* Cherry blossom mode */
+[theme="cherry-blossom"] {
+  --activeColor: #ff9ebb;
+  --bg-1: #1f0d17;
+  --bg-2: #2a1320;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #ff6b9a;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1f0d17b3;
+  --sliderBgColor: #4b2138;
+  --spinnerColor: #ff6b9a;
+  --textColor: #ffe4ec;
+  --textSubColor: #f9a8d4;
+  --trackItemColor: #2a1320;
+  --trackItemOddColor: #24101b;
+  --trackItemOnHover: #321829;
+}
+
+/* Cobalt2 mode */
+[theme="cobalt2"] {
+  --activeColor: #ffee99;
+  --bg-1: #122738;
+  --bg-2: #193549;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #ffc600;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #122738b3;
+  --sliderBgColor: #4b6479;
+  --spinnerColor: #ffc600;
+  --textColor: #ffffff;
+  --textSubColor: #9ecce0;
+  --trackItemColor: #193549;
+  --trackItemOddColor: #152f41;
+  --trackItemOnHover: #20465d;
+}
+
+/* Cocoa mode */
+[theme="cocoa"] {
+  --activeColor: #c3a16a;
+  --bg-1: #1b130e;
+  --bg-2: #2a1c14;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #d2b48c;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1b130eb3;
+  --sliderBgColor: #5c4633;
+  --spinnerColor: #d2b48c;
+  --textColor: #f5ede3;
+  --textSubColor: #d9c4ae;
+  --trackItemColor: #2a1c14;
+  --trackItemOddColor: #241710;
+  --trackItemOnHover: #352217;
+}
+
+/* Cyberpunk mode */
+[theme="cyberpunk"] {
+  --activeColor: #00f5d4;
+  --bg-1: #0b0e14;
+  --bg-2: #11151c;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #f72585;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #0b0e14b3;
+  --sliderBgColor: #3a3f4b;
+  --spinnerColor: #f72585;
+  --textColor: #e6e9ef;
+  --textSubColor: #8a94a6;
+  --trackItemColor: #11151c;
+  --trackItemOddColor: #0d1117;
+  --trackItemOnHover: #1a2029;
+}
+
+/* Desert mode */
+[theme="desert"] {
+  --activeColor: #d1913c;
+  --bg-1: #2b2114;
+  --bg-2: #3a2b1a;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #e0a96d;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #2b2114b3;
+  --sliderBgColor: #6b4f2d;
+  --spinnerColor: #e0a96d;
+  --textColor: #f2e8d5;
+  --textSubColor: #c9b8a8;
+  --trackItemColor: #3a2b1a;
+  --trackItemOddColor: #332616;
+  --trackItemOnHover: #4a3822;
+}
+
+/* Dracula mode */
+[theme="dracula"] {
+  --activeColor: #32c814;
+  --bg-1: #282a36;
+  --bg-2: #44475a;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #bd93f9;
+  --font: Rubik, sans-serif;
+  --sidebarColor: rgb(40, 42, 54, 0.7);
+  --sliderBgColor: #6272a4;
+  --spinnerColor: #bd93f9;
+  --textColor: #f8f8f2;
+  --textSubColor: #6272a4;
+  --trackItemColor: #44475a;
+  --trackItemOddColor: rgba(68, 71, 90, 0.96);
+  --trackItemOnHover: #3f4250;
+}
+
+/* Dusk mode */
+[theme="dusk"] {
+  --activeColor: #ffad57;
+  --bg-1: #201a2b;
+  --bg-2: #2a213b;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #9d7fea;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #201a2bb3;
+  --sliderBgColor: #463d60;
+  --spinnerColor: #9d7fea;
+  --textColor: #ece4ff;
+  --textSubColor: #bfb2e6;
+  --trackItemColor: #2a213b;
+  --trackItemOddColor: #241d33;
+  --trackItemOnHover: #342949;
+}
+
+/* Evergreen light mode */
+[theme="evergreen-light"] {
+  --activeColor: #16a34a;
+  --bg-1: #f7fbfa;
+  --bg-2: #ffffff;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #0e7490;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #f7fbfab3;
+  --sliderBgColor: #cbd5e1;
+  --spinnerColor: #0e7490;
+  --textColor: #0f172a;
+  --textSubColor: #64748b;
+  --trackItemColor: #eff7f5;
+  --trackItemOddColor: #e8f1ef;
+  --trackItemOnHover: #ddeae7;
+}
+
+/* Forest mode */
+[theme="forest"] {
+  --activeColor: #34d399;
+  --bg-1: #0f1e17;
+  --bg-2: #12261c;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #10b981;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #0f1e17b3;
+  --sliderBgColor: #1f3a2a;
+  --spinnerColor: #10b981;
+  --textColor: #d1fae5;
+  --textSubColor: #6ee7b7;
+  --trackItemColor: #12261c;
+  --trackItemOddColor: #102219;
+  --trackItemOnHover: #163024;
+}
+
+/* Frost mode */
+[theme="frost"] {
+  --activeColor: #a6d189;
+  --bg-1: #414559;
+  --bg-2: rgba(65, 69, 89, 0);
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #af8cca;
+  --font: "Fira Code", sans-serif;
+  --sidebarColor: rgba(42, 44, 60, 0);
+  --sliderBgColor: rgba(98, 104, 128, 0.33);
+  --spinnerColor: #8caaee;
+  --textColor: #c6d0f5;
+  --textSubColor: #7489d8;
+  --trackItemColor: rgba(65, 69, 89, 0);
+  --trackItemOddColor: rgba(65, 69, 89, 0);
+  --trackItemOnHover: rgba(74, 80, 104, 0.19);
+}
+
+/* Graphite mode */
+[theme="graphite"] {
+  --activeColor: #9e9e9e;
+  --bg-1: #121212;
+  --bg-2: #1f1f1f;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #bdbdbd;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #121212b3;
+  --sliderBgColor: #616161;
+  --spinnerColor: #bdbdbd;
+  --textColor: #e0e0e0;
+  --textSubColor: #9e9e9e;
+  --trackItemColor: #1f1f1f;
+  --trackItemOddColor: #1a1a1a;
+  --trackItemOnHover: #262626;
+}
+
+/* Gruvbox dark mode */
+[theme="gruvbox-dark"] {
+  --activeColor: #b8bb26;
+  --bg-1: #282828;
+  --bg-2: #3c3836;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #fe8019;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #282828b3;
+  --sliderBgColor: #504945;
+  --spinnerColor: #fe8019;
+  --textColor: #ebdbb2;
+  --textSubColor: #a89984;
+  --trackItemColor: #3c3836;
+  --trackItemOddColor: #32302f;
+  --trackItemOnHover: #4a423e;
+}
+
+/* Gruvbox light mode */
+[theme="gruvbox-light"] {
+  --activeColor: #458588;
+  --bg-1: #fbf1c7;
+  --bg-2: #ebdbb2;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #3c3836;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #fbf1c7b3;
+  --sliderBgColor: #bdae93;
+  --spinnerColor: #3c3836;
+  --textColor: #3c3836;
+  --textSubColor: #7c6f64;
+  --trackItemColor: #f2e7b9;
+  --trackItemOddColor: #e6d7a6;
+  --trackItemOnHover: #e0cf9a;
+}
+
+/* High contrast dark mode */
+[theme="high-contrast-dark"] {
+  --activeColor: #00ff00;
+  --bg-1: #000000;
+  --bg-2: #111111;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #ffffff;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #000000b3;
+  --sliderBgColor: #444444;
+  --spinnerColor: #ffffff;
+  --textColor: #ffffff;
+  --textSubColor: #aaaaaa;
+  --trackItemColor: #111111;
+  --trackItemOddColor: #0a0a0a;
+  --trackItemOnHover: #1a1a1a;
+}
+
+/* High contrast light mode */
+[theme="high-contrast-light"] {
+  --activeColor: #0000ff;
+  --bg-1: #ffffff;
+  --bg-2: #ffffff;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #000000;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #ffffffb3;
+  --sliderBgColor: #808080;
+  --spinnerColor: #000000;
+  --textColor: #000000;
+  --textSubColor: #333333;
+  --trackItemColor: #f0f0f0;
+  --trackItemOddColor: #e6e6e6;
+  --trackItemOnHover: #dcdcdc;
+}
+
+/* Lavender mode */
+[theme="lavender"] {
+  --activeColor: #c084fc;
+  --bg-1: #1b1525;
+  --bg-2: #241b32;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #a78bfa;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1b1525b3;
+  --sliderBgColor: #4b3a63;
+  --spinnerColor: #a78bfa;
+  --textColor: #ede9fe;
+  --textSubColor: #c4b5fd;
+  --trackItemColor: #241b32;
+  --trackItemOddColor: #20192b;
+  --trackItemOnHover: #2b2140;
+}
+
+/* Light mode */
+[theme="light"] {
+  --activeColor: #1db954;
+  --bg-1: #f5f5f5;
+  --bg-2: #ffffff;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #333333;
+  --font: Rubik, sans-serif;
+  --sidebarColor: rgba(237, 237, 237, 0.7);
+  --sliderBgColor: #cccccc;
+  --spinnerColor: #222222;
+  --textColor: #222222;
+  --textSubColor: #888888;
+  --trackItemColor: #f3f3f3;
+  --trackItemOddColor: #eaeaea;
+  --trackItemOnHover: #e0e0e0;
+}
+
+/* Material dark mode */
+[theme="material-dark"] {
+  --activeColor: #00e676;
+  --bg-1: #1e1e1e;
+  --bg-2: #2c2c2c;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #80cbc4;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1e1e1eb3;
+  --sliderBgColor: #616161;
+  --spinnerColor: #80cbc4;
+  --textColor: #eceff1;
+  --textSubColor: #b0bec5;
+  --trackItemColor: #2c2c2c;
+  --trackItemOddColor: #262626;
+  --trackItemOnHover: #333333;
+}
+
+/* Material light mode */
+[theme="material-light"] {
+  --activeColor: #00c853;
+  --bg-1: #fafafa;
+  --bg-2: #ffffff;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #455a64;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #eceff1b3;
+  --sliderBgColor: #cfd8dc;
+  --spinnerColor: #455a64;
+  --textColor: #263238;
+  --textSubColor: #607d8b;
+  --trackItemColor: #f5f5f5;
+  --trackItemOddColor: #eeeeee;
+  --trackItemOnHover: #e0e0e0;
+}
+
+/* Midnight mode */
+[theme="midnight"] {
+  --activeColor: #4ade80;
+  --bg-1: #141820;
+  --bg-2: #1d2430;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #60a5fa;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #141820b3;
+  --sliderBgColor: #374151;
+  --spinnerColor: #60a5fa;
+  --textColor: #e5e7eb;
+  --textSubColor: #93a4b7;
+  --trackItemColor: #1d2430;
+  --trackItemOddColor: #19202a;
+  --trackItemOnHover: #222a38;
+}
+
+/* Mint mode */
+[theme="mint"] {
+  --activeColor: #34d399;
+  --bg-1: #0d1f1e;
+  --bg-2: #11302e;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #2dd4bf;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #0d1f1eb3;
+  --sliderBgColor: #1f4b47;
+  --spinnerColor: #2dd4bf;
+  --textColor: #d1fae5;
+  --textSubColor: #99f6e4;
+  --trackItemColor: #11302e;
+  --trackItemOddColor: #0f2a27;
+  --trackItemOnHover: #163a36;
+}
+
+/* Monokai mode */
+[theme="monokai"] {
+  --activeColor: #a6e22e;
+  --bg-1: #272822;
+  --bg-2: #3e3d32;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #f92672;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #272822b3;
+  --sliderBgColor: #75715e;
+  --spinnerColor: #f92672;
+  --textColor: #f8f8f2;
+  --textSubColor: #66d9ef;
+  --trackItemColor: #3e3d32;
+  --trackItemOddColor: #35352b;
+  --trackItemOnHover: #48483e;
+}
+
+/* Nigger color mode */
+[theme="nigger-color"] {
+  --activeColor: #000000;
+  --bg-1: #000000;
+  --bg-2: #000000;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: rgba(0, 0, 0, 0);
+  --font: Menlo, system-ui;
+  --sidebarColor: #f50000;
+  --sliderBgColor: #3a3a3a;
+  --spinnerColor: #a277ff;
+  --textColor: #eaeaea;
+  --textSubColor: #b3b3b3;
+  --trackItemColor: #222222;
+  --trackItemOddColor: #1c1c1c;
+  --trackItemOnHover: #2a2a2a;
+}
+
+/* Night owl mode */
+[theme="night-owl"] {
+  --activeColor: #7fdbca;
+  --bg-1: #011627;
+  --bg-2: #0b2942;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #82aaff;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #011627b3;
+  --sliderBgColor: #1d3b53;
+  --spinnerColor: #82aaff;
+  --textColor: #d6deeb;
+  --textSubColor: #5f7e97;
+  --trackItemColor: #0b2942;
+  --trackItemOddColor: #082032;
+  --trackItemOnHover: #123454;
+}
+
+/* Nord mode */
+[theme="nord"] {
+  --activeColor: #88c0d0;
+  --bg-1: #2e3440;
+  --bg-2: #3b4252;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #81a1c1;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #2e3440b3;
+  --sliderBgColor: #4c566a;
+  --spinnerColor: #81a1c1;
+  --textColor: #e5e9f0;
+  --textSubColor: #81a1c1;
+  --trackItemColor: #3b4252;
+  --trackItemOddColor: #343c4a;
+  --trackItemOnHover: #434c5e;
+}
+
+/* Ocean mode */
+[theme="ocean"] {
+  --activeColor: #2ecc71;
+  --bg-1: #001f3f;
+  --bg-2: #003b73;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #1abc9c;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #001f3fb3;
+  --sliderBgColor: #2e5e8c;
+  --spinnerColor: #1abc9c;
+  --textColor: #e8f6ff;
+  --textSubColor: #9ac4e0;
+  --trackItemColor: #003b73;
+  --trackItemOddColor: #003465;
+  --trackItemOnHover: #0a4a8a;
+}
+
+/* Oceanic mode */
+[theme="oceanic"] {
+  --activeColor: #99c794;
+  --bg-1: #1b2b34;
+  --bg-2: #343d46;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #5fb3b3;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1b2b34b3;
+  --sliderBgColor: #4f5b66;
+  --spinnerColor: #5fb3b3;
+  --textColor: #d8dee9;
+  --textSubColor: #a7adba;
+  --trackItemColor: #343d46;
+  --trackItemOddColor: #2a343f;
+  --trackItemOnHover: #3b4652;
+}
+
+/* One dark mode */
+[theme="one-dark"] {
+  --activeColor: #98c379;
+  --bg-1: #282c34;
+  --bg-2: #21252b;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #61afef;
+  --font: Rubik, sans-serif;
+  --sidebarColor: rgba(40, 44, 52, 0.7);
+  --sliderBgColor: #5c6370;
+  --spinnerColor: #61afef;
+  --textColor: #abb2bf;
+  --textSubColor: #5c6370;
+  --trackItemColor: #2c313a;
+  --trackItemOddColor: #21252b;
+  --trackItemOnHover: #323842;
+}
+
+/* One light mode */
+[theme="one-light"] {
+  --activeColor: #4271d7;
+  --bg-1: #fafafa;
+  --bg-2: #ffffff;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #383a42;
+  --font: Rubik, sans-serif;
+  --sidebarColor: rgba(240, 240, 240, 0.25);
+  --sliderBgColor: #d0d0d0;
+  --spinnerColor: #4078f2;
+  --textColor: #383a42;
+  --textSubColor: #6c6f93;
+  --trackItemColor: #f3f3f3;
+  --trackItemOddColor: #e9e9e9;
+  --trackItemOnHover: #e0e0e0;
+}
+
+/* Paper light mode */
+[theme="paper-light"] {
+  --activeColor: #2e7d32;
+  --bg-1: #ffffff;
+  --bg-2: #fafafa;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #424242;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #f5f5f5b3;
+  --sliderBgColor: #bdbdbd;
+  --spinnerColor: #424242;
+  --textColor: #1a1a1a;
+  --textSubColor: #6d6d6d;
+  --trackItemColor: #f2f2f2;
+  --trackItemOddColor: #eaeaea;
+  --trackItemOnHover: #e0e0e0;
+}
+
+/* Pumpkin mode */
+[theme="pumpkin"] {
+  --activeColor: #ffa500;
+  --bg-1: #1a1207;
+  --bg-2: #2a1d0a;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #ff7f50;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1a1207b3;
+  --sliderBgColor: #5a3a12;
+  --spinnerColor: #ff7f50;
+  --textColor: #fff7e6;
+  --textSubColor: #f2cda3;
+  --trackItemColor: #2a1d0a;
+  --trackItemOddColor: #241907;
+  --trackItemOnHover: #33220c;
+}
+
+/* Retro wave mode */
+[theme="retro-wave"] {
+  --activeColor: #ff6ec7;
+  --bg-1: #1a001a;
+  --bg-2: #2a0033;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #00e5ff;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1a001ab3;
+  --sliderBgColor: #4a2c5e;
+  --spinnerColor: #00e5ff;
+  --textColor: #ffeaf7;
+  --textSubColor: #9e8fb3;
+  --trackItemColor: #2a0033;
+  --trackItemOddColor: #22002b;
+  --trackItemOnHover: #34003f;
+}
+
+/* Rose pine mode */
+[theme="rose-pine"] {
+  --activeColor: #31748f;
+  --bg-1: #191724;
+  --bg-2: #26233a;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #eb6f92;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #191724b3;
+  --sliderBgColor: #403d52;
+  --spinnerColor: #eb6f92;
+  --textColor: #e0def4;
+  --textSubColor: #6e6a86;
+  --trackItemColor: #26233a;
+  --trackItemOddColor: #211f30;
+  --trackItemOnHover: #2f2b44;
+}
+
+/* Rose pine moon mode */
+[theme="rose-pine-moon"] {
+  --activeColor: #3e8fb0;
+  --bg-1: #232136;
+  --bg-2: #2a273f;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #ea9a97;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #232136b3;
+  --sliderBgColor: #44415a;
+  --spinnerColor: #ea9a97;
+  --textColor: #e0def4;
+  --textSubColor: #908caa;
+  --trackItemColor: #2a273f;
+  --trackItemOddColor: #25223a;
+  --trackItemOnHover: #353249;
+}
+
+/* Sky mode */
+[theme="sky"] {
+  --activeColor: #60a5fa;
+  --bg-1: #0a1426;
+  --bg-2: #10213a;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #38bdf8;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #0a1426b3;
+  --sliderBgColor: #1f3a5f;
+  --spinnerColor: #38bdf8;
+  --textColor: #dbeafe;
+  --textSubColor: #93c5fd;
+  --trackItemColor: #10213a;
+  --trackItemOddColor: #0d1c31;
+  --trackItemOnHover: #142848;
+}
+
+/* Slate mode */
+[theme="slate"] {
+  --activeColor: #38bdf8;
+  --bg-1: #0f172a;
+  --bg-2: #1e293b;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #64748b;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #0f172ab3;
+  --sliderBgColor: #475569;
+  --spinnerColor: #64748b;
+  --textColor: #e2e8f0;
+  --textSubColor: #94a3b8;
+  --trackItemColor: #1e293b;
+  --trackItemOddColor: #192233;
+  --trackItemOnHover: #253041;
+}
+
+/* Solarized dark mode */
+[theme="solarized-dark"] {
+  --activeColor: #859900;
+  --bg-1: #002b36;
+  --bg-2: #073642;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #268bd2;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #002b36b3;
+  --sliderBgColor: #586e75;
+  --spinnerColor: #268bd2;
+  --textColor: #eee8d5;
+  --textSubColor: #586e75;
+  --trackItemColor: #073642;
+  --trackItemOddColor: #0a3a47;
+  --trackItemOnHover: #0f4451;
+}
+
+/* Solarized light mode */
+[theme="solarized-light"] {
+  --activeColor: #268bd2;
+  --bg-1: #fdf6e3;
+  --bg-2: #eee8d5;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #073642;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #fdf6e3b3;
+  --sliderBgColor: #93a1a1;
+  --spinnerColor: #073642;
+  --textColor: #073642;
+  --textSubColor: #657b83;
+  --trackItemColor: #f4ecd3;
+  --trackItemOddColor: #e6d7a6;
+  --trackItemOnHover: #e6d8b9;
+}
+
+/* Tokyo night mode */
+[theme="tokyo-night"] {
+  --activeColor: #9ece6a;
+  --bg-1: #1a1b26;
+  --bg-2: #24283b;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #7aa2f7;
+  --font: Rubik, sans-serif;
+  --sidebarColor: #1a1b26b3;
+  --sliderBgColor: #414868;
+  --spinnerColor: #7aa2f7;
+  --textColor: #c0caf5;
+  --textSubColor: #565f89;
+  --trackItemColor: #24283b;
+  --trackItemOddColor: #1f2335;
+  --trackItemOnHover: #2a2f45;
+}
+
+/* Twilight mode */
+[theme="twilight"] {
+  --activeColor: #2badee;
+  --bg-1: #171717;
+  --bg-2: #2b2b2b;
+  --colorBlend: 0.5;
+  --ControlsBtnsColor: #2b56ab;
+  --font: Menlo, system-ui;
+  --sidebarColor: rgba(24, 22, 22, 0.68);
+  --sliderBgColor: #3a3a3a;
+  --spinnerColor: #a277ff;
+  --textColor: #eaeaea;
+  --textSubColor: #b3b3b3;
+  --trackItemColor: #222222;
+  --trackItemOddColor: #1c1c1c;
+  --trackItemOnHover: #2a2a2a;
+}

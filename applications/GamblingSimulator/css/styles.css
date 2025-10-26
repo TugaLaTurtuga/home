@@ -1,489 +1,517 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #000000;
-    background: linear-gradient(to bottom, #01222b, #011219);
-    margin: 0;
-    justify-content: center;
-    text-align: center;
-    overflow-x: hidden;
-    font-family: "Rubik", serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+  font-family: Arial, sans-serif;
+  background-color: #000000;
+  background: linear-gradient(to bottom, #01222b, #011219);
+  margin: 0;
+  justify-content: center;
+  text-align: center;
+  overflow-x: hidden;
+  font-family: "Rubik", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 html {
-    overflow-x: hidden;
-    overscroll-behavior-y: none;
-    overscroll-behavior-x: none;
-    background-color: #023c4a;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+  background-color: #023c4a;
 }
 
 button {
-    transition: background 0.3s ease, transform 0.1s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.1s ease;
+  background-color: #023c4a;
+  border: none;
+  border-radius: 5px;
 }
 
 button:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 .game-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100vw;
-    min-height: 100vh;
-    margin-top: 80px;
-    position: relative;
-    z-index: 1;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100vw;
+  min-height: 100vh;
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
 }
 
 /* Ensure the container is bigger than its content */
 .game-container > * {
-    max-width: 100%;
-    flex-grow: 1;
+  max-width: 100%;
+  flex-grow: 1;
 }
 
 h1 {
-    color: #ff8c00;
+  color: #ff8c00;
 }
 
 .game-name {
-    color: white;
+  color: white;
 }
 
 /* Grid for games section */
 .games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    justify-items: center;
-    padding: 20px;
-    min-height: 160px;
-    border-radius: 10px;
-    box-shadow: 0 8px 6px rgba(0, 0, 0, 0.086);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  padding: 20px;
+  min-height: 160px;
+  border-radius: 10px;
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.086);
 }
 
 #workers-grid {
-    min-height: 400px;
+  min-height: 400px;
 }
 
 /* Game cards */
 .game-card {
-    height: 100%;
-    width: calc(100% - 10px);
-    background-color: #01222b;
-    padding: 10px;
-    margin-top: -30px;
-    margin-bottom: 0px;
-    border-radius: 10px;
-    min-height: 140px;
-    box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
-    text-align: center;
-    overflow: hidden;
-    transition: transform 0.15s cubic-bezier(0.075, 0.82, .2, 2);
-    position: relative;
+  height: 100%;
+  width: calc(100% - 10px);
+  background-color: #01222b;
+  padding: 10px;
+  margin-top: -30px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  min-height: 140px;
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.15s cubic-bezier(0.075, 0.82, 0.2, 2);
+  position: relative;
 }
 
 .game-card:hover {
-    transform: translateY(-7px);
+  transform: translateY(-7px);
 }
 
 .game-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 
 .game-card h2 {
-    color: #ff8c00;
-    margin-top: 0px;
+  color: #ff8c00;
+  margin-top: 0px;
 }
 
 .game-card p {
-    color: white;
-    margin: 10px 0;
+  color: white;
+  margin: 10px 0;
 }
 
 .game-card button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 10px 15px;
-    background-color: #01718529;
-    border: none;
-    cursor: pointer;
-    border-radius: 0 10px 0 0;
-    font-size: 14px;
-    color: white;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-100%);
-    transition: opacity 0.1s ease, transform 0.1s ease, background-color 0.1s ease-in;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 10px 15px;
+  background-color: #01718529;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 10px 0 0;
+  font-size: 14px;
+  color: white;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transition:
+    opacity 0.1s ease,
+    transform 0.1s ease,
+    background-color 0.1s ease-in;
 }
 
 .game-card:hover button {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .game-card button:hover {
-    background-color: #015261;
-    color: white;
+  background-color: #015261;
+  color: white;
 }
 
 .game-card button:disabled {
-    color: #aaa;
+  color: #aaa;
 }
 
 /* White grid overlay */
 body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: repeating-linear-gradient(white 0.5px, transparent 0.5px);
-    background-size: 50px 50px; /* Size of squares */
-    pointer-events: none; /* Allow interaction with elements on top */
-    z-index: 0; /* Place behind everything */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(white 0.5px, transparent 0.5px);
+  background-size: 50px 50px; /* Size of squares */
+  pointer-events: none; /* Allow interaction with elements on top */
+  z-index: 0; /* Place behind everything */
 }
 
 /* Brightening effect */
 body:hover::before {
-    filter: brightness(1.5); /* Brighten the grid when the mouse hovers anywhere on the body */
+  filter: brightness(
+    1.5
+  ); /* Brighten the grid when the mouse hovers anywhere on the body */
 }
 
 .game-container:hover ~ body::before {
-    filter: brightness(1.2); /* Brighten the grid when hovering over the game container */
+  filter: brightness(
+    1.2
+  ); /* Brighten the grid when hovering over the game container */
 }
 
 .earnMoney {
-    margin: 0 10px;
-    width: 80%;
-    height: 40%;
-    min-height: 300px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #01424f;
-    color: white;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    /* max-height: 400px; */
-    box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
-    transition: background 0.3s ease, box-shadow 0.2s ease, transform 0.3s cubic-bezier(0.075, 0.82, .2, 2);
+  margin: 0 10px;
+  width: 80%;
+  height: 40%;
+  min-height: 300px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #01424f;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  /* max-height: 400px; */
+  box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
+  transition:
+    background 0.3s ease,
+    box-shadow 0.2s ease,
+    transform 0.3s cubic-bezier(0.075, 0.82, 0.2, 2);
 
-    font-family: "Rubik", serif;
-    font-size: 24px;
-    font-weight: 500;
+  font-family: "Rubik", serif;
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .earnMoney:hover {
-    background-color: #01222b;
-    box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.15);
+  background-color: #01222b;
+  box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.15);
 }
 
 .job-shop-section {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 20px;
-    border-radius: 20px;
-    background-color: #01222b;
-    display: flex; /* Use flexbox for layout */
-    flex-wrap: wrap; /* Allow buttons to wrap in smaller screens */
-    justify-content: space-between; /* Space between buttons */
-    box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
-    color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #01222b;
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow buttons to wrap in smaller screens */
+  justify-content: space-between; /* Space between buttons */
+  box-shadow: 10px 8px 6px rgba(0, 0, 0, 0.086);
+  color: white;
 }
 
 .job-shop-section button {
-    position: relative; /* Enable positioning for absolute children */
-    margin: 7.5px 10px;
-    min-width: 45%; /* Adjust as needed */
-    min-height: 50px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #017285;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    color: black;
-    overflow: hidden; /* Hide overflow from absolute positioning */
-    font-family: "Rubik", serif;
+  position: relative; /* Enable positioning for absolute children */
+  margin: 7.5px 10px;
+  min-width: 45%; /* Adjust as needed */
+  min-height: 50px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #017285;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: black;
+  overflow: hidden; /* Hide overflow from absolute positioning */
+  font-family: "Rubik", serif;
 }
 
 .job-shop-section button:hover {
-    background-color: #015261;
+  background-color: #015261;
 }
 
 .job-image {
-    position: absolute;
-    left: -10px;
-    top: 50%;
-    transform: translateY(-50%);
-    min-height: 170%;
-    width: auto;
-    max-height: 170%;
-    pointer-events: none;
-    opacity: 1;
-    mask-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)); /* Apply gradient mask */
-    -webkit-mask-image: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)); /* For Safari */
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-height: 170%;
+  width: auto;
+  max-height: 170%;
+  pointer-events: none;
+  opacity: 1;
+  mask-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.3)
+  ); /* Apply gradient mask */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.3)
+  ); /* For Safari */
 }
 
 .job-shop-section button:hover .job-image {
-    opacity: .8;
+  opacity: 0.8;
 }
 
 .job-name {
-    position: absolute; /* Positioning the job name absolutely */
-    left: 10px; /* Position the job name to the right of the image */
-    top: 50%; /* Center the job name vertically */
-    transform: translateY(-50%); /* Center the job name vertically */
-    font-weight: bold; /* Make the job name bold */
-    font-size: 28px; /* Set font size */
-    z-index: 1;
+  position: absolute; /* Positioning the job name absolutely */
+  left: 10px; /* Position the job name to the right of the image */
+  top: 50%; /* Center the job name vertically */
+  transform: translateY(-50%); /* Center the job name vertically */
+  font-weight: bold; /* Make the job name bold */
+  font-size: 28px; /* Set font size */
+  z-index: 1;
 }
 
 .cost-text {
-    position: absolute;
-    right: 10px;
-    margin-left: auto;
-    top: 80%;
-    transform: translateY(-50%);
+  position: absolute;
+  right: 10px;
+  margin-left: auto;
+  top: 80%;
+  transform: translateY(-50%);
 }
 
 .clicker-section {
-    width: calc(100% - 40px);
-    padding: 20px;
-    padding-top: 0;
+  width: calc(100% - 40px);
+  padding: 20px;
+  padding-top: 0;
 }
 
 #Workers-section {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
-
 .opts-grid {
-    display: grid;
-    margin-top: -10px;
-    grid-template-columns: repeat(2, 1fr); /* Create two equal-width columns */
-    grid-template-rows: repeat(2, auto); /* Create two rows for a 2x2 grid */
-    gap: 20px; /* Space between the cards */
-    justify-items: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-    width: 100%;
-    margin: 0 auto; /* Center the grid horizontally */
-    padding: 20px;
-    box-sizing: border-box; /* Ensure padding is included in the width */
+  display: grid;
+  margin-top: -10px;
+  grid-template-columns: repeat(2, 1fr); /* Create two equal-width columns */
+  grid-template-rows: repeat(2, auto); /* Create two rows for a 2x2 grid */
+  gap: 20px; /* Space between the cards */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  width: 100%;
+  margin: 0 auto; /* Center the grid horizontally */
+  padding: 20px;
+  box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 .opts-card {
-    height: 95%;
-    min-width: 90%;
-    background-color: #01222b;
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
-    margin: 30px;
-    margin-top: -10px;
-    box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
-    text-align: center;
-    max-width: 250px;
-    transition: transform 0.15s cubic-bezier(0.075, 0.82, .2, 2);
+  height: 95%;
+  min-width: 90%;
+  background-color: #01222b;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  margin: 30px;
+  margin-top: -10px;
+  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.305);
+  text-align: center;
+  max-width: 250px;
+  transition: transform 0.15s cubic-bezier(0.075, 0.82, 0.2, 2);
 }
 
 .opts-card:hover {
-    transform: translateY(-7px);
+  transform: translateY(-7px);
 }
 
 .opts-card h4 {
-    margin-top: -10px;
+  margin-top: -10px;
 }
 
 .opts-card h5 {
-    margin-top: -20px;
+  margin-top: -20px;
 }
 
 .opts-card button {
-    border-radius: 25px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: #023c4a;
-    color: white;
-    transition: all 0.1s ease;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #023c4a;
+  color: white;
+  transition: all 0.1s ease;
 }
 
 .opts-card button:hover {
-    background-color: #023c4a7d;
+  background-color: #023c4a7d;
 }
 
 .OnTop {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    justify-content: top; /* Center content vertically */
-   
-    /* Positioning to center the settings div on the screen */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) translateY(-200%);
-   
-    /* Size of the settings div */
-    width: 600px;
-    height: 600px;
-    
-    /* Styling */
-    border: solid 1px #4d4d4d71;
-    background-color: #0112199a; /* Semi-transparent background */
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
-    color: white; /* Text color */
-    padding: 0px;
-    border-radius: 10px;
-    z-index: 10000; /* Ensure it's above all other elements */
-    
-    /* Initial hidden state */
-    opacity: 0;
-    transition: opacity 0.5s ease-out,transform 0.2s cubic-bezier(0.075, 0.82, .2, 1.4);
-    pointer-events: none; /* Disable interaction when hidden */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: top; /* Center content vertically */
+
+  /* Positioning to center the settings div on the screen */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(-200%);
+
+  /* Size of the settings div */
+  width: 600px;
+  height: 600px;
+
+  /* Styling */
+  border: solid 1px #4d4d4d71;
+  background-color: #0112199a; /* Semi-transparent background */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 12px rgba(0, 0, 0, 0.1);
+  color: white; /* Text color */
+  padding: 0px;
+  border-radius: 10px;
+  z-index: 10000; /* Ensure it's above all other elements */
+
+  /* Initial hidden state */
+  opacity: 0;
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.2s cubic-bezier(0.075, 0.82, 0.2, 1.4);
+  pointer-events: none; /* Disable interaction when hidden */
 }
 
 .OnTop h1 {
-    color: #ff8c00;
-    margin-top: -17px;
+  color: #ff8c00;
+  margin-top: -17px;
 }
 
 .OnTop h2 {
-    color: #ff8c00;
-    font-size: 26px;
-    margin-top: 2px;
+  color: #ff8c00;
+  font-size: 26px;
+  margin-top: 2px;
 }
 
 .OnTop.show {
-    transition: transform 0.2s cubic-bezier(0.075, 0.82, .2, 1.4);
-    opacity: 1;
-    transform: translate(-50%, -50%) translateY(0);
-    pointer-events: auto; /* Enable interaction when visible */
-    visibility: visible;
+  transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.2, 1.4);
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(0);
+  pointer-events: auto; /* Enable interaction when visible */
+  visibility: visible;
 }
 
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 250px; /* Fixed width for the sidebar */
-    background-color: #01121988;
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 20px;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 10001; /* Ensure it's above other content */
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px; /* Fixed width for the sidebar */
+  background-color: #01121988;
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 20px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 10001; /* Ensure it's above other content */
 }
 
 /* Media query for aspect ratio */
 @media (max-aspect-ratio: 1/1.25) {
-    .OnTop {
-        width: 400px;
-        height: 600px;
-    }
+  .OnTop {
+    width: 400px;
+    height: 600px;
+  }
 
-    .job-shop-section {
-        flex-direction: column; /* Stack buttons vertically */
-    }
+  .job-shop-section {
+    flex-direction: column; /* Stack buttons vertically */
+  }
 
-    .earnMoney {
-        min-width: 95%;
-        font-size: 24px;
-        font-weight: 600;
-    }
+  .earnMoney {
+    min-width: 95%;
+    font-size: 24px;
+    font-weight: 600;
+  }
 
-    .job-shop-section button {
-        min-width: 100%; /* Full width for single button */
-    }
+  .job-shop-section button {
+    min-width: 100%; /* Full width for single button */
+  }
 
-    .job-shop-section button { 
-        margin: 7.5px 0px;
-    }
+  .job-shop-section button {
+    margin: 7.5px 0px;
+  }
 }
 
 .game-result {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    background-color: #01121988;
-    color: #f8f8f8;
-    border: 1px solid #f8f8f8;
-    z-index: 1002;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: #01121988;
+  color: #f8f8f8;
+  border: 1px solid #f8f8f8;
+  z-index: 1002;
 
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%) translateY(150%);
-    backdrop-filter: blur(10px);
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(150%);
+  backdrop-filter: blur(10px);
 
-    width: 300px;
-    max-width: 90%;
-    height: 40px;
+  width: 300px;
+  max-width: 90%;
+  height: 40px;
 
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.075, 0.82, .2, 2);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.075, 0.82, 0.2, 2);
 }
 
 .game-result.show {
-    pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
 }
 
 .money-count {
-    position: fixed;
-    background-color: #01121988;
-    backdrop-filter: blur(10px);
-    color: white;
-    border-radius: 0 0 20px 0;
-    z-index: 100000;
-    padding: 5px 15px;
-    top: 0;
-    left: 0;
-    font-weight: 500;
-} 
+  position: fixed;
+  background-color: #01121988;
+  backdrop-filter: blur(10px);
+  color: white;
+  border-radius: 0 0 20px 0;
+  z-index: 100000;
+  padding: 5px 15px;
+  top: 0;
+  left: 0;
+  font-weight: 500;
+}
 
 .money-count p {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .see-workers-btn {
-    width: 20%;
-    max-width: 184.88px;
-    height: 74px;
-    font-size: 20px;
-    color: white;
-    border-radius: 0 0 0 20px;
-    border: none;
-    cursor: pointer;
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 100000;
-    background-color: #01121988;
-    backdrop-filter: blur(10px);
-    font-weight: 600;
-    color: #f8f8f8;
-    cursor: pointer;
-    font-size: 20px;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 20%;
+  max-width: 184.88px;
+  height: 74px;
+  font-size: 20px;
+  color: white;
+  border-radius: 0 0 0 20px;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100000;
+  background-color: #01121988;
+  backdrop-filter: blur(10px);
+  font-weight: 600;
+  color: #f8f8f8;
+  cursor: pointer;
+  font-size: 20px;
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease;
 }
 
 .see-workers-btn:hover {
-    background-color: #01212f88;
+  background-color: #01212f88;
 }
