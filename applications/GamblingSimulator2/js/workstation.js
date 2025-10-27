@@ -1,19 +1,82 @@
+// mps and performance is calculated and not saved.
+
+const powerUps = {
+  tech: [
+    {
+      name: "Higher production",
+      lvls: [
+        {
+          description: "Increase production by 10%",
+          id: 0,
+          cost: 1_000,
+          employeesNeeded: null,
+          companiesNeeded: null,
+          typeOfCompaniesNeeded: null,
+          effect: function (company) {
+            company.productionMult *= 1.1;
+          },
+        },
+        {
+          description: "Increase production by 20%",
+          id: 1,
+          cost: 100_000,
+          employeesNeeded: null,
+          companiesNeeded: null,
+          typeOfCompaniesNeeded: null,
+          effect: function (company) {
+            company.productionMult *= 1.2;
+          },
+        },
+      ],
+    },
+    {
+      name: "Improved efficiency",
+      lvls: [
+        {
+          description: "Increase efficiency by 5%",
+          cost: 10_000,
+          id: 0,
+          employeesNeeded: 1,
+          companiesNeeded: 1,
+          typeOfCompaniesNeeded: ["Taxi"],
+          effect: function (company) {
+            company.mult *= 1.05;
+          },
+        },
+      ],
+    },
+    {
+      name: "Tax cuts",
+      lvls: [
+        {
+          description: "Increase efficiency by 5%",
+          cost: 100_000,
+          id: 0,
+          employeesNeeded: 1,
+          companiesNeeded: 1,
+          typeOfCompaniesNeeded: ["Bank"],
+          effect: function (company) {
+            company.mult *= 1.05;
+          },
+        },
+      ],
+    },
+  ],
+};
+
 let companies = [
   {
     name: "Company A",
     type: "Technology",
     employees: 10,
     marketCap: 1_000_000_000,
-    mult: 1,
+    productionMult: 1,
     morale: 1,
-    productivity: 1,
+    taxPaymentMult: 1,
     powerUps: [
       {
         name: "Higher production",
-        description: "Increase production by 10%",
-        effect: function (company) {
-          company.mult *= 1.1;
-        },
+        lvls: [0], // this is the level id
       },
     ],
   },
@@ -77,5 +140,17 @@ companyEmployeesContainer.addEventListener("mouseout", () => {
 });
 
 fixWorkstationCSS();
+
+function formatNumber(num) {
+  num = Number(num);
+
+  if (num >= 1e9) {
+    return num.toExponential(2).replace("e+", "e");
+  }
+
+  return num
+    .toLocaleString("en-US") // adds commas
+    .replace(/,/g, "_"); // replace commas with underscores
+}
 
 function updateCompanyItems() {}

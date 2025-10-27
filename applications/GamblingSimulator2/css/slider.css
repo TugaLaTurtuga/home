@@ -43,3 +43,48 @@ input[type="range"]::-moz-range-thumb {
 ::-webkit-scrollbar {
   display: none;
 }
+
+input[type="text"] {
+  width: calc(100% - 10px);
+  margin: 5px;
+  --bg: var(--bg-2);
+  --accent: var(--activeColor);
+  background: var(--bg);
+  color: var(--accent);
+
+  border-left: 2px var(--bg-1) solid;
+  border-top: 2px var(--bg-1) solid;
+  border-right: 2px var(--sliderBgColor) solid;
+  border-bottom: 2px var(--sliderBgColor) solid;
+
+  outline: none;
+  padding: 6px 10px;
+
+  border-radius: 0;
+}
+
+input[type="text"]input[type="text"] {
+  width: calc(100% - 10px);
+  margin: 5px;
+  --bg: var(--bg-2);
+  --accent: var(--activeColor);
+  background: var(--bg);
+  color: var(--accent);
+
+  border-left: 2px var(--bg-1) solid;
+  border-top: 2px var(--bg-1) solid;
+  border-right: 2px var(--sliderBgColor) solid;
+  border-bottom: 2px var(--sliderBgColor) solid;
+
+  outline: none;
+  padding: 6px 10px;
+
+  border-radius: 0;
+}
+
+input[type="text"]:focus {
+  border-left: 2px var(--sliderBgColor) solid;
+  border-top: 2px var(--sliderBgColor) solid;
+  border-right: 2px var(--bg-1) solid;
+  border-bottom: 2px var(--bg-1) solid;
+}

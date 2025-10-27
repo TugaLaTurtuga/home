@@ -76,6 +76,19 @@
 
           <p class="company-employees-attendance">Attendance: 100.0%</p>
 
+          <p class="company-employees-workers">
+            Expected amount of employees: 1_000
+          </p>
+
+          <input
+            type="range"
+            min="0.3"
+            max="1.5"
+            value="1"
+            step="0.001"
+            style="--bg: var(--bg-2)"
+          />
+
           <p class="company-employees-salary">Median Salary: $___</p>
 
           <input
@@ -88,29 +101,54 @@
 
           <p class="company-employees-power-ups-text">Power Ups:</p>
           <div class="company-employees-power-ups">
-            <div class="company-employees-power-up" title="CRAZY POWER UP">
+            <div
+              class="company-employees-power-up"
+              title="crazy power up"
+              description="decription nadskjo oas djklçd asjklçdj akslç djkasç kdjllasç"
+              cost="1e300"
+            >
               <img
                 class="company-employees-power-up-img"
                 src=""
-                alt="Power Up 1"
+                id="ReduceTaxBy10%"
+                alt=""
               />
             </div>
           </div>
 
-          <p class="company-employees-power-ups-store">Power Ups store:</p>
+          <p class="company-employees-power-ups-store-text">Power Ups store:</p>
+          <div class="company-employees-power-ups-store">
+            <div
+              class="company-employees-power-up"
+              encoded="true"
+              title="crazy power up"
+              description="decription nadskjo oas djklçd asjklçdj akslç djkasç kdjllasç"
+              cost="1e300"
+            >
+              <img
+                class="company-employees-power-up-img"
+                src=""
+                id="ReduceTaxBy10%"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="page" page="investments">1</div>
+    <div class="page" page="investments">investments - todo</div>
     <div class="page" page="casino">
       <div class="casino-container" id="casino-container"></div>
     </div>
-    <div class="page" page="bank">3</div>
-    <div class="page" page="settings">4</div>
+    <div class="page" page="bank">bank - todo</div>
+    <div class="page" page="settings">settings - todo</div>
 
     <div class="notifications" id="notifications" aria-live="polite"></div>
+    <div class="modal hidden"><div class="modal-content"></div></div>
 
     <script src="js/notification.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/encoder.js"></script>
     <script src="js/pageOpener.js"></script>
     <script src="js/vars.js"></script>
     <script src="js/moneyHandler.js"></script>

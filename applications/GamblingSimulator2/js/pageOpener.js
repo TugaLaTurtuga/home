@@ -87,10 +87,62 @@ document.body.appendChild(tooltip);
 function getTooltips() {
   // Show tooltip on hover for elements with [title]
   document.querySelectorAll("[title]").forEach((el) => {
-    const titleText = el.getAttribute("title");
+    const titleText = String(el.getAttribute("title")).trim().toUpperCase();
+    const descriptionText = String(el.getAttribute("description")).trim();
+    const costText = String(el.getAttribute("cost")).trim();
+
+    const isEncoded = String(el.getAttribute("encoded")).trim() === "true";
 
     el.addEventListener("mouseenter", (e) => {
-      tooltip.textContent = titleText;
+      const parts = [];
+
+      if (descriptionText) {
+        if (isEncoded) {
+          parts.push(
+            `<p class="custom-tooltip-header">${encrypt(titleText)}</p>`,
+          );
+          parts.push(
+            `<p class="custom-tooltip-description">${encrypt(descriptionText)}</p>`,
+          );
+        } else {
+          parts.push(`<p class="custom-tooltip-header">${titleText}</p>`);
+          parts.push(
+            `<p class="custom-tooltip-description">${descriptionText}</p>`,
+          );
+        }
+      }
+
+      if (costText) {
+        if (parts.length === 0) {
+          if (isEncoded) {
+            parts.push(
+              `<p class="custom-tooltip-header no-border">${encrypt(titleText)}</p>`,
+            );
+          } else {
+            parts.push(
+              `<p class="custom-tooltip-header no-border">${titleText}</p>`,
+            );
+          }
+        }
+
+        if (isEncoded) {
+          parts.push(
+            `<p class="custom-tooltip-cost no-border">${formatCost(costText)}</p>`,
+          );
+        } else {
+          parts.push(
+            `<p class="custom-tooltip-cost no-border">${formatCost(costText)}</p>`,
+          );
+        }
+      }
+
+      if (parts.length === 0) {
+        tooltip.innerHTML = "";
+        tooltip.textContent = titleText;
+      } else {
+        tooltip.innerHTML = parts.join("");
+      }
+
       el.setAttribute("data-title", titleText); // store for accessibility
       el.removeAttribute("title"); // prevent native tooltip
       tooltip.classList.add("show");

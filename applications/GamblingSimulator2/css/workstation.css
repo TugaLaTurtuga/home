@@ -46,7 +46,7 @@
 }
 
 .companies-div .company-data-container {
-  --min-height: 20%;
+  --min-height: 40%;
   --height: 50%;
   background-color: var(--bg-2);
   padding: 10px;
@@ -80,12 +80,12 @@
   top: 5px;
   right: 5px;
   background: var(--bg-2);
-  border-top: 2px var(--textSubColor) solid;
-  border-left: 2px var(--textSubColor) solid;
+  border-top: 2px var(--activeColor) solid;
+  border-left: 2px var(--activeColor) solid;
   border-right: 2px var(--bg-2) solid;
   padding: 7px 8px;
   height: 2rem !important;
-  color: var(--textSubColor);
+  color: var(--activeColor);
   width: 14rem;
 }
 
@@ -94,11 +94,39 @@
   top: calc(2rem + 5px);
   right: 5px;
   border-left: 2px var(--bg-2) solid;
-  border-bottom: 2px var(--textSubColor) solid;
-  border-right: 2px var(--textSubColor) solid;
+  border-bottom: 2px var(--activeColor) solid;
+  border-right: 2px var(--activeColor) solid;
   background: var(--bg-2);
   padding: 7px 8px;
   height: 2rem !important;
-  color: var(--textSubColor);
+  color: var(--activeColor);
   width: 14rem;
+}
+
+.companies-div .company-employees-power-up {
+  height: 2rem !important;
+  width: 2rem !important;
+  border-left: 2px var(--sliderBgColor) solid;
+  border-top: 2px var(--sliderBgColor) solid;
+  border-right: 2px var(--trackItemOnHover) solid;
+  border-bottom: 2px var(--trackItemOnHover) solid;
+}
+
+.companies-div .company-employees-power-up:active {
+  border-right: 2px var(--sliderBgColor) solid;
+  border-bottom: 2px var(--sliderBgColor) solid;
+  border-left: 2px var(--trackItemOnHover) solid;
+  border-top: 2px var(--trackItemOnHover) solid;
+}
+
+.companies-div .company-employees-power-up .company-employees-power-up-img {
+  border: none;
+}
+
+.company-data-container .company-employees-power-up {
+  background: var(--sliderBgColor);
+}
+
+.company-employees-container .company-employees-power-up {
+  background: var(--bg-2);
 }

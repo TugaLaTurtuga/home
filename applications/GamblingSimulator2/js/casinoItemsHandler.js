@@ -4,6 +4,7 @@ const casinoItems = [
   {
     id: 0,
     name: "Coin",
+    minBet: 50,
     description: "A simple coin with heads and tails.",
     difficulty: [
       {
@@ -29,6 +30,7 @@ const casinoItems = [
   {
     id: 1,
     name: "Dice",
+    minBet: 50,
     description: "A six-sided die with numbers 1 to 6.",
     difficulty: [
       {
@@ -54,6 +56,7 @@ const casinoItems = [
   {
     id: 2,
     name: "Card",
+    minBet: 50,
     description: "A standard playing card with a rank and suit.",
     difficulty: [
       {
@@ -91,6 +94,7 @@ function createCasinoItems() {
       Math.random() * (item.difficulty.length - 0.1),
     );
     const initialBet = Math.random().toFixed(3);
+    const minBet = item.minBet || 50;
     itemElement.innerHTML = `
       <p class="casino-header">${item.name}</p>
 
@@ -106,7 +110,7 @@ function createCasinoItems() {
 
       <p class="casino-description">${item.description}</p>
 
-      <p class="casino-input-text" id="bet-text">Bet: ${formatCost(initialBet * player.balance)}</p>
+      <p class="casino-input-text" id="bet-text">Bet: ${formatCost(Math.max(initialBet * player.balance, minBet))}</p>
       <input
         class="casino-bet-input"
         type="range"
@@ -114,6 +118,7 @@ function createCasinoItems() {
         min="0"
         max="1"
         value="${initialBet}"
+        bet="${Math.max(initialBet * player.balance, minBet)}"
       />
 
       <button class="casino-btn">Play</button>
@@ -133,17 +138,22 @@ function createCasinoItems() {
 
     betInputElement.addEventListener("input", () => {
       console.log("Bet amount changed", betInputElement.value * player.balance);
-      betTextElement.textContent = `Bet: ${formatCost(
-        betInputElement.value * player.balance,
-      )}`;
+      betInputElement.setAttribute(
+        "bet",
+        Math.max(initialBet * player.balance, minBet),
+      );
+      betTextElement.textContent = `Bet: ${formatCost(Math.max(betInputElement.value * player.balance, minBet))}`;
     });
 
     const playButton = itemElement.querySelector(".casino-btn");
     playButton.addEventListener("click", () => {
-      notify("Play button clicked", {
-        title: "IMPORTANT",
-        type: "info",
-      });
+      notify(
+        `Play button clicked, paying amount: ${parseFloat(betInputElement.getAttribute("bet"))}`,
+        {
+          title: "IMPORTANT",
+          type: "info",
+        },
+      );
     });
 
     casinoContainer.appendChild(itemElement);
