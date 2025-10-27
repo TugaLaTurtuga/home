@@ -1,11 +1,47 @@
 [
-    {"name": "0.0.000", "Subtitle": "Creator of the game: TugaLaTurtuga", "Description": "-Creation of the game"},
-    {"name": "0.0.100", "Subtitle": "The bank update", "Description": "-Added the bank -Bug fixes"},
-    {"name": "0.0.200", "Subtitle": "Bug fixes", "Description": "-Creation of the change log -css improvements"},
-    {"name": "0.1.000", "Subtitle": "The 'actualy make your game playable' update", "Description": "-Money is now in k, m insted of 1_000, 1_000_000... -Worker btns now looks decent -Now insted of taking immidietly a loan (when the player has negative money) it takes to the bank -fixed workers price -Added images to the workers"},
-    {"name": "0.1.200", "Subtitle": "Preperation for the preperation of 0.2", "Description": "-Creation of the game blackjack (but an actual game not just a btn) -Bug fixes"},
-    {"name": "0.1.300", "Subtitle": "Prep for 0.2", "Description": "-Bug fixes -Added a better font -Added two more games -Better bankrupt system -Upgrade for the change logs -Better navegation for people using a mobile device"},
-    {"name": "0.1.400", "Subtitle": "Finishing touches for 0.1", "Description": "-Bug fixes -Better money formator -Finished the images in the btns -The casino games now work for mobile -Added settings for computers (crtl + ;) -Improvements on the code of the game (the saving system still works by magic, and lots of reloading the game)"},
-    {"name": "0.2.000", "Subtitle": "The casino update", "Description": " -Complete css rework -Broke the mobile mode -Finished all the games for Gambling Centre™ -Added sfx -The amount to pay and prize in the casino games now changes depending of the players money (kinda like how the loans works) -Added sidebar -Change log numbers rework, now is '${epoch}.${major}.${minor * 100 + patch}'"},
-    {"1name": "0.2.100", "Subtitle": "The audio update", "Description": "-Bug fixes -Added sfx (this took so long) -This update was soppused to have the settings and the music. -Added more songs -Upgradable 'Work (Click to earn)' btn"}
+  {
+    "name": "0.0.000",
+    "Subtitle": "Creator of the game: TugaLaTurtuga",
+    "Description": "-Creation of the game"
+  },
+  {
+    "name": "0.0.100",
+    "Subtitle": "The bank update",
+    "Description": "-Added the bank -Bug fixes"
+  },
+  {
+    "name": "0.0.200",
+    "Subtitle": "Bug fixes",
+    "Description": "-Creation of the change log -css improvements"
+  },
+  {
+    "name": "0.1.000",
+    "Subtitle": "The 'actualy make your game playable' update",
+    "Description": "-Money is now in k, m insted of 1_000, 1_000_000... -Worker btns now looks decent -Now insted of taking immidietly a loan (when the player has negative money) it takes to the bank -fixed workers price -Added images to the workers"
+  },
+  {
+    "name": "0.1.200",
+    "Subtitle": "Preperation for the preperation of 0.2",
+    "Description": "-Creation of the game blackjack (but an actual game not just a btn) -Bug fixes"
+  },
+  {
+    "name": "0.1.300",
+    "Subtitle": "Prep for 0.2",
+    "Description": "-Bug fixes -Added a better font -Added two more games -Better bankrupt system -Upgrade for the change logs -Better navegation for people using a mobile device"
+  },
+  {
+    "name": "0.1.400",
+    "Subtitle": "Finishing touches for 0.1",
+    "Description": "-Bug fixes -Better money formator -Finished the images in the btns -The casino games now work for mobile -Added settings for computers (crtl + ;) -Improvements on the code of the game (the saving system still works by magic, and lots of reloading the game)"
+  },
+  {
+    "name": "0.1.500",
+    "Subtitle": "The 'I give up' update",
+    "Description": " -Complete css rework -Broke the mobile mode -Added sfx  -Added sidebar -Change log numbers rework, now is '${epoch}.${major}.${minor * 100 + patch}' -Problably I won't work more on this game since I'm already making GM2 and the code base of this Game is shit."
+  },
+  {
+    "1name": "0.2.100",
+    "Subtitle": "The audio update",
+    "Description": "-The amount to pay and prize in the casino games now changes depending of the players money (kinda like how the loans works) -Finished all the games for Gambling Centre™ -Bug fixes -Added sfx (this took so long) -This update was soppused to have the settings and the music. -Added more songs -Upgradable 'Work (Click to earn)' btn"
+  }
 ]
