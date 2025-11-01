@@ -1,0 +1,112 @@
+* {
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #fff;
+}
+
+canvas {
+  display: block;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #333344;
+  overflow: hidden;
+}
+
+.menu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 40vh;
+  aspect-ratio: 4/3 !important;
+  max-width: 95vw;
+  width: auto;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  backdrop-filter: blur(1px);
+  animation: fadeInScale 0.4s ease forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) translateY(-150px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.menu h1 {
+  margin-top: -35px;
+  background: rgba(128, 50, 0, 0.5);
+  padding: 8px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+}
+.menu button {
+  background: rgba(128, 50, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.menu button.active {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+}
+.menu button:active {
+  transform: translateY(3px);
+  border-bottom: none;
+}
+
+#ui {
+  position: fixed;
+  right: 18px;
+  top: 18px;
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  user-select: none;
+  pointer-events: auto;
+}
+#ui button {
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+#ui button.active {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+}
+#ui button:active {
+  transform: translateY(1px);
+}
