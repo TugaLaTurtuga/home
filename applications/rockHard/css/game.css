@@ -1,0 +1,134 @@
+:root {
+    --margin: 20px;
+}
+
+.shop-ui {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0px;
+  animation: fadeInShopUI 0.3s ease forwards;
+}
+
+.shop-ui.hidden {
+  animation: fadeOutShopUI 0.4s ease forwards;
+}
+
+@keyframes fadeOutShopUI {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.5) translateY(100%);
+  }
+}
+
+@keyframes fadeInShopUI {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(100%);    
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sidebar {
+  margin: var(--margin);
+  margin-right: 0px;
+  margin-bottom: 0px;
+  width: calc(15vw - var(--margin) * 2);
+  min-width: 200px;
+  height: calc(100vh - var(--margin) * 1);
+  border-radius: 15px 15px 0px 0px;
+  background: var(--menu-bg);
+  overflow: hidden;
+  flex-shrink: 0;
+  backdrop-filter: blur(2px);
+}
+
+.sidebar h2 {
+  background: var(--accent-color);
+  margin: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 2.5rem;
+  width: calc(100% - 45px);
+  display: inline-block;
+  color: white;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.outside-sidebar {
+  flex: 1;
+  margin: 20px 20px 20px 0;
+  height: calc(100vh - var(--margin) * 1);
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  gap: var(--margin);
+  margin: var(--margin);
+  margin-right: calc(var(--margin) * 2);
+  margin-left: 0px;
+  margin-bottom: 0px;
+  overflow: hidden;
+  backdrop-filter: blur(1px);
+}
+
+.player-cards {
+    margin-top: var(--margin);
+    margin-left: var(--margin);
+    height: 25%;
+    width: calc(100% - var(--margin) * 2);
+    background: var(--accent-color);
+    border-radius: 15px;
+    backdrop-filter: blur(2px);
+}
+
+.shop {
+    height: 100%;
+    width: 100%;
+    background: var(--accent-color);
+    border-radius: 0px 15px 0px 0px;
+    backdrop-filter: blur(2px);
+}
+
+.deck {
+    --height: 60px;
+    margin-top: calc(100vh - var(--height) - var(--margin) * .5);
+    margin-left: calc(var(--margin) * -1.5);
+    margin-right: calc(var(--margin) * .5);
+    height: var(--height);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--bg);
+}
+
+.player-money {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0px 10px;
+    width: calc(100% - 20px);
+    border-radius: 15px 15px 0px 0px;
+    padding: 5px 0px;
+    background: var(--accent-color);
+    text-align: center;
+    font-size: 2rem;
+}

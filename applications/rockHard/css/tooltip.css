@@ -1,8 +1,30 @@
+:root {
+  --bg: #333344;
+  --textColor: #fff;
+  --menu-bg: #0000008c;
+  --accent-color: #80320080;
+}
+
 * {
   font-family: "Jersey 15", sans-serif;
   font-weight: 400;
   font-style: normal;
-  color: #fff;
+  color: var(--textColor);
+}
+
+.wave-text span {
+  display: inline-block;
+  transform: translateY(6px);
+  animation: wave 6s infinite ease-in-out;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(6px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 canvas {
@@ -13,12 +35,13 @@ html,
 body {
   margin: 0;
   height: 100%;
-  background: #333344;
+  background: var(--bg);
   overflow: hidden;
 }
 
 .menu {
   position: fixed;
+  display: block;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -27,7 +50,7 @@ body {
   max-width: 95vw;
   width: auto;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.55);
+  background: var(--menu-bg);
   padding: 10px;
   border-radius: 10px;
   justify-content: center;
@@ -35,6 +58,10 @@ body {
   justify-items: center;
   backdrop-filter: blur(1px);
   animation: fadeInScale 0.4s ease forwards;
+}
+
+.menu.hidden {
+  animation: fadeOutScale 0.4s ease forwards;
 }
 
 @keyframes fadeInScale {
@@ -48,25 +75,34 @@ body {
   }
 }
 
-.hidden {
-  display: none;
+@keyframes fadeOutScale {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) translateY(150px);
+  }
 }
 
 .menu h1 {
   margin-top: -35px;
-  background: rgba(128, 50, 0, 0.5);
+  background: var(--accent-color);
   padding: 8px 12px;
   border-radius: 8px;
   backdrop-filter: blur(6px);
 }
 .menu button {
-  background: rgba(128, 50, 0, 0.55);
+  background: var(--accent-color);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 3px solid rgba(255, 255, 255, 0.08);
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   backdrop-filter: blur(6px);
+  transition: all .1s ease;
 }
 .menu button.active {
   background: linear-gradient(
@@ -109,4 +145,53 @@ body {
 }
 #ui button:active {
   transform: translateY(1px);
+}
+
+#ui.hidden {
+  display: none;
+  pointer-events: none;
+}
+
+#cooldownCircle {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  height: 35px;
+  aspect-ratio: 1;
+  --circle-border: 6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
+  pointer-events: none;
+}
+
+#cooldownCircle.hidden {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.cooldownRing {
+  position: absolute;
+  transform: rotate(-90deg);
+}
+
+.ring-progress {
+  fill: none;
+  stroke: var(--accent-color);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+#cooldownText {
+  position: absolute;
+  color: white;
+  font-family: monospace;
+  font-size: 0.9em;
 }

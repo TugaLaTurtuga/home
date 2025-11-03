@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rock hard - simulation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/tooltip.css" />
+  </head>
+  <body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="ui">
+      <div id="cooldownCircle" class="hidden">
+        <span id="cooldownText"></span>
+      </div>
+      <button id="toggleBoost" class="btn"></button>
+    </div>
+    <div class="menu hidden" style="display: none;" id="endingMenu">
+      <h1 id="header">Header</h1>
+    </div>
+
+    <script src="balls.js"></script>
+    <script>
+      // --- Entity definitions ---
+      entities = [
+        {
+          name: "Rock",
+          color: [128, 128, 128],
+          winsTo: [2],
+          attractedToSame: false,
+          amount: 50,
+        },
+        {
+          name: "Paper",
+          color: [255, 255, 255],
+          winsTo: [0],
+          attractedToSame: false,
+          amount: 100,
+        },
+        {
+          name: "Scissors",
+          color: [255, 0, 0],
+          winsTo: [1],
+          attractedToSame: false,
+          amount: 100,
+        },
+      ];
+
+      // Special non-RPS entities
+      specialEntities = [
+        {
+          name: "Black Hole",
+          color: [0, 0, 0],
+          border: [128, 50, 0],
+          winsTo: [0, 1, 2],
+          damping: 0.5,
+          sizeMultiplier: 5,
+          massMultiplier: 1,
+          amount: 1,
+        },
+      ];
+      startSimulation();
+    </script>
+  </body>
+</html>

@@ -1,50 +1,32 @@
-// --- Entity definitions ---
-let entities = [
-  {
-    name: "Rock",
-    color: [128, 128, 128],
-    winsTo: [2],
-    attractedToSame: false,
-  },
-  {
-    name: "Paper",
-    color: [255, 255, 255],
-    winsTo: [0],
-    attractedToSame: false,
-  },
-  {
-    name: "Scissors",
-    color: [255, 0, 0],
-    winsTo: [1],
-    attractedToSame: false,
-  },
-];
-
-// Special non-RPS entities
-let specialEntities = [
-  {
-    name: "Black Hole",
-    color: [0, 0, 0],
-    border: [128, 50, 0],
-    winsTo: [0, 1, 2],
-    damping: 0.5,
-    sizeMultiplier: 5,
-    massMultiplier: 1,
-  },
-];
-
-let ballsAmount = 250;
-let specialEntitiesAmount = 1;
+let entities = [];
+let specialEntities = [];
 
 let defaultDT = 1;
 let defaultDTWon = 0.5;
 let boostMultiplier = 5;
 
 let preservedMassAmountOnCollision = 0.35;
+
 let cursorMass = -5;
 let cursorSpeedMass = -0.2;
 let cursorClickMass = -1000;
 let maxCursorMass = [-1000, 10];
+let cursorClickCooldown_ms = 2000;
+let cursorClickTime = null;
+
+let playerBallID = 0;
+
+let showNames = false;
+
+function slowDownSimulation() {
+  defaultDT = 0.2;
+  defaultDTWon = 0;
+}
+
+function defaultSpeedSimulation() {
+  defaultDT = 1;
+  defaultDTWon = 0.5;
+}
 
 // --- Canvas setup ---
 const canvas = document.getElementById("gameCanvas");
@@ -56,63 +38,73 @@ window.addEventListener("resize", () => {
   H = canvas.height = window.innerHeight;
 });
 
+let dt = defaultDT;
 let balls = [];
+let stop = false;
+let ended = false;
+let showEndingScreen = true;
+let startedSimulation = false;
+let coolDownTimeOnStart = 0;
 
 function initBalls() {
   // normal RPS balls
   const entityLength = entities.length;
   const specialEntityLength = specialEntities.length;
-  for (let i = 0; i < ballsAmount; i++) {
-    const id = Math.floor(Math.random() * entityLength);
+  for (let id = 0; id < entityLength; id++) {
+    if (!entities[id] || typeof entities[id] !== 'object') continue;
+    const amountOfEntity = entities[id].amount ?? 0;
+    for (let j = 0; j < amountOfEntity; j++) {
+      const sizeMultiplier = entities[id].sizeMultiplier ?? 1;
+      const massMultiplier = entities[id].massMultiplier ?? 1;
 
-    const sizeMultiplier = entities[id].sizeMultiplier ?? 1;
-    const massMultiplier = entities[id].massMultiplier ?? 1;
+      const size = (Math.random() * 2 + 6) * sizeMultiplier;
+      const mass = size * size * 0.1 * massMultiplier;
 
-    const size = (Math.random() * 2 + 6) * sizeMultiplier;
-    const mass = size * size * 0.1 * massMultiplier;
+      const damping = entities[id].damping ?? 0.995;
 
-    const damping = entities[id].damping ?? 0.995;
-
-    balls.push({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      velX: (Math.random() - 0.5) * 0.8,
-      velY: (Math.random() - 0.5) * 0.8,
-      color: entities[id].color,
-      border: entities[id].border,
-      size,
-      mass,
-      id,
-      damping,
-      atractedToSame: entities[id].attractedToSame ?? true,
-    });
+      balls.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        velX: (Math.random() - 0.5) * 0.8,
+        velY: (Math.random() - 0.5) * 0.8,
+        color: entities[id].color,
+        border: entities[id].border,
+        size,
+        mass,
+        id,
+        damping,
+        atractedToSame: entities[id].attractedToSame ?? true,
+      });
+    }
   }
 
   // one stationary black hole in the center
-  for (let i = 0; i < specialEntitiesAmount; i++) {
-    const id = Math.floor(Math.random() * specialEntityLength);
+  for (let id = 0; id < specialEntityLength; id++) {
+    if (!specialEntities[id] || typeof specialEntities[id] !== 'object') continue;
+    const amountOfEntity = specialEntities[id].amount ?? 0;
+    for (let j = 0; j < amountOfEntity; j++) {
+      const sizeMultiplier = specialEntities[id].sizeMultiplier ?? 1;
+      const massMultiplier = specialEntities[id].massMultiplier ?? 1;
 
-    const sizeMultiplier = specialEntities[id].sizeMultiplier ?? 1;
-    const massMultiplier = specialEntities[id].massMultiplier ?? 1;
+      const size = (Math.random() * 2 + 6) * sizeMultiplier;
+      const mass = size * size * 0.1 * massMultiplier;
 
-    const size = (Math.random() * 2 + 6) * sizeMultiplier;
-    const mass = size * size * 0.1 * massMultiplier;
+      const damping = specialEntities[id].damping ?? 0.995;
 
-    const damping = specialEntities[id].damping ?? 0.995;
-
-    balls.push({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      velX: (Math.random() - 0.5) * 0.8,
-      velY: (Math.random() - 0.5) * 0.8,
-      color: specialEntities[id].color,
-      border: specialEntities[id].border,
-      size,
-      mass,
-      id: id + entityLength,
-      damping,
-      atractedToSame: specialEntities[id].attractedToSame ?? true,
-    });
+      balls.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        velX: (Math.random() - 0.5) * 0.8,
+        velY: (Math.random() - 0.5) * 0.8,
+        color: specialEntities[id].color,
+        border: specialEntities[id].border,
+        size,
+        mass,
+        id: id + entityLength,
+        damping,
+        atractedToSame: specialEntities[id].attractedToSame ?? true,
+      });
+    }
   }
 }
 
@@ -146,9 +138,15 @@ scene.height = H;
 
 /* Tunables */
 let baseSoftening = 4;
+let lastTime = 0;
 
 /* Main drawBalls */
-function drawBalls(now) {
+function drawBalls(timestamp) {
+  if (stop) {
+    stop = false;
+    return;
+  }
+
   const toRemove = new Set();
   if (oldCursorPos !== cursorPos) {
     let cursorRealMass =
@@ -161,6 +159,11 @@ function drawBalls(now) {
       cursorRealMass += cursorClickMass;
       hasClicked = false;
     }
+
+    cursorRealMass = Math.max(
+      maxCursorMass[0],
+      Math.min(cursorRealMass, maxCursorMass[1]),
+    );
     const cursorBall = {
       x: cursorPos.x,
       y: cursorPos.y,
@@ -175,14 +178,18 @@ function drawBalls(now) {
     };
 
     balls.push(cursorBall);
-    console.warn(cursorMass);
     toRemove.add(cursorBall);
     oldCursorPos.x = cursorPos.x;
     oldCursorPos.y = cursorPos.y;
   }
 
   // speed multiplier
-  let dt = boost ? boostMultiplier * defaultDT : defaultDT;
+  if (!lastTime) lastTime = timestamp;
+  let time = (timestamp - lastTime) / 16.6;
+  lastTime = timestamp;
+
+  dt = ended ? defaultDTWon : boost ? boostMultiplier * defaultDT : defaultDT;
+  dt *= time
   const softening = baseSoftening;
 
   // prepare scene canvas size (in case of resize)
@@ -200,15 +207,27 @@ function drawBalls(now) {
   let won = true;
   let possibleIdWon = balls[0].id;
 
+  let lost = true;
+
   for (let i = 0; i < n; i++) {
-    if (
-      balls[i].id !== possibleIdWon &&
-      won &&
-      balls[i].id < entities.length &&
-      balls[i].id >= 0
-    )
-      won = false;
     const bi = balls[i];
+    const biID = bi.id
+    
+    if (
+      biID !== possibleIdWon &&
+      won &&
+      biID < entities.length &&
+      biID >= 0
+    ) {
+      won = false;
+      possibleIdWon = -1;
+    }
+
+    if (lost && biID === playerBallID ) {
+      lost = false;
+    }
+      
+    
     const attractedToSameType = bi.atractedToSame;
     for (let j = i + 1; j < n; j++) {
       const bj = balls[j];
@@ -234,58 +253,66 @@ function drawBalls(now) {
       ax[j] -= fx / bj.mass;
       ay[j] -= fy / bj.mass;
 
-      // Rock-paper-scissors elimination on overlap (distance < minDist)
-      if (distance < minDist) {
-        let a = bi.id;
+      // elimination on overlap
+      if (distance <= minDist) {
+        let a = biID;
         let b = bj.id;
 
-        if (a === b || a < 0 || b < 0) continue; // same type → normal collision later
+        if (a < 0 || b < 0) continue; // non entity
 
-        let winner = bj;
-        let loser = bi;
+        let winner;
+        let loser = [];
 
         // Determine entity types
-        const isISpecial = a >= entities.length;
-        const isJSpecial = b >= entities.length;
+        const isASpecial = a >= entities.length;
+        const isBSpecial = b >= entities.length;
 
         // Normalize IDs within their group
-        const normA = isISpecial ? a - entities.length : a;
-        const normB = isJSpecial ? b - entities.length : b;
+        const normA = isASpecial ? a - entities.length : a;
+        const normB = isBSpecial ? b - entities.length : b;
 
-        // Determine win conditions array
-        const winsMatrix =
-          isISpecial && isJSpecial
-            ? specialEntities[normA]?.specialWinsTo
-            : isISpecial
-              ? specialEntities[normA]?.winsTo
-              : isJSpecial
-                ? entities[normA]?.specialWinsTo
-                : entities[normA]?.winsTo;
+        const winsMatrixA = isASpecial
+          ? isBSpecial ? specialEntities[normA]?.specialWinsTo : specialEntities[normA]?.winsTo
+          : isBSpecial ? entities[normA]?.specialWinsTo : entities[normA]?.winsTo
 
-        // Compare normalized IDs, not raw IDs
-        if (winsMatrix?.includes(normB)) {
+        const winsMatrixB = isBSpecial
+          ? isASpecial ? specialEntities[normB]?.specialWinsTo : specialEntities[normB]?.winsTo
+          : isASpecial ? entities[normB]?.specialWinsTo : entities[normB]?.winsTo
+
+        // Only consider as valid if the winsTo array actually has elements
+        const aHasValidWins = Array.isArray(winsMatrixA) && winsMatrixA.length > 0;
+        const bHasValidWins = Array.isArray(winsMatrixB) && winsMatrixB.length > 0;
+
+        if (aHasValidWins && winsMatrixA.includes(normB)) {
           winner = bi;
-          loser = bj;
-        } else if (winsMatrix?.includes(normA)) {
+          loser.push(bj);
+        } 
+        if (bHasValidWins && winsMatrixB.includes(normA)) {
           winner = bj;
-          loser = bi;
+          loser.push(bi);
         }
 
-        toRemove.add(loser);
+        
+        if (loser.length > 0) {
+          for (let l = 0; l < loser.length; l++) {
+            toRemove.add(loser[l]);
+          }
+        }
 
-        // Apply reward to winner
+        if (winner) {
+          // Apply reward to winner
+          winner.mass += loser[0].mass * preservedMassAmountOnCollision;
+          winner.size = Math.cbrt(
+            Math.max(0.1, winner.size ** 3 + loser[0].size ** 3 * 0.35),
+          );
 
-        winner.mass += loser.mass * preservedMassAmountOnCollision;
-        winner.size = Math.cbrt(
-          Math.max(0.1, winner.size ** 3 + loser.size ** 3 * 0.35),
-        );
-
-        // Apply small kick away from collision
-        const nx = dx / (distance + 1e-9);
-        const ny = dy / (distance + 1e-9);
-        const kick = 0.6;
-        winner.velX += (winner === bi ? -nx : nx) * kick;
-        winner.velY += (winner === bi ? -ny : ny) * kick;
+          // Apply small kick away from collision
+          const nx = dx / (distance + 1e-9);
+          const ny = dy / (distance + 1e-9);
+          const kick = 0.6;
+          winner.velX += (winner === bi ? -nx : nx) * kick;
+          winner.velY += (winner === bi ? -ny : ny) * kick;
+        }
       }
     }
   }
@@ -294,14 +321,14 @@ function drawBalls(now) {
     balls = balls.filter((b) => !toRemove.has(b));
   }
 
-  if (won && balls.length > 0) {
+  if ((won || lost && showEndingScreen)) {
     boost = false;
-    dt = defaultDTWon;
+    ended = true;
 
     // --- Save winner ID ---
-    if (typeof window.savedWinnerId === "undefined") {
+    if (window.savedWinnerId !== possibleIdWon) {
       window.savedWinnerId = possibleIdWon;
-      console.log("🏆 Winner saved:", window.savedWinnerId);
+      console.log("Winner:", window.savedWinnerId);
       showEndingMenu();
     }
   }
@@ -407,19 +434,37 @@ function drawBalls(now) {
     sctx.beginPath();
     sctx.arc(b.x, b.y, b.size, 0, Math.PI * 2);
 
+    // Determine entity types
+    const isSpecial = b.id >= entities.length;
+    const id = isSpecial ? b.id - entities.length : b.id;
+
     // fill first (core)
     sctx.fillStyle = `rgb(${b.color[0]}, ${b.color[1]}, ${b.color[2]})`;
     sctx.fill();
 
     // outline border (stronger & glowing if defined)
     if (b.border) {
-      sctx.lineWidth = 2.5;
+      sctx.lineWidth = b.borderSize || 2.5;
       sctx.strokeStyle = `rgb(${b.border[0]}, ${b.border[1]}, ${b.border[2]})`;
     } else {
       sctx.lineWidth = 1.5;
       sctx.strokeStyle = "rgba(255,255,255,0.25)";
     }
     sctx.stroke();
+
+    // --- draw name if enabled ---
+    if (showNames) {
+      const name = isSpecial ? specialEntities[id].name : entities[id].name
+      sctx.font = `${Math.max(10, b.size)}px "Jersey 15"`; // font scales with size
+      sctx.fillStyle = "white";
+      sctx.textAlign = "center";
+      sctx.textBaseline = "bottom";
+      if (b.y > b.size * 2) {
+        sctx.fillText(name, b.x, b.y - b.size - 2);
+      } else {
+        sctx.fillText(name, b.x, b.y + b.size * 2 + 4);
+      }
+    }
   }
 
   // --- Postprocess & composite to main canvas ---
@@ -450,43 +495,148 @@ function drawBalls(now) {
   }
 
   // loop
-  requestAnimationFrame(drawBalls);
+  if (startedSimulation && coolDownTimeOnStart !== 0) {
+    startedSimulation = false;
+    setTimeout(() => {
+      requestAnimationFrame(drawBalls);
+    },coolDownTimeOnStart);
+  } else {
+    requestAnimationFrame(drawBalls);
+  }
 }
 
 function showEndingMenu() {
-  if (!endingMenu) return;
+  if (!endingMenu || !showEndingScreen) return;
   const whoWon = window.savedWinnerId;
-
-  if (speedUpToggle) {
-    speedUpToggle.textContent = entities[whoWon].name;
-  }
+  endingMenu.style.display = "block";
 
   header = endingMenu.querySelector("#header");
 
-  if (whoWon === 0) {
-    header.textContent = "Level Completed!";
-  } else if (whoWon === 1) {
+  if (whoWon === playerBallID) {
+    header.textContent = "Round Completed!";
+  } else {
     header.textContent = "You Lost!";
   }
   endingMenu.classList.remove("hidden");
 }
 
-function startSimulation() {
-  initBalls();
+const cooldownCircle = document.getElementById("cooldownCircle");
+const cooldownText = document.getElementById("cooldownText");
+let cooldownRing = null;
+let totalCircumference = 0;
 
-  window.addEventListener("mousemove", (e) => {
-    cursorPos.x = e.clientX;
-    cursorPos.y = e.clientY;
-  });
+function setupCooldownRing() {
+  // Get container size
+  const size = cooldownCircle.offsetHeight; // or getBoundingClientRect().height
+  const strokeWidth = Math.min(0, parseFloat(
+    getComputedStyle(cooldownCircle).getPropertyValue("--circle-border")
+  ) );
+
+  const radius = size / 2 - strokeWidth / 2;
+
+  // Create SVG elements dynamically
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", size);
+  svg.setAttribute("height", size);
+  svg.classList.add("cooldownRing");
+
+  progressCircle = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "circle",
+  );
+  progressCircle.classList.add("ring-progress");
+  progressCircle.setAttribute("cx", size / 2);
+  progressCircle.setAttribute("cy", size / 2);
+  progressCircle.setAttribute("r", radius);
+  progressCircle.setAttribute("stroke-width", strokeWidth);
+
+  cooldownRing = progressCircle;
+  svg.append(progressCircle);
+  cooldownCircle.appendChild(svg);
+
+  // Compute circumference dynamically
+  totalCircumference = 2 * Math.PI * (radius * 1.05);
+  progressCircle.style.strokeDasharray = totalCircumference;
+  progressCircle.style.strokeDashoffset = totalCircumference;
+}
+
+function updateCooldown() {
+  if (!cursorClickTime) {
+    requestAnimationFrame(updateCooldown);
+    return;
+  }
+  const now = Date.now();
+  const elapsed = now - cursorClickTime;
+  const remaining = Math.max(0, cursorClickCooldown_ms - elapsed);
+  const fraction = remaining / cursorClickCooldown_ms;
+
+  if (remaining > 0) {
+    cooldownText.textContent = (remaining / 1000).toFixed(1);
+    cooldownRing.style.strokeDashoffset = totalCircumference * fraction;
+    cooldownCircle.classList.remove("hidden");
+  } else {
+    cooldownText.textContent = "0.0";
+    cooldownRing.style.strokeDashoffset = totalCircumference;
+    cooldownCircle.classList.add("hidden");
+  }
+
+  requestAnimationFrame(updateCooldown);
+}
+
+function startCooldown() {
+  if (cooldownCircle) {
+    setupCooldownRing();
+    updateCooldown();
+  }
+}
+
+function startSimulation(isGamePlay = true, cooldownTime_ms = 500) {
+  balls = [];
+  showEndingScreen = isGamePlay;
+  if (isGamePlay) {
+    startedSimulation = true;
+    coolDownTimeOnStart = cooldownTime_ms;
+  }
+
+  ended = false;
+  window.savedWinnerId = undefined;
+  initBalls();
 
   oldCursorPos.x = cursorPos.x;
   oldCursorPos.y = cursorPos.y;
 
-  window.addEventListener("click", (e) => {
-    hasClicked = true;
-  });
+  if (speedUpToggle) {
+    speedUpToggle.textContent = `Speed up: ${boost ? "ON" : "OFF"}`;
+  }
 
+  startCooldown();
   requestAnimationFrame(drawBalls);
 }
 
-startSimulation();
+window.addEventListener("mousemove", (e) => {
+  cursorPos.x = e.clientX;
+  cursorPos.y = e.clientY;
+});
+
+canvas.addEventListener("click", (e) => {
+  if (
+    Date.now() - cursorClickTime >= cursorClickCooldown_ms ||
+    !cursorClickTime
+  ) {
+    hasClicked = true;
+    cursorClickTime = Date.now();
+  }
+});
+
+window.addEventListener("keypress", (e) => {
+    if (e.key === "n") {
+      showNames = !showNames;
+    }
+  })
+
+function stopSimulation() {
+  balls = [];
+  stop = true;
+  startedSimulation = false;
+  cooldownTime_ms = 0;
+}

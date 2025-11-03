@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rock hard - shop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="css/tooltip.css" />
+  </head>
+  <body>
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="shop-ui">
+        <div class="sidebar">
+            <h2 class="wave-text">Rock hard</h2>
+            <h1>SHOP</h1>
+
+            <h3>Entities:</h3>
+            <div class="show-entities-container">
+
+            </div>
+
+            <h3>Special entities:</h3>
+            <div class="show-special-entities-container">
+
+            </div>
+
+            <div class="player-money" id="playerMoney">$100</div>
+        </div>
+
+        <div class="outside-sidebar">
+            <div class="player-cards" id="playerCards"></div>
+            <div class="shop" id="shop"></div>
+        </div>
+
+        <div class="deck"></div>
+    </div>
+    
+
+    <script src="balls.js"></script>
+    <script src="js/someFunctions.js"></script>
+    <script src="js/aminations.js"></script>
+    <script>
+      defaultDT = 0.2;
+      defaultDTWon = 0;
+      startSimulation();
+    </script>
+  </body>
+</html>

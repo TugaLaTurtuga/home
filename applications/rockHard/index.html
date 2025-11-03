@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Rock hard - simulation</title>
+    <title>Rock hard - main menu</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,18 +11,48 @@
       rel="stylesheet"
     />
 
+    <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/tooltip.css" />
-    <link rel="stylesheet" href="css/game.css" />
   </head>
   <body>
     <canvas id="gameCanvas"></canvas>
-    <div id="ui">
-      <button id="toggleBoost" class="btn"></button>
+    <div class="menu" id="main-menu">
+      <h1>Rock hard</h1>
+      <button onclick="showMenu('play-menu')">Play</button>
+      <button>Continue</button>
+      <button>Settings</button>
+      <button>Profiles</button>
     </div>
-    <div class="menu hidden" id="endingMenu">
-      <h1 id="header">Header</h1>
+
+    <div class="menu hidden" style="display: none;" id="play-menu">
+      <h1>New run</h1>
+      <button onclick="openPage('gameMenu.html')">Options</button>
+      <button onclick="showMenu('main-menu')">This shit broken twin</button>
+      <button onclick="openPage('gamePlay.html')">Play</button>
+    </div>
+
+    <div id="ui">
+      <div id="cooldownCircle" class="hidden">
+        <span id="cooldownText"></span>
+      </div>
     </div>
 
     <script src="balls.js"></script>
+    <script src="js/showMenus.js"></script>
+    <script src="js/someFunctions.js"></script>
+    <script src="js/aminations.js"></script>
+    <script src="js/allEntities.js"></script>
+    <script>
+      let allEntities = {
+        entities: [],
+        specialEntities: [],
+      }
+
+      addRamdomEntities(allEntities);
+      junctionEntities([allEntities]);
+
+      slowDownSimulation();
+      startSimulation(false);
+    </script>
   </body>
 </html>

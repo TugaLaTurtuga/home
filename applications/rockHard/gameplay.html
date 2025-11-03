@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rock hard - run</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="css/tooltip.css" />
+  </head>
+  <body>
+    <canvas id="gameCanvas"></canvas>
+    <div class="shop-ui" id="shopUI">
+        <div class="sidebar">
+            <h2 class="wave-text" onclick="startRound()">Rock hard</h2>
+            <h1>SHOP</h1>
+
+            <h3>Entities:</h3>
+            <div class="show-entities-container">
+
+            </div>
+
+            <h3>Special entities:</h3>
+            <div class="show-special-entities-container">
+
+            </div>
+
+            <div class="player-money" id="playerMoney">$100</div>
+        </div>
+
+        <div class="outside-sidebar">
+            <div class="player-cards" id="playerCards"></div>
+            <div class="shop" id="shop"></div>
+        </div>
+
+        <div class="deck" id="deckBtn"></div>
+    </div>
+
+    <div id="ui">
+      <div id="cooldownCircle" class="hidden">
+        <span id="cooldownText"></span>
+      </div>
+      <button id="toggleBoost" class="btn"></button>
+    </div>
+    <div class="menu hidden" style="display: none;" id="endingMenu">
+      <h1 id="header">Header</h1>
+      <button onclick="showShop()">Continue</button>
+    </div>
+
+    <div class="menu hidden" style="display: none;" id="deckMenu">
+      <h1>Deck</h1>
+      <div id="deck"></div>
+      <button onclick="toggleDeckUI()">Back</button>
+    </div>
+
+    <script src="js/allEntities.js"></script>
+    <script src="js/aminations.js"></script>
+    <script src="balls.js"></script>
+    <script>
+        let playerEntities = {
+            entities: [],
+            specialEntities: [],
+        };
+
+        let bossEntities = {
+            entities: [],
+            specialEntities: [],
+        };
+
+        addRamdomEntities(bossEntities);
+        addEntity(playerEntities, 'Rock', 20);
+
+        let shopUI = document.getElementById("shopUI");
+        let deckUI = document.getElementById("deckMenu");
+        let deckBtn = document.getElementById("deckBtn");
+        let gameUI = document.getElementById("ui");
+
+        function startRound() {
+            stopSimulation();
+            junctionEntities([playerEntities, bossEntities]);
+            defaultSpeedSimulation();
+            startSimulation();
+            shopUI.classList.add("hidden");
+            gameUI.classList.remove("hidden");
+        }
+
+        deckBtn.addEventListener('click', toggleDeckUI);
+
+        function toggleDeckUI() {
+          if (deckUI.classList.contains("hidden")) {
+            deckUI.classList.remove("hidden");
+            deckUI.style.display = "block";
+          } else {
+            deckUI.classList.add("hidden");
+            deckUI.style.display = "block";
+          }
+        }
+
+        function populateDeckUI() {
+          const deck = deckUI.querySelector("#deck");
+
+          for (let i = 0; i < playerEntities.entities.length; i++) {
+            const newLine = document.createElement("div");
+            newLine.textContent = `${playerEntities.entities[i].name}, ${playerEntities.entities[i].amount}`;
+            console.log(newLine);
+            deck.appendChild(newLine);
+          }
+
+          for (let i = 0; i < playerEntities.specialEntities.length; i++) {
+            const newLine = document.createElement("div");
+            newLine.textContent = `${playerEntities.specialEntities[i].name}, ${playerEntities.specialEntities[i].amount}`;
+            console.log(newLine);
+            deck.appendChild(newLine);
+          }
+
+          console.log(deck);
+        }
+
+        function showShop() {
+          populateDeckUI();
+          endingMenu.classList.add("hidden");
+          shopUI.classList.remove("hidden");
+          
+          junctionEntities([bossEntities]);
+
+          slowDownSimulation();
+          startSimulation(false);
+
+          gameUI.classList.add("hidden");
+        }
+        showShop();
+    </script>
+  </body>
+</html>
