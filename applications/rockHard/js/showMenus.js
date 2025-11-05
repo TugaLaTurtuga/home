@@ -13,7 +13,3 @@ function showMenu(id) {
         }
     }
 }
-
-const savedData = 'IS THIS WORKIN?';
-
-localStorage.setItem('_rockHardData', savedData);

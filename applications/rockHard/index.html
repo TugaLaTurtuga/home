@@ -17,18 +17,35 @@
   <body>
     <canvas id="gameCanvas"></canvas>
     <div class="menu" id="main-menu">
-      <h1>Rock hard</h1>
+      <h1 class="wave-text">Rock hard</h1>
       <button onclick="showMenu('play-menu')">Play</button>
       <button>Continue</button>
-      <button>Settings</button>
-      <button>Profiles</button>
+      <button onclick="showMenu('settings-menu')">Settings</button>
+      <button onclick="showMenu('profiles-menu')">Profiles</button>
     </div>
 
     <div class="menu hidden" style="display: none;" id="play-menu">
-      <h1>New run</h1>
-      <button onclick="openPage('gameMenu.html')">Options</button>
-      <button onclick="showMenu('main-menu')">This shit broken twin</button>
+      <h1 class="wave-text">New run</h1>
+      <div id="options">
+        <input type="text" placeholder="seed" maxlength="8">
+      </div>
       <button onclick="openPage('gamePlay.html')">Play</button>
+      <button onclick="showMenu('main-menu')" class="back-btn">Back</button>
+    </div>
+
+    <div class="menu hidden" style="display: none;" id="settings-menu">
+      <h1 class="wave-text">Settings</h1>
+      <button onclick="showMenu('main-menu')" class="back-btn">There is nothing here</button>
+    </div>
+
+    <div class="menu hidden" style="display: none;" id="profiles-menu">
+      <h1 class="wave-text">Profiles</h1>
+      <div id="profiles"></div>
+
+      <button>Add</button>
+      <button>Reload</button>
+
+      <button onclick="showMenu('main-menu')" class="back-btn">Back</button>
     </div>
 
     <div id="ui">
@@ -41,12 +58,16 @@
     <script src="js/showMenus.js"></script>
     <script src="js/someFunctions.js"></script>
     <script src="js/aminations.js"></script>
+    <script src="js/profileManager.js"></script>
+    <script src="js/profileViewer.js"></script>
     <script src="js/allEntities.js"></script>
     <script>
       let allEntities = {
         entities: [],
         specialEntities: [],
       }
+
+      populateProfiles();
 
       addRamdomEntities(allEntities);
       junctionEntities([allEntities]);

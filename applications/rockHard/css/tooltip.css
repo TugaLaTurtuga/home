@@ -116,6 +116,27 @@ body {
   border-bottom: none;
 }
 
+.menu input[type="text"] {
+  border-radius: 6px;
+  background: var(--menu-bg);
+  padding: 8px 12px;
+  font-size: 2rem;
+  text-align: center;
+  border: none;
+}
+
+.menu .back-btn {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.menu .back-btn:active {
+  transform: translate(-50%, 3px);
+  border-bottom: none;
+}
+
 #ui {
   position: fixed;
   right: 18px;
@@ -194,4 +215,39 @@ body {
   color: white;
   font-family: monospace;
   font-size: 0.9em;
+}
+
+#profiles {
+  border-radius: 10px;
+  overflow: hidden;
+  width: calc(100% - 40px);
+  margin: 0;
+}
+
+.profile-container {
+  
+}
+
+.profile-item {
+  padding: 8px 12px;
+  margin: 0;
+
+  background: var(--menu-bg);
+
+  cursor: pointer;
+
+  transition: all .2s ease;
+}
+
+.profile-item:hover {
+  background: transparent;
+  transition: none;
+}
+
+.profile-item.active {
+  background: var(--accent-color);
+}
+
+.profile-item.active:hover {
+  background: var(--accent-color);
 }
