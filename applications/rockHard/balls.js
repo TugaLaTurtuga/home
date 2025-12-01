@@ -255,6 +255,22 @@ function drawBalls(timestamp) {
 
       // elimination on overlap
       if (distance <= minDist) {
+        // implement collision
+        for (let i = 0; i < 2; i++) {
+          // Apply small kick away from collision
+          const nx = dx / (distance + 1e-9);
+          const ny = dy / (distance + 1e-9);
+          const kick = 1;
+
+          if (i === 0) {
+            bi.velX += -nx * kick / bi.mass;
+            bi.velY += -ny * kick / bi.mass;
+          } else {
+            bj.velX += nx * kick / bj.mass;
+            bj.velY += ny * kick / bj.mass;
+          }
+        }
+
         let a = biID;
         let b = bj.id;
 
@@ -305,13 +321,6 @@ function drawBalls(timestamp) {
           winner.size = Math.cbrt(
             Math.max(0.1, winner.size ** 3 + loser[0].size ** 3 * 0.35),
           );
-
-          // Apply small kick away from collision
-          const nx = dx / (distance + 1e-9);
-          const ny = dy / (distance + 1e-9);
-          const kick = 0.6;
-          winner.velX += (winner === bi ? -nx : nx) * kick;
-          winner.velY += (winner === bi ? -ny : ny) * kick;
         }
       }
     }

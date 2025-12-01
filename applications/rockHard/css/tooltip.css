@@ -229,7 +229,6 @@ body {
 }
 
 .profile-item {
-  padding: 8px 12px;
   margin: 0;
 
   background: var(--menu-bg);
@@ -246,8 +245,18 @@ body {
 
 .profile-item.active {
   background: var(--accent-color);
+  transition: none;
 }
 
 .profile-item.active:hover {
   background: var(--accent-color);
+}
+
+.profile-item input[type="text"] {
+  text-align: center;
+  margin: none;
+  border-radius: 0px;
+  background: none;
+  padding: 8px 0px;
+  width: 100%;
 }

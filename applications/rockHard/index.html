@@ -35,15 +35,19 @@
 
     <div class="menu hidden" style="display: none;" id="settings-menu">
       <h1 class="wave-text">Settings</h1>
-      <button onclick="showMenu('main-menu')" class="back-btn">There is nothing here</button>
+      <button onclick="saveData()">Save data</button>
+      <button onclick="loadData()">Reload data</button>
+      <button onclick="deleteData()">Delete data</button>
+      <button onclick="showMenu('main-menu')" class="back-btn">Back</button>
     </div>
 
     <div class="menu hidden" style="display: none;" id="profiles-menu">
       <h1 class="wave-text">Profiles</h1>
       <div id="profiles"></div>
 
-      <button>Add</button>
-      <button>Reload</button>
+      <button onclick="addProfile()">Add</button>
+      <button onclick="saveData()">Save</button>
+      <button onclick="loadData()">Reload</button>
 
       <button onclick="showMenu('main-menu')" class="back-btn">Back</button>
     </div>

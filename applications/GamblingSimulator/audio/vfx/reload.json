@@ -1,0 +1,37 @@
+{
+    "trackList": [
+        {
+            "title": "bankrupt",
+            "rating": 5
+        },
+        {
+            "title": "buy",
+            "rating": 5
+        },
+        {
+            "title": "click",
+            "rating": 5
+        },
+        {
+            "title": "error",
+            "rating": 5
+        },
+        {
+            "title": "warning",
+            "rating": 5
+        }
+    ],
+    "description": {
+        "name": "vfx",
+        "author": "audio",
+        "label": "none",
+        "description": "",
+        "year": "year",
+        "genre": "genre",
+        "color": "#AAAAAA",
+        "palette": "#AAAAAA",
+        "cover": null,
+        "copyrightFree": false,
+        "favourite": false
+    }
+}

@@ -76,11 +76,6 @@
         addRamdomEntities(bossEntities);
         addEntity(playerEntities, 'Rock', 20);
 
-        let shopUI = document.getElementById("shopUI");
-        let deckUI = document.getElementById("deckMenu");
-        let deckBtn = document.getElementById("deckBtn");
-        let gameUI = document.getElementById("ui");
-
         function startRound() {
             stopSimulation();
             junctionEntities([playerEntities, bossEntities]);

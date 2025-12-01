@@ -1,16 +1,16 @@
 let allProfiles = [
     {
-        name: "profile 1",
+        name: "Profile 1",
         data: {},
         iscurr: true,
     },
     {
-        name: "profile 2",
+        name: "Profile 2",
         data: {},
         iscurr: false,
     },
     {
-        name: "profile 3",
+        name: "Profile 3",
         data: {},
         iscurr: false,
     },
@@ -18,20 +18,59 @@ let allProfiles = [
 
 let currProfile = {};
 
-function loadData() {
-    const savedData = localStorage.getItem('_rockHardData');
+function saveData() {
+  localStorage.setItem('_rockHardData', JSON.stringify(allProfiles));
+  const savedData = localStorage.getItem('_rockHardData');
+  console.log("Saved data:", savedData);
+}
 
-    if (Array.isArray(savedData)) {
-        allProfiles = savedData;
-    } else {
-        // there is no data saved
-        saveData()
+function loadData() {
+  const savedData = localStorage.getItem('_rockHardData');
+  console.log("Raw data from storage:", savedData);
+
+  if (savedData) {
+    try {
+      const parsed = JSON.parse(savedData);
+      if (Array.isArray(parsed)) {
+        allProfiles = parsed;
+        console.log("Loaded profiles:", allProfiles);
+      } else {
+        console.warn("Saved data is not an array, resetting...");
+        saveData();
+      }
+    } catch (e) {
+      console.error("Failed to parse saved data:", e);
+      saveData();
+    }
+  } else {
+    // No data saved yet
+    console.log("No saved data found, creating default...");
+    saveData();
+  }
+  reloadUI();
+}
+
+function deleteData() {
+    if (confirm("Are you sure you want to delete all your data? This change is unreversable.")) {
+        localStorage.removeItem('_rockHardData');
+        window.location.reload();
     }
 }
 
-function saveData() {
-    localStorage.setItem('_rockHardData', allProfiles);
+loadData();
+
+function reloadUI() {
+    const functionNames = ["populateDeckUI", "populateProfiles"];
+
+    for (let i = 0; i < functionNames.length; i++) {
+        const fn = window[functionNames[i]];
+        if (typeof fn === "function") {
+            fn();
+        }
+    }
 }
+
+
 
 function getCurrentProfile() {
     for (let i = 0; i < allProfiles.length; i++) {
@@ -88,4 +127,22 @@ function setCurrentProfile(profile) {
 
         return;
     }
+}
+
+function addProfile(name) {
+    if (name === null || !name) {
+        name = `Profile ${allProfiles.length + 1}`;
+    }
+
+    for (let i = 0; i < allProfiles.length; i++) {
+        allProfiles[i].iscurr = false;
+    }
+
+    allProfiles.push({
+        name,
+        data: {},
+        iscurr: true,
+    })
+
+    populateProfiles();
 }

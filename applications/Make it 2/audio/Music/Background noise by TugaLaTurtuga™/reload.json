@@ -1,0 +1,21 @@
+{
+    "trackList": [
+        {
+            "title": "piano noise",
+            "rating": 5
+        }
+    ],
+    "description": {
+        "name": "Background noise by TugaLaTurtuga™",
+        "author": "Music",
+        "label": "none",
+        "description": "",
+        "year": "year",
+        "genre": "genre",
+        "color": "#AAAAAA",
+        "palette": "#AAAAAA",
+        "cover": null,
+        "copyrightFree": false,
+        "favourite": false
+    }
+}
