@@ -1,0 +1,172 @@
+body, *, html {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.blog-container {
+    max-width: 900px;
+    width: 95%;
+    justify-self: center;
+    background: var(--BtnBack);
+    border-radius: 10px 10px 0 0;
+    padding: 10px 20px;
+    padding-bottom: 0;
+    color: var(--SecundaryColor);
+    height: auto;
+}
+
+.blog-container h1 {
+    justify-self: center;
+    color: var(--PrimaryColor);
+    font-size: 4rem;
+}
+
+.blog-container h2 {
+    color: var(--PrimaryColor);
+    font-size: 3rem;
+}
+
+.blog-container h3 {
+    color: var(--SecundaryColor);
+    font-size: 2rem;
+}
+
+.blog-container h4 {
+    color: var(--PrimaryColor);
+    font-size: 1.5rem;
+}
+
+.blog-container h5 {
+    color: var(--PrimaryColor);
+    font-size: 1rem;
+}
+
+.blog-container h6 {
+    color: var(--PrimaryColor);
+    font-size: .75rem;
+}
+
+.blog-container p {
+    color: inherit;
+    font-size: 1rem;
+}
+
+.blog-container .newTip {
+    background: var(--BtnBodyBack2);
+    --borderColor: var(--SecundaryColor);
+    border-left: 8px solid var(--borderColor);
+    border-radius: 0px 10px 10px 0px;
+    margin: 2px;
+    padding: 10px 15px;
+    box-shadow: 0px 0px 20px 20px var(--BtnBodyBack1);
+}
+
+.blog-container .newTip h2 {
+    color: var(--borderColor);
+    margin: 2px;
+    margin-left: -5px;
+    padding: 0;
+    font-size: 2rem;
+}
+
+.blog-container .newTip p {
+    margin: 2px;
+    margin-left: -5px;
+    padding: 0;
+}
+
+.blog-container .newTip.note {
+    --borderColor: greenyellow;
+}
+
+.blog-container .newTip.tip {
+    --borderColor: rgb(47, 255, 57);
+}
+
+.blog-container .newTip.important {
+    --borderColor: rgb(255, 210, 47);
+}
+
+.blog-container .newTip.warning {
+    --borderColor: rgb(255, 242, 0);
+}
+
+.blog-container .newTip.error {
+    --borderColor: rgb(255, 47, 47);
+}
+
+.blog-container .newTip.caution {
+    --borderColor: rgb(196, 47, 255);
+}
+
+.blog-container .newTip.bug {
+    --borderColor: rgb(47, 224, 255);
+}
+
+.code-wrapper {
+    position: relative;
+    justify-self: center;
+    background: var(--BtnBodyBack2);
+    max-width: max(600px, 80%);
+    min-width: 50%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 20px var(--BtnBodyBack1);
+}
+
+pre {
+    padding: 0;
+    margin: 0;
+}
+
+code {
+    background: var(--BtnBodyBack2);
+    padding: 5px;
+    border-radius: 10px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.language {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 3px;
+    background: var(--BtnBodyBack1);
+    border-radius: 0px 10px 0px 5px;
+}
+
+.ama.blog {
+    color: var(--PrimaryColor);
+    font-weight: 900;
+    max-width: 860px;
+    padding: 10px 20px;
+    text-align-last: center;
+    text-align: center;
+    font-size: 5rem;
+    justify-self: center;
+}
+
+.version-number {
+    justify-self: center;
+    padding: 10px;
+    padding-bottom: 45px;
+    border-radius: 10px 10px 0 0;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    background: var(--BtnBodyBack2);
+    transition: transform 0.15s cubic-bezier(0.075, 0.82, 0.2, 2);
+}
+
+.version-number:hover {
+    transform: scale(1.1);
+}
+
+.version-number:active {
+    transform: scale(.95);
+}

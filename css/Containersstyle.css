@@ -45,6 +45,7 @@ body {
     padding: 10px;
     border-radius: 1.5%;
     background: linear-gradient(to bottom, var(--BtnBodyBack1), var(--BtnBodyBack2));
+    backdrop-filter: blur(3px);
     text-align-last: right;
 }
 
@@ -175,6 +176,7 @@ h6{
 
 .ama{
     text-align-last: center;
+    font-weight: 800;
     margin-top: 100px;
     margin-left: 0;
     margin-right: 0;

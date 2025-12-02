@@ -1,6 +1,7 @@
 const typewriterContainer = document.getElementById('typewriter-container');
 const restartBtn = document.getElementById('restart-btn');
 const inpText = document.getElementById('inp');
+const gameSpeed = 1;
 // Global AudioContext (to avoid Chrome blocking sound)
 let audioContext = new (window.AudioContext || window.webkitAudioContext)();
 let soundBuffer = null;

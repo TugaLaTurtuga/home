@@ -1,0 +1,83 @@
+/* Base style for all code blocks */
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+    background: #282c34;  /* Dark background */
+    color: #abb2bf;       /* Default text color */
+    border-radius: 8px;
+    font-family: 'Fira Code', Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Common token styles */
+.hljs-comment,
+.hljs-quote {
+    color: #5c6370;
+    font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+    color: #c678dd;
+}
+
+.hljs-built_in,
+.hljs-type {
+    color: #e6c07b;
+}
+
+.hljs-literal,
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet {
+    color: #d19a66;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-attribute,
+.hljs-name,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-addition {
+    color: #98c379;
+}
+
+.hljs-deletion,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-link {
+    color: #e06c75;
+}
+
+.hljs-function {
+    color: #61afef;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+/* Optional: line numbers or padding tweaks */
+.hljs-line-numbers {
+    text-align: right;
+    color: #5c6370;
+    user-select: none;
+}
+
+mjx-container {
+    justify-self: center;
+    background: var(--BtnBodyBack2);
+    width: inherit;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font: "arial";
+}

@@ -1,0 +1,178 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  backdrop-filter: none;
+  transition: all 0.2s ease;
+}
+
+.overlay:hover {
+  background: alpha(var(--background1), 0.5);
+  backdrop-filter: blur(6px);
+}
+
+.modal {
+  width: 720px;
+  max-width: 94vw;
+  max-height: 86vh;
+  overflow: auto;
+  background: var(--background2);
+  color: var(--SecundaryColor);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    aspect-ratio: 1/1;
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+    background: var(--ButtonGridColor);
+    backdrop-filter: blur(4px);
+}
+
+.modal .modal-title {
+  margin: 0 0 10px 0;
+}
+
+.model .modal-label {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.modal .modal-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.35rem 0 1rem 0;
+  border-radius: 5px;
+  background: var(--ButtonGridHover);
+  color: var(--SecundaryColor);
+}
+
+.modal .modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.modal .modal-cancel-btn {
+  padding: 0.45rem 0.8rem;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--SecundaryColor);
+  cursor: pointer;
+}
+
+.modal .modal-create-btn {
+  padding: 0.45rem 0.9rem;
+  border-radius: 5px;
+  background: var(--PrimaryColor);
+  color: var(--background1);
+  border: none;
+  cursor: pointer;
+}
+
+.modal .contacts {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 135px !important;
+  height: 45px;
+  background: var(--ButtonGridColor);
+  text-align-last: center;
+  justify-content: center;
+}
+
+.change-logs-container {
+  width: 135px !important;
+  overflow-y: auto;
+  height: calc(100% - 45px);
+  margin: 0;
+  border-radius: 0 10px 0 0;
+}
+
+.change-logs-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  text-align-last: center;
+  padding: 0.5rem 0.6rem;
+  background: var(--trackItemOddColor);
+  color: var(--SecundaryColor);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.4s ease-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 800;
+  height: 40px;
+}
+
+.change-logs-item:hover {
+  background: var(--BtnBodyBack2);
+  transition: none;
+}
+.change-logs-item.active {
+  background: var(--PrimaryColor);
+  color: var(--background1);
+}
+.change-logs-item span {
+  display: inline-block;
+  padding-right: 20px; /* spacing between repeats */
+}
+
+.change-log {
+  width: calc(100% - 135px) !important;
+}
+
+.change-log-header {
+  width: 100%;
+  height: 110px !important;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.change-log-title {
+  font-weight: 800;
+  text-align-last: center;
+  font-size: 2rem;
+  color: var(--PrimaryColor);
+}
+
+.change-log-date {
+  margin-top: -2px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background: var(--ButtonGridColor);
+  backdrop-filter: blur(2px);
+  padding: 5px 10px;
+  border-radius: 10px 0 0 0;
+  font-weight: 400;
+  text-align-last: center;
+  font-size: 1rem;
+}
+
+.change-log-content {
+  width: 100%;
+  height: calc(100% - 110px) !important;
+  border-radius: 10px 0 0 0;
+  padding: 10px;
+  padding-left: 15px;
+  padding-bottom: 20px;
+  background: var(--background2);
+  overflow-y: scroll;
+}
+
+.change-log-content .spacer {
+  height: 0.5rem;
+}

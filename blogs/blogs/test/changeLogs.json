@@ -1,0 +1,10 @@
+{
+    "0.0.0": {
+        "log": "Creation",
+        "date": "1/12/2025"
+    },
+    "0.1.0": {
+        "log": "Added change logs\nAdded LaTeX\nAdded date\n changed font from radio canada to Rubik",
+        "date": "2/12/2025"
+    }
+}
