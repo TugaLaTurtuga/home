@@ -1,17 +1,3 @@
-function adjustPadding(div, img) {
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    div.style.padding = '10px';
-    if (aspectRatio > 1) {
-        const maxPadding = parseFloat(getComputedStyle(div).width);
-        const padded = Math.min(img.width + 10, maxPadding);
-        div.style.paddingLeft = `${padded}px`;
-    } else {
-        const maxPadding = parseFloat(getComputedStyle(div).height);
-        const padded = Math.min(img.height + 10, maxPadding);
-        div.style.paddingTop = `${padded}px`;
-    }
-}
-
 const blogs = [
     { name: 'blogs/blogs/First-blog', displayText: "First blog!" },
 ];
@@ -36,6 +22,20 @@ function FindBlogs(place = false) {
 
     const gridContainer = document.getElementById('grid-container-blog');
 
+    function adjustPadding(div, img) {
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        div.style.padding = '10px';
+        if (aspectRatio > 1) {
+            const maxPadding = parseFloat(getComputedStyle(div).width);
+            const padded = Math.min(img.width + 10, maxPadding);
+            div.style.paddingLeft = `${padded}px`;
+        } else {
+            const maxPadding = parseFloat(getComputedStyle(div).height);
+            const padded = Math.min(img.height + 10, maxPadding);
+            div.style.paddingTop = `${padded}px`;
+        }
+    }
+
     // Create grid items for each subpage
     allBlogs.forEach((blog, index) => {
         const div = document.createElement('div');
@@ -52,7 +52,7 @@ function FindBlogs(place = false) {
                 }
             });
         }, { threshold: 0.2 });
-        observer.observe(div);
+        if (!place) observer.observe(div);
 
         div.appendChild(img);
 
@@ -89,12 +89,12 @@ function FindBlogs(place = false) {
 }
 
 const apps = [
-    { name: "apps/Games/ball-game", displayText: "Ball game"},
-    { name: "apps/Utility/Reload", displayText: "Reload" },
-    { name: "apps/Utility/Make_it", displayText: "Make it" },
+    { name: "apps/Games/Ball game", displayText: "Ball game"},
+    { name: "apps/Utility/Reload legacy", displayText: "Reload legacy" },
+    { name: "apps/Utility/Make it", displayText: "Make it" },
     { name: "applications/Make it 2", displayText: "Make it 2"},
-    { name: "apps/Stutility/Windows_destroyer", displayText: "Windows destroyer" },
-    { name: "applications/GamblingSimulator", displayText: "Gambling simulator"},
+    { name: "apps/Stutility/Windows destroyer", displayText: "Windows destroyer" },
+    { name: "applications/Gambling simulator", displayText: "Gambling simulator"},
 ];
 
 function FindApps(place = false) {
