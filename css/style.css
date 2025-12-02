@@ -295,3 +295,22 @@ svg {
     background: rgba(50, 50, 50, .3);
     transform: translateX(5px) translateY(-5px);
 }
+
+.grid-item.blog .see-more-btn {
+    border-radius: 0 10px 0 0;
+}
+
+.grid-item .title {
+    font-size: 2rem;
+}
+
+.subtext.date {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    padding: 10px;
+    background: rgba(50, 50, 50, .1);
+    backdrop-filter: blur(10px) brightness(0.7);
+    border-radius: 10px 0 0 0;
+}

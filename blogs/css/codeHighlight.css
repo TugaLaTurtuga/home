@@ -79,5 +79,5 @@ mjx-container {
     width: inherit;
     padding: 8px 10px;
     border-radius: 10px;
-    font: "arial";
+    font-family: 'Arial', sans-serif;
 }

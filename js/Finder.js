@@ -25,15 +25,39 @@ async function FindBlogs(place = false) {
     const gridContainer = document.getElementById("grid-container-blog");
     gridContainer.innerHTML = ""; // Clear existing content
 
+    function adjustPadding(div, img) {
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        div.style.padding = '5px';
+        if (aspectRatio > 1) {
+            const maxPadding = parseFloat(getComputedStyle(div).width);
+            const padded = Math.min(img.width + 10, maxPadding);
+            div.style.paddingLeft = `${padded}px`;
+        } else {
+            const maxPadding = parseFloat(getComputedStyle(div).height);
+            const padded = Math.min(img.height + 10, maxPadding);
+            div.style.paddingTop = `${padded}px`;
+        }
+    }
+
     allBlogs.forEach(blog => {
         const div = document.createElement("div");
-        div.className = "grid-item";
+        div.className = "grid-item blog";
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+                    adjustPadding(div, img);
+                }
+            });
+        }, { threshold: 0.2 });
+        if (!place) observer.observe(div);
 
         const img = document.createElement("img");
         img.src = `${blog.name}/icon.png`;
         img.alt = `${blog.displayText} icon`;
 
         const text = document.createElement("div");
+        text.className = "title";
         text.textContent = blog.displayText;
 
         const subtext = document.createElement("div");
@@ -51,7 +75,7 @@ async function FindBlogs(place = false) {
 
 
         const dateText = document.createElement("div");
-        dateText.className = "subtext";
+        dateText.className = "subtext date";
 
         fetch(`${blog.name}/changeLogs.json`)
             .then(res => res.text())
@@ -85,12 +109,12 @@ async function FindBlogs(place = false) {
 }
 
 const apps = [
-    { name: "apps/Games/ball-game", displayText: "Ball game"},
-    { name: "apps/Utility/Reload", displayText: "Reload" },
-    { name: "apps/Utility/Make_it", displayText: "Make it" },
+    { name: "apps/Games/Ball game", displayText: "Ball game"},
+    { name: "apps/Utility/Reload legacy", displayText: "Reload legacy" },
+    { name: "apps/Utility/Make it", displayText: "Make it" },
     { name: "applications/Make it 2", displayText: "Make it 2"},
-    { name: "apps/Stutility/Windows_destroyer", displayText: "Windows destroyer" },
-    { name: "applications/GamblingSimulator", displayText: "Gambling simulator"},
+    { name: "apps/Stutility/Windows destroyer", displayText: "Windows destroyer" },
+    { name: "applications/Gambling simulator", displayText: "Gambling simulator"},
 ];
 
 function FindApps(place = false) {
@@ -113,44 +137,45 @@ function FindApps(place = false) {
 
     const gridContainer = document.getElementById('grid-container-app');
 
+    function adjustPadding(div, img) {
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        div.style.paddingLeft = '5px';
+        div.style.paddingTop = '5px';
+
+        if (aspectRatio > 1) {
+            const maxPadding = parseFloat(getComputedStyle(div).width);
+            const padded = Math.min(img.width + 10, maxPadding);
+            div.style.paddingLeft = `${padded}px`;
+        } else {
+            const maxPadding = parseFloat(getComputedStyle(div).height);
+            const padded = Math.min(img.height + 10, maxPadding);
+            div.style.paddingTop = `${padded}px`;
+        }
+    }
+
     // Create grid items for each subpage
     allApps.forEach((app, index) => {
         const div = document.createElement('div');
-        div.className = 'grid-item';
+        div.className = 'grid-item app';
 
         const img = document.createElement('img');
         img.src = `${app.name}/icon.webp`;
         img.alt = `${app.displayText} icon`;
         img.className = 'grid-icon';
 
-        function adjustPadding() {
-            const aspectRatio = window.innerWidth / window.innerHeight;
-            div.style.paddingLeft = '0';
-            div.style.paddingTop = '0';
-
-            if (aspectRatio > 1) {
-                const maxPadding = parseFloat(getComputedStyle(div).width);
-                const padded = Math.min(img.width + 20, maxPadding);
-                div.style.paddingLeft = `${padded}px`;
-            } else {
-                const maxPadding = parseFloat(getComputedStyle(div).height);
-                const padded = Math.min(img.height + 20, maxPadding);
-                div.style.paddingTop = `${padded}px`;
-            }
-        }
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-                    adjustPadding();
+                    adjustPadding(div, img);
                 }
             });
         }, { threshold: 0.2 });
-        observer.observe(div);
+        if (!place) observer.observe(div);
 
         div.appendChild(img);
 
         const text = document.createElement('div');
+        text.className = "title";
         text.textContent = app.displayText;
 
         const subtext = document.createElement('div');
