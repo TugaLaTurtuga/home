@@ -1,30 +1,33 @@
 const blogs = [
-    { name: 'blogs/blogs/First-blog', displayText: "First blog!" },
+    { name: 'blogs/blogs/test', displayText: "Blog test" },
 ];
 
-function FindBlogs(place = false) {
-    const allBlogs = []; // Initialize an array to hold shortened blog names
+async function FindBlogs(place = false) {
+    const allBlogs = blogs.map(subpage  => {
+        // Compute blog name (shortened path if place=true)
+        const name = place 
+            ? subpage.name.split("/").slice(1).join("/")
+            : subpage.name;
 
-    // Construct allBlogs with shortened paths and display text
-    blogs.forEach(subpage => {
-        let NewBlog = {}; // Create an object for each blog
+        // URLSearchParams for the last part of the path
+        const params = new URLSearchParams({
+            blog: subpage.name.split("/").pop(),
+            name: subpage.displayText,
+        });
 
-        let Name = subpage.name;
-        if (place) {
-            Name = subpage.name.replace(/blogs\/blogs\//, 'blogs/'); // Adjust the path if place is true
-        }
-        
-        NewBlog.name = Name; // Store the name in the object
-        NewBlog.displayText = subpage.displayText; // Store the display text in the object
-
-        allBlogs.push(NewBlog); // Add the blog object to the allBlogs array
+        return {
+            name,
+            params,
+            displayText: subpage.displayText
+        };
     });
 
-    const gridContainer = document.getElementById('grid-container-blog');
+    const gridContainer = document.getElementById("grid-container-blog");
+    gridContainer.innerHTML = ""; // Clear existing content
 
     function adjustPadding(div, img) {
         const aspectRatio = window.innerWidth / window.innerHeight;
-        div.style.padding = '10px';
+        div.style.padding = '5px';
         if (aspectRatio > 1) {
             const maxPadding = parseFloat(getComputedStyle(div).width);
             const padded = Math.min(img.width + 10, maxPadding);
@@ -36,14 +39,9 @@ function FindBlogs(place = false) {
         }
     }
 
-    // Create grid items for each subpage
-    allBlogs.forEach((blog, index) => {
-        const div = document.createElement('div');
-        div.className = 'grid-item';
-
-        const img = document.createElement('img');
-        img.src = `${blog.name}/icon.png`;
-        img.alt = `${blog.displayText} icon`;
+    allBlogs.forEach(blog => {
+        const div = document.createElement("div");
+        div.className = "grid-item blog";
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -54,36 +52,58 @@ function FindBlogs(place = false) {
         }, { threshold: 0.2 });
         if (!place) observer.observe(div);
 
-        div.appendChild(img);
+        const img = document.createElement("img");
+        img.src = `${blog.name}/icon.png`;
+        img.alt = `${blog.displayText} icon`;
 
-        const text = document.createElement('div');
+        const text = document.createElement("div");
+        text.className = "title";
         text.textContent = blog.displayText;
 
-        const subtext = document.createElement('div');
-        subtext.className = 'subtext';
+        const subtext = document.createElement("div");
+        subtext.className = "subtext";
 
-        // Fetch the content of the Description.txt file
+        // Fetch description
         fetch(`${blog.name}/Description.txt`)
-            .then(response => response.text())
+            .then(res => res.text())
             .then(data => {
                 subtext.textContent = data;
             })
-            .catch(error => {
-                subtext.textContent = 'Description not available.';
-                console.error('Error fetching description:', error);
+            .catch(() => {
+                subtext.textContent = "Description not available.";
             });
 
-        const button_SM = document.createElement('button');
-        button_SM.textContent = 'See more';
-        button_SM.className = 'see-more-btn';
-        button_SM.onclick = function() {
-            window.open(blog.name, '_blank');
+
+        const dateText = document.createElement("div");
+        dateText.className = "subtext date";
+
+        fetch(`${blog.name}/changeLogs.json`)
+            .then(res => res.text())
+            .then(data => {
+                const parsed = JSON.parse(data);
+                const values = Object.values(parsed);
+                const first = values[0];
+                const date = first?.date;
+
+                console.log(date);
+                dateText.textContent = date;
+            })
+            .catch(() => {
+                dateText.textContent = "";
+            });
+
+        const button = document.createElement("button");
+        button.textContent = "See more";
+        button.className = "see-more-btn";
+
+        // Build the final URL
+        button.onclick = () => {
+            const base = place ? "" : "blogs/";
+            const url = `${base}?${blog.params.toString()}`;
+            window.open(url, "_parent");
         };
 
-        div.appendChild(img);
-        div.appendChild(text);
-        div.appendChild(subtext);
-        div.appendChild(button_SM);
+        div.append(img, text, subtext, button, dateText);
         gridContainer.appendChild(div);
     });
 }
@@ -117,10 +137,26 @@ function FindApps(place = false) {
 
     const gridContainer = document.getElementById('grid-container-app');
 
+    function adjustPadding(div, img) {
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        div.style.paddingLeft = '5px';
+        div.style.paddingTop = '5px';
+
+        if (aspectRatio > 1) {
+            const maxPadding = parseFloat(getComputedStyle(div).width);
+            const padded = Math.min(img.width + 10, maxPadding);
+            div.style.paddingLeft = `${padded}px`;
+        } else {
+            const maxPadding = parseFloat(getComputedStyle(div).height);
+            const padded = Math.min(img.height + 10, maxPadding);
+            div.style.paddingTop = `${padded}px`;
+        }
+    }
+
     // Create grid items for each subpage
     allApps.forEach((app, index) => {
         const div = document.createElement('div');
-        div.className = 'grid-item';
+        div.className = 'grid-item app';
 
         const img = document.createElement('img');
         img.src = `${app.name}/icon.webp`;
@@ -134,11 +170,12 @@ function FindApps(place = false) {
                 }
             });
         }, { threshold: 0.2 });
-        observer.observe(div);
+        if (!place) observer.observe(div);
 
         div.appendChild(img);
 
         const text = document.createElement('div');
+        text.className = "title";
         text.textContent = app.displayText;
 
         const subtext = document.createElement('div');
@@ -169,6 +206,3 @@ function FindApps(place = false) {
         gridContainer.appendChild(div);
     });
 }
-
-FindBlogs();
-FindApps();
