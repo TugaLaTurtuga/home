@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Upload Monitor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #5b5b5d 0%, #1f1e20 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #FF0000, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #495057;
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #FF0000, #FF6B6B);
+            color: white;
+        }
+
+        .tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .counter {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .add-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FF0000, #FF6B6B);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #6c757d, #868e96);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(108, 117, 125, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(220, 53, 69, 0.3);
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .status.monitoring {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .status.error {
+            background: linear-gradient(45deg, #dc3545, #e74c3c);
+            color: white;
+        }
+
+        .status.info {
+            background: linear-gradient(45deg, #17a2b8, #3498db);
+            color: white;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .channels-list {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .channel-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #FF0000;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .channel-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .channel-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .channel-info .channel-handle {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .videos-container {
+            margin-top: 30px;
+        }
+
+        .video-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #FF0000;
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .video-item a {
+            color: #FF0000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .video-item a:hover {
+            color: #FF6B6B;
+            text-decoration: underline;
+        }
+
+        .video-meta {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+
+        .video-channel {
+            color: #FF0000;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .notification-permission {
+            background: linear-gradient(45deg, #ffc107, #ffca28);
+            color: #212529;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .help-text {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .api-key-section {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #bee5eb;
+        }
+
+        .interval-group input {
+            width: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .global-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .interval-group {
+                justify-content: center;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📺 YouTube Multi-Channel Monitor</h1>
+        
+        <div class="api-key-section">
+            <div class="form-group">
+                <label for="apiKey">YouTube API Key:</label>
+                <input type="text" id="apiKey" placeholder="Enter your YouTube Data API v3 key">
+                <div class="help-text">Get your free API key from Google Cloud Console</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('entertainment')">🎮 Entertainment (Max 10)</button>
+            <button class="tab" onclick="switchTab('learning')">📚 Learning (Max 30)</button>
+        </div>
+
+        <div id="entertainment-tab" class="tab-content active">
+            <div class="section-header">
+                <div class="section-title">🎮 Entertainment Channels</div>
+                <div class="counter" id="entertainment-counter">0 / 10</div>
+            </div>
+            
+            <div class="add-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="entertainment-channel">Channel Username:</label>
+                        <input type="text" id="entertainment-channel" placeholder="@channelname">
+                    </div>
+                    <button class="btn-success" onclick="addChannel('entertainment')">Add Channel</button>
+                </div>
+            </div>
+            
+            <div class="channels-list" id="entertainment-channels"></div>
+        </div>
+
+        <div id="learning-tab" class="tab-content">
+            <div class="section-header">
+                <div class="section-title">📚 Learning Channels</div>
+                <div class="counter" id="learning-counter">0 / 30</div>
+            </div>
+            
+            <div class="add-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="learning-channel">Channel Username:</label>
+                        <input type="text" id="learning-channel" placeholder="@channelname">
+                    </div>
+                    <button class="btn-success" onclick="addChannel('learning')">Add Channel</button>
+                </div>
+            </div>
+            
+            <div class="channels-list" id="learning-channels"></div>
+        </div>
+
+        <div class="monitoring-controls">
+            <button class="btn-secondary" onclick="checkAllNow()">Check uploads</button>
+        </div>
+        
+        <div id="status"></div>
+        <div id="videos-container" class="videos-container"></div>
+    </div>
+
+    <script>
+        let monitoringInterval = null;
+        let isMonitoring = false;
+        let channels = {
+            entertainment: [],
+            learning: []
+        };
+        let lastVideoIds = {};
+
+        // Request notification permission on page load
+        if ('Notification' in window && Notification.permission === 'default') {
+            showNotificationPermissionPrompt();
+        }
+
+        function showNotificationPermissionPrompt() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `
+                <div class="notification-permission">
+                    🔔 Click "Allow" to receive notifications when new videos are uploaded!
+                    <button onclick="requestNotificationPermission()" style="margin-left: 10px; padding: 5px 10px; border: none; background: #fff; color: #333; border-radius: 5px; cursor: pointer;">Enable Notifications</button>
+                </div>
+            `;
+        }
+
+        function requestNotificationPermission() {
+            Notification.requestPermission().then(permission => {
+                if (permission === 'granted') {
+                    showStatus('Notifications enabled! 🎉', 'info');
+                } else {
+                    showStatus('Notifications disabled. You can enable them in your browser settings.', 'error');
+                }
+            });
+        }
+
+        function switchTab(tabName) {
+            // Remove active class from all tabs and content
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        function updateCounter(section) {
+            const counter = document.getElementById(section + '-counter');
+            const maxChannels = section === 'entertainment' ? 10 : 30;
+            counter.textContent = `${channels[section].length} / ${maxChannels}`;
+        }
+
+        function addChannel(section) {
+            const input = document.getElementById(section + '-channel');
+            const channelHandle = input.value.trim();
+            
+            if (!channelHandle) {
+                showStatus('Please enter a channel username', 'error');
+                return;
+            }
+
+            if (!channelHandle.startsWith('@')) {
+                showStatus('Please enter a valid @username format', 'error');
+                return;
+            }
+
+            const maxChannels = section === 'entertainment' ? 10 : 30;
+            if (channels[section].length >= maxChannels) {
+                showStatus(`Maximum ${maxChannels} channels allowed in ${section} section`, 'error');
+                return;
+            }
+
+            // Check if channel already exists
+            if (channels[section].some(ch => ch.handle === channelHandle)) {
+                showStatus('Channel already added to this section', 'error');
+                return;
+            }
+
+            // Add channel to list
+            const channelData = {
+                handle: channelHandle,
+                id: Date.now().toString(),
+                title: channelHandle // Will be updated when we fetch channel info
+            };
+
+            channels[section].push(channelData);
+            input.value = '';
+            
+            renderChannels(section);
+            updateCounter(section);
+            showStatus(`Channel ${channelHandle} added to ${section}`, 'info');
+        }
+
+        function removeChannel(section, channelId) {
+            channels[section] = channels[section].filter(ch => ch.id !== channelId);
+            renderChannels(section);
+            updateCounter(section);
+            showStatus('Channel removed', 'info');
+        }
+
+        function renderChannels(section) {
+            const container = document.getElementById(section + '-channels');
+            
+            if (channels[section].length === 0) {
+                container.innerHTML = '<div class="status info">No channels added yet. Add some channels to start monitoring!</div>';
+                return;
+            }
+
+            let html = '';
+            channels[section].forEach(channel => {
+                html += `
+                    <div class="channel-item">
+                        <div class="channel-info">
+                            <h3>${channel.title}</h3>
+                            <div class="channel-handle">${channel.handle}</div>
+                        </div>
+                        <button class="btn-danger" onclick="removeChannel('${section}', '${channel.id}')">Remove</button>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        function showNotification(title, body, icon = null) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                const notification = new Notification(title, {
+                    body: body,
+                    icon: icon || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
+                    tag: 'youtube-upload'
+                });
+                
+                setTimeout(() => notification.close(), 5000);
+            }
+        }
+
+        async function fetchChannelData(apiKey, channelHandle) {
+            // Resolve handle to channel ID
+            const handleResponse = await fetch(
+                `https://www.googleapis.com/youtube/v3/channels?part=id&forHandle=${channelHandle}&key=${apiKey}`
+            );
+            const handleData = await handleResponse.json();
+            
+            if (!handleData.items || handleData.items.length === 0) {
+                throw new Error(`Channel not found: ${channelHandle}`);
+            }
+
+            const channelId = handleData.items[0].id;
+            
+            // Get channel info
+            const channelResponse = await fetch(
+                `https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&id=${channelId}&key=${apiKey}`
+            );
+            const channelData = await channelResponse.json();
+            
+            const channel = channelData.items[0];
+            const uploadsPlaylistId = channel.contentDetails.relatedPlaylists.uploads;
+            
+            // Get latest videos
+            const videosResponse = await fetch(
+                `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=2&key=${apiKey}`
+            );
+            const videosData = await videosResponse.json();
+            
+            return {
+                channelTitle: channel.snippet.title,
+                channelHandle: channelHandle,
+                videos: videosData.items || []
+            };
+        }
+
+        function displayAllVideos(allChannelData) {
+            const container = document.getElementById('videos-container');
+            
+            if (allChannelData.length === 0) {
+                container.innerHTML = '<div class="status info">No videos found.</div>';
+                return;
+            }
+
+            let html = '<h2 style="color: #333; margin-bottom: 20px;">📺 Latest Videos from All Channels</h2>';
+            
+            // Sort all videos by publish date
+            let allVideos = [];
+            allChannelData.forEach(channelData => {
+                channelData.videos.forEach((video, index) => {
+                    allVideos.push({
+                        ...video,
+                        channelTitle: channelData.channelTitle,
+                        channelHandle: channelData.channelHandle,
+                        isLatest: index === 0
+                    });
+                });
+            });
+
+            allVideos.sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
+
+            allVideos.forEach(item => {
+                const video = item.snippet;
+                const publishedDate = new Date(video.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                html += `
+                    <div class="video-item">
+                        <div class="video-channel">${item.channelTitle} (${item.channelHandle})</div>
+                        <h3>${video.title}</h3>
+                        <a href="https://www.youtube.com/watch?v=${video.resourceId.videoId}" target="_blank">
+                            Watch Video →
+                        </a>
+                        <div class="video-meta">
+                            Published: ${publishedDate}
+                            ${item.isLatest ? '<span style="color: #FF0000; font-weight: bold;"> • LATEST FROM CHANNEL</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        async function checkAllChannels() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            
+            if (!apiKey) {
+                showStatus('Please enter your YouTube API key', 'error');
+                return;
+            }
+
+            const allChannels = [...channels.entertainment, ...channels.learning];
+            
+            if (allChannels.length === 0) {
+                showStatus('No channels added. Please add some channels to monitor.', 'error');
+                return;
+            }
+
+            let allChannelData = [];
+            let newVideosCount = 0;
+
+            try {
+                for (const channel of allChannels) {
+                    try {
+                        const data = await fetchChannelData(apiKey, channel.handle);
+                        allChannelData.push(data);
+
+                        // Update channel title if it's different
+                        if (channel.title !== data.channelTitle) {
+                            channel.title = data.channelTitle;
+                        }
+
+                        // Check for new videos
+                        if (data.videos.length > 0) {
+                            const latestVideoId = data.videos[0].snippet.resourceId.videoId;
+                            const channelKey = channel.handle;
+                            
+                            if (lastVideoIds[channelKey] && lastVideoIds[channelKey] !== latestVideoId && isMonitoring) {
+                                const videoTitle = data.videos[0].snippet.title;
+                                showNotification(
+                                    `🎉 New Video from ${data.channelTitle}!`,
+                                    videoTitle
+                                );
+                                newVideosCount++;
+                            }
+                            
+                            lastVideoIds[channelKey] = latestVideoId;
+                        }
+                    } catch (error) {
+                        console.error(`Error fetching ${channel.handle}:`, error);
+                    }
+                }
+
+                displayAllVideos(allChannelData);
+                
+                // Re-render channels with updated titles
+                renderChannels('entertainment');
+                renderChannels('learning');
+
+                if (isMonitoring) {
+                    if (newVideosCount > 0) {
+                        showStatus(`🚨 ${newVideosCount} NEW VIDEO(S) DETECTED!`, 'monitoring');
+                    } else {
+                        showStatus(`✅ Monitoring ${allChannels.length} channels - No new videos`, 'monitoring');
+                    }
+                } else {
+                    showStatus(`✅ Successfully loaded videos from ${allChannels.length} channels`, 'info');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                showStatus(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        function checkAllNow() {
+            showStatus('🔍 Checking all channels for updates...', 'info');
+            checkAllChannels();
+        }
+
+        // Initialize counters
+        updateCounter('entertainment');
+        updateCounter('learning');
+        renderChannels('entertainment');
+        renderChannels('learning');
+    </script>
+</body>
+</html>

@@ -20,15 +20,22 @@ window.addEventListener('resize', () => {
     canvas.maxDist = Math.max(canvas.width, canvas.height);
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
+    console.log('canvas resized', canvas.width, canvas.height);
     createBalls();
 });
 
 let mouseX, mouseY = -1000;
 
 topPart.style.opacity = 0;
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY + window.scrollY;
+function updateMouseFromEvent(e) {
+    if (e.touches && e.touches.length > 0) {
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY + window.scrollY;
+    } else {
+        mouseX = e.clientX;
+        mouseY = e.clientY + window.scrollY;
+    }
+
     if (mouseY < 120) {
         topPart.style.opacity = 1;
         topPart.style.transform = 'translate(-50%, 0) scale(1)';
@@ -36,15 +43,31 @@ document.addEventListener('mousemove', (e) => {
         topPart.style.opacity = 0;
         topPart.style.transform = 'translate(-50%, 0) scale(0.8)';
     }
-});
+}
 
-document.addEventListener('mouseleave', (e) => {
-    mouseX, mouseY = -1000;
-});
+document.addEventListener('mousemove', updateMouseFromEvent);
+document.addEventListener('touchmove', updateMouseFromEvent, { passive: true });
+document.addEventListener('mouseleave', mouseX, mouseY = -1000);
+document.addEventListener('touchend', mouseX, mouseY = -1000);
 
 document.addEventListener('wheel', (e) => {
-    mouseY = e.clientY + window.scrollY;
+    mouseY = window.scrollY + e.clientY;
 });
+
+document.addEventListener('scroll', (e) => {
+    y = getCursorPositionAndAddToMouseY(e);
+    mouseY = window.scrollY + y;
+});
+
+function getCursorYPosition(e) {
+    let y;
+    if (e.touches && e.touches.length > 0) {
+        y = e.touches[0].clientY;
+    } else {
+        y = e.clientY;
+    }
+    return y;
+}
 
 const gridSize = 30;
 function createBalls() {
@@ -137,10 +160,11 @@ function drawBalls() {
     }
     requestAnimationFrame(drawBalls);
 }
-page.addEventListener('click', () => {
-    addForceRadius(200, 1.5);
-});
-function addForceRadius( size = 100, bm = 1.5 ) {
+
+page.addEventListener('click', () => addForceRadius(200, 1.5));
+
+function addForceRadius(size = 100, bm = 1.5) {
+    console.log('addForceRadius', size, bm);
     const startForceRadius = forceRadius; // Start radius
     const targetForceRadius = Math.min(startForceRadius + (((startForceRadius + canvas.maxDist * size) / canvas.maxDist)), canvas.maxDist * 1.75);
     const duration = 200; // Duration in milliseconds
@@ -163,6 +187,7 @@ function addForceRadius( size = 100, bm = 1.5 ) {
     }
     animate();
 }
+
 createBalls();
 drawBalls();
 
@@ -170,20 +195,35 @@ const card = document.getElementById('card');
 const maxTilt = 10;
 const amplifier = 10;
 
-page.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+function updateCardTilt(x, y, rect) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateX = Math.max( Math.min(((y - centerY) / centerY) * -amplifier, maxTilt), -maxTilt);
-    const rotateY = Math.max( Math.min(((x - centerX) / centerX) * amplifier, maxTilt), -maxTilt);
+    const rotateX = Math.max(Math.min(((y - centerY) / centerY) * -amplifier, maxTilt), -maxTilt);
+    const rotateY = Math.max(Math.min(((x - centerX) / centerX) * amplifier, maxTilt), -maxTilt);
     card.style.transform = `translate(-50%, -50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
-    
     card.style.backgroundPosition = `${rotateX * 5 + 50}% ${rotateY * 5 + 50}%`;
+}
+
+page.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    updateCardTilt(e.clientX - rect.left, e.clientY - rect.top, rect);
 });
 
+page.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        const rect = card.getBoundingClientRect();
+        updateCardTilt(touch.clientX - rect.left, touch.clientY - rect.top, rect);
+    }
+}, { passive: true });
+
+
 page.addEventListener('mouseleave', () => {
+    card.style.transform = `translate(-50%, -50%) rotateX(0deg) rotateY(0deg)`;
+    card.style.backgroundPosition = `50% 50%`;
+});
+
+page.addEventListener('touchend', () => {
     card.style.transform = `translate(-50%, -50%) rotateX(0deg) rotateY(0deg)`;
     card.style.backgroundPosition = `50% 50%`;
 });

@@ -12,6 +12,7 @@
     <div class="kanban-board" id="kanban-board">
         <!-- Columns will be dynamically generated here -->
     </div>
+    <div class="historic-board-container" id="historic-board"></div>
 
     <div class="edit-container" id="edit-container">
         <div class="board-controls" id="board-controls">
@@ -22,30 +23,28 @@
         </div>
         <button id="finish-board" class="control-btn" onclick="sendToHistoric(currentBoardId)">Finish board</button>
     </div>
-    
+   
     <!-- Add/Edit Task Modal -->
     <div class="modal" id="task-modal">
         <div class="modal-content">
             <h2 id="modal-title">Add Task</h2>
-            <textarea id="task-content" placeholder="Enter task name..."></textarea>
+            <textarea id="task-content" class="task-content-textarea" placeholder="Enter task name..."></textarea>
             <div class="modal-buttons">
                 <button class="cancel-btn" onclick="closeModal('task-modal', true)">Cancel</button>
                 <button class="save-btn" onclick="saveTask()">Save</button>
             </div>
         </div>
     </div>
-    
+  
     <!-- Board Editor Modal -->
     <div class="modal" id="board-editor-modal">
         <div class="modal-content board-editor-content">
             <h2>Edit Board: <span id="board-editor-title"></span></h2>
-            <div class="board-editor-container">
-                <div id="board-columns-list">
-                    <!-- Column editor items will be generated here -->
-                </div>
-                <div class="board-editor-controls">
-                    <button id="add-column-btn" onclick="openColumnModal()" class="add-column-btn">+ Add Column</button>
-                </div>
+            <div class="board-editor-container" id="board-columns-list">
+                <!-- Column editor items will be generated here -->
+            </div>
+            <div class="board-editor-controls">
+                <button id="add-column-btn" onclick="openColumnModal()" class="add-column-btn">+ Add Column</button>
             </div>
             <div class="modal-buttons">
                 <button class="cancel-btn" onclick="cancelBoardChanges()">Cancel</button>
@@ -53,7 +52,7 @@
             </div>
         </div>
     </div>
-    
+ 
     <!-- New Column Modal -->
     <div class="modal" id="column-modal">
         <div class="modal-content">
@@ -61,7 +60,7 @@
             <div class="column-form">
                 <div class="form-group">
                     <label for="column-name">Column Name</label>
-                    <input type="text" id="column-name" placeholder="Enter column name...">
+                    <input type="text" id="column-name" class="column-name-textarea" placeholder="Enter column name...">
                 </div>
                 <div class="form-group">
                     <label for="column-color">Column Color</label>
@@ -79,13 +78,11 @@
     <div class="modal" id="board-manager-modal">
         <div class="modal-content board-manager-content">
             <h2>Manage Boards</h2>
-            <div class="board-manager-container">
-                <div id="boards-list">
-                    <!-- Board items will be generated here -->
-                </div>
-                <div class="board-manager-controls">
-                    <button id="add-board-btn" onclick="createNewBoard()" class="add-board-btn">+ Add New Board</button>
-                </div>
+            <div id="boards-list" class="board-manager-container">
+                <!-- Board items will be generated here -->
+            </div>
+            <div class="board-manager-controls">
+                <button id="add-board-btn" onclick="createNewBoard()" class="add-board-btn">+ Add New Board</button>
             </div>
             <div class="modal-buttons">
                 <button class="cancel-btn" onclick="closeModal('board-manager-modal')">Close</button>
@@ -112,6 +109,9 @@
         </div>
     </div>
 
+    <script src="js/changeXscrollToY.js"></script>
+    <script src="js/enterToConfirmInTextArea.js"></script>
+    
     <script src="js/css/notification.js"></script>
     <script src="js/dragTask.js"></script>
     <script src="js/main.js"></script>

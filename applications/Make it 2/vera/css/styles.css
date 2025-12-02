@@ -1,3 +1,79 @@
+/* Theme Variables */
+:root {
+    --bg: #f5f7fa;
+    --text: #333;
+    --column-bg: #e9ecef;
+    --task-bg: #ffffff;
+    --btn-bg: #3498db;
+    --btn-hover: #2980b9;
+    --header-color: #2c3e50;
+    --border-color: #ccc;
+    --modal-bg: #ffffff;
+    --notification-bg: #555;
+    --success-bg: #2ecc71;
+    --error-bg: #e74c3c;
+    --editbar-bg: #3498db;
+    --input-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Theme: Dark */
+body[data-theme="dark"] {
+    --bg: #1e1e1e;
+    --text: #e0e0e0;
+    --column-bg: #2c2c2c;
+    --task-bg: #3a3a3a;
+    --btn-bg: #3f51b5;
+    --btn-hover: #5c6bc0;
+    --header-color: #f5f5f5;
+    --border-color: #555;
+    --modal-bg: #2b2b2b;
+    --notification-bg: #444;
+    --success-bg: #27ae60;
+    --error-bg: #c0392b;
+    --editbar-bg: #3f51b5;
+    --input-bg: #444;
+    --shadow: rgba(255, 255, 255, 0.05);
+}
+
+/* Theme: Atom */
+body[data-theme="atom"] {
+    --bg: #2b2f38;
+    --text: #c5c8c6;
+    --column-bg: #3b4048;
+    --task-bg: #434a52;
+    --btn-bg: #528bff;
+    --btn-hover: #427aeb;
+    --header-color: #98c379;
+    --border-color: #666;
+    --modal-bg: #3e4451;
+    --notification-bg: #5c6370;
+    --success-bg: #98c379;
+    --error-bg: #e06c75;
+    --editbar-bg: #528bff;
+    --input-bg: #2c313c;
+    --shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Theme: Dracula */
+body[data-theme="dracula"] {
+    --bg: #282a36;
+    --text: #f8f8f2;
+    --column-bg: #44475a;
+    --task-bg: #6272a4;
+    --btn-bg: #bd93f9;
+    --btn-hover: #ff79c6;
+    --header-color: #ffb86c;
+    --border-color: #6272a4;
+    --modal-bg: #44475a;
+    --notification-bg: #6272a4;
+    --success-bg: #50fa7b;
+    --error-bg: #ff5555;
+    --editbar-bg: #bd93f9;
+    --input-bg: #44475a;
+    --shadow: rgba(0, 0, 0, 0.2);
+}
+
 /* Base Styles */
 * {
     margin: 0;
@@ -9,8 +85,7 @@
 body {
     background-color: #f5f7fa;
     color: #333;
-    padding: 20px;
-    margin-bottom: 50px;
+    overflow: scroll;
 }
 
 /* Typography */
@@ -22,17 +97,18 @@ h1 {
 
 /* Layout Components */
 .kanban-board {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
+    height: calc(100vh - 70px);
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: left;
 }
 
 .column {
     background-color: #e9ecef;
     border-radius: 5px;
+    height: 100%;
     width: 300px;
-    min-height: 500px;
+    margin: 10px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -49,8 +125,12 @@ h1 {
 }
 
 .task-list {
-    height: 400px;
+    height: calc(100% - 100px);
     overflow-y: scroll;
+}
+
+.column-footer {
+    margin-top: 15px;
 }
 
 .task {
@@ -92,10 +172,6 @@ h1 {
     gap: 5px;
 }
 
-.column-footer {
-    margin-top: 15px;
-}
-
 /* Buttons */
 .add-task-btn, 
 .add-column-btn,
@@ -116,7 +192,7 @@ h1 {
 }
 
 .add-column-btn {
-    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .edit-btn, 
@@ -223,7 +299,14 @@ h1 {
 }
 
 .board-editor-container {
+    max-height: 50vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
     margin: 15px 0;
+}
+
+.board-columns-list {
+
 }
 
 .column-editor-item {
@@ -408,82 +491,6 @@ h1 {
     }
 }
 
-/* Theme Variables */
-:root {
-    --bg: #f5f7fa;
-    --text: #333;
-    --column-bg: #e9ecef;
-    --task-bg: #ffffff;
-    --btn-bg: #3498db;
-    --btn-hover: #2980b9;
-    --header-color: #2c3e50;
-    --border-color: #ccc;
-    --modal-bg: #ffffff;
-    --notification-bg: #555;
-    --success-bg: #2ecc71;
-    --error-bg: #e74c3c;
-    --editbar-bg: #3498db;
-    --input-bg: #ffffff;
-    --shadow: rgba(0, 0, 0, 0.1);
-}
-
-/* Theme: Dark */
-body[data-theme="dark"] {
-    --bg: #1e1e1e;
-    --text: #e0e0e0;
-    --column-bg: #2c2c2c;
-    --task-bg: #3a3a3a;
-    --btn-bg: #3f51b5;
-    --btn-hover: #5c6bc0;
-    --header-color: #f5f5f5;
-    --border-color: #555;
-    --modal-bg: #2b2b2b;
-    --notification-bg: #444;
-    --success-bg: #27ae60;
-    --error-bg: #c0392b;
-    --editbar-bg: #3f51b5;
-    --input-bg: #444;
-    --shadow: rgba(255, 255, 255, 0.05);
-}
-
-/* Theme: Atom */
-body[data-theme="atom"] {
-    --bg: #2b2f38;
-    --text: #c5c8c6;
-    --column-bg: #3b4048;
-    --task-bg: #434a52;
-    --btn-bg: #528bff;
-    --btn-hover: #427aeb;
-    --header-color: #98c379;
-    --border-color: #666;
-    --modal-bg: #3e4451;
-    --notification-bg: #5c6370;
-    --success-bg: #98c379;
-    --error-bg: #e06c75;
-    --editbar-bg: #528bff;
-    --input-bg: #2c313c;
-    --shadow: rgba(0, 0, 0, 0.2);
-}
-
-/* Theme: Dracula */
-body[data-theme="dracula"] {
-    --bg: #282a36;
-    --text: #f8f8f2;
-    --column-bg: #44475a;
-    --task-bg: #6272a4;
-    --btn-bg: #bd93f9;
-    --btn-hover: #ff79c6;
-    --header-color: #ffb86c;
-    --border-color: #6272a4;
-    --modal-bg: #44475a;
-    --notification-bg: #6272a4;
-    --success-bg: #50fa7b;
-    --error-bg: #ff5555;
-    --editbar-bg: #bd93f9;
-    --input-bg: #44475a;
-    --shadow: rgba(0, 0, 0, 0.2);
-}
-
 /* Apply theme variables */
 body {
     background-color: var(--bg);
@@ -508,6 +515,8 @@ body {
 .board-selector {
     border: none;
     position: fixed;
+    background-color: var(--btn-bg);
+    padding: 10px 5px;
     height: 50px;
     bottom: 0;
     left: 0;
@@ -525,14 +534,25 @@ body {
     padding: 10px;
     height: 50px;
     justify-self: center;
-    width: 500px;
+    width: 100%;
     border-radius: 5px;
     margin-bottom: 10px;
+    text-align-last: center;
     text-align: center;
     margin-bottom: 20px;
     font-size: 2em;
     font-weight: 700;
     box-shadow: 0 4px 10px var(--shadow);
+}
+
+.historic-board-container {
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    width: 100%;
+    height: calc(100vh - 70px);
 }
 
 .historic-board {
@@ -542,12 +562,13 @@ body {
     height: 40px;
     border-radius: 5px;
     cursor: default;
-    transition: all 0.2s;
+    transition: all 0.3s;
 }
 
 .historic-board:hover {
     background-color: var(--border-color);
     box-shadow: 0 2px 5px var(--shadow);
+    transition: all 0.05s;
 }
 
 .add-task-btn,
@@ -589,4 +610,85 @@ input, textarea {
 
 .edit-container {
     background-color: var(--editbar-bg);
+}
+
+
+.historic-tasks-container {
+    background-color: var(--column-bg);
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    transition: all ease 0.2s;
+}
+
+.historic-column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    margin: 4px 0;
+    background-color: var(--column-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.historic-column:hover {
+    background-color: var(--border-color);
+}
+
+.historic-column-expand-icon {
+    font-size: 12px;
+    color: var(--text);
+    margin-left: 8px;
+    transition: transform 0.2s;
+}
+
+.historic-tasks-container:hover {
+    transform: translateX(5px);
+}
+
+.combo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    background-color: var(--column-bg);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.combo-tasks-list {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--border-color);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.combo-tasks-controls {
+    margin: 10px 0;
+    display: block;
+    width: 100%;
+}
+
+.add-combo-btn {
+    background-color: var(--btn-bg);
+    color: var(--text);
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#combo-tasks-list {
+    max-height: 50vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }

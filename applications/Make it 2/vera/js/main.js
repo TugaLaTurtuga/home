@@ -43,8 +43,38 @@ let boards = JSON.parse(localStorage.getItem('kanbanBoards')) || [
     }
 ];
 
+// ignore this, no fucking person will understand why this exists
+// HINT: firefox
+if (boards.length === 0) { 
+    boards.push({
+        id: generateId(),
+        name: 'Your save file broke.',
+        columns: [
+            {
+                name: 'To Do',
+                color: '#3498db',
+            },
+            {
+                name: 'Doing',
+                color: '#f39c12',
+            },
+            {
+                name: 'Done',
+                color: '#2ecc71',
+            }
+        ]
+    });
+}
+
+console.log('Boards:', boards);
+
 let currentBoardId = localStorage.getItem('currentBoardId') || boards[0].id;
 let currentBoard = boards.find(b => b.id === currentBoardId) || boards[0];
+if (currentBoard === undefined) { // don't worry, no spagetti code here (:
+    currentBoard = boards[0];
+    currentBoardId = boards[0].id;
+}
+
 let historic = [];
 
 try {
@@ -75,12 +105,22 @@ let comboTasks = JSON.parse(localStorage.getItem('comboTasks')) || [
     }
 ];
 
+const historicContainer = document.getElementById('historic-board');
+const kanbanBoard = document.getElementById('kanban-board');
+
 // Initialize tasks structure if not existing
 if (!tasks[currentBoardId]) {
     tasks[currentBoardId] = {};
-    currentBoard.columns.forEach(column => {
-        tasks[currentBoardId][column.name] = [];
-    });
+
+    try {
+        currentBoard.columns.forEach(column => {
+            tasks[currentBoardId][column.name] = [];
+        });
+    } catch (error) {
+        console.error("Error initializing tasks structure:\n REASON: can't program\n", error);
+        tasks[currentBoardId] = {};
+    }
+    
 }
 
 // Modal state variables
@@ -173,9 +213,15 @@ function initBoard() {
 // Initialize tasks object based on board configuration
 function initTasksObject() {
     if (currentBoardId === '_h_') {
+        kanbanBoard.style.display = 'none';
+        historicContainer.style.display = 'block';
         renderHistoric();
         return;
-    } else document.getElementById('header').style.display = 'none';
+    } else {
+        document.getElementById('header').style.display = 'none';
+        kanbanBoard.style.display = 'grid';
+        historicContainer.style.display = 'none';
+    } 
 
     if (!tasks[currentBoardId] || typeof tasks[currentBoardId] !== 'object') {
         tasks[currentBoardId] = {};
@@ -197,43 +243,155 @@ function initTasksObject() {
 }
 
 async function renderHistoric() {
-    const historicContainer = document.getElementById('kanban-board');
     document.getElementById('header').style.display = 'block';
     historicContainer.innerHTML = '';
     console.log('Historic:', historic);
 
     historic.forEach((board, index) => {
+        // Main container for each board
+        const boardContainer = document.createElement('div');
+        boardContainer.className = 'historic-board-container-item';
+       
         const boardElement = document.createElement('div');
         boardElement.className = 'historic-board';
+        boardElement.setAttribute('data-expanded', 'false');
 
         const boardHeader = document.createElement('div');
         boardHeader.className = 'historic-board-header';
+        boardHeader.style.display = 'flex';
+        boardHeader.style.justifyContent = 'space-between';
+        boardHeader.style.alignItems = 'center';
+        boardHeader.style.height = '100%';
         boardHeader.textContent = board.name;
 
+        // Expand icon for board
+        const expandIcon = document.createElement('span');
+        expandIcon.className = 'expand-icon';
+        expandIcon.textContent = '▶';
+        expandIcon.style.fontSize = '12px';
+        expandIcon.style.transition = 'transform 0.2s';
+        boardHeader.appendChild(expandIcon);
+
+        const boardColumns = document.createElement('div');
+        boardColumns.className = 'historic-board-columns';
+        boardColumns.style.display = 'none';
+        boardColumns.style.marginTop = '10px';
+        boardColumns.style.padding = '10px';
+        boardColumns.style.backgroundColor = 'var(--bg-color)';
+        boardColumns.style.borderRadius = '5px';
+        boardColumns.style.border = '1px solid var(--border-color)';
+
+        // Create each column
+        board.columns.forEach(column => {
+            const columnContainer = document.createElement('div');
+            columnContainer.className = 'historic-column-container';
+            columnContainer.style.marginBottom = '5px';
+
+            const columnElement = document.createElement('div');
+            columnElement.className = 'historic-column';
+            columnElement.style.borderLeft = `4px solid ${column.color}`;
+            columnElement.setAttribute('data-expanded', 'false');
+
+            // Column name and task count
+            const columnName = document.createElement('span');
+            columnName.textContent = column.name;
+            columnName.style.color = column.color;
+            columnName.style.fontWeight = 'bold';
+            columnName.style.fontSize = '14px';
+
+            columnElement.appendChild(columnName);
+
+            // Expand icon for column
+            const columnExpandIcon = document.createElement('span');
+            if (column.tasks && column.tasks.length > 0) {
+                columnExpandIcon.className = 'historic-column-expand-icon';
+                columnExpandIcon.textContent = '▶';
+                columnElement.appendChild(columnExpandIcon);
+            } else {
+                columnElement.style.pointerEvents = 'none';
+            }
+            
+            columnContainer.appendChild(columnElement);
+
+            // Tasks container
+            const tasksContainer = document.createElement('div');
+            tasksContainer.style.display = 'none';
+            tasksContainer.className = 'historic-tasks-container';
+
+            if (column.tasks && column.tasks.length > 0) {
+                column.tasks.forEach(task => {
+                    const taskItem = document.createElement('div');
+                    taskItem.textContent = `• ${task.content}`;
+                    tasksContainer.appendChild(taskItem);
+                });
+            }
+
+            columnContainer.appendChild(tasksContainer);
+            boardColumns.appendChild(columnContainer);
+
+            // Toggle tasks on column click
+            if (column.tasks && column.tasks.length > 0) {
+                columnElement.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const expanded = columnElement.getAttribute('data-expanded') === 'true';
+                    if (!expanded) {
+                        tasksContainer.style.display = 'block';
+                        columnExpandIcon.style.transform = 'rotate(90deg)';
+                        columnElement.setAttribute('data-expanded', 'true');
+                    } else {
+                        tasksContainer.style.display = 'none';
+                        columnExpandIcon.style.transform = 'rotate(0deg)';
+                        columnElement.setAttribute('data-expanded', 'false');
+                    }
+                });
+            }
+        });
+
         boardElement.appendChild(boardHeader);
-        historicContainer.appendChild(boardElement);
+        boardContainer.appendChild(boardElement);
+        boardContainer.appendChild(boardColumns);
+        historicContainer.appendChild(boardContainer);
 
-        // 🖱 Middle click deletes the board from historic
+        // Toggle board columns on board click
+        boardElement.addEventListener('click', (event) => {
+            if (event.button === 0) { 
+                event.preventDefault();
+                const isExpanded = boardElement.getAttribute('data-expanded') === 'true';
+                if (!isExpanded) {
+                    boardColumns.style.display = 'block';
+                    expandIcon.style.transform = 'rotate(90deg)';
+                    boardElement.setAttribute('data-expanded', 'true');
+                    boardElement.style.height = 'auto';
+                } else {
+                    boardColumns.style.display = 'none';
+                    expandIcon.style.transform = 'rotate(0deg)';
+                    boardElement.setAttribute('data-expanded', 'false');
+                    boardElement.style.height = '40px';
+                }
+            }
+        });
+
+        // Middle click deletes the board
         boardElement.addEventListener('mousedown', async (event) => {
-            if (event.button === 1) { // middle mouse button
-                event.preventDefault(); // prevent default scroll behavior
-
+            if (event.button === 1) { 
+                event.preventDefault();
                 const confirmed = await showNotification(
                     `Delete historic board "${board.name}"?`, 
                     '#333333', 
                     5000, 
-                    true // assuming this triggers confirmation buttons
+                    true
                 );
 
                 if (confirmed) {
                     historic.splice(index, 1);
                     localStorage.setItem('historic', JSON.stringify(historic));
-                    renderHistoric(); // refresh UI
+                    renderHistoric();
                 }
             }
         });
     });
 }
+
 
 // Generate columns based on board configuration
 function generateColumns() {
@@ -358,7 +516,7 @@ function createTaskElement(task, column) {
     
     taskElement.appendChild(taskContent);
     taskElement.appendChild(taskButtons);
-    
+   
     // Setup drag events
     taskElement.addEventListener('dragstart', () => {
         taskElement.classList.add('dragging');
@@ -488,6 +646,7 @@ function openAddTaskModal(column) {
     document.getElementById('task-content').value = '';
     document.getElementById('task-content').placeholder = 'Enter task name...';
     document.getElementById('task-modal').style.display = 'block';
+    document.getElementById('task-content').focus();
 }
 
 // Open edit task modal
@@ -502,13 +661,14 @@ function openEditTaskModal(taskId, column) {
     if (task) {
         document.getElementById('modal-title').textContent = 'Edit Task';
         document.getElementById('task-content').value = task.content;
+        document.getElementById('task-content').focus();
         document.getElementById('task-modal').style.display = 'block';
     }
 }
 
 // Close modal
-function closeModal(modalId, dontDeleteBoard = false) {
-    if (isEditingBoard && !dontDeleteBoard) {
+function closeModal(modalId, deleteBoard = false) {
+    if (deleteBoard) {
         isEditingBoard = false;
         if (boards.length > 0) {
             console.log('Deleting last board:', boards[boards.length - 1]);
@@ -538,13 +698,16 @@ async function saveTask() {
             updateTask(currentTaskId, content, currentColumn);
         } else {
             const c = content.toLowerCase();
-            if (c.startsWith('task:') || c.startsWith('ct:') || c.startsWith('combo:') || c.startsWith('tc:')) {
-                const comboName = content.split(':')[1].toLowerCase().trim();
-                if (comboName.length > 0) {
+            let comboName = '';
+
+            if ( c.startsWith('!') || c.startsWith(':') ) {
+                comboName = content.split(/:|!/)[1]?.toLowerCase().trim();
+                console.log('Combo name:', comboName);
+                if (comboName) {
                     const tasksToAdd = await checkComboTask(comboName);
-                    for (let i = 0; i < tasksToAdd.length; i++) {
-                        addTask(tasksToAdd[i], currentColumn);
-                    }
+                    tasksToAdd.forEach(task => addTask(task, currentColumn));
+                } else {
+                    showNotification("Combo task name doesn't exist!", '#ff0000');
                 }
             } else {
                 addTask(content, currentColumn);
@@ -560,6 +723,7 @@ async function saveTask() {
 
 async function checkComboTask(name) {
     for (let i = 0; i < comboTasks.length; i++) {
+        console.log(comboTasks[i].name, name);
         if (comboTasks[i].name.some(n => typeof n === 'string' && n.toLowerCase() === name.toLowerCase())) {
             return comboTasks[i].tasks;
         }
@@ -643,6 +807,7 @@ function openAddBoardModal() {
     document.getElementById('task-content').value = '';
     document.getElementById('task-content').placeholder = 'Enter board name...';
     document.getElementById('task-modal').style.display = 'block';
+    document.getElementById('task-content').focus();
 }
 
 // Delete current board
@@ -676,23 +841,30 @@ async function sendToHistoric(id) {
         showNotification("Cannot send to historic, it's the only board!", '#ff0000');
         return;
     }
-    const board = boards.find(b => b.id === id);
+    let board = boards.find(b => b.id === id);
     const comfirmed = await showNotification(`Are you sure you want to send "${board.name}" to historic?`, '#333333', 5000, true);
     if (board && comfirmed) {
-        historic.push(board);
 
         const boardIndex = boards.findIndex(b => b.id === currentBoardId);
         if (boardIndex !== -1) {
             boards.splice(boardIndex, 1);
+            for (let i = 0; i < board.columns.length; i++) {
+                columnName = board.columns[i].name;
+                if (tasks[currentBoardId][columnName]) {
+                    board.columns[i].tasks = tasks[currentBoardId][columnName];
+                }
+            }
+            console.log(board.columns);
             delete tasks[currentBoardId];
-            
+           
             // Switch to first board
             switchBoard(boards[0].id);
             saveToLocalStorage();
         }
 
+        historic.push(board);
         localStorage.setItem('historic', JSON.stringify(historic));
-        showNotification(`Board "${board.name}" was sent to historic without problems!`, '#2ecc71', 3000);
+        showNotification(`Board "${board.name}" was sent to historic!`, '#2ecc71', 3000);
     }
 }
 
