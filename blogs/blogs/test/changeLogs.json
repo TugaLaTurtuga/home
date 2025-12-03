@@ -1,10 +1,14 @@
 {
     "0.0.0": {
-        "log": "Creation",
-        "date": "1/12/2025"
+        "name": "Blog",
+        "logs": "Blogs are now make thru .md \nremoved the goofy ahh first blog",
+        "date": "1/12/2025",
+        "done": true
     },
     "0.1.0": {
-        "log": "Added change logs\nAdded LaTeX\nAdded date\n changed font from radio canada to Rubik",
-        "date": "2/12/2025"
+        "name": "LaTeX && Change logs",
+        "logs": "Added change logs \nAdded LaTeX \nAdded date \nChanged font from radio canada to Rubik",
+        "date": "2/12/2025",
+        "done": true
     }
 }

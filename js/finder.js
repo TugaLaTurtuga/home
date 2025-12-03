@@ -84,8 +84,6 @@ async function FindBlogs(place = false) {
                 const values = Object.values(parsed);
                 const first = values[0];
                 const date = first?.date;
-
-                console.log(date);
                 dateText.textContent = date;
             })
             .catch(() => {
