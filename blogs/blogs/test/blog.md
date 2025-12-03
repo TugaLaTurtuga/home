@@ -60,15 +60,21 @@ This is a new paragraph.
 
 ---
 
-## 5. Links & Images
+## 5. Links, Images & htmls
 
 - [GitHub](https://github.com/TugaLaTurtuga)
 - Inline image:
 
 ![Markdown Logo](https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg)
 
-- Link to another Markdown file:  
-  [Other File](./other_file.md)
+- Link to another blog:  
+  [Other blog](./test)
+
+- Insert image from itself:  
+  ![img](./test/icon.png)
+
+- Insert html from itself:  
+  [html](./test/code/test.html)
 
 ---
 

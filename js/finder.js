@@ -1,5 +1,5 @@
 const blogs = [
-    { name: 'blogs/blogs/test', displayText: "Blog test" },
+    { name: 'blogs/blogs/test', displayText: "Test blog" },
 ];
 
 async function FindBlogs(place = false) {

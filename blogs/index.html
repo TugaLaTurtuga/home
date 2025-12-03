@@ -33,11 +33,6 @@
       <!-- Grid items will be added here by JavaScript -->
     </div>
 
-    <script src="../js/Finder.js"></script>
-    <script>
-      FindBlogs(true);
-    </script>
-
     <div class="footer">
       <a href="../" target="_self" class="othersimage">
         <i class="fa-solid fa-house"></i>
@@ -117,6 +112,8 @@
         }
       };
     </script>
+
+    <script src="../js/Finder.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -204,6 +201,97 @@
                     wrapper.appendChild(langDiv);
                 });
 
+                const as = parentDiv.querySelectorAll("a, img");
+                as.forEach(a => {
+                    let usesSrc = false
+                    if (a.href === null || a.href == undefined) {
+                      a.href = a.src;
+                      usesSrc = true;
+                    } 
+                    const aHref = a.href;
+                    const currentHrefArray = location.href.split("/").filter(Boolean);
+                    const linkHrefArray = aHref.split("/").filter(Boolean);
+
+                    let isFile = false;
+                    let file = null;
+
+                    // Detect file extension
+                    if (/\.\w+$/.test(linkHrefArray[linkHrefArray.length - 1])) {
+                        file = linkHrefArray.pop();
+                        isFile = true;
+                    }
+
+                    // Compare dirs
+                    let localHref = true;
+                    for (let i = 0; i < currentHrefArray.length - 1; i++) {
+                        if (linkHrefArray[i] !== currentHrefArray[i]) {
+                            localHref = false;
+                            break;
+                        } else if (i + 2 === currentHrefArray.length) {
+                          // if it ends in, ex test/code,
+                          // put 'test/code' at the end instead of 'test', 'code'.
+                          linkHrefArray[i + 1] = linkHrefArray.slice(i + 1).join("/");
+                          linkHrefArray.length = i + 2; // trim the array
+                        }
+                    }
+
+                    if (localHref) {
+                        if (!isFile) {
+                            // BLOG LINK
+                            const blogLink = aHref.split("/").pop();
+                            fetch(`blogs/${blogLink}/name.txt`)
+                                .then(res => res.text())
+                                .then(data => {
+                                    const params = new URLSearchParams({
+                                        blog: blogLink,
+                                        name: data,
+                                    });
+                                    a.href = `?${params.toString()}`;
+                                })
+                                .catch(() => {
+                                    const params = new URLSearchParams({
+                                        blog: blogLink,
+                                        name: blogLink,
+                                    });
+                                    a.href = `?${params.toString()}`;
+                                });
+
+                        } else {
+                            // FILE LINK
+                            const blogLink = linkHrefArray.pop();
+                            if (file.toLowerCase().endsWith(".html")) {
+                                const newA = document.createElement("div");
+
+                                fetch(`blogs/${blogLink}/${file}`)
+                                    .then(res => res.text())
+                                    .then(html => {
+                                        newA.innerHTML = html;
+                                        newA.classList.add("injected-html");
+                                        a.replaceWith(newA);
+                                        const scripts = newA.querySelectorAll("script");
+                                        scripts.forEach(oldScript => {
+                                            const s = document.createElement("script");
+
+                                            if (oldScript.src) {
+                                                // External script
+                                                s.src = oldScript.src;
+                                            } else {
+                                                // Inline script
+                                                s.textContent = oldScript.textContent;
+                                            }
+
+                                            oldScript.replaceWith(s);
+                                        });
+                                    });
+                            }
+                            a.href = `blogs/${blogLink}/${file}`;
+                        }
+                    }
+                    if (usesSrc) {
+                      a.src = a.href;
+                    }
+                });
+
                 if (window.MathJax) {
                     window.MathJax.typesetPromise();
                 }
@@ -234,6 +322,8 @@
 
       if (blog) {
         loadBlog();
+      } else {
+        FindBlogs(true);
       }
     </script>
     <script src="js/changeLog.js"></script>

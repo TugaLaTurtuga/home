@@ -1,3 +1,8 @@
+:root {
+    --changeLogSidebarSize: 120px;
+    --changeLogHeaderSize: 100px;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -81,7 +86,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 135px !important;
+  width: var(--changeLogSidebarSize) !important;
   height: 45px;
   background: var(--ButtonGridColor);
   text-align-last: center;
@@ -89,7 +94,7 @@
 }
 
 .change-logs-container {
-  width: 135px !important;
+  width: var(--changeLogSidebarSize) !important;
   overflow-y: auto;
   height: calc(100% - 45px);
   margin: 0;
@@ -128,12 +133,12 @@
 }
 
 .change-log {
-  width: calc(100% - 135px) !important;
+  width: calc(100% - var(--changeLogSidebarSize)) !important;
 }
 
 .change-log-header {
   width: 100%;
-  height: 110px !important;
+  height: var(--changeLogHeaderSize) !important;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -142,9 +147,9 @@
 }
 
 .change-log-title {
-  font-weight: 800;
+  font-weight: 900;
   text-align-last: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--PrimaryColor);
 }
 
