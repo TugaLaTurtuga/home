@@ -1,17 +1,5 @@
-:root {
-    --PrimaryColor: rgb(237, 140, 5);
-    --SecundaryColor: rgb(0, 0, 0);
-    --background1: rgb(255,255,255);
-    --background2: rgb(225,225,225);
-    --BtnBack: rgba(200,200,200, 0.4);
-    --BtnBodyBack1: rgba(255,255,255,0.9);
-    --BtnBodyBack2: rgba(255,255,255,0.5); 
-    --ButtonGridColor: rgb(200, 200, 200);
-    --ButtonGridHover: rgb(150, 150, 150);
-}
-
 body {
-    background: linear-gradient(to bottom, --background1, --background2);
+    background: var(--Background1);
     margin: 0;
     height: 100%;
     font-family: "Radio Canada", sans-serif;
@@ -108,13 +96,13 @@ body {
 
 
 .fa-brands:hover {
-    color: var(--background2);
+    color: var(--Background2);
     transform: scale(1.2);
     transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.2, 2), color 0.15s ease-out;
 }
 
 .fa-solid:hover{
-    color: var(--background2);
+    color: var(--Background2);
     transform: scale(1.2);
     transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.2, 2), color 0.15s ease-out;
 }
@@ -163,6 +151,7 @@ a, a:hover, a:visited, a:active {
    letter-spacing: -1px;
    line-height: -1px;
    font-weight: 600;
+   color: var(--SecundaryColor);
 }
 
 h2{

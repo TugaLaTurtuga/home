@@ -54,11 +54,6 @@ document.addEventListener('wheel', (e) => {
     mouseY = window.scrollY + e.clientY;
 });
 
-document.addEventListener('scroll', (e) => {
-    y = getCursorPositionAndAddToMouseY(e);
-    mouseY = window.scrollY + y;
-});
-
 function getCursorYPosition(e) {
     let y;
     if (e.touches && e.touches.length > 0) {

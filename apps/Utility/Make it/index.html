@@ -17,6 +17,8 @@
     <script src="https://kit.fontawesome.com/d677bec6db.js" crossorigin="anonymous"></script>
 
     <!-- External CSS -->
+    <link rel="stylesheet" href="../../../css/theme.css">
+    <link rel="stylesheet" href="../../../css/modal.css">
     <link rel="stylesheet" href="../../../css/Containersstyle.css">
     <link rel="stylesheet" href="../../../css/apps.css">
 
@@ -86,7 +88,7 @@
     </a>
 
     <div class="dropdown">
-        <i class="fa-solid fa-sliders"></i>
+        <i class="fa-solid fa-sliders" onclick="showSettings()"></i>
     </div>
 </div>
 
@@ -107,5 +109,20 @@
     </a>
     <img src="../../../images/tugalogo.jpg" alt="Logo" class="tugalogo">
 </div>
+
+<div class="overlay" id="overlay" isVisible="true">
+    <div class="modal">
+        <div class="fill" id="settings">
+        <div id="themes">
+            <select id="allThemes"></select>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../../js/finder.js"></script>
+<script src="../../../js/theme.js"></script>
+<script src="../../../js/overlay.js"></script>
+
 </body>
 </html>

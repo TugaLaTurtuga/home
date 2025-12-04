@@ -16,7 +16,7 @@
 }
 
 .overlay:hover {
-  background: alpha(var(--background1), 0.5);
+  background: alpha(var(--Background1), 0.5);
   backdrop-filter: blur(6px);
 }
 
@@ -25,7 +25,7 @@
   max-width: 94vw;
   max-height: 86vh;
   overflow: auto;
-  background: var(--background2);
+  background: var(--Background2);
   color: var(--SecundaryColor);
   border-radius: 10px;
   padding: 18px;
@@ -77,7 +77,7 @@
   padding: 0.45rem 0.9rem;
   border-radius: 5px;
   background: var(--PrimaryColor);
-  color: var(--background1);
+  color: var(--Background1);
   border: none;
   cursor: pointer;
 }
@@ -125,7 +125,7 @@
 }
 .change-logs-item.active {
   background: var(--PrimaryColor);
-  color: var(--background1);
+  color: var(--Background1);
 }
 .change-logs-item span {
   display: inline-block;
@@ -174,10 +174,25 @@
   padding: 10px;
   padding-left: 15px;
   padding-bottom: 20px;
-  background: var(--background2);
+  background: var(--Background2);
   overflow-y: scroll;
 }
 
 .change-log-content .spacer {
   height: 0.5rem;
+}
+
+#changeLogs {
+  display: flex;
+}
+
+#settings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fill {
+    height: 100%;
+    width: 100%;
 }

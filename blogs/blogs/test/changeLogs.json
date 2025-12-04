@@ -11,16 +11,22 @@
         "date": "2/12/2025",
         "done": true
     },
-    "0.1.1": {
+    "0.2.0": {
         "name": "Linking blogs",
         "logs": "Made blogs possible to link to each other \nFixed the change logs and version load incorrectly",
         "date": "3/12/2025",
         "done": true
     },
-    "0.1.2": {
+    "0.3.0": {
         "name": "Loading imgs and htmls",
         "logs": "Made imgs and htmls from inside possible to be loaded",
         "date": "3/12/2025",
+        "done": true
+    },
+    "0.4.0": {
+        "name": "Themes",
+        "logs": "Added themes, that gets applied to the whole website, expect the main page \nAdded settings, with only a select",
+        "date": "4/12/2025",
         "done": true
     }
 }

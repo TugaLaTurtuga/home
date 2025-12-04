@@ -1,13 +1,37 @@
+function buildRootPath() {
+    const hrefParts = location.href
+        .replace(location.origin, "")
+        .split("?")[0]
+        .split("/")
+        .filter(Boolean)
+    let rootPath = "";
+    for (let i = 0; i < hrefParts.length; i++) {
+        rootPath += "../";
+    }
+    return rootPath;
+}
+
+function adjustPadding(div, img) {
+    const aspectRatio = window.innerWidth / window.innerHeight;
+    div.style.padding = '5px';
+    if (aspectRatio > 1) {
+        const maxPadding = parseFloat(getComputedStyle(div).width);
+        const padded = Math.min(img.width + 10, maxPadding);
+        div.style.paddingLeft = `${padded}px`;
+    } else {
+        const maxPadding = parseFloat(getComputedStyle(div).height);
+        const padded = Math.min(img.height + 10, maxPadding);
+        div.style.paddingTop = `${padded}px`;
+    }
+}
+
 const blogs = [
     { name: 'blogs/blogs/test', displayText: "Test blog" },
 ];
 
-async function FindBlogs(place = false) {
+async function FindBlogs() {
     const allBlogs = blogs.map(subpage  => {
-        // Compute blog name (shortened path if place=true)
-        const name = place 
-            ? subpage.name.split("/").slice(1).join("/")
-            : subpage.name;
+        const name = buildRootPath() + subpage.name;
 
         // URLSearchParams for the last part of the path
         const params = new URLSearchParams({
@@ -25,20 +49,6 @@ async function FindBlogs(place = false) {
     const gridContainer = document.getElementById("grid-container-blog");
     gridContainer.innerHTML = ""; // Clear existing content
 
-    function adjustPadding(div, img) {
-        const aspectRatio = window.innerWidth / window.innerHeight;
-        div.style.padding = '5px';
-        if (aspectRatio > 1) {
-            const maxPadding = parseFloat(getComputedStyle(div).width);
-            const padded = Math.min(img.width + 10, maxPadding);
-            div.style.paddingLeft = `${padded}px`;
-        } else {
-            const maxPadding = parseFloat(getComputedStyle(div).height);
-            const padded = Math.min(img.height + 10, maxPadding);
-            div.style.paddingTop = `${padded}px`;
-        }
-    }
-
     allBlogs.forEach(blog => {
         const div = document.createElement("div");
         div.className = "grid-item blog";
@@ -50,7 +60,7 @@ async function FindBlogs(place = false) {
                 }
             });
         }, { threshold: 0.2 });
-        if (!place) observer.observe(div);
+        if (buildRootPath() === "") observer.observe(div);
 
         const img = document.createElement("img");
         img.src = `${blog.name}/icon.png`;
@@ -96,8 +106,7 @@ async function FindBlogs(place = false) {
 
         // Build the final URL
         button.onclick = () => {
-            const base = place ? "" : "blogs/";
-            const url = `${base}?${blog.params.toString()}`;
+            const url = `${buildRootPath()}blogs/?${blog.params.toString()}`;
             window.open(url, "_parent");
         };
 
@@ -115,17 +124,14 @@ const apps = [
     { name: "applications/Gambling simulator", displayText: "Gambling simulator"},
 ];
 
-function FindApps(place = false) {
+function FindApps() {
     const allApps = []; // Initialize an array to hold shortened blog names
 
     // Construct allBlogs with shortened paths and display text
     apps.forEach(subpage => {
         let NewApp = {}; // Create an object for each blog
 
-        let Name = subpage.name;
-        if (place) {
-            Name = subpage.name.replace('/apps', ''); // Adjust the path if place is true
-        }
+        let Name = buildRootPath() + subpage.name;
         
         NewApp.name = Name; // Store the name in the object
         NewApp.displayText = subpage.displayText; // Store the display text in the object
@@ -133,23 +139,8 @@ function FindApps(place = false) {
         allApps.push(NewApp); // Add the blog object to the allBlogs array
     });
 
-    const gridContainer = document.getElementById('grid-container-app');
-
-    function adjustPadding(div, img) {
-        const aspectRatio = window.innerWidth / window.innerHeight;
-        div.style.paddingLeft = '5px';
-        div.style.paddingTop = '5px';
-
-        if (aspectRatio > 1) {
-            const maxPadding = parseFloat(getComputedStyle(div).width);
-            const padded = Math.min(img.width + 10, maxPadding);
-            div.style.paddingLeft = `${padded}px`;
-        } else {
-            const maxPadding = parseFloat(getComputedStyle(div).height);
-            const padded = Math.min(img.height + 10, maxPadding);
-            div.style.paddingTop = `${padded}px`;
-        }
-    }
+    const gridContainer = document.getElementById("grid-container-app");
+    gridContainer.innerHTML = ""; // Clear existing content
 
     // Create grid items for each subpage
     allApps.forEach((app, index) => {
@@ -168,7 +159,7 @@ function FindApps(place = false) {
                 }
             });
         }, { threshold: 0.2 });
-        if (!place) observer.observe(div);
+        if (buildRootPath() === "") observer.observe(div);
 
         div.appendChild(img);
 

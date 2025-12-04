@@ -1,8 +1,8 @@
 :root {
     --PrimaryColor: rgb(237, 140, 5);
     --SecundaryColor: rgb(0, 0, 0);
-    --background1: rgb(255, 255, 255);
-    --background2: rgb(225, 225, 225);
+    --Background1: rgb(255, 255, 255);
+    --Background2: rgb(225, 225, 225);
     --BtnBack: rgba(200, 200, 200, 0.4);
     --BtnBodyBack1: rgba(255, 255, 255, 0.8);
     --BtnBodyBack2: rgba(255, 255, 255, 0.4); 

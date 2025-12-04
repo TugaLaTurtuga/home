@@ -140,6 +140,7 @@ pre code {
 
 .ama.blog {
     color: var(--PrimaryColor);
+    background: none;
     font-weight: 900;
     max-width: 860px;
     padding: 10px 20px;
