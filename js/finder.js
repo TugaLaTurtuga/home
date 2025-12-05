@@ -8,15 +8,6 @@ function buildRootPath() {
         .filter(Boolean)
     let rootPath = "";
 
-    // this is for the github site
-    if (hrefParts[0] === "home") {
-        rootPath = "home/"
-        defaultRootPath = "home/"
-        hrefParts.shift();
-    } else {
-        defaultRootPath = "";
-    }
-
     for (let i = 1; i < hrefParts.length; i++) {
         rootPath += "../";
     }
