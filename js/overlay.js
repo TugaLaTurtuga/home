@@ -7,9 +7,8 @@ function showModalElements(id) {
                 getComputedStyle(div).display || "block";
             div.setAttribute("display", originalDisplay);
         }
-        console.log(div.id, id);
+
         if (div.id === id) {
-            console.log(div.id, id);
             div.style.display = div.getAttribute("display");
         } else {
             div.style.display = "none";

@@ -28,5 +28,11 @@
         "logs": "Added themes, that gets applied to the whole website, expect the main page \nAdded settings, with only a select",
         "date": "4/12/2025",
         "done": true
+    },
+    "0.4.1": {
+        "name": "Root dir",
+        "logs": "Quick fix for the root dir on github being 'home/' and not '/'",
+        "date": "5/12/2025",
+        "done": true
     }
 }
