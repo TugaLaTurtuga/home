@@ -176,8 +176,7 @@ async function loadBlog() {
 
         // Update headers and layout
         document.querySelector(".UpBtns").style.display = "none";
-        document.querySelector(".footer").style.background = "none";
-        document.querySelector(".footer").style.pointerEvents = "none";
+        document.querySelector(".footer").style.display = "none";
         document.querySelector(".ama").textContent = name;
         document.title = `Tuga's blog - ${name}`;
         document.querySelector(".ama").classList.add("blog");
