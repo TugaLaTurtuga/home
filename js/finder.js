@@ -12,6 +12,7 @@ function buildRootPath() {
     if (hrefParts[0] === "home") {
         rootPath = "home/"
         defaultRootPath = "home/"
+        hrefParts.shift();
     } else {
         defaultRootPath = "";
     }
