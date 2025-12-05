@@ -8,7 +8,12 @@ function buildRootPath() {
         .filter(Boolean)
     let rootPath = "";
 
-    for (let i = 1; i < hrefParts.length; i++) {
+    let istart = 0;
+    if (hrefParts[0] === "home") {
+        istart = 1;
+    }
+
+    for (let i = istart; i < hrefParts.length; i++) {
         rootPath += "../";
     }
     return rootPath;
