@@ -31,7 +31,7 @@
     },
     "0.4.1": {
         "name": "Root dir",
-        "logs": "Quick fix for the root dir on github being 'home/' and not '/'",
+        "logs": "Quick fix for the root dir on github being incorrect",
         "date": "5/12/2025",
         "done": true
     }
