@@ -5,6 +5,12 @@ function buildRootPath() {
         .split("/")
         .filter(Boolean)
     let rootPath = "";
+
+    // this is for the github site
+    if (hrefParts[0] === "home") {
+        rootPath = "home/"
+    }
+
     for (let i = 0; i < hrefParts.length; i++) {
         rootPath += "../";
     }
