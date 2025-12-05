@@ -106,18 +106,6 @@
     --ButtonGridHover: rgb(60, 90, 120);
 }
 
-[theme="high-contrast"] {
-    --PrimaryColor: rgb(0, 0, 0);
-    --SecundaryColor: rgb(255, 255, 255);
-    --Background1: rgb(255, 255, 255);
-    --Background2: rgb(240, 240, 240);
-    --BtnBack: rgba(0,0,0,0.08);
-    --BtnBodyBack1: rgba(255,255,255,1);
-    --BtnBodyBack2: rgba(250,250,250,0.9);
-    --ButtonGridColor: rgb(200,200,200);
-    --ButtonGridHover: rgb(120,120,120);
-}
-
 [theme="midnight"] {
     --PrimaryColor: rgb(150, 200, 255);
     --SecundaryColor: rgb(220, 230, 255);
@@ -152,18 +140,6 @@
     --BtnBodyBack2: rgba(255,245,250,0.7);
     --ButtonGridColor: rgb(250,200,220);
     --ButtonGridHover: rgb(220,150,180);
-}
-
-[theme="neon-glow"] {
-    --PrimaryColor: rgb(255, 0, 170);
-    --SecundaryColor: rgb(0, 255, 200);
-    --Background1: rgb(18, 18, 20);
-    --Background2: rgb(28, 20, 30);
-    --BtnBack: rgba(255,0,170,0.12);
-    --BtnBodyBack1: rgba(24,24,28,0.95);
-    --BtnBodyBack2: rgba(40,30,40,0.7);
-    --ButtonGridColor: rgb(60,60,70);
-    --ButtonGridHover: rgb(120,80,100);
 }
 
 [theme="lavender"] {
