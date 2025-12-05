@@ -128,7 +128,7 @@ def main() -> None:
         sum += i
     print(sum)
 
-if __name__== "__main_":
+if __name__== "__main__":
     main()
 ```
 
