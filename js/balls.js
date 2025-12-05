@@ -20,7 +20,6 @@ window.addEventListener('resize', () => {
     canvas.maxDist = Math.max(canvas.width, canvas.height);
     centerX = canvas.width / 2;
     centerY = canvas.height / 2;
-    console.log('canvas resized', canvas.width, canvas.height);
     createBalls();
 });
 
@@ -159,7 +158,6 @@ function drawBalls() {
 page.addEventListener('click', () => addForceRadius(200, 1.5));
 
 function addForceRadius(size = 100, bm = 1.5) {
-    console.log('addForceRadius', size, bm);
     const startForceRadius = forceRadius; // Start radius
     const targetForceRadius = Math.min(startForceRadius + (((startForceRadius + canvas.maxDist * size) / canvas.maxDist)), canvas.maxDist * 1.75);
     const duration = 200; // Duration in milliseconds

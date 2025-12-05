@@ -1,3 +1,5 @@
+let defaultRootPath = "";
+
 function buildRootPath() {
     const hrefParts = location.href
         .replace(location.origin, "")
@@ -9,9 +11,12 @@ function buildRootPath() {
     // this is for the github site
     if (hrefParts[0] === "home") {
         rootPath = "home/"
+        defaultRootPath = "home/"
+    } else {
+        defaultRootPath = "";
     }
 
-    for (let i = 0; i < hrefParts.length; i++) {
+    for (let i = 1; i < hrefParts.length; i++) {
         rootPath += "../";
     }
     return rootPath;
@@ -19,15 +24,15 @@ function buildRootPath() {
 
 function adjustPadding(div, img) {
     const aspectRatio = window.innerWidth / window.innerHeight;
+
     div.style.padding = '5px';
+
     if (aspectRatio > 1) {
         const maxPadding = parseFloat(getComputedStyle(div).width);
-        const padded = Math.min(img.width + 10, maxPadding);
-        div.style.paddingLeft = `${padded}px`;
+        div.style.paddingLeft = `${Math.min(img.width + 10, maxPadding)}px`;
     } else {
         const maxPadding = parseFloat(getComputedStyle(div).height);
-        const padded = Math.min(img.height + 10, maxPadding);
-        div.style.paddingTop = `${padded}px`;
+        div.style.paddingTop = `${Math.min(img.height + 10, maxPadding)}px`;
     }
 }
 
@@ -59,6 +64,11 @@ async function FindBlogs() {
         const div = document.createElement("div");
         div.className = "grid-item blog";
 
+        const img = document.createElement("img");
+        img.src = `${blog.name}/icon.png`;
+        img.alt = `${blog.displayText} icon`;
+        img.className = 'grid-icon';
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
@@ -66,11 +76,9 @@ async function FindBlogs() {
                 }
             });
         }, { threshold: 0.2 });
-        if (buildRootPath() === "") observer.observe(div);
-
-        const img = document.createElement("img");
-        img.src = `${blog.name}/icon.png`;
-        img.alt = `${blog.displayText} icon`;
+        if (buildRootPath() === defaultRootPath) {
+            img.onload = () => observer.observe(div);
+        }
 
         const text = document.createElement("div");
         text.className = "title";
@@ -165,7 +173,9 @@ function FindApps() {
                 }
             });
         }, { threshold: 0.2 });
-        if (buildRootPath() === "") observer.observe(div);
+        if (buildRootPath() === defaultRootPath) {
+            img.onload = () => observer.observe(div);
+        }
 
         div.appendChild(img);
 
