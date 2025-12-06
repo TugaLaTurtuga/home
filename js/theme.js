@@ -5,7 +5,7 @@ function saveTheme() {
 }
 
 function loadTheme() {
-    //theme = localStorage.getItem("_theme");
+    theme = localStorage.getItem("_theme");
     if (theme === null || theme === undefined) {
         const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         if (isDark) {
