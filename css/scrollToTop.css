@@ -13,7 +13,8 @@
     position: fixed;
     bottom: 15px;
     right: 15px;
-    height: 80px;
+    min-height: 80px;
+    min-width: 80px;
     aspect-ratio: 1;
   
     border-radius: 50%;
@@ -30,12 +31,13 @@
     cursor: pointer;
 }
 
-@media (max-aspect-ratio: 1/1) {
+@media (max-aspect-ratio: 1/1.25) {
     .scrollToTop {
         left: 15px;
         right: auto;
         z-index: 1000;
-        height: 80px;
+        width: 20vw;
+        height: 20vw;
     }
 }
 

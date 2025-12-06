@@ -49,6 +49,29 @@ function setupScrollToTopRing() {
     progressCircle.style.strokeDasharray = totalCircumference;
     progressCircle.style.strokeDashoffset = totalCircumference;
     scrollToTop.style.opacity = "0";
+
+    scrollToTopText.style.fontSize = size / 6.96 + "px";
+}
+
+function updateScrollToTopRing() {
+    const size = scrollToTop.offsetHeight;
+    const strokeWidth = parseFloat(
+        getComputedStyle(scrollToTop).getPropertyValue("--circle-border")
+    ) ?? 6;
+    const radius = size / 2 - strokeWidth / 2;
+    const svg = document.querySelector(".cooldownRing");
+    svg.setAttribute("width", size);
+    svg.setAttribute("height", size);
+
+    cooldownRing.setAttribute("cx", size / 2);
+    cooldownRing.setAttribute("cy", size / 2);
+    cooldownRing.setAttribute("r", radius);
+
+    totalCircumference = 2 * Math.PI * (radius * 1.05);
+    progressCircle.style.strokeDasharray = totalCircumference;
+    progressCircle.style.strokeDashoffset = totalCircumference;
+
+    scrollToTopText.style.fontSize = size / 6.96 + "px";
 }
 
 function updateScrollToTop() {
@@ -74,5 +97,11 @@ function startScrollToTop() {
     setupScrollToTopRing();
   }
 }
+
+window.addEventListener("resize", () => {
+    console.log("resizing");
+    updateScrollToTopRing();
+    updateScrollToTop();
+});
 
 startScrollToTop();

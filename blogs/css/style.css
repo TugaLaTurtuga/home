@@ -247,11 +247,11 @@ hr {
 
 
 .scrollToTop:hover {
-    background: color-mix(in srgb, var(--SecundaryColor) 20%, transparent);
+    background: color-mix(in srgb, var(--SecundaryColor) 20%, var(--BtnBack));
     transform: scale(1.1);
 }
 
 .scrollToTop:active {
-    background: color-mix(in srgb, var(--SecundaryColor) 40%, transparent);
+    background: color-mix(in srgb, var(--SecundaryColor) 40%, var(--BtnBack));
     transform: scale(.95);
 }

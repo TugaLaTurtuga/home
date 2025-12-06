@@ -411,7 +411,7 @@ body:hover::before {
 }
 
 /* Media query for aspect ratio */
-@media (max-aspect-ratio: 1/1.25) {
+@media (max-aspect-ratio: 1/1.25.25) {
   .OnTop {
     width: 400px;
     height: 600px;

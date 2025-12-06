@@ -227,7 +227,7 @@ svg {
     cursor: pointer;
 }
 
-@media (max-aspect-ratio: 1/1) {
+@media (max-aspect-ratio: 1/1.25) {
     .grid-container {
         overflow-x: scroll;
         overflow-y: hidden;
@@ -248,7 +248,7 @@ svg {
     }
 }
 
-@media (min-aspect-ratio: 1/1) {
+@media (min-aspect-ratio: 1/1.25) {
     .grid-container {
         flex-wrap: wrap;
         overflow: hidden;
