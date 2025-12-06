@@ -149,6 +149,10 @@ pre code {
     border-radius: 0px 10px 0px 5px;
 }
 
+img {
+    max-width: 80%;
+}
+
 .ama.blog {
     color: var(--PrimaryColor);
     background: none;
