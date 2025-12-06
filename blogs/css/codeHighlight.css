@@ -74,9 +74,15 @@
 }
 
 mjx-container {
-    justify-self: center;
     background: var(--BtnBodyBack2);
-    width: inherit;
+    width: fit-content;
     padding: 8px 10px;
     border-radius: 10px;
+}
+
+mjx-container[ctxtmenu_counter="2"] {
+    margin-left: 50% !important;
+    width: fit-content;
+    transform: translateX(-50%);
+    text-align-last: center;
 }

@@ -533,7 +533,8 @@ body {
     color: var(--header-color);
     padding: 10px;
     height: 50px;
-    justify-self: center;
+    margin-left: 50% !important;
+    transform: translateX(-50%);
     width: 100%;
     border-radius: 5px;
     margin-bottom: 10px;

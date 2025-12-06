@@ -13,7 +13,8 @@ body {
 .blog-container {
     max-width: 900px;
     width: 95%;
-    justify-self: center;
+    margin-left: 50% !important;
+    transform: translateX(-50%);
     background: var(--BtnBack);
     border-radius: 10px 10px 0 0;
     padding: 10px 20px;
@@ -112,8 +113,10 @@ body {
 
 .code-wrapper {
     position: relative;
-    justify-self: center;
     background: var(--BtnBodyBack2);
+    margin-left: 50% !important;
+    width: fit-content;
+    transform: translateX(-50%);
     max-width: max(600px, 80%);
     min-width: 50%;
     padding: 10px 20px;
@@ -159,7 +162,10 @@ pre code {
 }
 
 .version-number {
-    justify-self: center;
+    margin-left: 50%;
+    width: fit-content;
+    transform: translateX(-50%);
+    text-align-last: center;
     padding: 10px;
     border-radius: 10px 10px 0 0;
     margin-top: 30px;
@@ -170,22 +176,23 @@ pre code {
 }
 
 .version-number:hover {
-    transform: scale(1.1);
+    transform: translateX(-50%) scale(1.1);
 }
 
 .version-number:active {
-    transform: scale(.95);
+    transform: translateX(-50%) scale(.95);
 }
 
 .injected-html {
     position: relative;
-    justify-self: center;
+    margin: 10px;
+    margin-left: 50%;
+    transform: translateX(-50%);
     background: var(--BtnBodyBack2);
     width: 90%;
     min-height: 200px;
     padding: 10px;
     border-radius: 10px;
-    margin-left: -40px;
 }
 
 hr {

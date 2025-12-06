@@ -46,5 +46,11 @@
         "logs": "Made the footer be on the bottom-left of the page and not on the bottom-left of the screen \nAdded 'Back to top' button on the bottom-rigth of the screen \nFix a bug that the theme select would't put the selected theme",
         "date": "6/12/2025",
         "done": true
+    },
+    "0.4.4": {
+        "name": "Fucking safari 😭",
+        "logs": "Fixed safari not knowing what justify-self means (for a div) and using margin-left: 50%; transform: translateX(-50%); as a workaround \n Fixed safari not knowing that the page scaling SHOULD ALWAYS BE 1.0 AS DEFAULT",
+        "date": "6/12/2025",
+        "done": true
     }
 }
