@@ -1,6 +1,13 @@
 body, *, html {
     font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .blog-container {
@@ -13,6 +20,7 @@ body, *, html {
     padding-bottom: 0;
     color: var(--SecundaryColor);
     height: auto;
+    margin-bottom: -40px;
 }
 
 .blog-container h1 {
@@ -178,4 +186,72 @@ pre code {
     padding: 10px;
     border-radius: 10px;
     margin-left: -40px;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: color-mix(in srgb, var(--PrimaryColor) 40%, var(--BtnBack));
+    margin: 20px 0;
+}
+
+.scrollToTop {
+    --circle-border: 6;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    height: 80px;
+    aspect-ratio: 1;
+  
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--BtnBack);
+    backdrop-filter: blur(3px);
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 0.5s ease, transform 0.15s cubic-bezier(0.075, 0.82, 0.2, 2);
+    cursor: pointer;
+}
+
+.scrollToTop.hidden {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.cooldownRing {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: color-mix(in srgb, var(--SecundaryColor) 10%, transparent);
+    stroke-linecap: round;
+    z-index: 0;
+}
+
+#scrollToTopText {
+    position: absolute;
+    color: color-mix(in srgb, var(--SecundaryColor) 60%, transparent);
+    font-family: monospace;
+    font-size: 11.5px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+.scrollToTop:hover {
+    background: color-mix(in srgb, var(--SecundaryColor) 20%, transparent);
+    transform: scale(1.1);
+}
+
+.scrollToTop:active {
+    background: color-mix(in srgb, var(--SecundaryColor) 40%, transparent);
+    transform: scale(.95);
 }

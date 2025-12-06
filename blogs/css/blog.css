@@ -1,0 +1,48 @@
+.UpBtns {
+    display: none;
+}
+
+.footer {
+    display: none;
+}
+
+.footer-left-side,
+.footer-right-side {
+    background: var(--BtnBack);
+    position: static;
+    display: inline-block;
+}
+
+.footer-left-side {
+    padding-right: 3px;
+}
+
+.footer-right-side {
+    margin-left: -4px;
+    padding-left: 0;
+}
+
+.fa-brands {
+    color: color-mix(in srgb, var(--SecundaryColor) 60%, transparent);
+}
+
+.fa-solid {
+    color: color-mix(in srgb, var(--SecundaryColor) 60%, transparent);
+}
+
+.fa-brands:hover {
+    color: var(--PrimaryColor);
+}
+
+.fa-solid:hover{
+    color: var(--PrimaryColor);
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

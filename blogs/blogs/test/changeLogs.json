@@ -40,5 +40,11 @@
         "logs": "Removed top menu and part of the footer when a blog is open",
         "date": "5/12/2025",
         "done": true
+    },
+    "0.4.3": {
+        "name": "Footer",
+        "logs": "Made the footer be on the bottom-left of the page and not on the bottom-left of the screen \nAdded 'Back to top' button on the bottom-rigth of the screen \nFix a bug that the theme select would't put the selected theme",
+        "date": "6/12/2025",
+        "done": true
     }
 }

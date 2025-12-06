@@ -175,10 +175,8 @@ async function loadBlog() {
         }
 
         // Update headers and layout
-        document.querySelector(".UpBtns").style.display = "none";
-        document.querySelector(".footer").style.display = "none";
-        document.querySelector(".footer-left-side").style.background = "var(--BtnBack)";
-        document.querySelector(".footer-right-side").style.background = "var(--BtnBack)";
+        enableBlogCSS();
+        enableBackToTop();
         document.querySelector(".ama").textContent = name;
         document.title = `Tuga's blog - ${name}`;
         document.querySelector(".ama").classList.add("blog");
@@ -201,6 +199,20 @@ async function loadBlog() {
         document.querySelector(".Hello_Text").innerHTML = "<p>Unable to load blog content.</p>";
     }
 }
+
+function enableBlogCSS() {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "css/blog.css";
+    document.head.appendChild(link);
+}
+
+function enableBackToTop() {
+    const script = document.createElement("script");
+    script.src = buildRootPath() + "js/scrollToTop.js";
+    document.body.appendChild(script);
+}
+
 
 if (blog) {
     loadBlog();

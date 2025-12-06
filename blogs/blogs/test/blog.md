@@ -132,6 +132,8 @@ if __name__== "__main__":
     main()
 ```
 
+---
+
 ## 9. Tables
 
 Feature Example
@@ -142,6 +144,8 @@ Feature Example
 | Bold          | **exanple** | **exanple** | **exanple** |
 | Italic        | *exemple* | *example* | *example* |
 | Code          | `example()` | `example()` | `example()` |
+
+---
 
 ## 10. Maths using LaTeX
 

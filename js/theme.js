@@ -1,12 +1,19 @@
-let theme = "";
+let theme = null;
 
 function saveTheme() {
     localStorage.setItem("_theme", theme);
 }
 
 function loadTheme() {
-    theme = localStorage.getItem("_theme");
-    setTheme();
+    //theme = localStorage.getItem("_theme");
+    if (theme === null || theme === undefined) {
+        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (isDark) {
+            setTheme("dark");
+        }
+    } else {
+        setTheme();
+    }
 }
 
 async function getAllThemes() {
@@ -39,10 +46,6 @@ function setTheme(name, save = true) {
     document.body.setAttribute("theme", theme);
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
-    loadTheme();
-});
-
 async function loadThemesIntoSelect() {
     try {
         const select = document.getElementById("allThemes");
@@ -65,4 +68,8 @@ async function loadThemesIntoSelect() {
         return;
     }
 }
-loadThemesIntoSelect();
+
+document.addEventListener("DOMContentLoaded", async () => {
+    loadTheme();
+    loadThemesIntoSelect();
+});

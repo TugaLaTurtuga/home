@@ -1,7 +1,7 @@
 body {
     background: var(--Background1);
     margin: 0;
-    height: 100%;
+    height: auto;
     font-family: "Radio Canada", sans-serif;
     font-weight: 400;
     font-optical-sizing: auto;
@@ -9,15 +9,6 @@ body {
     color: var(--SecundaryColor);
     text-align-last: left;
     scroll-snap-align: y mandatory;
-    height: 110vh;
-}
-
-.page1{
-    scroll-snap-align: start;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 100px;
-    margin-bottom: 100px;
 }
 
 .text{
@@ -138,11 +129,10 @@ a, a:hover, a:visited, a:active {
     border-color: transparent;
     bottom: 0;
     right: 0;
-    margin-right: 0px;
+    margin: 0;
     text-align-last: right;
     padding: 10px;
-    padding-left: 11px;
-    border-radius: 10px 0 0 0;
+    border-radius: 0 10px 0 0;
 }
 
 .footer-left-side {
@@ -151,12 +141,11 @@ a, a:hover, a:visited, a:active {
     border-color: transparent;
     bottom: 0;
     left: 0;
-    margin-left: 0px;
+    margin: 0;
     text-align-last: left;
     padding: 10px;
-    padding-right: 10px;
     width: 82px;
-    border-radius: 0 10px 0 0;
+    border-radius: 0;
 }
 
 .Hello_Text{
@@ -207,6 +196,7 @@ h6{
     letter-spacing: -1px;
     line-height: -1px;
     color: var(--PrimaryColor);
+    padding-bottom: 60px;
 }
 
 .grid-item {
@@ -214,8 +204,8 @@ h6{
     background-color: var(--BtnBack);
     border-radius: 10px;
     text-align: center;
-    min-height: 50vh; /* Minimum height for grid items */
-    max-width: 80vh; /* Maximum width */
+    min-height: 50vh;
+    max-width: 80vh;
     margin-top: 25px;
     display: flex;
     flex-direction: column;
@@ -223,8 +213,8 @@ h6{
     justify-content: top;
 }
 .grid-item img {
-    width: 100%; /* Image width based on grid item width */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
     margin-bottom: 10px;
     border-radius: 5px;
 }
@@ -242,13 +232,13 @@ h6{
     padding-right: 75px;
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 18px; /* Increase font size for larger button */
+    font-size: 18px;
     font-weight: 600;
     color: var(--SecundaryColor);
     background-color: var(--ButtonGridColor);
     cursor: pointer;
     border: 2px solid var(--SecundaryColor);
-    border-radius: 5px; /* Add border radius for better appearance */
+    border-radius: 5px;
 }
 
 .grid-item button:hover {

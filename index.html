@@ -5,10 +5,11 @@
     <title>tlt - home</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dice.css">
+    <link rel="stylesheet" href="css/scrollToTop.css">
     <link rel="icon" href="images/tugalogo.jpg" type="image/jpeg" />
 </head>
 <body>
-    <div class="page" id="page-1" style="padding: 0;">
+    <div class="page" id="page-1" style="padding: 0;  background: #000;">
         <canvas id="backgroundCanvas"></canvas>
 
         <div class="top-part">
@@ -41,36 +42,19 @@
         </div>
     </div>
 
-    <div class="page" id="page-2" style="
-        background: linear-gradient(180deg, #000, #121212);
-        border-bottom: 5px solid #242424;
-    " >
+    <div class="page" id="page-2" style="background: linear-gradient(180deg, #000, #222);" >
         <h1>Page 2</h1>
         
     </div>
-    <div class="page" id="page-3" style="
-        background: linear-gradient(180deg, #121212, #242424);
-        border-bottom: 5px solid #363636;
-        height: auto;
-        min-height: 100vh;
-    " >
+    <div class="page" id="page-3">
         <h1>All projects</h1>
         <div class="grid-container" id="grid-container-app"></div>
     </div>
-    <div class="page" id="page-4" style="
-        background: linear-gradient(180deg, #242424, #363636);
-        border-bottom: 5px solid #484848;
-        height: auto;
-        min-height: 100vh;
-    " >
+    <div class="page" id="page-4">
         <h1>All blogs</h1>
         <div class="grid-container" id="grid-container-blog"></div>
     </div>
-    <div class="page" id="page-5" style="
-        background: linear-gradient(180deg, #363636, #484848);
-        height: 100vh;
-        border-bottom: none;
-    " >
+    <div class="page" id="page-5">
         <h1>Page 5</h1>
         <div class="dice-wrap">
             <div class="dice" id="dice1" dicePos="1"></div>
@@ -81,6 +65,12 @@
         <script src="js/dice.js"></script>
 
     </div>
+
+    <div class="scrollToTop">
+        <span id="scrollToTopText">Back to top</span>
+    </div>
+
+    <script src="js/scrollToTop.js"></script>
 
     <script src="js/balls.js"></script>
     <script src="js/finder.js"></script>

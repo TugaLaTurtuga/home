@@ -65,6 +65,10 @@ async function FindBlogs() {
         img.src = `${blog.name}/icon.png`;
         img.alt = `${blog.displayText} icon`;
         img.className = 'grid-icon';
+        img.onclick = () => {
+            const url = `${buildRootPath()}blogs/?${blog.params.toString()}`;
+            window.open(url, "_parent");
+        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -162,6 +166,9 @@ function FindApps() {
         img.src = `${app.name}/icon.webp`;
         img.alt = `${app.displayText} icon`;
         img.className = 'grid-icon';
+        img.onclick = () => {
+            window.open(app.name, '_parent');
+        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -198,7 +205,7 @@ function FindApps() {
         button_SM.textContent = 'See more';
         button_SM.className = 'see-more-btn';
         button_SM.onclick = function() {
-            window.open(app.name, '_blank');
+            window.open(app.name, '_parent');
         };
 
         div.appendChild(img);

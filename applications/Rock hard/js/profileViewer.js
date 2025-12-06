@@ -42,19 +42,19 @@ function populateProfiles() {
         // Handle selecting a new profile (no full re-render)
         newLine.addEventListener("click", () => {
             if (!allProfiles[j].iscurr) {
-            // Remove "active" class from all, and reset iscurr
-            document
-                .querySelectorAll(".profile-item.active")
-                .forEach((el) => el.classList.remove("active"));
-            allProfiles.forEach((p) => (p.iscurr = false));
+                // Remove "active" class from all, and reset iscurr
+                document
+                    .querySelectorAll(".profile-item.active")
+                    .forEach((el) => el.classList.remove("active"));
+                allProfiles.forEach((p) => (p.iscurr = false));
 
-            // Activate this one
-            allProfiles[j].iscurr = true;
-            newLine.classList.add("active");
-            inputText.focus();
+                // Activate this one
+                allProfiles[j].iscurr = true;
+                newLine.classList.add("active");
+                inputText.focus();
 
-            // Call your state setter if needed
-            setCurrentProfile(j);
+                // Call your state setter if needed
+                setCurrentProfile(j);
             }
         });
 
