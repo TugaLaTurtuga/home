@@ -31,16 +31,6 @@
     cursor: pointer;
 }
 
-@media (max-aspect-ratio: 1/1.25) {
-    .scrollToTop {
-        left: 15px;
-        right: auto;
-        z-index: 1000;
-        width: 20vw;
-        height: 20vw;
-    }
-}
-
 .scrollToTop.hidden {
   transform: scale(0);
   opacity: 0;
