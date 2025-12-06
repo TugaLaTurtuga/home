@@ -142,7 +142,6 @@ a, a:hover, a:visited, a:active {
     text-align-last: right;
     padding: 10px;
     padding-left: 11px;
-    background: var(--PrimaryColor);
     border-radius: 10px 0 0 0;
 }
 
@@ -157,7 +156,6 @@ a, a:hover, a:visited, a:active {
     padding: 10px;
     padding-right: 10px;
     width: 82px;
-    background: var(--PrimaryColor);
     border-radius: 0 10px 0 0;
 }
 
