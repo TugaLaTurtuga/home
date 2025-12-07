@@ -51,13 +51,16 @@ function setupScrollToTopRing() {
     scrollToTop.style.opacity = "0";
 }
 
+let backToTopAmination = false;
+let backToTopAlwaysVisible = false;
 function updateScrollToTop() {
+    console.log(backToTopAmination);
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     const progress = Math.min(1, window.scrollY / maxScroll);
-    const offset = totalCircumference * (1 - progress) + 15;
+    const offset = totalCircumference * (1 - progress) + 15 * progress;
 
-    if (offset < totalCircumference) {
-        const rot = progress * 360 * parseInt(document.documentElement.scrollHeight / 700);
+    if (window.scrollY > window.innerHeight / 3 || backToTopAmination || backToTopAlwaysVisible) {
+        const rot = progress * 360 * parseInt(document.documentElement.scrollHeight / 600);
         scrollToTopText.style.transform = `rotate(${rot}deg)`;
         scrollToTop.style.opacity = "1";
         scrollToTop.style.pointerEvents = "all";
@@ -66,6 +69,14 @@ function updateScrollToTop() {
     } else {
         scrollToTop.style.opacity = "0";
         scrollToTop.style.pointerEvents = "none";
+    }
+
+    if (backToTopAmination) {
+        const maxOffset = scrollToTop.offsetHeight - window.innerHeight + 30;
+        const currentTop = 15 - (1 - progress) * maxOffset || -maxOffset + 15;
+        scrollToTop.style.bottom = `${currentTop}px`;
+    } else {
+        scrollToTop.style.bottom = "15px";
     }
 }
 

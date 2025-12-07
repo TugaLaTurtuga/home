@@ -49,8 +49,14 @@
     },
     "0.4.4": {
         "name": "Fucking safari 😭",
-        "logs": "Fixed safari not knowing what justify-self means (for a div) and using margin-left: 50%; transform: translateX(-50%); as a workaround \n Fixed safari not knowing that the page scaling SHOULD ALWAYS BE 1.0 AS DEFAULT",
+        "logs": "Fixed safari not knowing what justify-self means and using margin-left: 50%; transform: translateX(-50%); as a workaround \n Fixed safari not knowing that the page scaling SHOULD ALWAYS BE 1.0 AS DEFAULT",
         "date": "6/12/2025",
+        "done": true
+    }, 
+    "0.5.0": {
+        "name": "Blog theme",
+        "logs": "Added blog theme \nBetter blog organization at the backend \nFixed change log text going out of bounds \nRemoved name as a URL param \nAdded a new amination o back to top btn (you can change it in settings at the moment of wrinting)",
+        "date": "7/12/2025",
         "done": true
     }
 }

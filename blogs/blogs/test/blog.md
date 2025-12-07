@@ -1,3 +1,6 @@
+theme = "test"
+name = "Test blog"
+description = "This is a blog with all my tests to see if it works correctly"
 
 ## 1. Headings
 

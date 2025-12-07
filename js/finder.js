@@ -33,29 +33,139 @@ function adjustPadding(div, img) {
     }
 }
 
+function parseBlogSettings(mdResText) {
+    const blogSettings = {};
+    const lines = mdResText.split("\n");
+
+    let i = 0;
+    while (i < lines.length) {
+        const line = lines[i].trim();
+        const [key, value] = line.split("=");
+
+        if (key && value) {
+            if (isInQuotes(value)) {
+                blogSettings[key.trim()] = value.trim().slice(1, -1); // remove quotes
+            } else if (startsWithQuotes(value)) {
+                let theValue = value.trim().slice(1) + '\n'; // remove first quote
+                i++; // goes to next line
+                while (i < lines.length) {
+                    const aLine = lines[i].trim();
+                    if (!endsWithQuotes(aLine)) {
+                        theValue += aLine + '\n';
+                    } else {
+                        theValue += aLine.slice(0, -1); // remove last quote
+                        break;
+                    }
+                    i++;
+                }
+                blogSettings[key.trim()] = theValue;
+            } else {
+                blogSettings[key.trim()] = value.trim();
+            }
+        } else if (line === '') {
+            // continue
+        } else {
+            break;
+        }
+        i++;
+    }
+
+    // The rest is the real markdown content
+    const cleanedMarkdown = lines.slice(i).join("\n").trimStart();
+
+    return { blogSettings, cleanedMarkdown };
+}
+
+function isInQuotes(str) {
+    return startsWithQuotes(str) && endsWithQuotes(str);
+}
+
+function startsWithQuotes(str) {
+    str = str.trim();
+    if (str.startsWith('"') || str.startsWith("'") || str.startsWith('`') ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function endsWithQuotes(str) {
+    str = str.trim();
+    if (str.endsWith('"') || str.endsWith("'") || str.endsWith('`') ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 const blogs = [
-    { name: 'blogs/blogs/test', displayText: "Test blog" },
+    'blogs/blogs/test',
 ];
 
 async function FindBlogs() {
-    const allBlogs = blogs.map(subpage  => {
-        const name = buildRootPath() + subpage.name;
+    const allBlogs = await Promise.all(
+        blogs.map(async (subpage) => {
+            if (typeof subpage === "string") {
+                subpage = {
+                    name: subpage,
+                    displayText: null,
+                }
+            }
+            const name = buildRootPath() + subpage.name;
+            let theme = null;
+            let description = null;
+            let displayText = subpage.displayText;
+            let blogMD = null;
 
-        // URLSearchParams for the last part of the path
-        const params = new URLSearchParams({
-            blog: subpage.name.split("/").pop(),
-            name: subpage.displayText,
-        });
+            try {
+                const res = await fetch(`${name}/blog.md`);
+                const data = await res.text();
+                const parsed = parseBlogSettings(data);
+                blogMD = parsed.cleanedMarkdown;
 
-        return {
-            name,
-            params,
-            displayText: subpage.displayText
-        };
-    });
+                if (parsed.blogSettings.name) {
+                    displayText = parsed.blogSettings.name;
+                }
 
+                if (parsed.blogSettings.theme) {
+                    theme = parsed.blogSettings.theme;
+                }
+
+                if (parsed.blogSettings.description) {
+                    description = parsed.blogSettings.description;
+                }
+            } catch (e) {
+                // blog doens't exist
+                return null;
+            }
+
+            if (!displayText) {
+                // fall back: use the first line of the blog
+                displayText = blogMD.split("\n")[0];
+            }
+
+            // Build URL params
+            const params = new URLSearchParams({
+                blog: subpage.name.split("/").pop(),
+                name: displayText,
+            });
+
+            return {
+                name,
+                params,
+                displayText,
+                theme,
+                description,
+            };
+        }).filter(Boolean)  // remove null entries
+    );
+
+    buildBlogGrid(allBlogs);
+}
+
+function buildBlogGrid(allBlogs) {
     const gridContainer = document.getElementById("grid-container-blog");
-    gridContainer.innerHTML = ""; // Clear existing content
+    gridContainer.innerHTML = "";
 
     allBlogs.forEach(blog => {
         const div = document.createElement("div");
@@ -63,23 +173,10 @@ async function FindBlogs() {
 
         const img = document.createElement("img");
         img.src = `${blog.name}/icon.png`;
-        img.alt = `${blog.displayText} icon`;
-        img.className = 'grid-icon';
+        img.className = "grid-icon";
         img.onclick = () => {
-            const url = `${buildRootPath()}blogs/?${blog.params.toString()}`;
-            window.open(url, "_parent");
+            window.open(`${buildRootPath()}blogs/?${blog.params.toString()}`, "_parent");
         };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-                    adjustPadding(div, img);
-                }
-            });
-        }, { threshold: 0.2 });
-        if (buildRootPath() === defaultRootPath) {
-            img.onload = () => observer.observe(div);
-        }
 
         const text = document.createElement("div");
         text.className = "title";
@@ -88,44 +185,40 @@ async function FindBlogs() {
         const subtext = document.createElement("div");
         subtext.className = "subtext";
 
-        // Fetch description
-        fetch(`${blog.name}/Description.txt`)
-            .then(res => res.text())
-            .then(data => {
-                subtext.textContent = data;
-            })
-            .catch(() => {
-                subtext.textContent = "Description not available.";
-            });
+        // Description
+        if (blog.description) {
+            subtext.textContent = blog.description;
+        } else {
+            subtext.textContent = "";
+            subtext.style.display = "none";
+        }
+        
 
-
+        // Last updated date
         const dateText = document.createElement("div");
         dateText.className = "subtext date";
-
         fetch(`${blog.name}/changeLogs.json`)
-            .then(res => res.text())
-            .then(data => {
-                const parsed = JSON.parse(data);
-                const values = Object.values(parsed);
-                const first = values[0];
-                const date = first?.date;
-                dateText.textContent = date;
+            .then(r => r.json())
+            .then(json => {
+                const first = Object.values(json)[0];
+                dateText.textContent = first?.date || "";
             })
-            .catch(() => {
-                dateText.textContent = "";
-            });
+            .catch(() => dateText.textContent = "");
+
+        // Theme
+        const themeText = document.createElement("div");
+        themeText.className = "theme";
+        themeText.style.display = blog.theme ? "block" : "none";
+        if (blog.theme) themeText.textContent = `Theme: ${blog.theme}`;
 
         const button = document.createElement("button");
         button.textContent = "See more";
         button.className = "see-more-btn";
-
-        // Build the final URL
         button.onclick = () => {
-            const url = `${buildRootPath()}blogs/?${blog.params.toString()}`;
-            window.open(url, "_parent");
+            window.open(`${buildRootPath()}blogs/?${blog.params.toString()}`, "_parent");
         };
 
-        div.append(img, text, subtext, button, dateText);
+        div.append(img, text, subtext, button, dateText, themeText);
         gridContainer.appendChild(div);
     });
 }

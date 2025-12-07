@@ -25,7 +25,9 @@ body {
 }
 
 .blog-container h1 {
-    justify-self: center;
+    margin-left: 50%;
+    width: fit-content;
+    transform: translateX(-50%);
     color: var(--PrimaryColor);
     font-size: 4rem;
 }
@@ -149,20 +151,17 @@ pre code {
     border-radius: 0px 10px 0px 5px;
 }
 
-img {
-    max-width: 80%;
-}
-
 .ama.blog {
     color: var(--PrimaryColor);
     background: none;
     font-weight: 900;
-    max-width: 860px;
+    min-width: 95vw;
     padding: 10px 20px;
     text-align-last: center;
     text-align: center;
     font-size: 5rem;
-    justify-self: center;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 .version-number {

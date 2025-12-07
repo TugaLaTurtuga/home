@@ -1,7 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 
 const blog = params.get("blog");
-const name = params.get("name")
+let name = params.get("name");
 const parentDiv = document.getElementById("grid-container-blog");
 
 async function loadBlog() {
@@ -12,7 +12,27 @@ async function loadBlog() {
             throw new Error(`Failed to load markdown file: ${res.status}`);
         }
 
-        const mdText = await res.text();
+        let resTxt = await res.text();
+
+        const parsedResText = parseBlogSettings(resTxt);
+        const blogSettings = parsedResText.blogSettings;
+        const mdText = parsedResText.cleanedMarkdown;
+
+        if (blogSettings.name) {
+            name = blogSettings.name;
+        }
+
+        const blogSettingsValues = Object.values(blogSettings);
+        const blogSettingsKeys = Object.keys(blogSettings);
+        for (let i = 0; i < blogSettingsKeys.length; i++) {
+            if (blogSettingsValues[i] !== "blog") {
+                params.delete(blogSettingsKeys[i]);
+            }
+        }
+
+        // Push new URL
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.replaceState({}, "", newUrl);
 
         // Convert Markdown → HTML
         const html = marked.parse(mdText);
@@ -117,12 +137,12 @@ async function loadBlog() {
                 if (!isFile) {
                     // BLOG LINK
                     const blogLink = aHref.split("/").pop();
-                    fetch(`blogs/${blogLink}/name.txt`)
+                    fetch(`blogs/${blogLink}/blog.md`)
                         .then(res => res.text())
                         .then(data => {
                             const params = new URLSearchParams({
                                 blog: blogLink,
-                                name: data,
+                                name: parseBlogSettings(data).name,
                             });
                             a.href = `?${params.toString()}`;
                         })
@@ -208,9 +228,7 @@ function enableBlogCSS() {
 }
 
 function enableBackToTop() {
-    const script = document.createElement("script");
-    script.src = buildRootPath() + "js/scrollToTop.js";
-    document.body.appendChild(script);
+    return;
 }
 
 
@@ -219,3 +237,45 @@ if (blog) {
 } else {
     FindBlogs();
 }
+
+async function loadBTT() {
+    try {
+        const select = document.getElementById("allbtt");
+
+        select.addEventListener("change", function () {
+            changeBTT(this.value);
+            console.log(this.value);
+        });
+    } catch(err) {
+        return;
+    }
+}
+
+function changeBTT(value) {
+    // Load from localStorage if no value passed
+    if (value === undefined || value === null || value === "") {
+        const saved = localStorage.getItem("_blogSettings");
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            value = parsed.btt;
+            document.getElementById("allbtt").value = value;
+        } else {
+            return; // no stored value
+        }
+    }
+
+    value = parseInt(value);
+
+    backToTopAlwaysVisible = value === 1;
+    backToTopAmination = value === 2;
+    localStorage.setItem("_blogSettings", JSON.stringify({
+        btt: value
+    }));
+
+    updateScrollToTop();
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    loadBTT();
+    changeBTT();
+});

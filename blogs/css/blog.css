@@ -46,3 +46,11 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.Hello_Text{
+   display: block;
+}
+
+img {
+    max-width: 80%;
+}

@@ -203,7 +203,6 @@ h6{
     border: 0px solid var(--SecundaryColor);
     background-color: var(--BtnBack);
     border-radius: 10px;
-    text-align: center;
     min-height: 50vh;
     max-width: 80vh;
     margin-top: 25px;
@@ -245,14 +244,26 @@ h6{
     background-color: var(--ButtonGridHover);
 }
 
-.subtext {
+.grid-item .title {
+    color: var(--PrimaryColor);
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 800;
+}
+
+.grid-item .subtext {
     text-align: left;
     margin: 10px;
     padding: 10px;
     color: var(--SecundaryColor);
     font-weight: 400;
-    font-size: 24px;
+    font-size: 1.5rem;
     border-top: 2px solid var(--SecundaryColor);
+}
+
+.grid-item .theme {
+    color: var(--SecundaryColor);
+    font-size: 1.75rem;
 }
 
 /* Default to 1 column */
