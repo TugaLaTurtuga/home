@@ -74,7 +74,7 @@ function changeChangeLog(key) {
     if (changeLogContent) {
       changeLogContent.innerHTML = "";
       const logs = changeLogs[key].logs.split("\n");
-      logs.forEach((log) => {
+      logs.forEach((log, index) => {
         let text = log.trim();
         if (!text) return; // skip empty entries
 
@@ -85,7 +85,11 @@ function changeChangeLog(key) {
         logElement.textContent = text;
         changeLogContent.appendChild(logElement);
         spacer = document.createElement("div");
-        spacer.className = "spacer";
+        spacer.classList.add("spacer");
+        if (index + 1 === logs.length ) {
+          console.log(index, logs.length);
+          spacer.classList.add("last");
+        }
         changeLogContent.appendChild(spacer);
       });
     }

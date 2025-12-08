@@ -1,19 +1,19 @@
 {
     "0.0.0": {
         "name": "Blog",
-        "logs": "Blogs are now make thru .md \nremoved the goofy ahh first blog",
+        "logs": "Blogs are now make thru .md \n removed the goofy ahh first blog",
         "date": "1/12/2025",
         "done": true
     },
     "0.1.0": {
         "name": "LaTeX && Change logs",
-        "logs": "Added change logs \nAdded LaTeX \nAdded date \nChanged font from radio canada to Rubik",
+        "logs": "Added change logs \n Added LaTeX \n Added date \n Changed font from radio canada to Rubik",
         "date": "2/12/2025",
         "done": true
     },
     "0.2.0": {
         "name": "Linking blogs",
-        "logs": "Made blogs possible to link to each other \nFixed the change logs and version load incorrectly",
+        "logs": "Made blogs possible to link to each other \n Fixed the change logs and version load incorrectly",
         "date": "3/12/2025",
         "done": true
     },
@@ -25,7 +25,7 @@
     },
     "0.4.0": {
         "name": "Themes",
-        "logs": "Added themes, that gets applied to the whole website, expect the main page \nAdded settings, with only a select",
+        "logs": "Added themes, that gets applied to the whole website, expect the main page \n Added settings, with only a select",
         "date": "4/12/2025",
         "done": true
     },
@@ -43,7 +43,7 @@
     },
     "0.4.3": {
         "name": "Footer",
-        "logs": "Made the footer be on the bottom-left of the page and not on the bottom-left of the screen \nAdded 'Back to top' button on the bottom-rigth of the screen \nFix a bug that the theme select would't put the selected theme",
+        "logs": "Made the footer be on the bottom-left of the page and not on the bottom-left of the screen \n Added 'Back to top' button on the bottom-rigth of the screen \n Fix a bug that the theme select would't put the selected theme",
         "date": "6/12/2025",
         "done": true
     },
@@ -55,8 +55,14 @@
     }, 
     "0.5.0": {
         "name": "Blog theme",
-        "logs": "Added blog theme \nBetter blog organization at the backend \nFixed change log text going out of bounds \nRemoved name as a URL param \nAdded a new amination o back to top btn (you can change it in settings at the moment of wrinting)",
+        "logs": "Added blog theme \n Better blog organization at the backend \n Fixed change log text going out of bounds \n Removed name as a URL param \n Added a new amination o back to top btn (you can change it in settings at the moment of wrinting)",
         "date": "7/12/2025",
+        "done": true
+    },
+    "0.5.1": {
+        "name": "I love customizatoin",
+        "logs": "Added system theme, that updated automaticly, and set that as default \n Added some themes, removed others \n Fixed footer not being clickable when it was on top of blog-container \n Fixed not being able to read a part of the change log if its to big \n TEST: \nbutter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter. butter butter butter butter butter.  butter butter butter butter butter butter butterbutter butter butter butter butter butter. butter butter butter butter butter butter butter butter butter butter butter butter butterbutter butter butter butter butter butter butter butter butterbutter butterbutter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter. butter butter butter butter butter.  butter butter butter butter butter butter butterbutter butter butter butter butter butter. butter butter butter butter butter butter butter butter butter butter butter butter butterbutter butter butter butter butter butter butter butter butterbutter butterbutter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter. butter butter butter butter butter.  butter butter butter butter butter butter butterbutter butter butter butter butter butter. butter butter butter butter butter butter butter butter butter butter butter butter butterbutter butter butter butter butter butter butter butter butterbutter butterbutter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter. butter butter butter butter butter.  butter butter butter butter butter butter butterbutter butter butter butter butter butter. butter butter butter butter butter butter butter butter butter butter butter butter butterbutter butter butter butter butter butter butter butter butterbutter butterbutter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter butter. butter butter \n added a tiny bit of transparency to change-log-date",
+        "date": "8/12/2025",
         "done": true
     }
 }

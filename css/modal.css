@@ -135,6 +135,7 @@
 
 .change-log {
   width: calc(100% - var(--changeLogSidebarSize)) !important;
+  height: 100%;
 }
 
 .change-log-header {
@@ -171,7 +172,7 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
-  background: var(--ButtonGridColor);
+  background:  color-mix(in srgb, var(--ButtonGridColor) 80%, transparent);
   backdrop-filter: blur(2px);
   padding: 5px 10px;
   border-radius: 10px 0 0 0;
@@ -186,13 +187,17 @@
   border-radius: 10px 0 0 0;
   padding: 10px;
   padding-left: 15px;
-  padding-bottom: 20px;
+  margin-bottom: 100px;
   background: var(--Background2);
   overflow-y: scroll;
 }
 
 .change-log-content .spacer {
   height: 0.5rem;
+}
+
+.change-log-content .spacer.last {
+  height: 40px;
 }
 
 #changeLogs {

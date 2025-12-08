@@ -13,8 +13,9 @@ body {
 .blog-container {
     max-width: 900px;
     width: 95%;
-    margin-left: 50% !important;
-    transform: translateX(-50%);
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
     background: var(--BtnBack);
     border-radius: 10px 10px 0 0;
     padding: 10px 20px;
@@ -27,7 +28,9 @@ body {
 .blog-container h1 {
     margin-left: 50%;
     width: fit-content;
-    transform: translateX(-50%);
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
     color: var(--PrimaryColor);
     font-size: 4rem;
 }
@@ -116,9 +119,9 @@ body {
 .code-wrapper {
     position: relative;
     background: var(--BtnBodyBack2);
-    margin-left: 50% !important;
-    width: fit-content;
-    transform: translateX(-50%);
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
     max-width: max(600px, 80%);
     min-width: 50%;
     padding: 10px 20px;
@@ -165,9 +168,10 @@ pre code {
 }
 
 .version-number {
-    margin-left: 50%;
     width: fit-content;
-    transform: translateX(-50%);
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
     text-align-last: center;
     padding: 10px;
     border-radius: 10px 10px 0 0;
@@ -179,18 +183,19 @@ pre code {
 }
 
 .version-number:hover {
-    transform: translateX(-50%) scale(1.1);
+    transform: scale(1.1);
 }
 
 .version-number:active {
-    transform: translateX(-50%) scale(.95);
+    transform: scale(.95);
 }
 
 .injected-html {
     position: relative;
     margin: 10px;
-    margin-left: 50%;
-    transform: translateX(-50%);
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
     background: var(--BtnBodyBack2);
     width: 90%;
     min-height: 200px;

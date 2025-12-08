@@ -54,18 +54,17 @@ function setupScrollToTopRing() {
 let backToTopAmination = false;
 let backToTopAlwaysVisible = false;
 function updateScrollToTop() {
-    console.log(backToTopAmination);
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     const progress = Math.min(1, window.scrollY / maxScroll);
     const offset = totalCircumference * (1 - progress) + 15 * progress;
 
     if (window.scrollY > window.innerHeight / 3 || backToTopAmination || backToTopAlwaysVisible) {
         const rot = progress * 360 * parseInt(document.documentElement.scrollHeight / 600);
-        scrollToTopText.style.transform = `rotate(${rot}deg)`;
+        scrollToTopText.style.transform =`rotate(${rot}deg)`;
         scrollToTop.style.opacity = "1";
         scrollToTop.style.pointerEvents = "all";
         
-        cooldownRing.style.strokeDashoffset = offset;
+        cooldownRing.style.strokeDashoffset = backToTopAmination ? totalCircumference : offset;
     } else {
         scrollToTop.style.opacity = "0";
         scrollToTop.style.pointerEvents = "none";

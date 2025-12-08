@@ -1,18 +1,17 @@
 let theme = null;
 
-function saveTheme() {
-    localStorage.setItem("_theme", theme);
+const darkMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+function saveTheme(newTheme) {
+    console.log("Saved theme:", newTheme ?? theme)
+    localStorage.setItem("_theme", newTheme ?? theme);
 }
 
 function loadTheme() {
     theme = localStorage.getItem("_theme");
     if (theme === null || theme === undefined) {
-        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (isDark) {
-            setTheme("dark");
-        }
+        setTheme("system");
     } else {
-        setTheme();
+        setTheme(theme, false);
     }
 }
 
@@ -31,7 +30,7 @@ async function getAllThemes() {
 
         console.log("Themes found:", themeNames);
 
-        return ["default", ...themeNames];
+        return ["system", "default", ...themeNames];
     } catch (error) {
         console.error("Error loading themes:", error);
         return [];
@@ -41,10 +40,28 @@ async function getAllThemes() {
 function setTheme(name, save = true) {
     if (name) {
         theme = name;
+        if (save) saveTheme(name);
     }
-    if (save) saveTheme();
-    document.body.setAttribute("theme", theme);
+    
+    let themeSet = theme;
+    if (theme === "system") { // dark or light
+        const isDark = darkMediaQuery.matches;
+        if (isDark) {
+            themeSet = "dark";
+        } else {
+            themeSet = "default";
+        }
+    }
+
+    document.body.setAttribute("theme", themeSet);
 }
+
+darkMediaQuery.addEventListener("change", (e) => {
+    isDark = e.matches;
+    if (theme === "system") {
+        setTheme();
+    }
+});
 
 async function loadThemesIntoSelect() {
     try {
@@ -57,13 +74,21 @@ async function loadThemesIntoSelect() {
         
         select.innerHTML = "";
 
+        let noThemeSelected = true;
         themes.forEach(name => {
             const option = document.createElement("option");
             option.value = name;
             option.textContent = name;
-            if (name === theme) option.selected = true;
+            if (name === theme) {
+                option.selected = true; 
+                noThemeSelected = false;
+            } 
             select.appendChild(option);
         });
+
+        if (noThemeSelected) {
+            setTheme("system");
+        }
     } catch(err) {
         return;
     }
